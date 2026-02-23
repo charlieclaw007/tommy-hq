@@ -241,34 +241,55 @@ html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--
 </div>
 
 <script>
-const STORAGE_KEY = 'tommy-hq-tasks';
+const API_URL = '/api/tasks';
 const AGENTS = {charlie:'Charlie',neo:'Neo',drago:'Drago',happy:'Happy'};
 const AGENT_EMOJI = {charlie:'🚀',neo:'🕶️',drago:'🥊',happy:'⛳'};
 
-const DEFAULT_TASKS = [
-  {id:id(),title:'Connect Meta Ads account',agent:'charlie',priority:'high',status:'in-progress',date:'2025-02-22'},
-  {id:id(),title:'Set up 5 AM morning brief cron',agent:'charlie',priority:'medium',status:'todo',date:'2025-02-22'},
-  {id:id(),title:'Build Kanban board (this!)',agent:'charlie',priority:'high',status:'in-progress',date:'2025-02-22'},
-  {id:id(),title:'Run pipeline test with fixed sub-agents',agent:'neo',priority:'high',status:'in-progress',date:'2025-02-22'},
-  {id:id(),title:'Veloura advertorial + landing page',agent:'neo',priority:'high',status:'todo',date:'2025-02-22'},
-  {id:id(),title:'Find 3 new winning products',agent:'neo',priority:'medium',status:'todo',date:'2025-02-22'},
-  {id:id(),title:'RestCalm — monitor test results',agent:'neo',priority:'medium',status:'review',date:'2025-02-22'},
-  {id:id(),title:'Finalize gummy formulation R&D',agent:'drago',priority:'high',status:'in-progress',date:'2025-02-22'},
-  {id:id(),title:'Build early access landing page',agent:'drago',priority:'medium',status:'todo',date:'2025-02-22'},
-  {id:id(),title:'Competitor analysis — top 5 golf supplement brands',agent:'drago',priority:'medium',status:'todo',date:'2025-02-22'},
-  {id:id(),title:'Plan next week\'s content calendar',agent:'happy',priority:'medium',status:'todo',date:'2025-02-22'},
-  {id:id(),title:'Research equipment sponsorship targets',agent:'happy',priority:'low',status:'todo',date:'2025-02-22'},
-  {id:id(),title:'Genesis Invitational recap content',agent:'happy',priority:'high',status:'todo',date:'2025-02-22'},
-];
-
 function id(){return Math.random().toString(36).slice(2,10)}
-function load(){const d=localStorage.getItem(STORAGE_KEY);return d?JSON.parse(d):null}
-function save(tasks){localStorage.setItem(STORAGE_KEY,JSON.stringify(tasks))}
 
-let tasks = load() || [...DEFAULT_TASKS];
-if(!load()) save(tasks);
+let tasks = [];
 let activeFilter = 'all';
 let draggedId = null;
+let synced = false;
+
+// Sync indicator
+function setSynced(state) {
+  synced = state;
+  const dot = document.querySelector('.logo .dot');
+  if (state) {
+    dot.style.background = 'var(--cyan)';
+    dot.style.boxShadow = '0 0 10px var(--cyan)';
+    dot.title = 'Synced';
+  } else {
+    dot.style.background = '#ff4d4d';
+    dot.style.boxShadow = '0 0 10px #ff4d4d';
+    dot.title = 'Syncing...';
+  }
+}
+
+async function api(method, body) {
+  setSynced(false);
+  try {
+    const opts = { method, headers: { 'Content-Type': 'application/json' } };
+    if (body) opts.body = JSON.stringify(body);
+    const res = await fetch(API_URL, opts);
+    const data = await res.json();
+    setSynced(true);
+    return data;
+  } catch (err) {
+    console.error('API error:', err);
+    setSynced(false);
+    return null;
+  }
+}
+
+async function loadTasks() {
+  const data = await api('GET');
+  if (data) {
+    tasks = data;
+    render();
+  }
+}
 
 function filterAgent(agent, el){
   activeFilter = agent;
@@ -319,7 +340,11 @@ document.querySelectorAll('.col-body').forEach(col=>{
     col.closest('.column').classList.remove('drag-over');
     if(!draggedId)return;
     const task=tasks.find(t=>t.id===draggedId);
-    if(task){task.status=col.dataset.status;save(tasks);render()}
+    if(task){
+      task.status=col.dataset.status;
+      render();
+      api('PUT',{id:task.id,status:task.status});
+    }
   });
 });
 
@@ -351,7 +376,11 @@ document.addEventListener('touchend',e=>{
   const colBody=el&&(el.closest('.col-body')||el.closest('.column')?.querySelector('.col-body'));
   if(colBody&&touchId){
     const task=tasks.find(t=>t.id===touchId);
-    if(task){task.status=colBody.dataset.status;save(tasks);render()}
+    if(task){
+      task.status=colBody.dataset.status;
+      render();
+      api('PUT',{id:task.id,status:task.status});
+    }
   }
   touchClone.remove();touchClone=null;
   if(touchDragEl)touchDragEl.classList.remove('dragging');
@@ -365,25 +394,33 @@ function closeModal(){document.getElementById('modal').classList.remove('open');
 document.getElementById('modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
-function createTask(){
+async function createTask(){
   const title=document.getElementById('taskTitle').value.trim();
   if(!title)return;
-  tasks.push({
-    id:id(),title,
+  const task = {
+    title,
     agent:document.getElementById('taskAgent').value,
     priority:document.getElementById('taskPriority').value,
     status:document.getElementById('taskStatus').value,
-    date:new Date().toISOString().slice(0,10)
-  });
-  save(tasks);render();closeModal();
+  };
+  closeModal();
+  const created = await api('POST', task);
+  if (created && created.id) {
+    tasks.push(created);
+    render();
+  }
 }
 document.getElementById('taskTitle').addEventListener('keydown',e=>{if(e.key==='Enter')createTask()});
 
-function deleteTask(tid){
-  tasks=tasks.filter(t=>t.id!==tid);save(tasks);render();
+async function deleteTask(tid){
+  tasks=tasks.filter(t=>t.id!==tid);
+  render();
+  await api('DELETE',{id:tid});
 }
 
-render();
+// Auto-refresh every 30s
+setInterval(loadTasks, 30000);
+loadTasks();
 </script>
 </body>
 </html>

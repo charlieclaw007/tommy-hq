@@ -1,6 +1,9 @@
 {
   "name": "tommy-hq",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "Tommy HQ — Kanban Command Center"
+  "description": "Tommy HQ — Kanban Command Center",
+  "dependencies": {
+    "@vercel/blob": "^0.27.0"
+  }
 }
