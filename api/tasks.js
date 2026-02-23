@@ -1,6 +1,6 @@
-import { put, list, del } from '@vercel/blob';
+import { put, head, del, list } from '@vercel/blob';
 
-const BLOB_KEY = 'tasks.json';
+const BLOB_PATH = 'tasks.json';
 
 function cors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -9,35 +9,42 @@ function cors(res) {
 }
 
 function auth(req) {
-  const key = req.headers['x-api-key'];
-  return key === process.env.API_KEY;
+  return req.headers['x-api-key'] === process.env.API_KEY;
 }
 
 async function getTasks() {
   try {
-    const { blobs } = await list({ prefix: BLOB_KEY });
-    if (blobs.length === 0) return [];
-    const res = await fetch(blobs[0].url);
+    const { blobs } = await list({ prefix: BLOB_PATH, limit: 1 });
+    if (!blobs.length) return [];
+    // Fetch with cache-busting
+    const res = await fetch(blobs[0].url + '?t=' + Date.now());
+    if (!res.ok) return [];
     return await res.json();
-  } catch {
+  } catch (e) {
+    console.error('getTasks error:', e);
     return [];
   }
 }
 
 async function saveTasks(tasks) {
-  // Delete old blob first
+  // Clean up any old blobs
   try {
-    const { blobs } = await list({ prefix: BLOB_KEY });
-    for (const b of blobs) await del(b.url);
+    const { blobs } = await list({ prefix: BLOB_PATH });
+    for (const b of blobs) {
+      try { await del(b.url); } catch {}
+    }
   } catch {}
-  await put(BLOB_KEY, JSON.stringify(tasks), {
+  
+  const blob = await put(BLOB_PATH, JSON.stringify(tasks), {
     access: 'public',
     contentType: 'application/json',
     addRandomSuffix: false,
   });
+  console.log('Saved blob:', blob.url, 'tasks:', tasks.length);
+  return blob;
 }
 
-function id() {
+function genId() {
   return Math.random().toString(36).slice(2, 10);
 }
 
@@ -45,7 +52,6 @@ export default async function handler(req, res) {
   cors(res);
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  // GET is public (frontend needs it), mutations need auth
   if (req.method !== 'GET' && !auth(req)) {
     return res.status(401).json({ error: 'Invalid API key' });
   }
@@ -61,8 +67,7 @@ export default async function handler(req, res) {
       if (!title) return res.status(400).json({ error: 'title required' });
       const tasks = await getTasks();
       const task = {
-        id: id(),
-        title,
+        id: genId(), title,
         agent: agent || 'charlie',
         priority: priority || 'medium',
         status: status || 'todo',
