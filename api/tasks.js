@@ -1,47 +1,32 @@
-import { put, head, del, list } from '@vercel/blob';
+import { put, list, del } from '@vercel/blob';
 
-const BLOB_PATH = 'tasks.json';
+const PREFIX = 'task/';
 
 function cors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-API-Key');
+  res.setHeader('Cache-Control', 'no-cache, no-store');
 }
 
 function auth(req) {
   return req.headers['x-api-key'] === process.env.API_KEY;
 }
 
-async function getTasks() {
-  try {
-    const { blobs } = await list({ prefix: BLOB_PATH, limit: 1 });
-    if (!blobs.length) return [];
-    // Fetch with cache-busting
-    const res = await fetch(blobs[0].url + '?t=' + Date.now());
-    if (!res.ok) return [];
-    return await res.json();
-  } catch (e) {
-    console.error('getTasks error:', e);
-    return [];
-  }
-}
-
-async function saveTasks(tasks) {
-  // Clean up any old blobs
-  try {
-    const { blobs } = await list({ prefix: BLOB_PATH });
-    for (const b of blobs) {
-      try { await del(b.url); } catch {}
+async function getAllTasks() {
+  const tasks = [];
+  let cursor = undefined;
+  do {
+    const result = await list({ prefix: PREFIX, cursor });
+    for (const blob of result.blobs) {
+      try {
+        const res = await fetch(blob.url + '?t=' + Date.now());
+        if (res.ok) tasks.push(await res.json());
+      } catch {}
     }
-  } catch {}
-  
-  const blob = await put(BLOB_PATH, JSON.stringify(tasks), {
-    access: 'public',
-    contentType: 'application/json',
-    addRandomSuffix: false,
-  });
-  console.log('Saved blob:', blob.url, 'tasks:', tasks.length);
-  return blob;
+    cursor = result.hasMore ? result.cursor : undefined;
+  } while (cursor);
+  return tasks;
 }
 
 function genId() {
@@ -58,14 +43,13 @@ export default async function handler(req, res) {
 
   try {
     if (req.method === 'GET') {
-      const tasks = await getTasks();
+      const tasks = await getAllTasks();
       return res.status(200).json(tasks);
     }
 
     if (req.method === 'POST') {
       const { title, agent, priority, status } = req.body;
       if (!title) return res.status(400).json({ error: 'title required' });
-      const tasks = await getTasks();
       const task = {
         id: genId(), title,
         agent: agent || 'charlie',
@@ -73,28 +57,39 @@ export default async function handler(req, res) {
         status: status || 'todo',
         date: new Date().toISOString().slice(0, 10),
       };
-      tasks.push(task);
-      await saveTasks(tasks);
+      await put(PREFIX + task.id + '.json', JSON.stringify(task), {
+        access: 'public',
+        contentType: 'application/json',
+        addRandomSuffix: false,
+      });
       return res.status(201).json(task);
     }
 
     if (req.method === 'PUT') {
       const { id: taskId, ...updates } = req.body;
       if (!taskId) return res.status(400).json({ error: 'id required' });
-      const tasks = await getTasks();
-      const idx = tasks.findIndex(t => t.id === taskId);
-      if (idx === -1) return res.status(404).json({ error: 'task not found' });
-      Object.assign(tasks[idx], updates);
-      await saveTasks(tasks);
-      return res.status(200).json(tasks[idx]);
+      
+      // Find existing task blob
+      const { blobs } = await list({ prefix: PREFIX + taskId });
+      if (!blobs.length) return res.status(404).json({ error: 'task not found' });
+      
+      const existing = await (await fetch(blobs[0].url + '?t=' + Date.now())).json();
+      const updated = { ...existing, ...updates, id: taskId };
+      
+      await put(PREFIX + taskId + '.json', JSON.stringify(updated), {
+        access: 'public',
+        contentType: 'application/json',
+        addRandomSuffix: false,
+      });
+      return res.status(200).json(updated);
     }
 
     if (req.method === 'DELETE') {
       const { id: taskId } = req.body;
       if (!taskId) return res.status(400).json({ error: 'id required' });
-      let tasks = await getTasks();
-      tasks = tasks.filter(t => t.id !== taskId);
-      await saveTasks(tasks);
+      
+      const { blobs } = await list({ prefix: PREFIX + taskId });
+      for (const b of blobs) await del(b.url);
       return res.status(200).json({ deleted: taskId });
     }
 
