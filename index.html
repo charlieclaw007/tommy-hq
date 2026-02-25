@@ -145,28 +145,49 @@ html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--
 .refresh-note{font-size:11px;color:var(--text3);margin-bottom:12px}
 
 /* TEAM */
-.team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-@media(max-width:700px){.team-grid{grid-template-columns:1fr}}
-.agent-card{background:var(--bg2);border-radius:var(--radius);padding:24px;border:1px solid var(--bg4);transition:all .3s;position:relative;overflow:hidden}
-.agent-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.agent-charlie::before{background:var(--coral)}
-.agent-neo::before{background:var(--cyan)}
-.agent-drago::before{background:var(--purple)}
-.agent-happy::before{background:var(--amber)}
-.agent-card:hover{transform:translateY(-3px)}
-.agent-charlie:hover{box-shadow:0 10px 30px #ff6b6b33;border-color:#ff6b6b55}
-.agent-neo:hover{box-shadow:0 10px 30px #00d4aa33;border-color:#00d4aa55}
-.agent-drago:hover{box-shadow:0 10px 30px #7c6bff33;border-color:#7c6bff55}
-.agent-happy:hover{box-shadow:0 10px 30px #ffb86b33;border-color:#ffb86b55}
-.agent-emoji{font-size:40px;margin-bottom:12px;display:block}
-.agent-name{font-size:22px;font-weight:800;margin-bottom:4px}
-.agent-role{font-size:13px;color:var(--text2);margin-bottom:8px}
-.agent-tagline{font-size:13px;font-style:italic;color:var(--text2);margin-bottom:14px;line-height:1.4}
-.agent-skills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
-.skill-tag{font-size:11px;padding:3px 8px;border-radius:6px;font-weight:500}
-.agent-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:var(--bg3);border-radius:var(--radius-sm);padding:12px}
-.agent-stat .n{font-size:20px;font-weight:800}
-.agent-stat .l{font-size:10px;color:var(--text2);margin-top:2px}
+.team-page{max-width:900px;margin:0 auto}
+.team-quote{background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--radius);padding:16px 24px;margin-bottom:28px;font-size:14px;font-style:italic;color:var(--text2);text-align:center;line-height:1.6}
+.team-quote span{color:var(--text);font-weight:500}
+.team-heading{text-align:center;margin-bottom:28px}
+.team-heading h2{font-size:28px;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,var(--coral),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.team-heading p{font-size:13px;color:var(--text2)}
+/* Chief card */
+.chief-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:20px 24px;display:flex;align-items:center;gap:20px;margin-bottom:0;transition:all .3s}
+.chief-card:hover{border-color:#ff6b6b55;box-shadow:0 8px 30px #ff6b6b22}
+.agent-avatar{width:72px;height:72px;border-radius:14px;object-fit:cover;background:var(--bg4);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:36px;overflow:hidden}
+.agent-avatar img{width:100%;height:100%;object-fit:cover;border-radius:14px}
+.chief-info{flex:1}
+.chief-name{font-size:20px;font-weight:800;margin-bottom:2px}
+.chief-role{font-size:13px;color:var(--text2);margin-bottom:6px}
+.chief-desc{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:10px}
+.role-card-btn{font-size:12px;color:var(--text3);text-decoration:none;font-weight:600;letter-spacing:.5px;transition:color .2s;background:none;border:none;cursor:pointer;font-family:inherit}
+.role-card-btn:hover{color:var(--coral)}
+/* Org connector */
+.org-connector{display:flex;flex-direction:column;align-items:center;padding:8px 0;gap:0}
+.org-line{width:1px;height:24px;background:var(--bg4)}
+.org-labels{display:flex;width:100%;justify-content:space-between;align-items:center;padding:8px 0;position:relative}
+.org-labels::before{content:'';position:absolute;top:50%;left:20%;right:20%;height:1px;background:var(--bg4)}
+.org-label{font-size:10px;color:var(--text3);font-weight:600;letter-spacing:1px;text-transform:uppercase;background:var(--bg);padding:0 8px;z-index:1;position:relative}
+/* Agent row */
+.agents-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:700px){.agents-row{grid-template-columns:1fr}}
+.agent-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:16px;transition:all .3s}
+.agent-neo:hover{box-shadow:0 8px 25px #00d4aa22;border-color:#00d4aa55}
+.agent-drago:hover{box-shadow:0 8px 25px #7c6bff22;border-color:#7c6bff55}
+.agent-happy:hover{box-shadow:0 8px 25px #ffb86b22;border-color:#ffb86b55}
+.agent-header{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.agent-sm-avatar{width:48px;height:48px;border-radius:10px;object-fit:cover;background:var(--bg4);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden}
+.agent-sm-avatar img{width:100%;height:100%;object-fit:cover;border-radius:10px}
+.agent-name{font-size:16px;font-weight:800;margin-bottom:2px}
+.agent-role{font-size:11px;color:var(--text2)}
+.agent-desc{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:10px}
+.agent-skills{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.skill-tag{font-size:10px;padding:2px 8px;border-radius:5px;font-weight:600}
+/* Meta layer */
+.meta-layer{display:flex;align-items:center;gap:12px;margin:20px 0 16px}
+.meta-layer-line{flex:1;height:1px;background:var(--bg4)}
+.meta-layer-label{font-size:10px;color:var(--text3);font-weight:600;letter-spacing:1.5px;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.meta-layer-label::before{content:'●';font-size:8px}
 
 /* MODAL */
 .modal-overlay{position:fixed;inset:0;background:#000a;z-index:300;display:none;align-items:center;justify-content:center}
@@ -349,11 +370,111 @@ html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--
 
 <!-- TEAM -->
 <div class="section" id="sec-team">
-  <div class="section-header">
-    <div class="section-title">👥 The Team</div>
-    <div style="font-size:12px;color:var(--text2);font-style:italic">"An autonomous organization that produces value 24/7"</div>
+  <div class="team-page">
+    <div class="team-quote"><span>"An autonomous organization of AI agents that does work for Tommy and produces value 24/7"</span></div>
+    <div class="team-heading">
+      <h2>Meet the Team</h2>
+      <p>4 AI agents, each with a real role and a real personality.</p>
+      <p style="margin-top:6px;font-size:12px">We built an autonomous operation so Tommy can build an empire while his family sleeps.<br>Research products. Write copy. Coach golf. Build brands. All without being told what to do.</p>
+    </div>
+
+    <!-- Charlie — Chief of Staff -->
+    <div class="chief-card">
+      <div class="agent-avatar" id="avatar-charlie">🚀</div>
+      <div class="chief-info">
+        <div class="chief-name" style="color:var(--coral)">Charlie</div>
+        <div class="chief-role">Super Agent / Chief of Staff</div>
+        <div class="chief-desc">Coordinates, delegates, keeps the ship tight. The first point of contact between Tommy and the machine. Orchestrates all 4 pillars and makes sure nothing falls through the cracks.</div>
+        <div class="agent-skills">
+          <span class="skill-tag" style="background:#ff6b6b22;color:#ff6b6b">Orchestration</span>
+          <span class="skill-tag" style="background:#ff6b6b22;color:#ff6b6b">Strategy</span>
+          <span class="skill-tag" style="background:#ff6b6b22;color:#ff6b6b">Morning Brief</span>
+          <span class="skill-tag" style="background:#ff6b6b22;color:#ff6b6b">Memory</span>
+          <span class="skill-tag" style="background:#ff6b6b22;color:#ff6b6b">Copywriting</span>
+        </div>
+        <button class="role-card-btn">ROLE CARD →</button>
+      </div>
+    </div>
+
+    <!-- Connector -->
+    <div class="org-connector">
+      <div class="org-line"></div>
+      <div class="org-labels">
+        <div class="org-label">↓ INPUT SIGNAL</div>
+        <div class="org-label">OUTPUT ACTION ↓</div>
+      </div>
+    </div>
+
+    <!-- Specialist Agents -->
+    <div class="agents-row">
+      <div class="agent-card agent-neo">
+        <div class="agent-header">
+          <div class="agent-sm-avatar" id="avatar-neo">🕶️</div>
+          <div>
+            <div class="agent-name" style="color:var(--cyan)">Neo</div>
+            <div class="agent-role">Dropship Intelligence</div>
+          </div>
+        </div>
+        <div class="agent-desc">Sees through the matrix of ads and data. Finds winning products, builds full funnels, tracks competitors, runs the pipeline.</div>
+        <div class="agent-skills">
+          <span class="skill-tag" style="background:#00d4aa22;color:#00d4aa">Product Research</span>
+          <span class="skill-tag" style="background:#00d4aa22;color:#00d4aa">Pipeline</span>
+          <span class="skill-tag" style="background:#00d4aa22;color:#00d4aa">Gethookd</span>
+          <span class="skill-tag" style="background:#00d4aa22;color:#00d4aa">Facebook Ads</span>
+        </div>
+        <button class="role-card-btn">ROLE CARD →</button>
+      </div>
+
+      <div class="agent-card agent-drago">
+        <div class="agent-header">
+          <div class="agent-sm-avatar" id="avatar-drago">🥊</div>
+          <div>
+            <div class="agent-name" style="color:var(--purple)">Drago</div>
+            <div class="agent-role">KYVO Performance Director</div>
+          </div>
+        </div>
+        <div class="agent-desc">Engineered for peak performance. Builds the KYVO supplements brand from strategy to copy to email — relentless and precise.</div>
+        <div class="agent-skills">
+          <span class="skill-tag" style="background:#7c6bff22;color:#7c6bff">Supplement Strategy</span>
+          <span class="skill-tag" style="background:#7c6bff22;color:#7c6bff">VSL Copy</span>
+          <span class="skill-tag" style="background:#7c6bff22;color:#7c6bff">Email</span>
+          <span class="skill-tag" style="background:#7c6bff22;color:#7c6bff">Brand</span>
+        </div>
+        <button class="role-card-btn">ROLE CARD →</button>
+      </div>
+
+      <div class="agent-card agent-happy">
+        <div class="agent-header">
+          <div class="agent-sm-avatar" id="avatar-happy">⛳</div>
+          <div>
+            <div class="agent-name" style="color:var(--amber)">Happy</div>
+            <div class="agent-role">Golf & Content Coach</div>
+          </div>
+        </div>
+        <div class="agent-desc">Happy Gilmore energy. Serious results. Coaches Tommy to scratch, builds @casualgolfdad, and turns every simulator session into content gold.</div>
+        <div class="agent-skills">
+          <span class="skill-tag" style="background:#ffb86b22;color:#ffb86b">Golf Coaching</span>
+          <span class="skill-tag" style="background:#ffb86b22;color:#ffb86b">@casualgolfdad</span>
+          <span class="skill-tag" style="background:#ffb86b22;color:#ffb86b">Sponsorships</span>
+          <span class="skill-tag" style="background:#ffb86b22;color:#ffb86b">Content</span>
+        </div>
+        <button class="role-card-btn">ROLE CARD →</button>
+      </div>
+    </div>
+
+    <!-- Meta Layer -->
+    <div class="meta-layer">
+      <div class="meta-layer-line"></div>
+      <div class="meta-layer-label">META LAYER — The Mission</div>
+      <div class="meta-layer-line"></div>
+    </div>
+    <div style="text-align:center;padding:16px 24px;background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);font-size:13px;font-style:italic;color:var(--text2);line-height:1.7">
+      "We build for Tommy's family. Not for vanity. Not for scorecards.<br>
+      Because behind every pipeline we run, every ad we launch, every brief we write —<br>
+      there are four kids who deserve a life without limits.<br>
+      <strong style="color:var(--text)">We move fast, we work clean, and we never forget why.</strong>"
+    </div>
   </div>
-  <div class="team-grid" id="teamGrid"></div>
 </div>
 
 <!-- MODAL -->
@@ -690,22 +811,30 @@ function renderActivity(){
 
 bindFilters('activityFilters',()=>activityFilter,v=>{activityFilter=v;},renderActivity);
 
-// ─── TEAM ─────────────────────────────────────────────────────
+// ─── TEAM (static HTML — no render needed) ───────────────────
 function renderTeam(){
-  document.getElementById('teamGrid').innerHTML=TEAM.map(a=>`
-    <div class="agent-card agent-${a.id}">
-      <span class="agent-emoji">${a.emoji}</span>
-      <div class="agent-name" style="color:var(--${a.color})">${a.name}</div>
-      <div class="agent-role">${a.role}</div>
-      <div class="agent-tagline">"${a.tagline}"</div>
-      <div class="agent-skills">${a.skills.map(s=>`<span class="skill-tag" style="background:color-mix(in srgb,var(--${a.color}) 15%,transparent);color:var(--${a.color})">${s}</span>`).join('')}</div>
-      <div class="agent-stats">
-        <div class="agent-stat"><div class="n" style="color:var(--${a.color})">${a.stats.tasks}</div><div class="l">Tasks Done</div></div>
-        <div class="agent-stat"><div class="n" style="color:var(--${a.color})">${a.stats.docs}</div><div class="l">Docs</div></div>
-        <div class="agent-stat"><div class="n" style="color:var(--${a.color})">${a.stats.days}</div><div class="l">Days Active</div></div>
-      </div>
-    </div>
-  `).join('');
+  // Team section is static HTML — nothing to render
+  // Avatar images are loaded via loadAvatars()
+}
+
+// Avatar URLs — update these once Higgsfield images are generated
+const AVATARS = {
+  charlie: '/avatars/charlie.png',
+  neo: '/avatars/neo.png',
+  drago: '/avatars/drago.png',
+  happy: '/avatars/happy.png',
+};
+
+function loadAvatars(){
+  Object.entries(AVATARS).forEach(([agent, url])=>{
+    if(!url) return;
+    const el = document.getElementById('avatar-'+agent);
+    if(!el) return;
+    const img = document.createElement('img');
+    img.src = url;
+    img.onerror = ()=>{}; // keep emoji fallback
+    img.onload = ()=>{ el.innerHTML=''; el.appendChild(img); };
+  });
 }
 
 // ─── MODALS ───────────────────────────────────────────────────
@@ -792,7 +921,7 @@ function timeAgo(ts){
 }
 
 // ─── INIT ─────────────────────────────────────────────────────
-renderTasks();renderTeam();updateGlobalStats();
+renderTasks();updateGlobalStats();loadAvatars();
 </script>
 </body>
 </html>
