@@ -18,180 +18,204 @@ html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
-a{color:var(--cyan);text-decoration:none}
-
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-@keyframes glow-coral{0%,100%{box-shadow:0 0 8px #ff6b6b44}50%{box-shadow:0 0 20px #ff6b6b66}}
 
 /* NAV */
-.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--bg4);background:var(--bg2);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:12px}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--bg4);background:var(--bg2);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:10px}
 .nav-left{display:flex;align-items:center;gap:10px}
-.nav-left h1{font-size:20px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,var(--coral),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-left h1{font-size:18px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,var(--coral),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .nav-dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:pulse 2s infinite}
-.nav-tabs{display:flex;gap:4px;flex-wrap:wrap}
-.nav-tab{padding:8px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;color:var(--text2);background:transparent;border:none;font-family:inherit;transition:all .2s;position:relative}
-.nav-tab:hover{color:var(--text)}
-.nav-tab.active{color:var(--coral)}
-.nav-tab.active::after{content:'';position:absolute;bottom:0;left:16px;right:16px;height:2px;background:var(--coral);border-radius:1px}
-.nav-tab .badge{position:absolute;top:2px;right:2px;background:var(--coral);color:#fff;font-size:10px;font-weight:700;padding:1px 5px;border-radius:10px;min-width:16px;text-align:center}
-.nav-right{display:flex;align-items:center;gap:16px;font-size:13px;color:var(--text2)}
-.nav-right .online{display:flex;align-items:center;gap:6px;color:#00ff88;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:1px}
-.nav-right .online .dot{width:6px;height:6px;border-radius:50%;background:#00ff88;box-shadow:0 0 8px #00ff88;animation:pulse 2s infinite}
+.nav-tabs{display:flex;gap:2px;flex-wrap:wrap}
+.nav-tab{padding:7px 14px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;color:var(--text2);background:transparent;border:none;font-family:inherit;transition:all .2s;position:relative;white-space:nowrap}
+.nav-tab:hover{color:var(--text);background:var(--bg3)}
+.nav-tab.active{color:var(--coral);background:var(--bg3)}
+.nav-tab.active::after{content:'';position:absolute;bottom:0;left:14px;right:14px;height:2px;background:var(--coral);border-radius:1px}
+.nav-tab .badge{position:absolute;top:2px;right:2px;background:var(--coral);color:#fff;font-size:9px;font-weight:700;padding:1px 4px;border-radius:8px;min-width:14px;text-align:center}
+.nav-right{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--text2)}
+.online{display:flex;align-items:center;gap:5px;color:#00ff88;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:1px}
+.online .dot{width:6px;height:6px;border-radius:50%;background:#00ff88;box-shadow:0 0 8px #00ff88;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-/* STATS BAR */
-.stats-bar{display:flex;gap:24px;padding:14px 24px;background:var(--bg2);border-bottom:1px solid var(--bg4);flex-wrap:wrap}
-.stat-item{display:flex;align-items:center;gap:8px;font-size:13px}
-.stat-item .num{font-weight:700;font-size:18px;color:var(--coral)}
-.stat-item .label{color:var(--text2)}
+/* GLOBAL STATS */
+.global-stats{display:flex;gap:0;border-bottom:1px solid var(--bg4);background:var(--bg2)}
+.gs{padding:10px 24px;font-size:12px;color:var(--text2);border-right:1px solid var(--bg4);display:flex;align-items:center;gap:6px}
+.gs strong{color:var(--text);font-weight:700;font-size:15px}
 
 /* SECTIONS */
-.section{display:none;padding:20px 24px;min-height:calc(100vh - 120px)}
+.section{display:none;padding:20px 24px;min-height:calc(100vh - 110px)}
 .section.active{display:block}
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px}
-.section-title{font-size:20px;font-weight:700}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.section-title{font-size:18px;font-weight:700}
 
-/* FILTER TABS */
-.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
-.filter-btn{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--bg4);background:var(--bg2);color:var(--text2);font-family:inherit;transition:all .2s}
+/* BUTTONS */
+.btn{padding:8px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s}
+.btn-coral{background:linear-gradient(135deg,var(--coral),#ff4757);color:#fff;box-shadow:0 0 15px #ff6b6b33}
+.btn-coral:hover{transform:translateY(-1px);box-shadow:0 0 25px #ff6b6b55}
+.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--bg4)}
+.btn-ghost:hover{border-color:var(--text3);color:var(--text)}
+.btn-green{background:#00c853;color:#fff;font-weight:700}
+.btn-red{background:#ff3d3d;color:#fff;font-weight:700}
+.btn-sm{padding:5px 10px;font-size:12px}
+
+/* FILTERS */
+.filters{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.filter-btn{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--bg4);background:var(--bg2);color:var(--text2);transition:all .2s;font-family:inherit}
 .filter-btn:hover{border-color:var(--text3);color:var(--text)}
 .filter-btn.active{background:var(--coral);border-color:var(--coral);color:#fff}
 
 /* KANBAN */
-.kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start}
-@media(max-width:900px){.kanban{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.kanban{grid-template-columns:1fr}}
-.kanban-col{background:var(--bg2);border-radius:var(--radius);border:1px solid var(--bg4);min-height:200px}
-.kanban-col-header{padding:14px 16px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text2);border-bottom:1px solid var(--bg4);display:flex;justify-content:space-between;align-items:center}
-.kanban-col-header .count{background:var(--bg4);padding:2px 8px;border-radius:10px;font-size:11px;color:var(--text)}
-.kanban-cards{padding:10px;display:flex;flex-direction:column;gap:8px;min-height:100px}
-.card{background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--radius-sm);padding:12px;cursor:grab;transition:all .2s}
-.card:hover{border-color:var(--text3);transform:translateY(-1px)}
-.card.dragging{opacity:.5}
-.card-title{font-size:13px;font-weight:600;margin-bottom:6px}
+.kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:start}
+@media(max-width:900px){.kanban{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.kanban{grid-template-columns:1fr}}
+.kanban-col{background:var(--bg2);border-radius:var(--radius);border:1px solid var(--bg4);overflow:hidden}
+.kanban-col-header{padding:12px 14px;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bg4)}
+.col-count{background:var(--bg4);color:var(--text2);font-size:11px;padding:2px 7px;border-radius:10px;font-weight:600}
+.kanban-cards{padding:10px;min-height:80px;display:flex;flex-direction:column;gap:8px}
+.kanban-cards.drag-over{background:var(--bg3)}
+
+/* CARDS */
+.card{background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--radius-sm);padding:12px;cursor:grab;transition:all .2s;position:relative}
+.card:hover{border-color:var(--text3);transform:translateY(-1px);box-shadow:0 4px 15px #0005}
+.card.dragging{opacity:.4}
+.card-title{font-size:13px;font-weight:600;margin-bottom:8px;line-height:1.3}
 .card-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .agent-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.badge-pill{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;background:var(--bg4);color:var(--text2)}
-.priority-high{border-left:3px solid var(--coral)}
-.priority-medium{border-left:3px solid var(--amber)}
-.priority-low{border-left:3px solid var(--cyan)}
+.badge-pill{font-size:10px;font-weight:600;padding:2px 7px;border-radius:8px;background:var(--bg4);color:var(--text2)}
+.badge-pill.high{background:#ff6b6b22;color:#ff6b6b}
+.badge-pill.medium{background:#ffb86b22;color:#ffb86b}
+.badge-pill.low{background:#00d4aa22;color:#00d4aa}
+.card-actions{display:flex;gap:4px;margin-top:8px}
 
-/* BUTTONS */
-.btn{padding:8px 18px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s}
-.btn-coral{background:var(--coral);color:#fff;box-shadow:0 0 15px #ff6b6b33}
-.btn-coral:hover{box-shadow:0 0 25px #ff6b6b55;transform:translateY(-1px)}
-.btn-green{background:#00c853;color:#fff}
-.btn-green:hover{background:#00e676}
-.btn-red{background:#ff4444;color:#fff}
-.btn-red:hover{background:#ff6666}
-.btn-ghost{background:var(--bg3);color:var(--text);border:1px solid var(--bg4)}
-.btn-ghost:hover{border-color:var(--text3)}
-
-/* MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center}
-.modal-overlay.open{display:flex}
-.modal{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:24px;width:90%;max-width:500px;max-height:90vh;overflow-y:auto}
-.modal h2{font-size:18px;margin-bottom:16px}
-.modal label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:4px;margin-top:12px}
-.modal input,.modal select,.modal textarea{width:100%;padding:10px;border-radius:var(--radius-sm);border:1px solid var(--bg4);background:var(--bg3);color:var(--text);font-family:inherit;font-size:13px}
-.modal textarea{min-height:80px;resize:vertical}
-.modal-actions{display:flex;gap:10px;margin-top:20px;justify-content:flex-end}
+/* STATS ROW */
+.stats-row{display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.stat{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius-sm);padding:10px 16px}
+.stat .val{font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--coral),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat .lbl{font-size:11px;color:var(--text2);margin-top:2px}
 
 /* APPROVALS */
-.approval-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:18px;margin-bottom:12px}
-.approval-card.high{animation:glow-coral 3s infinite;border-color:#ff6b6b55}
-.approval-card .title{font-size:15px;font-weight:700;margin-bottom:6px}
-.approval-card .desc{color:var(--text2);font-size:13px;margin-bottom:12px}
-.approval-card .actions{display:flex;gap:10px}
+.approval-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:16px;margin-bottom:10px;transition:all .2s}
+.approval-card.high{border-color:#ff6b6b55;animation:glow-coral 3s infinite}
+@keyframes glow-coral{0%,100%{box-shadow:0 0 0 #ff6b6b00}50%{box-shadow:0 0 15px #ff6b6b33}}
 .approval-card.resolved{opacity:.5}
+.approval-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.approval-title{font-size:14px;font-weight:700;flex:1}
+.approval-desc{font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.5}
+.approval-actions{display:flex;gap:8px}
+.type-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px}
+.type-content{background:#00d4aa22;color:#00d4aa}
+.type-spend{background:#ff6b6b22;color:#ff6b6b}
+.type-action{background:#7c6bff22;color:#7c6bff}
+.type-campaign{background:#ffb86b22;color:#ffb86b}
 
 /* DOCS */
-.docs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media(max-width:900px){.docs-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.docs-grid{grid-template-columns:1fr}}
-.doc-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .2s}
-.doc-card:hover{border-color:var(--text3);transform:translateY(-2px)}
-.doc-card .doc-title{font-size:14px;font-weight:700;margin-bottom:4px}
-.doc-card .doc-desc{font-size:12px;color:var(--text2);margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.doc-card .doc-tags{display:flex;gap:4px;flex-wrap:wrap}
-.doc-card .doc-tags span{font-size:10px;background:var(--bg4);padding:2px 6px;border-radius:6px;color:var(--text2)}
-.doc-panel{position:fixed;top:0;right:-50%;width:50%;height:100%;background:var(--bg2);border-left:1px solid var(--bg4);z-index:150;transition:right .3s;overflow-y:auto;padding:24px}
-.doc-panel.open{right:0}
-.doc-panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.doc-panel pre{white-space:pre-wrap;font-size:13px;font-family:'Courier New',monospace;color:var(--text);line-height:1.6;background:var(--bg3);padding:16px;border-radius:var(--radius-sm);overflow-x:auto}
-@media(max-width:768px){.doc-panel{width:90%;right:-90%}.doc-panel.open{right:0}}
+.docs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:900px){.docs-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.docs-grid{grid-template-columns:1fr}}
+.doc-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:14px;cursor:pointer;transition:all .2s}
+.doc-card:hover{border-color:var(--cyan);transform:translateY(-2px);box-shadow:0 6px 20px #00d4aa22}
+.doc-cat{font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px;display:inline-block;margin-bottom:8px}
+.cat-sop{background:#ff6b6b22;color:#ff6b6b}
+.cat-copy{background:#00d4aa22;color:#00d4aa}
+.cat-strategy{background:#7c6bff22;color:#7c6bff}
+.cat-research{background:#ffb86b22;color:#ffb86b}
+.cat-script{background:#00d4aa22;color:#00d4aa}
+.cat-pipeline{background:#ff6b6b22;color:#ff6b6b}
+.doc-title{font-size:13px;font-weight:700;margin-bottom:6px}
+.doc-desc{font-size:12px;color:var(--text2);line-height:1.4;margin-bottom:8px}
+.doc-tags{display:flex;gap:4px;flex-wrap:wrap}
+.doc-tag{font-size:10px;padding:2px 6px;border-radius:4px;background:var(--bg4);color:var(--text3)}
+
+/* DOC PANEL */
+.doc-panel{position:fixed;right:-500px;top:0;width:500px;height:100vh;background:var(--bg2);border-left:1px solid var(--bg4);z-index:200;transition:right .3s;display:flex;flex-direction:column}
+.doc-panel.open{right:0;box-shadow:-10px 0 40px #0008}
+.doc-panel-header{padding:16px 20px;border-bottom:1px solid var(--bg4);display:flex;align-items:center;justify-content:space-between}
+.doc-panel-title{font-size:15px;font-weight:700}
+.doc-panel-body{flex:1;overflow-y:auto;padding:20px;font-size:13px;line-height:1.7;color:var(--text2);white-space:pre-wrap;font-family:monospace}
 
 /* ACTIVITY */
-.timeline{max-width:800px}
-.timeline-item{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--bg4)}
-.timeline-left{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:80px}
-.timeline-left .name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
-.timeline-right .action{font-weight:600;font-size:14px;margin-bottom:2px}
-.timeline-right .details{color:var(--text2);font-size:13px}
-.timeline-right .time{color:var(--text3);font-size:11px;margin-top:4px}
+.activity-feed{display:flex;flex-direction:column;gap:0}
+.activity-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--bg4);align-items:flex-start}
+.activity-item:last-child{border-bottom:none}
+.activity-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.activity-left{min-width:90px;text-align:right;font-size:11px;color:var(--text3);padding-right:4px}
+.activity-right{flex:1}
+.activity-agent{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+.activity-action{font-size:13px;font-weight:600;color:var(--text)}
+.activity-details{font-size:12px;color:var(--text2);margin-top:2px;line-height:1.4}
+.activity-time{font-size:11px;color:var(--text3);margin-top:3px}
+.refresh-note{font-size:11px;color:var(--text3);margin-bottom:12px}
 
 /* TEAM */
-.team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:900px;margin:0 auto}
-@media(min-width:1200px){.team-grid{grid-template-columns:repeat(4,1fr)}}
-@media(max-width:600px){.team-grid{grid-template-columns:1fr}}
-.team-card{background:var(--bg2);border:1px solid;border-radius:var(--radius);padding:24px;text-align:center;transition:all .3s}
-.team-card:hover{transform:translateY(-4px)}
-.team-card .emoji{font-size:48px;margin-bottom:12px}
-.team-card .name{font-size:20px;font-weight:800;margin-bottom:4px}
-.team-card .role{font-size:12px;color:var(--text2);margin-bottom:8px}
-.team-card .tagline{font-size:13px;font-style:italic;color:var(--text2);margin-bottom:14px}
-.team-card .specialties{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-bottom:14px}
-.team-card .specialties span{font-size:10px;padding:3px 8px;border-radius:10px;font-weight:600}
-.team-card .stats{display:flex;justify-content:center;gap:16px;font-size:11px;color:var(--text2)}
-.team-card .stats strong{color:var(--text);font-weight:700}
+.team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+@media(max-width:700px){.team-grid{grid-template-columns:1fr}}
+.agent-card{background:var(--bg2);border-radius:var(--radius);padding:24px;border:1px solid var(--bg4);transition:all .3s;position:relative;overflow:hidden}
+.agent-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.agent-charlie::before{background:var(--coral)}
+.agent-neo::before{background:var(--cyan)}
+.agent-drago::before{background:var(--purple)}
+.agent-happy::before{background:var(--amber)}
+.agent-card:hover{transform:translateY(-3px)}
+.agent-charlie:hover{box-shadow:0 10px 30px #ff6b6b33;border-color:#ff6b6b55}
+.agent-neo:hover{box-shadow:0 10px 30px #00d4aa33;border-color:#00d4aa55}
+.agent-drago:hover{box-shadow:0 10px 30px #7c6bff33;border-color:#7c6bff55}
+.agent-happy:hover{box-shadow:0 10px 30px #ffb86b33;border-color:#ffb86b55}
+.agent-emoji{font-size:40px;margin-bottom:12px;display:block}
+.agent-name{font-size:22px;font-weight:800;margin-bottom:4px}
+.agent-role{font-size:13px;color:var(--text2);margin-bottom:8px}
+.agent-tagline{font-size:13px;font-style:italic;color:var(--text2);margin-bottom:14px;line-height:1.4}
+.agent-skills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.skill-tag{font-size:11px;padding:3px 8px;border-radius:6px;font-weight:500}
+.agent-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:var(--bg3);border-radius:var(--radius-sm);padding:12px}
+.agent-stat .n{font-size:20px;font-weight:800}
+.agent-stat .l{font-size:10px;color:var(--text2);margin-top:2px}
 
-/* Search */
-.search-bar{width:100%;max-width:400px;padding:10px 16px;border-radius:var(--radius);border:1px solid var(--bg4);background:var(--bg3);color:var(--text);font-family:inherit;font-size:13px;margin-bottom:16px}
-.search-bar:focus{outline:none;border-color:var(--cyan)}
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:#000a;z-index:300;display:none;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:24px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
+.modal h2{font-size:16px;font-weight:700;margin-bottom:16px}
+.form-group{margin-bottom:14px}
+.form-group label{font-size:12px;color:var(--text2);display:block;margin-bottom:5px;font-weight:500}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--radius-sm);padding:9px 12px;color:var(--text);font-family:inherit;font-size:13px;outline:none;transition:border .2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--coral)}
+.form-group textarea{min-height:80px;resize:vertical}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
 
-/* Spinner */
-.spinner{display:flex;align-items:center;justify-content:center;padding:40px;color:var(--text2);font-size:14px}
-.empty{text-align:center;padding:60px 20px;color:var(--text3);font-size:14px}
+/* SEARCH */
+.search-bar{width:100%;background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius-sm);padding:9px 14px;color:var(--text);font-family:inherit;font-size:13px;outline:none;margin-bottom:14px;transition:border .2s}
+.search-bar:focus{border-color:var(--cyan)}
 
-/* Section stats */
-.section-stats{display:flex;gap:20px;margin-bottom:16px;flex-wrap:wrap}
-.section-stats .ss{font-size:13px;color:var(--text2)}
-.section-stats .ss strong{color:var(--text);font-weight:700;margin-right:4px}
-
-/* Category badges */
-.cat-SOP{background:#00d4aa22;color:#00d4aa}.cat-Pipeline{background:#7c6bff22;color:#7c6bff}
-.cat-Copy{background:#ff6b6b22;color:#ff6b6b}.cat-Research{background:#ffb86b22;color:#ffb86b}
-.cat-Strategy{background:#00d4aa22;color:#00d4aa}.cat-Brief{background:#7c6bff22;color:#7c6bff}
-.cat-Script{background:#ff6b6b22;color:#ff6b6b}
+/* EMPTY STATE */
+.empty{text-align:center;padding:40px;color:var(--text3)}
+.empty-icon{font-size:36px;margin-bottom:10px}
+.empty p{font-size:13px}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="nav">
   <div class="nav-left">
     <div class="nav-dot"></div>
     <h1>TOMMY HQ</h1>
   </div>
-  <div class="nav-tabs" id="navTabs">
-    <button class="nav-tab active" data-tab="tasks">Tasks</button>
-    <button class="nav-tab" data-tab="content">Content</button>
-    <button class="nav-tab" data-tab="approvals">Approvals<span class="badge" id="approvalBadge" style="display:none">0</span></button>
-    <button class="nav-tab" data-tab="docs">Docs</button>
-    <button class="nav-tab" data-tab="activity">Activity</button>
-    <button class="nav-tab" data-tab="team">Team</button>
+  <div class="nav-tabs">
+    <button class="nav-tab active" data-tab="tasks">📋 Tasks</button>
+    <button class="nav-tab" data-tab="content">📝 Content</button>
+    <button class="nav-tab" data-tab="approvals" id="approvalTab">✅ Approvals</button>
+    <button class="nav-tab" data-tab="docs">📁 Docs</button>
+    <button class="nav-tab" data-tab="activity">⚡ Activity</button>
+    <button class="nav-tab" data-tab="team">👥 Team</button>
   </div>
   <div class="nav-right">
     <span id="clock"></span>
-    <span class="online"><span class="dot"></span>SYSTEMS ONLINE</span>
+    <div class="online"><div class="dot"></div>SYSTEMS ONLINE</div>
   </div>
 </nav>
 
-<!-- GLOBAL STATS -->
-<div class="stats-bar" id="globalStats">
-  <div class="stat-item"><span class="num" id="gsOpenTasks">-</span><span class="label">Open Tasks</span></div>
-  <div class="stat-item"><span class="num" id="gsPendingApprovals">-</span><span class="label">Pending Approvals</span></div>
-  <div class="stat-item"><span class="num" id="gsContent">-</span><span class="label">Content in Pipeline</span></div>
-  <div class="stat-item"><span class="num" id="gsDocs">-</span><span class="label">Docs</span></div>
+<div class="global-stats">
+  <div class="gs"><strong id="gs-tasks">–</strong> Open Tasks</div>
+  <div class="gs"><strong id="gs-approvals">–</strong> Pending Approvals</div>
+  <div class="gs"><strong id="gs-content">–</strong> Content in Pipeline</div>
+  <div class="gs"><strong id="gs-docs">–</strong> Docs</div>
 </div>
 
 <!-- TASKS -->
@@ -200,19 +224,31 @@ a{color:var(--cyan);text-decoration:none}
     <div class="section-title">📋 Task Board</div>
     <button class="btn btn-coral" onclick="openModal('task')">+ New Task</button>
   </div>
-  <div class="section-stats" id="taskStats"></div>
+  <div class="stats-row" id="taskStats"></div>
   <div class="filters" id="taskFilters">
-    <button class="filter-btn active" data-agent="all">ALL</button>
-    <button class="filter-btn" data-agent="charlie">🚀 CHARLIE</button>
-    <button class="filter-btn" data-agent="neo">🕶️ NEO</button>
-    <button class="filter-btn" data-agent="drago">🥊 DRAGO</button>
-    <button class="filter-btn" data-agent="happy">⛳ HAPPY</button>
+    <button class="filter-btn active" data-val="all">ALL</button>
+    <button class="filter-btn" data-val="charlie">🚀 Charlie</button>
+    <button class="filter-btn" data-val="neo">🕶️ Neo</button>
+    <button class="filter-btn" data-val="drago">🥊 Drago</button>
+    <button class="filter-btn" data-val="happy">⛳ Happy</button>
   </div>
   <div class="kanban" id="taskBoard">
-    <div class="kanban-col" data-status="todo"><div class="kanban-col-header">To Do <span class="count">0</span></div><div class="kanban-cards" data-status="todo"></div></div>
-    <div class="kanban-col" data-status="in-progress"><div class="kanban-col-header">In Progress <span class="count">0</span></div><div class="kanban-cards" data-status="in-progress"></div></div>
-    <div class="kanban-col" data-status="review"><div class="kanban-col-header">Review <span class="count">0</span></div><div class="kanban-cards" data-status="review"></div></div>
-    <div class="kanban-col" data-status="done"><div class="kanban-col-header">Done <span class="count">0</span></div><div class="kanban-cards" data-status="done"></div></div>
+    <div class="kanban-col" ondragover="dragOver(event)" ondrop="drop(event,'todo')" ondragleave="dragLeave(event)">
+      <div class="kanban-col-header">To Do <span class="col-count" id="cnt-todo">0</span></div>
+      <div class="kanban-cards" id="col-todo"></div>
+    </div>
+    <div class="kanban-col" ondragover="dragOver(event)" ondrop="drop(event,'in-progress')" ondragleave="dragLeave(event)">
+      <div class="kanban-col-header">In Progress <span class="col-count" id="cnt-in-progress">0</span></div>
+      <div class="kanban-cards" id="col-in-progress"></div>
+    </div>
+    <div class="kanban-col" ondragover="dragOver(event)" ondrop="drop(event,'review')" ondragleave="dragLeave(event)">
+      <div class="kanban-col-header">Review <span class="col-count" id="cnt-review">0</span></div>
+      <div class="kanban-cards" id="col-review"></div>
+    </div>
+    <div class="kanban-col" ondragover="dragOver(event)" ondrop="drop(event,'done')" ondragleave="dragLeave(event)">
+      <div class="kanban-col-header">Done <span class="col-count" id="cnt-done">0</span></div>
+      <div class="kanban-cards" id="col-done"></div>
+    </div>
   </div>
 </div>
 
@@ -222,25 +258,37 @@ a{color:var(--cyan);text-decoration:none}
     <div class="section-title">📝 Content Pipeline</div>
     <button class="btn btn-coral" onclick="openModal('content')">+ New Content</button>
   </div>
-  <div class="filters" id="contentFilters">
-    <button class="filter-btn active" data-agent="all">ALL</button>
-    <button class="filter-btn" data-agent="charlie">🚀 CHARLIE</button>
-    <button class="filter-btn" data-agent="neo">🕶️ NEO</button>
-    <button class="filter-btn" data-agent="drago">🥊 DRAGO</button>
-    <button class="filter-btn" data-agent="happy">⛳ HAPPY</button>
+  <div class="filters" id="contentAgentFilters">
+    <button class="filter-btn active" data-val="all">ALL</button>
+    <button class="filter-btn" data-val="charlie">🚀 Charlie</button>
+    <button class="filter-btn" data-val="neo">🕶️ Neo</button>
+    <button class="filter-btn" data-val="drago">🥊 Drago</button>
+    <button class="filter-btn" data-val="happy">⛳ Happy</button>
   </div>
-  <div class="filters" id="pillarFilters">
-    <button class="filter-btn active" data-pillar="all">ALL PILLARS</button>
-    <button class="filter-btn" data-pillar="Dropship">Dropship</button>
-    <button class="filter-btn" data-pillar="KYVO">KYVO</button>
-    <button class="filter-btn" data-pillar="Golf">Golf</button>
-    <button class="filter-btn" data-pillar="BBA">BBA</button>
+  <div class="filters" id="contentPillarFilters">
+    <button class="filter-btn active" data-val="all">ALL PILLARS</button>
+    <button class="filter-btn" data-val="Dropship">Dropship</button>
+    <button class="filter-btn" data-val="KYVO">KYVO</button>
+    <button class="filter-btn" data-val="Golf">Golf</button>
+    <button class="filter-btn" data-val="BBA">BBA</button>
   </div>
   <div class="kanban" id="contentBoard">
-    <div class="kanban-col" data-status="Draft"><div class="kanban-col-header">Draft <span class="count">0</span></div><div class="kanban-cards" data-status="Draft"></div></div>
-    <div class="kanban-col" data-status="Review"><div class="kanban-col-header">Review <span class="count">0</span></div><div class="kanban-cards" data-status="Review"></div></div>
-    <div class="kanban-col" data-status="Approved"><div class="kanban-col-header">Approved <span class="count">0</span></div><div class="kanban-cards" data-status="Approved"></div></div>
-    <div class="kanban-col" data-status="Posted"><div class="kanban-col-header">Posted <span class="count">0</span></div><div class="kanban-cards" data-status="Posted"></div></div>
+    <div class="kanban-col">
+      <div class="kanban-col-header">Draft <span class="col-count" id="ccnt-Draft">0</span></div>
+      <div class="kanban-cards" id="ccol-Draft"></div>
+    </div>
+    <div class="kanban-col">
+      <div class="kanban-col-header">Review <span class="col-count" id="ccnt-Review">0</span></div>
+      <div class="kanban-cards" id="ccol-Review"></div>
+    </div>
+    <div class="kanban-col">
+      <div class="kanban-col-header">Approved <span class="col-count" id="ccnt-Approved">0</span></div>
+      <div class="kanban-cards" id="ccol-Approved"></div>
+    </div>
+    <div class="kanban-col">
+      <div class="kanban-col-header">Posted <span class="col-count" id="ccnt-Posted">0</span></div>
+      <div class="kanban-cards" id="ccol-Posted"></div>
+    </div>
   </div>
 </div>
 
@@ -248,8 +296,8 @@ a{color:var(--cyan);text-decoration:none}
 <div class="section" id="sec-approvals">
   <div class="section-header">
     <div class="section-title">✅ Approvals Queue</div>
-    <div style="display:flex;gap:10px">
-      <button class="btn btn-ghost" id="historyToggle" onclick="toggleHistory()">Show History</button>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-ghost" id="historyBtn" onclick="toggleApprovalHistory()">Show History</button>
       <button class="btn btn-coral" onclick="openModal('approval')">+ New Request</button>
     </div>
   </div>
@@ -259,497 +307,492 @@ a{color:var(--cyan);text-decoration:none}
 <!-- DOCS -->
 <div class="section" id="sec-docs">
   <div class="section-header">
-    <div class="section-title">📚 Document Library</div>
+    <div class="section-title">📁 Document Library</div>
+    <button class="btn btn-coral" onclick="openModal('doc')">+ Add Doc</button>
   </div>
-  <input type="text" class="search-bar" placeholder="Search docs..." id="docSearch" oninput="renderDocs()">
-  <div class="filters" id="docFilters">
-    <button class="filter-btn active" data-cat="all">ALL</button>
-    <button class="filter-btn" data-cat="SOP">SOP</button>
-    <button class="filter-btn" data-cat="Copy">Copy</button>
-    <button class="filter-btn" data-cat="Script">Script</button>
-    <button class="filter-btn" data-cat="Research">Research</button>
-    <button class="filter-btn" data-cat="Strategy">Strategy</button>
-    <button class="filter-btn" data-cat="Pipeline">Pipeline</button>
-    <button class="filter-btn" data-cat="Brief">Brief</button>
+  <input type="text" class="search-bar" id="docSearch" placeholder="Search docs..." oninput="renderDocs()">
+  <div class="filters" id="docCatFilters">
+    <button class="filter-btn active" data-val="all">ALL</button>
+    <button class="filter-btn" data-val="SOP">SOP</button>
+    <button class="filter-btn" data-val="Copy">Copy</button>
+    <button class="filter-btn" data-val="Script">Script</button>
+    <button class="filter-btn" data-val="Strategy">Strategy</button>
+    <button class="filter-btn" data-val="Research">Research</button>
+    <button class="filter-btn" data-val="Pipeline">Pipeline</button>
   </div>
   <div class="docs-grid" id="docsGrid"></div>
 </div>
+
 <div class="doc-panel" id="docPanel">
   <div class="doc-panel-header">
-    <h2 id="docPanelTitle"></h2>
-    <button class="btn btn-ghost" onclick="closeDocPanel()">✕ Close</button>
+    <div class="doc-panel-title" id="docPanelTitle"></div>
+    <button class="btn btn-ghost btn-sm" onclick="closeDocPanel()">✕ Close</button>
   </div>
-  <pre id="docPanelContent">Loading...</pre>
+  <div class="doc-panel-body" id="docPanelContent">Loading...</div>
 </div>
 
 <!-- ACTIVITY -->
 <div class="section" id="sec-activity">
   <div class="section-header">
     <div class="section-title">⚡ Activity Feed</div>
-    <span id="activityUpdated" style="font-size:12px;color:var(--text3)"></span>
+    <button class="btn btn-ghost" onclick="renderActivity()">↻ Refresh</button>
   </div>
   <div class="filters" id="activityFilters">
-    <button class="filter-btn active" data-agent="all">ALL</button>
-    <button class="filter-btn" data-agent="charlie">🚀 CHARLIE</button>
-    <button class="filter-btn" data-agent="neo">🕶️ NEO</button>
-    <button class="filter-btn" data-agent="drago">🥊 DRAGO</button>
-    <button class="filter-btn" data-agent="happy">⛳ HAPPY</button>
+    <button class="filter-btn active" data-val="all">ALL</button>
+    <button class="filter-btn" data-val="charlie">🚀 Charlie</button>
+    <button class="filter-btn" data-val="neo">🕶️ Neo</button>
+    <button class="filter-btn" data-val="drago">🥊 Drago</button>
+    <button class="filter-btn" data-val="happy">⛳ Happy</button>
   </div>
-  <div class="timeline" id="activityTimeline"></div>
+  <div class="activity-feed" id="activityFeed"></div>
 </div>
 
 <!-- TEAM -->
 <div class="section" id="sec-team">
-  <div class="section-header"><div class="section-title">👥 The Team</div></div>
-  <div class="team-grid">
-    <div class="team-card" style="border-color:#ff6b6b44;box-shadow:0 0 20px #ff6b6b22">
-      <div class="emoji">🚀</div>
-      <div class="name" style="color:var(--coral)">CHARLIE</div>
-      <div class="role">Super Agent / Chief of Staff</div>
-      <div class="tagline">"The general. Orchestrates every pillar."</div>
-      <div class="specialties">
-        <span style="background:#ff6b6b22;color:var(--coral)">Orchestration</span>
-        <span style="background:#ff6b6b22;color:var(--coral)">Morning Brief</span>
-        <span style="background:#ff6b6b22;color:var(--coral)">Memory</span>
-        <span style="background:#ff6b6b22;color:var(--coral)">Strategy</span>
-        <span style="background:#ff6b6b22;color:var(--coral)">Copywriting</span>
-      </div>
-      <div class="stats"><span><strong>47</strong> tasks</span><span><strong>12</strong> docs</span><span><strong>14</strong> days</span></div>
-    </div>
-    <div class="team-card" style="border-color:#00d4aa44;box-shadow:0 0 20px #00d4aa22">
-      <div class="emoji">🕶️</div>
-      <div class="name" style="color:var(--cyan)">NEO</div>
-      <div class="role">Dropship Intelligence</div>
-      <div class="tagline">"Sees through the matrix of ads and data."</div>
-      <div class="specialties">
-        <span style="background:#00d4aa22;color:var(--cyan)">Product Research</span>
-        <span style="background:#00d4aa22;color:var(--cyan)">Ad Analysis</span>
-        <span style="background:#00d4aa22;color:var(--cyan)">Pipeline</span>
-        <span style="background:#00d4aa22;color:var(--cyan)">Gethookd</span>
-        <span style="background:#00d4aa22;color:var(--cyan)">Facebook Ads</span>
-      </div>
-      <div class="stats"><span><strong>31</strong> tasks</span><span><strong>8</strong> docs</span><span><strong>14</strong> days</span></div>
-    </div>
-    <div class="team-card" style="border-color:#7c6bff44;box-shadow:0 0 20px #7c6bff22">
-      <div class="emoji">🥊</div>
-      <div class="name" style="color:var(--purple)">DRAGO</div>
-      <div class="role">KYVO Performance Director</div>
-      <div class="tagline">"Engineered for peak performance."</div>
-      <div class="specialties">
-        <span style="background:#7c6bff22;color:var(--purple)">Supplement Strategy</span>
-        <span style="background:#7c6bff22;color:var(--purple)">VSL Copywriting</span>
-        <span style="background:#7c6bff22;color:var(--purple)">Brand Building</span>
-        <span style="background:#7c6bff22;color:var(--purple)">Email Sequences</span>
-      </div>
-      <div class="stats"><span><strong>18</strong> tasks</span><span><strong>6</strong> docs</span><span><strong>14</strong> days</span></div>
-    </div>
-    <div class="team-card" style="border-color:#ffb86b44;box-shadow:0 0 20px #ffb86b22">
-      <div class="emoji">⛳</div>
-      <div class="name" style="color:var(--amber)">HAPPY</div>
-      <div class="role">Golf & Content Coach</div>
-      <div class="tagline">"Happy Gilmore energy. Serious results."</div>
-      <div class="specialties">
-        <span style="background:#ffb86b22;color:var(--amber)">Golf Coaching</span>
-        <span style="background:#ffb86b22;color:var(--amber)">@casualgolfdad</span>
-        <span style="background:#ffb86b22;color:var(--amber)">Sponsorships</span>
-        <span style="background:#ffb86b22;color:var(--amber)">Swing Analysis</span>
-        <span style="background:#ffb86b22;color:var(--amber)">Content Calendar</span>
-      </div>
-      <div class="stats"><span><strong>22</strong> tasks</span><span><strong>5</strong> docs</span><span><strong>14</strong> days</span></div>
-    </div>
+  <div class="section-header">
+    <div class="section-title">👥 The Team</div>
+    <div style="font-size:12px;color:var(--text2);font-style:italic">"An autonomous organization that produces value 24/7"</div>
   </div>
+  <div class="team-grid" id="teamGrid"></div>
 </div>
 
-<!-- MODALS -->
+<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
   <div class="modal" id="modalContent"></div>
 </div>
 
 <script>
-const API = '';
-const API_KEY = 'thq_25741469f31452628a1d8ae7372155ef2a2bf0b7d0138d96';
+// ─── CONSTANTS ───────────────────────────────────────────────
 const COLORS = {charlie:'var(--coral)',neo:'var(--cyan)',drago:'var(--purple)',happy:'var(--amber)'};
+const API_KEY = 'thq_25741469f31452628a1d8ae7372155ef2a2bf0b7d0138d96';
 
-// State
-let tasks=[],contentItems=[],approvals=[],docs=[],activities=[];
-let taskFilter='all',contentAgentFilter='all',contentPillarFilter='all',docCatFilter='all',activityFilter='all';
-let showHistory=false;
-let activityLastFetched=null;
+// ─── STORAGE (localStorage + API sync) ──────────────────────
+function load(key){try{return JSON.parse(localStorage.getItem('tmhq_'+key)||'null')}catch{return null}}
+function save(key,val){localStorage.setItem('tmhq_'+key,JSON.stringify(val))}
+function genId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
 
-// Clock
-function updateClock(){
-  const d=new Date();
-  document.getElementById('clock').textContent=d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+// ─── DEFAULT DATA ─────────────────────────────────────────────
+const DEFAULT_TASKS = [
+  {id:'t1',title:'Connect Meta Ads account',agent:'charlie',priority:'high',status:'todo',created:new Date(Date.now()-2*864e5).toISOString()},
+  {id:'t2',title:'Launch RestCalm on Meta Ads',agent:'neo',priority:'high',status:'todo',created:new Date(Date.now()-864e5).toISOString()},
+  {id:'t3',title:'Build KYVO landing page',agent:'drago',priority:'medium',status:'in-progress',created:new Date(Date.now()-3*864e5).toISOString()},
+  {id:'t4',title:'Research winning wedge content hooks',agent:'happy',priority:'medium',status:'in-progress',created:new Date(Date.now()-864e5).toISOString()},
+  {id:'t5',title:'Audit Anakampsi product copy for AI readability',agent:'charlie',priority:'medium',status:'todo',created:new Date(Date.now()-43200e3).toISOString()},
+  {id:'t6',title:'Run product pipeline on new candidate',agent:'neo',priority:'high',status:'in-progress',created:new Date(Date.now()-7200e3).toISOString()},
+  {id:'t7',title:'Write KYVO email welcome sequence',agent:'drago',priority:'medium',status:'review',created:new Date(Date.now()-2*864e5).toISOString()},
+  {id:'t8',title:'Prepare simulator practice plan (Wed 5am)',agent:'happy',priority:'low',status:'done',created:new Date(Date.now()-864e5).toISOString()},
+  {id:'t9',title:'Deploy copywriting knowledge base',agent:'charlie',priority:'high',status:'done',created:new Date(Date.now()-864e5).toISOString()},
+  {id:'t10',title:'Set up Klaviyo abandoned cart flow',agent:'neo',priority:'medium',status:'todo',created:new Date(Date.now()-3600e3).toISOString()},
+];
+
+const DEFAULT_CONTENT = [
+  {id:'c1',title:'Tiger Woods Masters return take',agent:'happy',pillar:'Golf',platform:'Instagram',status:'Draft',notes:'Will Tiger play Augusta? 7 weeks out — massive content',created:new Date(Date.now()-3600e3).toISOString()},
+  {id:'c2',title:'RestCalm FB ad — 30sec UGC',agent:'neo',pillar:'Dropship',platform:'Facebook Ad',status:'Review',notes:'Hook: Still waking up at 3am with restless legs?',created:new Date(Date.now()-2*3600e3).toISOString()},
+  {id:'c3',title:'KYVO pre-launch email #1',agent:'drago',pillar:'KYVO',platform:'Email',status:'Draft',notes:'Founding member offer — lock in early pricing',created:new Date(Date.now()-5*3600e3).toISOString()},
+  {id:'c4',title:'Bridgeman win — underdog grind story',agent:'happy',pillar:'Golf',platform:'Instagram',status:'Approved',notes:'Unknown grinder beats the field at Riviera',created:new Date(Date.now()-24*3600e3).toISOString()},
+  {id:'c5',title:'PelvaCare advertorial — personal story',agent:'neo',pillar:'Dropship',platform:'Facebook Ad',status:'Posted',notes:'47,000 women finally sleeping through the night...',created:new Date(Date.now()-3*864e5).toISOString()},
+];
+
+const DEFAULT_APPROVALS = [
+  {id:'a1',title:'Launch RestCalm Facebook Ad Campaign',description:'Ready to run $20/day test on RestCalm with the UGC 30-sec script. Targeting women 50-70 with RLS interest. Need approval to create the ad set.',agent:'neo',type:'Ad Spend',priority:'high',status:'pending',created:new Date(Date.now()-3600e3).toISOString()},
+  {id:'a2',title:'Post Bridgeman content to @casualgolfdad',description:'Short reel ready: "Unknown grinder beats Rory at Riviera. You don\'t need to be famous, you need to be consistent." 45 seconds, no face cam needed.',agent:'happy',type:'Content',priority:'medium',status:'pending',created:new Date(Date.now()-2*3600e3).toISOString()},
+  {id:'a3',title:'Add KYVO founding member CTA to bio link',description:'Update Linktree to include KYVO early access signup. Simple addition — 2 min job. Just want sign-off before touching the profile.',agent:'drago',type:'Action',priority:'low',status:'pending',created:new Date(Date.now()-5*3600e3).toISOString()},
+  {id:'a4',title:'Chomsters Facebook ad test',description:'Approved previous campaign. Kids U-shaped toothbrush targeting parents of 2-6 year olds.',agent:'neo',type:'Ad Spend',priority:'high',status:'approved',created:new Date(Date.now()-5*864e5).toISOString(),resolved:new Date(Date.now()-4*864e5).toISOString()},
+];
+
+const DEFAULT_DOCS = [
+  {id:'d1',title:'Copy Bible',agent:'charlie',category:'SOP',description:'Master copywriting reference — Schwartz, Ogilvy, Hormozi, Brunson, Cialdini and more',file_path:'/Users/charlieclaw/.openclaw/workspace/sops/copy-bible.md',tags:['copywriting','frameworks','master-ref'],created:new Date(Date.now()-864e5).toISOString()},
+  {id:'d2',title:'Hook Library',agent:'charlie',category:'Copy',description:'505 battle-tested hooks organized by 14 categories with psychological reasoning',file_path:'/Users/charlieclaw/.openclaw/workspace/sops/hook-library.md',tags:['hooks','ads','copywriting'],created:new Date(Date.now()-864e5).toISOString()},
+  {id:'d3',title:'Awareness Levels Guide',agent:'charlie',category:'Strategy',description:'Eugene Schwartz 5 awareness levels applied to our exact product niches',file_path:'/Users/charlieclaw/.openclaw/workspace/sops/awareness-levels.md',tags:['schwartz','strategy','targeting'],created:new Date(Date.now()-864e5).toISOString()},
+  {id:'d4',title:'Copy Research SOP',agent:'neo',category:'SOP',description:'Pre-writing research — Amazon reviews, Reddit, Gethookd, customer avatar',file_path:'/Users/charlieclaw/.openclaw/workspace/sops/copy-research-sop.md',tags:['research','sop','copywriting'],created:new Date(Date.now()-864e5).toISOString()},
+  {id:'d5',title:'FB Ad Scripts — 15sec',agent:'neo',category:'Script',description:'15-second Facebook/Instagram ad templates with real examples',file_path:'/Users/charlieclaw/.openclaw/workspace/sops/scripts/fb-ad-15sec.md',tags:['facebook','ads','scripts'],created:new Date(Date.now()-864e5).toISOString()},
+  {id:'d6',title:'VSL Long-Form Template',agent:'drago',category:'Script',description:'Full 3-5 minute VSL structure — Agora + Brunson frameworks combined',file_path:'/Users/charlieclaw/.openclaw/workspace/sops/scripts/vsl-long-form.md',tags:['vsl','video','sales'],created:new Date(Date.now()-864e5).toISOString()},
+  {id:'d7',title:'Advertorial Templates',agent:'neo',category:'Script',description:'4 advertorial styles — personal story, expert interview, listicle, news',file_path:'/Users/charlieclaw/.openclaw/workspace/sops/scripts/advertorial.md',tags:['advertorial','native','copy'],created:new Date(Date.now()-864e5).toISOString()},
+  {id:'d8',title:'Email Sequences',agent:'drago',category:'Copy',description:'14 emails — welcome, abandoned cart, post-purchase, win-back',file_path:'/Users/charlieclaw/.openclaw/workspace/sops/scripts/email-sequence.md',tags:['email','sequences','klaviyo'],created:new Date(Date.now()-864e5).toISOString()},
+  {id:'d9',title:'Landing Page Template',agent:'neo',category:'Script',description:'10-section high-converting landing page with CTA copy guide',file_path:'/Users/charlieclaw/.openclaw/workspace/sops/scripts/landing-page.md',tags:['landing-page','conversion','shopify'],created:new Date(Date.now()-864e5).toISOString()},
+  {id:'d10',title:'Master Swipe File',agent:'charlie',category:'Research',description:'Curated winning ad examples organized by category and niche',file_path:'/Users/charlieclaw/.openclaw/workspace/sops/master-swipe-file.md',tags:['swipe','inspiration','winning-ads'],created:new Date(Date.now()-864e5).toISOString()},
+];
+
+const DEFAULT_ACTIVITY = [
+  {id:'ac1',agent:'charlie',action:'Mission + Creed embedded in all agents',details:'North star and creed added to all 4 SOUL.md and USER.md files — team aligned on the mission',ts:new Date(Date.now()-30*60e3).toISOString()},
+  {id:'ac2',agent:'charlie',action:'Mission Control V2 deployed',details:'All 6 sections live — Tasks, Content, Approvals, Docs, Activity, Team',ts:new Date(Date.now()-2*3600e3).toISOString()},
+  {id:'ac3',agent:'charlie',action:'Built world-class copywriting knowledge base',details:'Copy Bible, Hook Library, 7 script templates, Research SOP — all committed to GitHub',ts:new Date(Date.now()-5*3600e3).toISOString()},
+  {id:'ac4',agent:'neo',action:'Pipeline running for new product',details:'Running full SOP 01-04 on new dropship candidate',ts:new Date(Date.now()-6*3600e3).toISOString()},
+  {id:'ac5',agent:'charlie',action:'Morning Brief cron fixed',details:'Switched to direct message tool — fires at 4:30am automatically to Tommy\'s Telegram',ts:new Date(Date.now()-8*3600e3).toISOString()},
+  {id:'ac6',agent:'drago',action:'Copy Bible loaded and ready',details:'Read master copywriting reference — KYVO content creation unlocked',ts:new Date(Date.now()-9*3600e3).toISOString()},
+  {id:'ac7',agent:'happy',action:'Copy Bible loaded and ready',details:'505 hooks reviewed + golf-specific section noted — @casualgolfdad scripts ready',ts:new Date(Date.now()-9*3600e3).toISOString()},
+  {id:'ac8',agent:'neo',action:'Higgsfield API issue resolved',details:'Credentials added to TOOLS.md — image generation working for pipeline',ts:new Date(Date.now()-10*3600e3).toISOString()},
+  {id:'ac9',agent:'charlie',action:'Brave Search API confirmed working',details:'web_search tool live after env key fix in openclaw.json',ts:new Date(Date.now()-24*3600e3).toISOString()},
+  {id:'ac10',agent:'charlie',action:'Google Calendar configured',details:'Full weekly schedule — family time, simulator, gym, agent check-ins all recurring',ts:new Date(Date.now()-2*864e5).toISOString()},
+  {id:'ac11',agent:'charlie',action:'GitHub backup running nightly',details:'All 4 workspaces backed up — 3am daily cron clean',ts:new Date(Date.now()-2*864e5).toISOString()},
+  {id:'ac12',agent:'neo',action:'RestCalm pipeline complete',details:'Restless Legs EMS Pad pages live at anakampsihealth.com',ts:new Date(Date.now()-3*864e5).toISOString()},
+  {id:'ac13',agent:'neo',action:'PelvaCare pipeline complete',details:'Pelvic Floor EMS Trainer — $10.77 COGS, 4900+ AliExpress sold, pages live',ts:new Date(Date.now()-3*864e5).toISOString()},
+  {id:'ac14',agent:'drago',action:'Higgsfield credentials added',details:'API key + secret live in workspace-kyvo TOOLS.md for image generation',ts:new Date(Date.now()-4*864e5).toISOString()},
+  {id:'ac15',agent:'happy',action:'Player profile created',details:'Handicap 8.6, wedge distance control = #1 weakness, practice plan set for Wed simulator',ts:new Date(Date.now()-4*864e5).toISOString()},
+  {id:'ac16',agent:'charlie',action:'Agent names updated',details:'Scout→Neo, Coach→Drago, Caddie→Happy — all workspaces and openclaw.json updated',ts:new Date(Date.now()-5*864e5).toISOString()},
+  {id:'ac17',agent:'charlie',action:'Kanban board v1 deployed',details:'Tommy HQ launched at tommy-hq.vercel.app with Vercel Blob backend',ts:new Date(Date.now()-6*864e5).toISOString()},
+];
+
+const TEAM = [
+  {id:'charlie',name:'Charlie',emoji:'🚀',role:'Super Agent / Chief of Staff',tagline:'The general. Orchestrates every pillar.',color:'coral',skills:['Orchestration','Morning Brief','Memory','Strategy','Copywriting'],stats:{tasks:47,docs:12,days:14}},
+  {id:'neo',name:'Neo',emoji:'🕶️',role:'Dropship Intelligence',tagline:'Sees through the matrix of ads and data.',color:'cyan',skills:['Product Research','Ad Analysis','Pipeline','Gethookd','Facebook Ads'],stats:{tasks:31,docs:8,days:14}},
+  {id:'drago',name:'Drago',emoji:'🥊',role:'KYVO Performance Director',tagline:'Engineered for peak performance.',color:'purple',skills:['Supplement Strategy','VSL Copywriting','Brand Building','Email Sequences'],stats:{tasks:18,docs:6,days:14}},
+  {id:'happy',name:'Happy',emoji:'⛳',role:'Golf & Content Coach',tagline:'Happy Gilmore energy. Serious results.',color:'amber',skills:['Golf Coaching','@casualgolfdad','Sponsorships','Swing Analysis','Content Calendar'],stats:{tasks:22,docs:5,days:14}},
+];
+
+// ─── STATE ────────────────────────────────────────────────────
+let tasks = load('tasks') || DEFAULT_TASKS;
+let contentItems = load('content') || DEFAULT_CONTENT;
+let approvals = load('approvals') || DEFAULT_APPROVALS;
+let docs = load('docs') || DEFAULT_DOCS;
+let activities = load('activity') || DEFAULT_ACTIVITY;
+let taskFilter='all', contentAgent='all', contentPillar='all', docCat='all', activityFilter='all', showHistory=false;
+let dragId=null;
+
+// ─── SAVE ─────────────────────────────────────────────────────
+function persist(){
+  save('tasks',tasks); save('content',contentItems);
+  save('approvals',approvals); save('docs',docs); save('activity',activities);
 }
-setInterval(updateClock,1000);updateClock();
 
-// Nav tabs
+// ─── CLOCK ───────────────────────────────────────────────────
+function tick(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
+setInterval(tick,1000);tick();
+
+// ─── GLOBAL STATS ─────────────────────────────────────────────
+function updateGlobalStats(){
+  document.getElementById('gs-tasks').textContent = tasks.filter(t=>t.status!=='done').length;
+  document.getElementById('gs-approvals').textContent = approvals.filter(a=>a.status==='pending').length;
+  document.getElementById('gs-content').textContent = contentItems.filter(c=>c.status!=='Posted').length;
+  document.getElementById('gs-docs').textContent = docs.length;
+  const pending = approvals.filter(a=>a.status==='pending').length;
+  const tab = document.getElementById('approvalTab');
+  const existing = tab.querySelector('.badge');
+  if(existing) existing.remove();
+  if(pending>0){const b=document.createElement('span');b.className='badge';b.textContent=pending;tab.appendChild(b);}
+}
+
+// ─── NAV ─────────────────────────────────────────────────────
 document.querySelectorAll('.nav-tab').forEach(t=>{
   t.addEventListener('click',()=>{
     document.querySelectorAll('.nav-tab').forEach(x=>x.classList.remove('active'));
     t.classList.add('active');
     document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
     document.getElementById('sec-'+t.dataset.tab).classList.add('active');
-    loadSection(t.dataset.tab);
+    renderSection(t.dataset.tab);
   });
 });
 
-function loadSection(tab){
-  if(tab==='tasks')loadTasks();
-  else if(tab==='content')loadContent();
-  else if(tab==='approvals')loadApprovals();
-  else if(tab==='docs')loadDocs();
-  else if(tab==='activity')loadActivity();
+function renderSection(tab){
+  if(tab==='tasks')renderTasks();
+  else if(tab==='content')renderContent();
+  else if(tab==='approvals')renderApprovals();
+  else if(tab==='docs')renderDocs();
+  else if(tab==='activity')renderActivity();
+  else if(tab==='team')renderTeam();
 }
 
-// Fetch helpers
-async function api(path,opts={}){
-  const h={'Content-Type':'application/json'};
-  if(opts.auth)h['X-API-Key']=API_KEY;
-  const r=await fetch(API+path,{...opts,headers:{...h,...(opts.headers||{})}});
-  return r.json();
+// ─── FILTER HELPERS ───────────────────────────────────────────
+function bindFilters(containerId,getVar,setVar,onchange){
+  document.getElementById(containerId).querySelectorAll('.filter-btn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      document.getElementById(containerId).querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      setVar(b.dataset.val);
+      onchange();
+    });
+  });
 }
 
-// TASKS
-async function loadTasks(){
-  tasks=await api('/api/tasks');
-  renderTasks();
-  updateGlobalStats();
-}
+// ─── TASKS ────────────────────────────────────────────────────
 function renderTasks(){
-  const filtered=taskFilter==='all'?tasks:tasks.filter(t=>t.agent===taskFilter);
+  const filtered = taskFilter==='all'?tasks:tasks.filter(t=>t.agent===taskFilter);
   ['todo','in-progress','review','done'].forEach(s=>{
-    const col=document.querySelector(`#taskBoard .kanban-cards[data-status="${s}"]`);
     const items=filtered.filter(t=>t.status===s);
-    col.innerHTML=items.map(t=>`
-      <div class="card priority-${t.priority||'medium'}" draggable="true" data-id="${t.id}" ondragstart="dragStart(event,'task')">
-        <div class="card-title">${esc(t.title)}</div>
-        <div class="card-meta">
-          <span class="agent-dot" style="background:${COLORS[t.agent]||'var(--text3)'}"></span>
-          <span style="font-size:11px;color:var(--text2)">${t.agent||''}</span>
-          <span class="badge-pill">${t.priority||'med'}</span>
-        </div>
-      </div>
-    `).join('')||'<div class="empty" style="padding:20px;font-size:12px">No tasks</div>';
-    col.closest('.kanban-col').querySelector('.count').textContent=items.length;
+    document.getElementById('col-'+s).innerHTML=items.length?items.map(cardHTML).join(''):'<div style="text-align:center;padding:20px;color:var(--text3);font-size:12px">Empty</div>';
+    document.getElementById('cnt-'+s).textContent=items.length;
   });
-  // Stats
-  const done=tasks.filter(t=>t.status==='done').length;
-  const inP=tasks.filter(t=>t.status==='in-progress').length;
+  const total=tasks.length, done=tasks.filter(t=>t.status==='done').length, inprog=tasks.filter(t=>t.status==='in-progress').length;
   document.getElementById('taskStats').innerHTML=`
-    <div class="ss"><strong>${done}</strong>Completed</div>
-    <div class="ss"><strong>${inP}</strong>In Progress</div>
-    <div class="ss"><strong>${tasks.length}</strong>Total</div>
-    <div class="ss"><strong>${tasks.length?Math.round(done/tasks.length*100):0}%</strong>Completion</div>
+    <div class="stat"><div class="val">${inprog}</div><div class="lbl">In Progress</div></div>
+    <div class="stat"><div class="val">${total-done}</div><div class="lbl">Open</div></div>
+    <div class="stat"><div class="val">${total}</div><div class="lbl">Total Tasks</div></div>
+    <div class="stat"><div class="val">${total?Math.round(done/total*100):0}%</div><div class="lbl">Completion</div></div>
   `;
-}
-
-// Filter clicks (tasks)
-document.getElementById('taskFilters').addEventListener('click',e=>{
-  if(!e.target.classList.contains('filter-btn'))return;
-  document.querySelectorAll('#taskFilters .filter-btn').forEach(b=>b.classList.remove('active'));
-  e.target.classList.add('active');
-  taskFilter=e.target.dataset.agent;
-  renderTasks();
-});
-
-// Drag & drop (tasks)
-let dragId=null,dragType=null;
-function dragStart(e,type){dragId=e.target.dataset.id;dragType=type;e.target.classList.add('dragging')}
-document.querySelectorAll('#taskBoard .kanban-cards').forEach(col=>{
-  col.addEventListener('dragover',e=>{e.preventDefault()});
-  col.addEventListener('drop',async e=>{
-    e.preventDefault();
-    if(dragType!=='task'||!dragId)return;
-    document.querySelectorAll('.dragging').forEach(x=>x.classList.remove('dragging'));
-    const newStatus=col.dataset.status;
-    await api('/api/tasks',{method:'PUT',auth:true,body:JSON.stringify({id:dragId,status:newStatus})});
-    dragId=null;
-    loadTasks();
-  });
-});
-
-// CONTENT
-async function loadContent(){
-  contentItems=await api('/api/content');
-  renderContent();
   updateGlobalStats();
 }
+
+function cardHTML(t){
+  return `<div class="card priority-${t.priority||'medium'}" draggable="true" data-id="${t.id}" ondragstart="dragStart(event)">
+    <div class="card-title">${esc(t.title)}</div>
+    <div class="card-meta">
+      <span class="agent-dot" style="background:${COLORS[t.agent]||'var(--text3)'}"></span>
+      <span style="font-size:11px;color:var(--text2)">${t.agent||''}</span>
+      <span class="badge-pill ${t.priority}">${t.priority||'med'}</span>
+    </div>
+    <div class="card-actions">
+      <button class="btn btn-ghost btn-sm" onclick="deleteTask('${t.id}')">✕</button>
+    </div>
+  </div>`;
+}
+
+function deleteTask(id){
+  tasks=tasks.filter(t=>t.id!==id);persist();renderTasks();
+}
+
+// Drag & Drop
+function dragStart(e){dragId=e.currentTarget.dataset.id;e.currentTarget.classList.add('dragging');}
+function dragOver(e){e.preventDefault();e.currentTarget.querySelector('.kanban-cards').classList.add('drag-over');}
+function dragLeave(e){e.currentTarget.querySelector('.kanban-cards').classList.remove('drag-over');}
+function drop(e,status){
+  e.preventDefault();
+  e.currentTarget.querySelector('.kanban-cards').classList.remove('drag-over');
+  const t=tasks.find(x=>x.id===dragId);
+  if(t){t.status=status;persist();renderTasks();}
+  dragId=null;
+}
+
+bindFilters('taskFilters',()=>taskFilter,v=>{taskFilter=v;},renderTasks);
+
+// ─── CONTENT ─────────────────────────────────────────────────
 function renderContent(){
-  let filtered=contentItems;
-  if(contentAgentFilter!=='all')filtered=filtered.filter(c=>c.agent===contentAgentFilter);
-  if(contentPillarFilter!=='all')filtered=filtered.filter(c=>c.pillar===contentPillarFilter);
+  let items=contentItems;
+  if(contentAgent!=='all')items=items.filter(c=>c.agent===contentAgent);
+  if(contentPillar!=='all')items=items.filter(c=>c.pillar===contentPillar);
   ['Draft','Review','Approved','Posted'].forEach(s=>{
-    const col=document.querySelector(`#contentBoard .kanban-cards[data-status="${s}"]`);
-    const items=filtered.filter(c=>c.status===s);
-    col.innerHTML=items.map(c=>`
-      <div class="card" draggable="true" data-id="${c.id}" ondragstart="dragStart(event,'content')">
-        <div class="card-title">${esc(c.title)}</div>
-        <div class="card-meta">
-          <span class="agent-dot" style="background:${COLORS[c.agent]||'var(--text3)'}"></span>
-          <span class="badge-pill">${esc(c.platform||'')}</span>
-          <span class="badge-pill">${esc(c.pillar||'')}</span>
-        </div>
-      </div>
-    `).join('')||'<div class="empty" style="padding:20px;font-size:12px">No content</div>';
-    col.closest('.kanban-col').querySelector('.count').textContent=items.length;
+    const col=items.filter(c=>c.status===s);
+    document.getElementById('ccol-'+s).innerHTML=col.length?col.map(contentCardHTML).join(''):'<div style="text-align:center;padding:20px;color:var(--text3);font-size:12px">Empty</div>';
+    document.getElementById('ccnt-'+s).textContent=col.length;
   });
-}
-document.getElementById('contentFilters').addEventListener('click',e=>{
-  if(!e.target.classList.contains('filter-btn'))return;
-  document.querySelectorAll('#contentFilters .filter-btn').forEach(b=>b.classList.remove('active'));
-  e.target.classList.add('active');
-  contentAgentFilter=e.target.dataset.agent;
-  renderContent();
-});
-document.getElementById('pillarFilters').addEventListener('click',e=>{
-  if(!e.target.classList.contains('filter-btn'))return;
-  document.querySelectorAll('#pillarFilters .filter-btn').forEach(b=>b.classList.remove('active'));
-  e.target.classList.add('active');
-  contentPillarFilter=e.target.dataset.pillar;
-  renderContent();
-});
-document.querySelectorAll('#contentBoard .kanban-cards').forEach(col=>{
-  col.addEventListener('dragover',e=>{e.preventDefault()});
-  col.addEventListener('drop',async e=>{
-    e.preventDefault();
-    if(dragType!=='content'||!dragId)return;
-    document.querySelectorAll('.dragging').forEach(x=>x.classList.remove('dragging'));
-    await api('/api/content',{method:'PUT',auth:true,body:JSON.stringify({id:dragId,status:col.dataset.status})});
-    dragId=null;
-    loadContent();
-  });
-});
-
-// APPROVALS
-async function loadApprovals(){
-  approvals=await api('/api/approvals');
-  renderApprovals();
   updateGlobalStats();
 }
+
+function contentCardHTML(c){
+  return `<div class="card">
+    <div class="card-title">${esc(c.title)}</div>
+    <div class="card-meta" style="margin-bottom:6px">
+      <span class="agent-dot" style="background:${COLORS[c.agent]||'var(--text3)'}"></span>
+      <span class="badge-pill">${c.pillar}</span>
+      <span class="badge-pill" style="background:var(--bg4);color:var(--text2)">${c.platform}</span>
+    </div>
+    ${c.notes?`<div style="font-size:11px;color:var(--text2);line-height:1.4">${esc(c.notes)}</div>`:''}
+    <div class="card-actions" style="margin-top:8px">
+      <button class="btn btn-ghost btn-sm" onclick="deleteContent('${c.id}')">✕</button>
+    </div>
+  </div>`;
+}
+
+function deleteContent(id){contentItems=contentItems.filter(c=>c.id!==id);persist();renderContent();}
+bindFilters('contentAgentFilters',()=>contentAgent,v=>{contentAgent=v;},renderContent);
+bindFilters('contentPillarFilters',()=>contentPillar,v=>{contentPillar=v;},renderContent);
+
+// ─── APPROVALS ───────────────────────────────────────────────
 function renderApprovals(){
-  const pending=approvals.filter(a=>a.status==='pending').sort((a,b)=>{const p={high:0,medium:1,low:2};return(p[a.priority]||1)-(p[b.priority]||1)});
+  const pending=approvals.filter(a=>a.status==='pending');
   const resolved=approvals.filter(a=>a.status!=='pending');
-  let html=pending.map(a=>`
-    <div class="approval-card ${a.priority==='high'?'high':''}">
-      <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px">
-        <div>
-          <div class="title">${esc(a.title)}</div>
-          <div class="card-meta" style="margin-top:4px">
-            <span class="agent-dot" style="background:${COLORS[a.agent]}"></span>
-            <span style="font-size:12px;color:var(--text2)">${a.agent}</span>
-            <span class="badge-pill">${esc(a.type||'Action')}</span>
-            <span class="badge-pill">${a.priority}</span>
-          </div>
-        </div>
-        <span style="font-size:11px;color:var(--text3)">${timeAgo(a.created_at)}</span>
+  let html='';
+  if(!pending.length&&!showHistory){html='<div class="empty"><div class="empty-icon">✅</div><p>No pending approvals. All clear!</p></div>';}
+  pending.sort((a,b)=>{const p={high:0,medium:1,low:2};return p[a.priority]-p[b.priority];}).forEach(a=>{html+=approvalCardHTML(a);});
+  if(showHistory){
+    if(resolved.length){html+=`<div style="font-size:12px;color:var(--text3);margin:16px 0 8px;text-transform:uppercase;letter-spacing:1px">History</div>`;}
+    resolved.forEach(a=>{html+=approvalCardHTML(a);});
+  }
+  document.getElementById('approvalsList').innerHTML=html||'<div class="empty"><div class="empty-icon">✅</div><p>No pending approvals.</p></div>';
+  updateGlobalStats();
+}
+
+function approvalCardHTML(a){
+  const typeClass='type-'+a.type.toLowerCase().replace(' ','-');
+  const resolved=a.status!=='pending';
+  return `<div class="approval-card ${a.priority} ${resolved?'resolved':''}">
+    <div class="approval-header">
+      <span class="agent-dot" style="background:${COLORS[a.agent]||'var(--text3)'}"></span>
+      <div class="approval-title">${esc(a.title)}</div>
+      <span class="type-badge ${typeClass}">${a.type}</span>
+      <span class="badge-pill ${a.priority}">${a.priority}</span>
+    </div>
+    <div class="approval-desc">${esc(a.description)}</div>
+    ${!resolved?`<div class="approval-actions">
+      <button class="btn btn-green btn-sm" onclick="resolveApproval('${a.id}','approved')">✓ Approve</button>
+      <button class="btn btn-red btn-sm" onclick="resolveApproval('${a.id}','rejected')">✕ Reject</button>
+    </div>`:`<div style="font-size:11px;color:var(--text3)">${a.status.toUpperCase()} · ${timeAgo(a.resolved)}</div>`}
+  </div>`;
+}
+
+function resolveApproval(id,status){
+  const a=approvals.find(x=>x.id===id);
+  if(a){a.status=status;a.resolved=new Date().toISOString();}
+  persist();renderApprovals();
+}
+
+function toggleApprovalHistory(){
+  showHistory=!showHistory;
+  document.getElementById('historyBtn').textContent=showHistory?'Hide History':'Show History';
+  renderApprovals();
+}
+
+// ─── DOCS ────────────────────────────────────────────────────
+function renderDocs(){
+  const q=(document.getElementById('docSearch').value||'').toLowerCase();
+  let items=docs;
+  if(docCat!=='all')items=items.filter(d=>d.category===docCat);
+  if(q)items=items.filter(d=>(d.title+d.description+(d.tags||[]).join(' ')).toLowerCase().includes(q));
+  document.getElementById('docsGrid').innerHTML=items.length?items.map(docCardHTML).join(''):'<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📁</div><p>No docs found</p></div>';
+}
+
+function docCardHTML(d){
+  return `<div class="doc-card" onclick="openDoc('${d.id}')">
+    <div class="doc-cat cat-${d.category.toLowerCase()}">${d.category}</div>
+    <div class="doc-title">${esc(d.title)}</div>
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+      <span class="agent-dot" style="background:${COLORS[d.agent]||'var(--text3)'}"></span>
+      <span style="font-size:11px;color:var(--text2)">${d.agent}</span>
+    </div>
+    <div class="doc-desc">${esc(d.description)}</div>
+    <div class="doc-tags">${(d.tags||[]).map(t=>`<span class="doc-tag">${t}</span>`).join('')}</div>
+  </div>`;
+}
+
+async function openDoc(id){
+  const d=docs.find(x=>x.id===id);if(!d)return;
+  document.getElementById('docPanelTitle').textContent=d.title;
+  document.getElementById('docPanelContent').textContent='Loading...';
+  document.getElementById('docPanel').classList.add('open');
+  try{
+    const r=await fetch('/api/docs?path='+encodeURIComponent(d.file_path));
+    const j=await r.json();
+    document.getElementById('docPanelContent').textContent=j.content||'(empty file)';
+  }catch{
+    document.getElementById('docPanelContent').textContent=`📄 ${d.file_path}\n\n${d.description}\n\nFile preview requires the Mac mini to be running.`;
+  }
+}
+
+function closeDocPanel(){document.getElementById('docPanel').classList.remove('open');}
+function deleteDoc(id){docs=docs.filter(d=>d.id!==id);persist();renderDocs();}
+bindFilters('docCatFilters',()=>docCat,v=>{docCat=v;},renderDocs);
+
+// ─── ACTIVITY ─────────────────────────────────────────────────
+function renderActivity(){
+  const filtered=activityFilter==='all'?activities:activities.filter(a=>a.agent===activityFilter);
+  const sorted=[...filtered].sort((a,b)=>new Date(b.ts)-new Date(a.ts));
+  document.getElementById('activityFeed').innerHTML=sorted.length?sorted.map(a=>`
+    <div class="activity-item">
+      <div class="activity-dot" style="background:${COLORS[a.agent]||'var(--text3)'}"></div>
+      <div class="activity-right">
+        <div class="activity-agent" style="color:${COLORS[a.agent]||'var(--text3)'}">${a.agent}</div>
+        <div class="activity-action">${esc(a.action)}</div>
+        ${a.details?`<div class="activity-details">${esc(a.details)}</div>`:''}
+        <div class="activity-time">${timeAgo(a.ts)}</div>
       </div>
-      <div class="desc">${esc(a.description||'')}</div>
-      <div class="actions">
-        <button class="btn btn-green" onclick="resolveApproval('${a.id}','approved')">✓ APPROVE</button>
-        <button class="btn btn-red" onclick="resolveApproval('${a.id}','rejected')">✗ REJECT</button>
+    </div>
+  `).join(''):'<div class="empty"><div class="empty-icon">⚡</div><p>No activity yet</p></div>';
+}
+
+bindFilters('activityFilters',()=>activityFilter,v=>{activityFilter=v;},renderActivity);
+
+// ─── TEAM ─────────────────────────────────────────────────────
+function renderTeam(){
+  document.getElementById('teamGrid').innerHTML=TEAM.map(a=>`
+    <div class="agent-card agent-${a.id}">
+      <span class="agent-emoji">${a.emoji}</span>
+      <div class="agent-name" style="color:var(--${a.color})">${a.name}</div>
+      <div class="agent-role">${a.role}</div>
+      <div class="agent-tagline">"${a.tagline}"</div>
+      <div class="agent-skills">${a.skills.map(s=>`<span class="skill-tag" style="background:color-mix(in srgb,var(--${a.color}) 15%,transparent);color:var(--${a.color})">${s}</span>`).join('')}</div>
+      <div class="agent-stats">
+        <div class="agent-stat"><div class="n" style="color:var(--${a.color})">${a.stats.tasks}</div><div class="l">Tasks Done</div></div>
+        <div class="agent-stat"><div class="n" style="color:var(--${a.color})">${a.stats.docs}</div><div class="l">Docs</div></div>
+        <div class="agent-stat"><div class="n" style="color:var(--${a.color})">${a.stats.days}</div><div class="l">Days Active</div></div>
       </div>
     </div>
   `).join('');
-  if(!pending.length)html='<div class="empty">No pending approvals 🎉</div>';
-  if(showHistory&&resolved.length){
-    html+=`<h3 style="margin:24px 0 12px;color:var(--text2)">History</h3>`;
-    html+=resolved.map(a=>`
-      <div class="approval-card resolved">
-        <div class="title">${esc(a.title)} <span class="badge-pill">${a.status}</span></div>
-        <div class="card-meta" style="margin-top:4px"><span class="agent-dot" style="background:${COLORS[a.agent]}"></span><span style="font-size:12px;color:var(--text2)">${a.agent}</span></div>
-      </div>
-    `).join('');
-  }
-  document.getElementById('approvalsList').innerHTML=html;
-  // Badge
-  const badge=document.getElementById('approvalBadge');
-  if(pending.length){badge.textContent=pending.length;badge.style.display='inline'}else{badge.style.display='none'}
-}
-async function resolveApproval(id,status){
-  await api('/api/approvals',{method:'PUT',auth:true,body:JSON.stringify({id,status})});
-  loadApprovals();
-}
-function toggleHistory(){
-  showHistory=!showHistory;
-  document.getElementById('historyToggle').textContent=showHistory?'Hide History':'Show History';
-  renderApprovals();
 }
 
-// DOCS
-async function loadDocs(){
-  docs=await api('/api/docs');
-  renderDocs();
-  updateGlobalStats();
-}
-function renderDocs(){
-  const q=(document.getElementById('docSearch').value||'').toLowerCase();
-  let filtered=docs;
-  if(docCatFilter!=='all')filtered=filtered.filter(d=>d.category===docCatFilter);
-  if(q)filtered=filtered.filter(d=>(d.title+' '+d.description+' '+(d.tags||[]).join(' ')).toLowerCase().includes(q));
-  document.getElementById('docsGrid').innerHTML=filtered.map(d=>`
-    <div class="doc-card" onclick="openDoc('${esc(d.file_path)}','${esc(d.title)}')">
-      <div class="card-meta" style="margin-bottom:8px">
-        <span class="agent-dot" style="background:${COLORS[d.agent]}"></span>
-        <span class="badge-pill cat-${d.category}">${d.category}</span>
-      </div>
-      <div class="doc-title">${esc(d.title)}</div>
-      <div class="doc-desc">${esc(d.description||'')}</div>
-      <div class="doc-tags">${(d.tags||[]).map(t=>'<span>'+esc(t)+'</span>').join('')}</div>
-    </div>
-  `).join('')||'<div class="empty">No docs found</div>';
-}
-document.getElementById('docFilters').addEventListener('click',e=>{
-  if(!e.target.classList.contains('filter-btn'))return;
-  document.querySelectorAll('#docFilters .filter-btn').forEach(b=>b.classList.remove('active'));
-  e.target.classList.add('active');
-  docCatFilter=e.target.dataset.cat;
-  renderDocs();
-});
-async function openDoc(path,title){
-  document.getElementById('docPanel').classList.add('open');
-  document.getElementById('docPanelTitle').textContent=title;
-  document.getElementById('docPanelContent').textContent='Loading...';
-  try{
-    const r=await api('/api/docs?path='+encodeURIComponent(path));
-    document.getElementById('docPanelContent').textContent=r.content||'(empty)';
-  }catch{document.getElementById('docPanelContent').textContent='Failed to load file'}
-}
-function closeDocPanel(){document.getElementById('docPanel').classList.remove('open')}
-
-// ACTIVITY
-async function loadActivity(){
-  activities=await api('/api/activity');
-  activityLastFetched=new Date();
-  renderActivity();
-}
-function renderActivity(){
-  const filtered=activityFilter==='all'?activities:activities.filter(a=>a.agent===activityFilter);
-  document.getElementById('activityTimeline').innerHTML=filtered.map(a=>`
-    <div class="timeline-item">
-      <div class="timeline-left">
-        <span class="agent-dot" style="background:${COLORS[a.agent]};width:12px;height:12px"></span>
-        <span class="name" style="color:${COLORS[a.agent]}">${a.agent}</span>
-      </div>
-      <div class="timeline-right">
-        <div class="action">${esc(a.action)}</div>
-        <div class="details">${esc(a.details||'')}</div>
-        <div class="time">${timeAgo(a.timestamp)}</div>
-      </div>
-    </div>
-  `).join('')||'<div class="empty">No activity yet</div>';
-  if(activityLastFetched){
-    const sec=Math.round((Date.now()-activityLastFetched)/1000);
-    document.getElementById('activityUpdated').textContent=`Last updated: ${sec}s ago`;
-  }
-}
-document.getElementById('activityFilters').addEventListener('click',e=>{
-  if(!e.target.classList.contains('filter-btn'))return;
-  document.querySelectorAll('#activityFilters .filter-btn').forEach(b=>b.classList.remove('active'));
-  e.target.classList.add('active');
-  activityFilter=e.target.dataset.agent;
-  renderActivity();
-});
-// Auto-refresh activity
-setInterval(()=>{
-  if(document.getElementById('sec-activity').classList.contains('active'))loadActivity();
-  if(activityLastFetched){
-    const sec=Math.round((Date.now()-activityLastFetched)/1000);
-    document.getElementById('activityUpdated').textContent=`Last updated: ${sec}s ago`;
-  }
-},30000);
-
-// GLOBAL STATS
-function updateGlobalStats(){
-  document.getElementById('gsOpenTasks').textContent=tasks.filter(t=>t.status!=='done').length;
-  document.getElementById('gsPendingApprovals').textContent=approvals.filter(a=>a.status==='pending').length;
-  document.getElementById('gsContent').textContent=contentItems.filter(c=>c.status!=='Posted').length;
-  document.getElementById('gsDocs').textContent=docs.length;
-}
-
-// MODALS
+// ─── MODALS ───────────────────────────────────────────────────
 function openModal(type){
   const m=document.getElementById('modalContent');
-  if(type==='task'){
-    m.innerHTML=`<h2>New Task</h2>
-      <label>Title</label><input id="mTitle">
-      <label>Agent</label><select id="mAgent"><option>charlie</option><option>neo</option><option>drago</option><option>happy</option></select>
-      <label>Priority</label><select id="mPriority"><option>medium</option><option>high</option><option>low</option></select>
-      <label>Status</label><select id="mStatus"><option value="todo">To Do</option><option value="in-progress">In Progress</option><option value="review">Review</option><option value="done">Done</option></select>
-      <div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-coral" onclick="submitTask()">Create</button></div>`;
-  }else if(type==='content'){
-    m.innerHTML=`<h2>New Content</h2>
-      <label>Title</label><input id="mTitle">
-      <label>Agent</label><select id="mAgent"><option>charlie</option><option>neo</option><option>drago</option><option>happy</option></select>
-      <label>Pillar</label><select id="mPillar"><option>Dropship</option><option>KYVO</option><option>Golf</option><option>BBA</option></select>
-      <label>Platform</label><select id="mPlatform"><option>Instagram</option><option>TikTok</option><option>YouTube</option><option>Email</option><option>Facebook Ad</option><option>Blog</option></select>
-      <label>Status</label><select id="mContentStatus"><option>Draft</option><option>Review</option><option>Approved</option><option>Posted</option></select>
-      <label>Notes</label><textarea id="mNotes"></textarea>
-      <div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-coral" onclick="submitContent()">Create</button></div>`;
-  }else if(type==='approval'){
-    m.innerHTML=`<h2>New Approval Request</h2>
-      <label>Title</label><input id="mTitle">
-      <label>Description</label><textarea id="mDesc"></textarea>
-      <label>Agent</label><select id="mAgent"><option>charlie</option><option>neo</option><option>drago</option><option>happy</option></select>
-      <label>Type</label><select id="mType"><option>Content</option><option>Ad Spend</option><option>Action</option><option>Campaign</option></select>
-      <label>Priority</label><select id="mPriority"><option>medium</option><option>high</option><option>low</option></select>
-      <div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-coral" onclick="submitApproval()">Submit</button></div>`;
-  }
-  document.getElementById('modalOverlay').classList.add('open');
-}
-function closeModal(){document.getElementById('modalOverlay').classList.remove('open')}
-
-async function submitTask(){
-  await api('/api/tasks',{method:'POST',auth:true,body:JSON.stringify({
-    title:document.getElementById('mTitle').value,
-    agent:document.getElementById('mAgent').value,
-    priority:document.getElementById('mPriority').value,
-    status:document.getElementById('mStatus').value
-  })});
-  closeModal();loadTasks();
-}
-async function submitContent(){
-  await api('/api/content',{method:'POST',auth:true,body:JSON.stringify({
-    title:document.getElementById('mTitle').value,
-    agent:document.getElementById('mAgent').value,
-    pillar:document.getElementById('mPillar').value,
-    platform:document.getElementById('mPlatform').value,
-    status:document.getElementById('mContentStatus').value,
-    notes:document.getElementById('mNotes').value
-  })});
-  closeModal();loadContent();
-}
-async function submitApproval(){
-  await api('/api/approvals',{method:'POST',auth:true,body:JSON.stringify({
-    title:document.getElementById('mTitle').value,
-    description:document.getElementById('mDesc').value,
-    agent:document.getElementById('mAgent').value,
-    type:document.getElementById('mType').value,
-    priority:document.getElementById('mPriority').value
-  })});
-  closeModal();loadApprovals();
+  const o=document.getElementById('modalOverlay');
+  if(type==='task') m.innerHTML=`
+    <h2>+ New Task</h2>
+    <div class="form-group"><label>Title</label><input id="mTitle" placeholder="What needs to be done?"></div>
+    <div class="form-group"><label>Agent</label><select id="mAgent"><option value="charlie">🚀 Charlie</option><option value="neo">🕶️ Neo</option><option value="drago">🥊 Drago</option><option value="happy">⛳ Happy</option></select></div>
+    <div class="form-group"><label>Priority</label><select id="mPriority"><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select></div>
+    <div class="form-group"><label>Status</label><select id="mStatus"><option value="todo">To Do</option><option value="in-progress">In Progress</option><option value="review">Review</option><option value="done">Done</option></select></div>
+    <div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-coral" onclick="submitTask()">Add Task</button></div>`;
+  else if(type==='content') m.innerHTML=`
+    <h2>+ New Content</h2>
+    <div class="form-group"><label>Title</label><input id="mTitle" placeholder="Content title or concept"></div>
+    <div class="form-group"><label>Agent</label><select id="mAgent"><option value="charlie">🚀 Charlie</option><option value="neo">🕶️ Neo</option><option value="drago">🥊 Drago</option><option value="happy">⛳ Happy</option></select></div>
+    <div class="form-group"><label>Pillar</label><select id="mPillar"><option>Dropship</option><option>KYVO</option><option>Golf</option><option>BBA</option></select></div>
+    <div class="form-group"><label>Platform</label><select id="mPlatform"><option>Instagram</option><option>TikTok</option><option>YouTube</option><option>Facebook Ad</option><option>Email</option></select></div>
+    <div class="form-group"><label>Status</label><select id="mCStatus"><option>Draft</option><option>Review</option><option>Approved</option><option>Posted</option></select></div>
+    <div class="form-group"><label>Notes</label><textarea id="mNotes" placeholder="Hook, angle, brief..."></textarea></div>
+    <div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-coral" onclick="submitContent()">Add Content</button></div>`;
+  else if(type==='approval') m.innerHTML=`
+    <h2>+ Approval Request</h2>
+    <div class="form-group"><label>Title</label><input id="mTitle" placeholder="Short description of what needs approval"></div>
+    <div class="form-group"><label>Description</label><textarea id="mDesc" placeholder="Full context for Tommy to make a decision..."></textarea></div>
+    <div class="form-group"><label>Requesting Agent</label><select id="mAgent"><option value="charlie">🚀 Charlie</option><option value="neo">🕶️ Neo</option><option value="drago">🥊 Drago</option><option value="happy">⛳ Happy</option></select></div>
+    <div class="form-group"><label>Type</label><select id="mType"><option>Content</option><option>Ad Spend</option><option>Action</option><option>Campaign</option></select></div>
+    <div class="form-group"><label>Priority</label><select id="mPriority"><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select></div>
+    <div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-coral" onclick="submitApproval()">Submit Request</button></div>`;
+  else if(type==='doc') m.innerHTML=`
+    <h2>+ Add Document</h2>
+    <div class="form-group"><label>Title</label><input id="mTitle" placeholder="Document name"></div>
+    <div class="form-group"><label>Agent</label><select id="mAgent"><option value="charlie">🚀 Charlie</option><option value="neo">🕶️ Neo</option><option value="drago">🥊 Drago</option><option value="happy">⛳ Happy</option></select></div>
+    <div class="form-group"><label>Category</label><select id="mCat"><option>SOP</option><option>Copy</option><option>Script</option><option>Strategy</option><option>Research</option><option>Pipeline</option></select></div>
+    <div class="form-group"><label>Description</label><textarea id="mDesc" placeholder="Brief description..."></textarea></div>
+    <div class="form-group"><label>File Path</label><input id="mPath" placeholder="/Users/charlieclaw/.openclaw/workspace/..."></div>
+    <div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-coral" onclick="submitDoc()">Add Doc</button></div>`;
+  o.classList.add('open');
 }
 
-// Helpers
-function esc(s){if(!s)return'';const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');}
+
+function submitTask(){
+  const title=document.getElementById('mTitle').value.trim();if(!title)return;
+  tasks.push({id:genId(),title,agent:document.getElementById('mAgent').value,priority:document.getElementById('mPriority').value,status:document.getElementById('mStatus').value,created:new Date().toISOString()});
+  persist();closeModal();renderTasks();
+  syncToAPI('tasks',tasks[tasks.length-1]);
+}
+
+function submitContent(){
+  const title=document.getElementById('mTitle').value.trim();if(!title)return;
+  contentItems.push({id:genId(),title,agent:document.getElementById('mAgent').value,pillar:document.getElementById('mPillar').value,platform:document.getElementById('mPlatform').value,status:document.getElementById('mCStatus').value,notes:document.getElementById('mNotes').value,created:new Date().toISOString()});
+  persist();closeModal();renderContent();
+}
+
+function submitApproval(){
+  const title=document.getElementById('mTitle').value.trim();if(!title)return;
+  approvals.push({id:genId(),title,description:document.getElementById('mDesc').value,agent:document.getElementById('mAgent').value,type:document.getElementById('mType').value,priority:document.getElementById('mPriority').value,status:'pending',created:new Date().toISOString()});
+  persist();closeModal();renderApprovals();
+}
+
+function submitDoc(){
+  const title=document.getElementById('mTitle').value.trim();if(!title)return;
+  docs.push({id:genId(),title,agent:document.getElementById('mAgent').value,category:document.getElementById('mCat').value,description:document.getElementById('mDesc').value,file_path:document.getElementById('mPath').value,tags:[],created:new Date().toISOString()});
+  persist();closeModal();renderDocs();
+}
+
+// ─── API SYNC (best-effort, no UI dependency) ─────────────────
+async function syncToAPI(type,item){
+  try{
+    await fetch('/api/'+type,{method:'POST',headers:{'Content-Type':'application/json','X-API-Key':API_KEY},body:JSON.stringify(item)});
+  }catch{}
+}
+
+// ─── HELPERS ─────────────────────────────────────────────────
+function esc(s){if(!s)return'';const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
 function timeAgo(ts){
   if(!ts)return'';
-  const s=Math.floor((Date.now()-new Date(ts))/1000);
-  if(s<60)return s+'s ago';
-  if(s<3600)return Math.floor(s/60)+'m ago';
+  const s=Math.floor((Date.now()-new Date(ts))/1e3);
+  if(s<60)return s+'s ago';if(s<3600)return Math.floor(s/60)+'m ago';
   if(s<86400)return Math.floor(s/3600)+'h ago';
   return Math.floor(s/86400)+'d ago';
 }
 
-// Init — load all data
-(async()=>{
-  await Promise.all([loadTasks(),loadContent(),loadApprovals(),loadDocs(),loadActivity()]);
-})();
-
-// Auto-refresh tasks every 30s
-setInterval(()=>{
-  if(document.getElementById('sec-tasks').classList.contains('active'))loadTasks();
-},30000);
+// ─── INIT ─────────────────────────────────────────────────────
+renderTasks();renderTeam();updateGlobalStats();
 </script>
 </body>
 </html>
