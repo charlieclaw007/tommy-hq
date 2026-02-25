@@ -2,8 +2,10 @@
   "buildCommand": "",
   "outputDirectory": ".",
   "functions": {
-    "api/tasks.js": {
-      "maxDuration": 10
-    }
+    "api/tasks.js": {"maxDuration": 10},
+    "api/content.js": {"maxDuration": 10},
+    "api/approvals.js": {"maxDuration": 10},
+    "api/activity.js": {"maxDuration": 10},
+    "api/docs.js": {"maxDuration": 15}
   }
 }
