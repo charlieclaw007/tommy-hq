@@ -169,12 +169,14 @@ html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--
 .org-labels::before{content:'';position:absolute;top:50%;left:20%;right:20%;height:1px;background:var(--bg4)}
 .org-label{font-size:10px;color:var(--text3);font-weight:600;letter-spacing:1px;text-transform:uppercase;background:var(--bg);padding:0 8px;z-index:1;position:relative}
 /* Agent row */
-.agents-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-@media(max-width:700px){.agents-row{grid-template-columns:1fr}}
+.agents-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:900px){.agents-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.agents-row{grid-template-columns:1fr}}
 .agent-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:16px;transition:all .3s}
 .agent-neo:hover{box-shadow:0 8px 25px #00d4aa22;border-color:#00d4aa55}
 .agent-drago:hover{box-shadow:0 8px 25px #7c6bff22;border-color:#7c6bff55}
 .agent-happy:hover{box-shadow:0 8px 25px #ffb86b22;border-color:#ffb86b55}
+.agent-bob:hover{box-shadow:0 8px 25px #e879f922;border-color:#e879f955}
 .agent-header{display:flex;align-items:center;gap:12px;margin-bottom:10px}
 .agent-sm-avatar{width:48px;height:48px;border-radius:10px;object-fit:cover;background:var(--bg4);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden}
 .agent-sm-avatar img{width:100%;height:100%;object-fit:cover;border-radius:10px}
@@ -374,7 +376,7 @@ html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--
     <div class="team-quote"><span>"Build an empire so my children inherit freedom, not limitation."</span></div>
     <div class="team-heading">
       <h2>Meet the Team</h2>
-      <p>4 AI agents, each with a real role and a real personality.</p>
+      <p>5 AI agents, each with a real role and a real personality.</p>
       <p style="margin-top:12px;font-size:13px;color:var(--text2);font-style:italic;line-height:1.8;max-width:640px;margin-left:auto;margin-right:auto">
         "We build for Tommy's family. Not for vanity. Not for scorecards.<br>
         Because behind every pipeline we run, every ad we launch, every brief we write —<br>
@@ -462,6 +464,24 @@ html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--
           <span class="skill-tag" style="background:#ffb86b22;color:#ffb86b">@casualgolfdad</span>
           <span class="skill-tag" style="background:#ffb86b22;color:#ffb86b">Sponsorships</span>
           <span class="skill-tag" style="background:#ffb86b22;color:#ffb86b">Content</span>
+        </div>
+        <button class="role-card-btn">ROLE CARD →</button>
+      </div>
+
+      <div class="agent-card agent-bob">
+        <div class="agent-header">
+          <div class="agent-sm-avatar" id="avatar-bob">🎨</div>
+          <div>
+            <div class="agent-name" style="color:#e879f9">Bob</div>
+            <div class="agent-role">Creative Agent</div>
+          </div>
+        </div>
+        <div class="agent-desc">Named after Bob Ross. Turns product briefs into scroll-stopping ad creatives. Every image is a weapon. Happy little accidents that convert.</div>
+        <div class="agent-skills">
+          <span class="skill-tag" style="background:#e879f922;color:#e879f9">Ad Creatives</span>
+          <span class="skill-tag" style="background:#e879f922;color:#e879f9">Product Photos</span>
+          <span class="skill-tag" style="background:#e879f922;color:#e879f9">Higgsfield</span>
+          <span class="skill-tag" style="background:#e879f922;color:#e879f9">Brand Visuals</span>
         </div>
         <button class="role-card-btn">ROLE CARD →</button>
       </div>
@@ -828,6 +848,7 @@ const AVATARS = {
   neo: '/avatars/neo.png',
   drago: '/avatars/drago.png',
   happy: '/avatars/happy.png',
+  bob: '/avatars/bob.png',
 };
 
 function loadAvatars(){
