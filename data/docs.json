@@ -1,0 +1,122 @@
+[
+  {
+    "id": "doc001",
+    "title": "Master Copywriting Bible",
+    "agent": "charlie",
+    "folder": "SOPs",
+    "description": "Eugene Schwartz, Gary Halbert, Ogilvy, Dan Kennedy, Hormozi, Brunson, Cialdini — full framework. Headline formulas, psychological principles, offer construction, copy checklist.",
+    "gdoc_url": "",
+    "tags": ["copywriting", "all-agents", "reference"],
+    "created_at": "2026-02-24T20:00:00.000Z"
+  },
+  {
+    "id": "doc002",
+    "title": "Hook Library — 505 Battle-Tested Hooks",
+    "agent": "charlie",
+    "folder": "SOPs",
+    "description": "505 hooks across 14 categories: pain, curiosity, social proof, enemy, pattern interrupt, story, contrarian, authority, fear, transformation, specificity, time, niche-specific.",
+    "gdoc_url": "",
+    "tags": ["hooks", "copywriting", "ads"],
+    "created_at": "2026-02-24T20:00:00.000Z"
+  },
+  {
+    "id": "doc003",
+    "title": "Awareness Levels Guide",
+    "agent": "charlie",
+    "folder": "SOPs",
+    "description": "Eugene Schwartz's 5 awareness levels applied to RestCalm, PelvaCare, LumaFlex, KYVO, and golf niches. Copy approach, headlines, traffic sources, and funnel architecture for each level.",
+    "gdoc_url": "",
+    "tags": ["copywriting", "funnel", "awareness"],
+    "created_at": "2026-02-24T20:00:00.000Z"
+  },
+  {
+    "id": "doc004",
+    "title": "Copy Research SOP",
+    "agent": "charlie",
+    "folder": "SOPs",
+    "description": "Pre-writing research protocol: Amazon review mining, Reddit research, YouTube comment mining, Gethookd competitor analysis, customer avatar template, Voice of Customer document, Big Idea and Unique Mechanism creation.",
+    "gdoc_url": "",
+    "tags": ["research", "copywriting", "SOP"],
+    "created_at": "2026-02-24T20:00:00.000Z"
+  },
+  {
+    "id": "doc005",
+    "title": "Image Generation Bible",
+    "agent": "bob",
+    "folder": "Creative",
+    "description": "6-component prompt formula, platform specs, product playbooks for EMS devices, supplements, and golf. Image type templates, advanced techniques, and quality checklist.",
+    "gdoc_url": "",
+    "tags": ["images", "Higgsfield", "ads", "creative"],
+    "created_at": "2026-02-25T16:00:00.000Z"
+  },
+  {
+    "id": "doc006",
+    "title": "RestCalm — Full Product Pipeline",
+    "agent": "neo",
+    "folder": "Dropshipping",
+    "description": "Complete SOP 01-04 for RestCalm EMS Relief Pad. COGS $8, sell $49.99, targeting 50-70yr women with RLS. Product page + advertorial live on Anakampsi.",
+    "gdoc_url": "",
+    "tags": ["RestCalm", "pipeline", "EMS", "product"],
+    "created_at": "2026-02-20T00:00:00.000Z"
+  },
+  {
+    "id": "doc007",
+    "title": "Facebook Ad Script — 15 Second Template",
+    "agent": "charlie",
+    "folder": "SOPs",
+    "description": "15-second Facebook/Instagram ad script template with health niche examples. Hook → problem → solution → CTA structure.",
+    "gdoc_url": "",
+    "tags": ["ads", "scripts", "15sec", "Facebook"],
+    "created_at": "2026-02-24T21:00:00.000Z"
+  },
+  {
+    "id": "doc008",
+    "title": "Facebook Ad Script — 60 Second VSL Lite",
+    "agent": "charlie",
+    "folder": "SOPs",
+    "description": "60-second VSL lite template using Agora + Brunson frameworks. Full hook, story, mechanism, offer, CTA breakdown with health niche examples.",
+    "gdoc_url": "",
+    "tags": ["ads", "scripts", "VSL", "Facebook"],
+    "created_at": "2026-02-24T21:00:00.000Z"
+  },
+  {
+    "id": "doc009",
+    "title": "Advertorial Template — 4 Styles",
+    "agent": "charlie",
+    "folder": "SOPs",
+    "description": "4 advertorial styles: story-based, news-style, listicle, and editorial. Includes compliance guide for health claims.",
+    "gdoc_url": "",
+    "tags": ["advertorial", "copywriting", "compliance"],
+    "created_at": "2026-02-24T21:00:00.000Z"
+  },
+  {
+    "id": "doc010",
+    "title": "Landing Page Template — Section by Section",
+    "agent": "charlie",
+    "folder": "SOPs",
+    "description": "Full landing page framework: hero, social proof, problem, mechanism, offer stack, guarantee, FAQ, CTA. Includes conversion psychology notes for each section.",
+    "gdoc_url": "",
+    "tags": ["landing page", "conversion", "copywriting"],
+    "created_at": "2026-02-24T21:00:00.000Z"
+  },
+  {
+    "id": "doc011",
+    "title": "Email Sequence Templates",
+    "agent": "charlie",
+    "folder": "SOPs",
+    "description": "Welcome (5 emails), abandoned cart (3), post-purchase upsell (3), win-back (3). Full sequence templates with subject lines and copy.",
+    "gdoc_url": "",
+    "tags": ["email", "sequences", "Klaviyo"],
+    "created_at": "2026-02-24T21:00:00.000Z"
+  },
+  {
+    "id": "doc012",
+    "title": "Dropship Pipeline SOP — Full Orchestrator",
+    "agent": "neo",
+    "folder": "Dropshipping",
+    "description": "One-prompt orchestrator that runs the full 4-stage pipeline: Brand Kit → Foundation Docs → Advertorial + Creative (parallel) → Builder. ~20-25 min end-to-end.",
+    "gdoc_url": "",
+    "tags": ["pipeline", "SOP", "orchestrator"],
+    "created_at": "2026-02-20T00:00:00.000Z"
+  }
+]
