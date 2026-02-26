@@ -358,7 +358,7 @@ html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--
 <div class="section" id="sec-activity">
   <div class="section-header">
     <div class="section-title">⚡ Activity Feed</div>
-    <button class="btn btn-ghost" onclick="renderActivity()">↻ Refresh</button>
+    <button class="btn btn-ghost" onclick="fetchAndRenderActivity()">↻ Refresh</button>
   </div>
   <div class="filters" id="activityFilters">
     <button class="filter-btn active" data-val="all">ALL</button>
@@ -630,11 +630,11 @@ document.querySelectorAll('.nav-tab').forEach(t=>{
 });
 
 function renderSection(tab){
-  if(tab==='tasks')renderTasks();
+  if(tab==='tasks')fetchAndRenderTasks();
   else if(tab==='content')renderContent();
   else if(tab==='approvals')renderApprovals();
   else if(tab==='docs')renderDocs();
-  else if(tab==='activity')renderActivity();
+  else if(tab==='activity')fetchAndRenderActivity();
   else if(tab==='team')renderTeam();
 }
 
@@ -651,6 +651,16 @@ function bindFilters(containerId,getVar,setVar,onchange){
 }
 
 // ─── TASKS ────────────────────────────────────────────────────
+async function fetchAndRenderTasks(){
+  try{
+    const r=await fetch('/api/tasks');
+    if(r.ok){
+      const remote=await r.json();
+      if(remote.length>0){tasks=remote;save('tasks',tasks);}
+    }
+  }catch{}
+  renderTasks();
+}
 function renderTasks(){
   const filtered = taskFilter==='all'?tasks:tasks.filter(t=>t.agent===taskFilter);
   ['todo','in-progress','review','done'].forEach(s=>{
@@ -818,9 +828,23 @@ function deleteDoc(id){docs=docs.filter(d=>d.id!==id);persist();renderDocs();}
 bindFilters('docCatFilters',()=>docCat,v=>{docCat=v;},renderDocs);
 
 // ─── ACTIVITY ─────────────────────────────────────────────────
+async function fetchAndRenderActivity(){
+  const feed=document.getElementById('activityFeed');
+  feed.innerHTML='<div style="padding:20px;color:var(--text3);text-align:center;font-size:12px">Loading…</div>';
+  try{
+    const r=await fetch('/api/activity');
+    if(r.ok){
+      const remote=await r.json();
+      // normalize: API uses timestamp, local uses ts
+      activities=remote.map(a=>({...a,ts:a.ts||a.timestamp}));
+      save('activity',activities);
+    }
+  }catch{}
+  renderActivity();
+}
 function renderActivity(){
   const filtered=activityFilter==='all'?activities:activities.filter(a=>a.agent===activityFilter);
-  const sorted=[...filtered].sort((a,b)=>new Date(b.ts)-new Date(a.ts));
+  const sorted=[...filtered].sort((a,b)=>new Date(b.ts||b.timestamp)-new Date(a.ts||a.timestamp));
   document.getElementById('activityFeed').innerHTML=sorted.length?sorted.map(a=>`
     <div class="activity-item">
       <div class="activity-dot" style="background:${COLORS[a.agent]||'var(--text3)'}"></div>
@@ -828,7 +852,7 @@ function renderActivity(){
         <div class="activity-agent" style="color:${COLORS[a.agent]||'var(--text3)'}">${a.agent}</div>
         <div class="activity-action">${esc(a.action)}</div>
         ${a.details?`<div class="activity-details">${esc(a.details)}</div>`:''}
-        <div class="activity-time">${timeAgo(a.ts)}</div>
+        <div class="activity-time">${timeAgo(a.ts||a.timestamp)}</div>
       </div>
     </div>
   `).join(''):'<div class="empty"><div class="empty-icon">⚡</div><p>No activity yet</p></div>';
@@ -947,7 +971,7 @@ function timeAgo(ts){
 }
 
 // ─── INIT ─────────────────────────────────────────────────────
-renderTasks();updateGlobalStats();loadAvatars();
+fetchAndRenderTasks();updateGlobalStats();loadAvatars();
 </script>
 </body>
 </html>

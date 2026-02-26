@@ -1,0 +1,72 @@
+[
+  {
+    "id": "act001",
+    "agent": "charlie",
+    "action": "Nightly work sessions activated",
+    "details": "All 4 agents now work autonomously overnight — Happy 10:30PM, Neo 11PM, Drago 11:30PM, Bob 1AM",
+    "timestamp": "2026-02-25T23:30:00.000Z"
+  },
+  {
+    "id": "act002",
+    "agent": "charlie",
+    "action": "Security hardening deployed",
+    "details": "Prompt injection defense + no-exfiltration rules added to all 5 agent AGENTS.md and SOUL.md files. Canary file created.",
+    "timestamp": "2026-02-25T22:00:00.000Z"
+  },
+  {
+    "id": "act003",
+    "agent": "charlie",
+    "action": "Mission Control Activity Feed fixed",
+    "details": "Switched from Vercel Blob (broken) to GitHub JSON storage. Activity and Tasks now sync live from API.",
+    "timestamp": "2026-02-26T03:00:00.000Z"
+  },
+  {
+    "id": "act004",
+    "agent": "charlie",
+    "action": "Bob added to nightly backup",
+    "details": "workspace-creative now included in Daily GitHub Backup cron (3 AM). All 5 workspaces covered.",
+    "timestamp": "2026-02-25T19:00:00.000Z"
+  },
+  {
+    "id": "act005",
+    "agent": "charlie",
+    "action": "Weekly Business Report cron created",
+    "details": "Every Friday 9 AM — full 4-pillar wrap delivered to Tommy covering all agent activity for the week.",
+    "timestamp": "2026-02-25T19:05:00.000Z"
+  },
+  {
+    "id": "act006",
+    "agent": "charlie",
+    "action": "Mission + Creed embedded in all agents",
+    "details": "North star and creed added to all 5 SOUL.md and USER.md files — team aligned on the mission.",
+    "timestamp": "2026-02-25T17:00:00.000Z"
+  },
+  {
+    "id": "act007",
+    "agent": "charlie",
+    "action": "Bob 🎨 creative agent launched",
+    "details": "New agent named after Bob Ross. Image generation specialist using Higgsfield nano-banana-pro. Workspace + GitHub repo created.",
+    "timestamp": "2026-02-25T16:00:00.000Z"
+  },
+  {
+    "id": "act008",
+    "agent": "charlie",
+    "action": "Copywriting knowledge base built",
+    "details": "Copy Bible, Hook Library (505 hooks), Awareness Levels, Research SOP, 7 script templates — all committed to GitHub.",
+    "timestamp": "2026-02-24T20:00:00.000Z"
+  },
+  {
+    "id": "act009",
+    "agent": "neo",
+    "action": "Pipeline running for new product",
+    "details": "Running full SOP 01-04 on new dropship candidate",
+    "timestamp": "2026-02-24T18:00:00.000Z"
+  },
+  {
+    "id": "act010",
+    "agent": "charlie",
+    "action": "Morning Brief cron fixed",
+    "details": "Switched to direct message tool — fires at 4:30am automatically to Tommy's Telegram.",
+    "timestamp": "2026-02-24T10:00:00.000Z"
+  }
+]

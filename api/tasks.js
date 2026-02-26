@@ -1,6 +1,35 @@
-import { put, list, del } from '@vercel/blob';
+const REPO = 'charlieclaw007/tommy-hq';
+const FILE = 'data/tasks.json';
+const GH = 'https://api.github.com';
 
-const PREFIX = 'task/';
+function ghHeaders() {
+  return {
+    Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+    Accept: 'application/vnd.github+json',
+    'Content-Type': 'application/json',
+    'X-GitHub-Api-Version': '2022-11-28',
+  };
+}
+
+async function readData() {
+  const res = await fetch(`${GH}/repos/${REPO}/contents/${FILE}?ref=main&t=${Date.now()}`, { headers: ghHeaders() });
+  if (!res.ok) return { data: [], sha: null };
+  const json = await res.json();
+  try {
+    const data = JSON.parse(Buffer.from(json.content, 'base64').toString('utf8'));
+    return { data, sha: json.sha };
+  } catch { return { data: [], sha: json.sha }; }
+}
+
+async function writeData(data, sha) {
+  const content = Buffer.from(JSON.stringify(data, null, 2)).toString('base64');
+  const body = { message: 'data: update tasks', content, branch: 'main' };
+  if (sha) body.sha = sha;
+  const res = await fetch(`${GH}/repos/${REPO}/contents/${FILE}`, {
+    method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body),
+  });
+  return res.ok;
+}
 
 function cors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -13,24 +42,8 @@ function auth(req) {
   return req.headers['x-api-key'] === process.env.API_KEY;
 }
 
-async function getAllTasks() {
-  const tasks = [];
-  let cursor = undefined;
-  do {
-    const result = await list({ prefix: PREFIX, cursor });
-    for (const blob of result.blobs) {
-      try {
-        const res = await fetch(blob.url + '?t=' + Date.now());
-        if (res.ok) tasks.push(await res.json());
-      } catch {}
-    }
-    cursor = result.hasMore ? result.cursor : undefined;
-  } while (cursor);
-  return tasks;
-}
-
 function genId() {
-  return Math.random().toString(36).slice(2, 10);
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
 }
 
 export default async function handler(req, res) {
@@ -43,12 +56,12 @@ export default async function handler(req, res) {
 
   try {
     if (req.method === 'GET') {
-      const tasks = await getAllTasks();
-      return res.status(200).json(tasks);
+      const { data } = await readData();
+      return res.status(200).json(data);
     }
 
     if (req.method === 'POST') {
-      const { title, agent, priority, status } = req.body;
+      const { title, agent, priority, status } = req.body || {};
       if (!title) return res.status(400).json({ error: 'title required' });
       const task = {
         id: genId(), title,
@@ -57,45 +70,35 @@ export default async function handler(req, res) {
         status: status || 'todo',
         date: new Date().toISOString().slice(0, 10),
       };
-      await put(PREFIX + task.id + '.json', JSON.stringify(task), {
-        access: 'public',
-        contentType: 'application/json',
-        addRandomSuffix: false,
-      });
+      const { data, sha } = await readData();
+      data.push(task);
+      await writeData(data, sha);
       return res.status(201).json(task);
     }
 
     if (req.method === 'PUT') {
-      const { id: taskId, ...updates } = req.body;
+      const { id: taskId, ...updates } = req.body || {};
       if (!taskId) return res.status(400).json({ error: 'id required' });
-      
-      // Find existing task blob
-      const { blobs } = await list({ prefix: PREFIX + taskId });
-      if (!blobs.length) return res.status(404).json({ error: 'task not found' });
-      
-      const existing = await (await fetch(blobs[0].url + '?t=' + Date.now())).json();
-      const updated = { ...existing, ...updates, id: taskId };
-      
-      await put(PREFIX + taskId + '.json', JSON.stringify(updated), {
-        access: 'public',
-        contentType: 'application/json',
-        addRandomSuffix: false,
-      });
-      return res.status(200).json(updated);
+      const { data, sha } = await readData();
+      const idx = data.findIndex(t => t.id === taskId);
+      if (idx === -1) return res.status(404).json({ error: 'task not found' });
+      data[idx] = { ...data[idx], ...updates, id: taskId };
+      await writeData(data, sha);
+      return res.status(200).json(data[idx]);
     }
 
     if (req.method === 'DELETE') {
-      const { id: taskId } = req.body;
+      const { id: taskId } = req.body || {};
       if (!taskId) return res.status(400).json({ error: 'id required' });
-      
-      const { blobs } = await list({ prefix: PREFIX + taskId });
-      for (const b of blobs) await del(b.url);
+      const { data, sha } = await readData();
+      const filtered = data.filter(t => t.id !== taskId);
+      await writeData(filtered, sha);
       return res.status(200).json({ deleted: taskId });
     }
 
-    res.status(405).json({ error: 'Method not allowed' });
+    return res.status(405).json({ error: 'Method not allowed' });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: err.message });
   }
 }

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "task001",
+    "title": "Connect Meta Ads account",
+    "agent": "charlie",
+    "priority": "high",
+    "status": "todo",
+    "date": "2026-02-25"
+  },
+  {
+    "id": "task002",
+    "title": "Launch RestCalm ads — creative set ready",
+    "agent": "neo",
+    "priority": "high",
+    "status": "todo",
+    "date": "2026-02-25"
+  },
+  {
+    "id": "task003",
+    "title": "Launch PelvaCare ads — creative set ready",
+    "agent": "neo",
+    "priority": "high",
+    "status": "todo",
+    "date": "2026-02-25"
+  },
+  {
+    "id": "task004",
+    "title": "Build KYVO landing page + email capture",
+    "agent": "drago",
+    "priority": "high",
+    "status": "in-progress",
+    "date": "2026-02-25"
+  },
+  {
+    "id": "task005",
+    "title": "Write KYVO VSL script",
+    "agent": "drago",
+    "priority": "high",
+    "status": "in-progress",
+    "date": "2026-02-25"
+  },
+  {
+    "id": "task006",
+    "title": "Generate creatives for LumaFlex",
+    "agent": "bob",
+    "priority": "medium",
+    "status": "todo",
+    "date": "2026-02-25"
+  },
+  {
+    "id": "task007",
+    "title": "Generate creatives for Novari",
+    "agent": "bob",
+    "priority": "medium",
+    "status": "todo",
+    "date": "2026-02-25"
+  },
+  {
+    "id": "task008",
+    "title": "Plan simulator content session (Sunday)",
+    "agent": "happy",
+    "priority": "medium",
+    "status": "todo",
+    "date": "2026-02-25"
+  },
+  {
+    "id": "task009",
+    "title": "Share BBA calendar with Charlie",
+    "agent": "charlie",
+    "priority": "low",
+    "status": "todo",
+    "date": "2026-02-25"
+  },
+  {
+    "id": "task010",
+    "title": "Wedge baseline measurements — 50/75/100yd",
+    "agent": "happy",
+    "priority": "medium",
+    "status": "todo",
+    "date": "2026-02-25"
+  }
+]
