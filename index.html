@@ -9,117 +9,221 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a2e;--bg4:#22223a;
-  --coral:#ff6b6b;--cyan:#00d4aa;--purple:#7c6bff;--amber:#ffb86b;
+  --bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a26;--bg4:#22223a;
+  --coral:#ff6b6b;--cyan:#00d4aa;--purple:#7c6bff;--amber:#ffb86b;--fuchsia:#e879f9;
   --text:#e8e8f0;--text2:#8888a0;--text3:#55556a;
-  --radius:12px;--radius-sm:8px;
+  --radius:10px;--radius-sm:7px;
+  --sidebar-w:210px;
 }
-html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
-::-webkit-scrollbar{width:6px;height:6px}
+html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow:hidden}
+::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
 
-/* NAV */
-.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--bg4);background:var(--bg2);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:10px}
-.nav-left{display:flex;align-items:center;gap:10px}
-.nav-left h1{font-size:18px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,var(--coral),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:pulse 2s infinite}
-.nav-tabs{display:flex;gap:2px;flex-wrap:wrap}
-.nav-tab{padding:7px 14px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;color:var(--text2);background:transparent;border:none;font-family:inherit;transition:all .2s;position:relative;white-space:nowrap}
-.nav-tab:hover{color:var(--text);background:var(--bg3)}
-.nav-tab.active{color:var(--coral);background:var(--bg3)}
-.nav-tab.active::after{content:'';position:absolute;bottom:0;left:14px;right:14px;height:2px;background:var(--coral);border-radius:1px}
-.nav-tab .badge{position:absolute;top:2px;right:2px;background:var(--coral);color:#fff;font-size:9px;font-weight:700;padding:1px 4px;border-radius:8px;min-width:14px;text-align:center}
-.nav-right{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--text2)}
-.online{display:flex;align-items:center;gap:5px;color:#00ff88;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:1px}
-.online .dot{width:6px;height:6px;border-radius:50%;background:#00ff88;box-shadow:0 0 8px #00ff88;animation:pulse 2s infinite}
+/* ── LAYOUT ── */
+body{display:flex}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  width:var(--sidebar-w);min-width:var(--sidebar-w);
+  background:var(--bg2);border-right:1px solid var(--bg4);
+  display:flex;flex-direction:column;height:100vh;
+  position:fixed;left:0;top:0;z-index:200;
+  overflow-y:auto;
+}
+.sidebar-brand{
+  display:flex;align-items:center;gap:9px;
+  padding:18px 16px 14px;border-bottom:1px solid var(--bg4);
+}
+.sidebar-brand-dot{width:9px;height:9px;border-radius:50%;background:var(--purple);box-shadow:0 0 10px var(--purple);animation:pulse 2s infinite;flex-shrink:0}
+.sidebar-brand-name{font-size:14px;font-weight:800;letter-spacing:-0.3px;background:linear-gradient(135deg,var(--purple),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sidebar-section-label{font-size:9px;font-weight:700;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;padding:14px 16px 6px}
+.sidebar-nav{display:flex;flex-direction:column;padding:6px 8px;flex:1}
+.sidebar-link{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 10px;border-radius:var(--radius-sm);
+  font-size:13px;font-weight:500;color:var(--text2);
+  background:transparent;border:none;cursor:pointer;font-family:inherit;
+  transition:all .15s;text-align:left;position:relative;
+  margin-bottom:2px;
+}
+.sidebar-link:hover{background:var(--bg3);color:var(--text)}
+.sidebar-link.active{background:var(--bg3);color:var(--text)}
+.sidebar-link.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:60%;background:var(--purple);border-radius:0 3px 3px 0}
+.sidebar-icon{font-size:15px;width:20px;text-align:center;flex-shrink:0}
+.sidebar-label{flex:1}
+.sidebar-badge{
+  background:var(--coral);color:#fff;font-size:10px;font-weight:700;
+  padding:1px 6px;border-radius:10px;min-width:18px;text-align:center;
+}
+.sidebar-footer{
+  padding:12px 16px;border-top:1px solid var(--bg4);
+  display:flex;flex-direction:column;gap:5px;
+}
+.sidebar-online{display:flex;align-items:center;gap:6px;font-size:11px;color:#00ff88;font-weight:600;letter-spacing:.5px}
+.sidebar-online-dot{width:6px;height:6px;border-radius:50%;background:#00ff88;box-shadow:0 0 7px #00ff88;animation:pulse 2s infinite;flex-shrink:0}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-/* GLOBAL STATS */
-.global-stats{display:flex;gap:0;border-bottom:1px solid var(--bg4);background:var(--bg2)}
-.gs{padding:10px 24px;font-size:12px;color:var(--text2);border-right:1px solid var(--bg4);display:flex;align-items:center;gap:6px}
-.gs strong{color:var(--text);font-weight:700;font-size:15px}
+/* ── MAIN AREA ── */
+.main{
+  margin-left:var(--sidebar-w);
+  flex:1;display:flex;flex-direction:column;height:100vh;
+  overflow:hidden;
+}
 
-/* SECTIONS */
-.section{display:none;padding:20px 24px;min-height:calc(100vh - 110px)}
+/* ── TOP BAR ── */
+.topbar{
+  padding:13px 22px;border-bottom:1px solid var(--bg4);background:var(--bg2);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;gap:12px;
+}
+.topbar-title{font-size:17px;font-weight:800;letter-spacing:-.3px}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.topbar-clock{font-size:12px;color:var(--text3)}
+
+/* ── INLINE STATS (tasks only) ── */
+.inline-stats{
+  display:flex;gap:0;border-bottom:1px solid var(--bg4);background:var(--bg2);
+  flex-shrink:0;
+}
+.inline-stats.hidden{display:none}
+.istat{
+  padding:10px 22px;border-right:1px solid var(--bg4);
+  display:flex;align-items:baseline;gap:7px;
+}
+.istat-num{font-size:22px;font-weight:800;color:var(--text)}
+.istat-label{font-size:12px;color:var(--text2)}
+
+/* ── PAGE AREA ── */
+.page-area{flex:1;display:flex;overflow:hidden}
+.sections-wrap{flex:1;overflow-y:auto;padding:18px 22px}
+
+/* ── LIVE ACTIVITY PANEL ── */
+.live-activity-panel{
+  width:270px;min-width:270px;
+  border-left:1px solid var(--bg4);background:var(--bg2);
+  display:flex;flex-direction:column;overflow:hidden;
+}
+.live-activity-panel.hidden{display:none}
+.lap-header{
+  padding:14px 16px 10px;font-size:12px;font-weight:700;
+  color:var(--text2);text-transform:uppercase;letter-spacing:1px;
+  border-bottom:1px solid var(--bg4);flex-shrink:0;
+  display:flex;align-items:center;gap:7px;
+}
+.lap-header-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 7px var(--cyan);animation:pulse 2s infinite}
+.lap-feed{flex:1;overflow-y:auto;padding:8px}
+.lap-item{
+  padding:9px 8px;border-radius:var(--radius-sm);
+  margin-bottom:2px;transition:background .15s;cursor:default;
+}
+.lap-item:hover{background:var(--bg3)}
+.lap-agent-row{display:flex;align-items:center;gap:7px;margin-bottom:3px}
+.lap-agent-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.lap-agent-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.lap-action{font-size:12px;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:2px}
+.lap-detail{font-size:11px;color:var(--text2);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.lap-time{font-size:10px;color:var(--text3);margin-top:3px}
+.lap-divider{height:1px;background:var(--bg4);margin:4px 0}
+
+/* ── SECTIONS ── */
+.section{display:none}
 .section.active{display:block}
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
-.section-title{font-size:18px;font-weight:700}
 
-/* BUTTONS */
+/* ── SECTION HEADER ── */
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+.section-title{font-size:17px;font-weight:700}
+
+/* ── AGENT FILTERS (pill-style like screenshot) ── */
+.filters{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.filter-btn{
+  padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;
+  cursor:pointer;border:1px solid var(--bg4);background:var(--bg2);
+  color:var(--text2);transition:all .15s;font-family:inherit;
+}
+.filter-btn:hover{border-color:var(--text3);color:var(--text)}
+.filter-btn.active{background:var(--purple);border-color:var(--purple);color:#fff}
+
+/* ── BUTTONS ── */
 .btn{padding:8px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s}
-.btn-coral{background:linear-gradient(135deg,var(--coral),#ff4757);color:#fff;box-shadow:0 0 15px #ff6b6b33}
-.btn-coral:hover{transform:translateY(-1px);box-shadow:0 0 25px #ff6b6b55}
+.btn-coral{background:linear-gradient(135deg,var(--coral),#ff4757);color:#fff;box-shadow:0 0 14px #ff6b6b33}
+.btn-coral:hover{transform:translateY(-1px);box-shadow:0 0 22px #ff6b6b55}
 .btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--bg4)}
 .btn-ghost:hover{border-color:var(--text3);color:var(--text)}
 .btn-green{background:#00c853;color:#fff;font-weight:700}
 .btn-red{background:#ff3d3d;color:#fff;font-weight:700}
-.btn-sm{padding:5px 10px;font-size:12px}
+.btn-sm{padding:5px 10px;font-size:11px}
 
-/* FILTERS */
-.filters{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
-.filter-btn{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--bg4);background:var(--bg2);color:var(--text2);transition:all .2s;font-family:inherit}
-.filter-btn:hover{border-color:var(--text3);color:var(--text)}
-.filter-btn.active{background:var(--coral);border-color:var(--coral);color:#fff}
-
-/* KANBAN */
-.kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:start}
-@media(max-width:900px){.kanban{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:500px){.kanban{grid-template-columns:1fr}}
+/* ── KANBAN ── */
+.kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:start}
+@media(max-width:1000px){.kanban{grid-template-columns:repeat(2,1fr)}}
 .kanban-col{background:var(--bg2);border-radius:var(--radius);border:1px solid var(--bg4);overflow:hidden}
-.kanban-col-header{padding:12px 14px;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bg4)}
-.col-count{background:var(--bg4);color:var(--text2);font-size:11px;padding:2px 7px;border-radius:10px;font-weight:600}
-.kanban-cards{padding:10px;min-height:80px;display:flex;flex-direction:column;gap:8px}
+.kanban-col-header{
+  padding:11px 13px;font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--bg4);
+}
+.col-count{background:var(--bg4);color:var(--text2);font-size:10px;padding:2px 7px;border-radius:9px;font-weight:600}
+.kanban-cards{padding:9px;min-height:70px;display:flex;flex-direction:column;gap:7px}
 .kanban-cards.drag-over{background:var(--bg3)}
 
-/* CARDS */
-.card{background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--radius-sm);padding:12px;cursor:grab;transition:all .2s;position:relative}
-.card:hover{border-color:var(--text3);transform:translateY(-1px);box-shadow:0 4px 15px #0005}
+/* ── CARDS ── */
+.card{
+  background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--radius-sm);
+  padding:11px;cursor:grab;transition:all .2s;position:relative;
+}
+.card:hover{border-color:var(--text3);transform:translateY(-1px);box-shadow:0 4px 14px #0005}
 .card.dragging{opacity:.4}
-.card-title{font-size:13px;font-weight:600;margin-bottom:8px;line-height:1.3}
+.card-title{font-size:13px;font-weight:600;margin-bottom:7px;line-height:1.3}
+.card-desc{font-size:11px;color:var(--text2);margin-bottom:7px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .card-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.agent-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:8px;padding-top:7px;border-top:1px solid var(--bg4)}
+.agent-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.agent-chip{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:2px 8px;border-radius:9px;background:var(--bg4);
+  font-size:10px;font-weight:600;
+}
 .badge-pill{font-size:10px;font-weight:600;padding:2px 7px;border-radius:8px;background:var(--bg4);color:var(--text2)}
 .badge-pill.high{background:#ff6b6b22;color:#ff6b6b}
 .badge-pill.medium{background:#ffb86b22;color:#ffb86b}
 .badge-pill.low{background:#00d4aa22;color:#00d4aa}
-.card-actions{display:flex;gap:4px;margin-top:8px}
 
-/* STATS ROW */
-.stats-row{display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+/* ── STATS ROW ── */
+.stats-row{display:flex;gap:14px;margin-bottom:14px;flex-wrap:wrap}
 .stat{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius-sm);padding:10px 16px}
-.stat .val{font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--coral),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat .val{font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--coral),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .stat .lbl{font-size:11px;color:var(--text2);margin-top:2px}
 
-/* APPROVALS */
-.approval-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:16px;margin-bottom:10px;transition:all .2s}
+/* ── APPROVALS ── */
+.approval-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:15px;margin-bottom:9px;transition:all .2s}
 .approval-card.high{border-color:#ff6b6b55;animation:glow-coral 3s infinite}
-@keyframes glow-coral{0%,100%{box-shadow:0 0 0 #ff6b6b00}50%{box-shadow:0 0 15px #ff6b6b33}}
+@keyframes glow-coral{0%,100%{box-shadow:0 0 0 #ff6b6b00}50%{box-shadow:0 0 14px #ff6b6b33}}
 .approval-card.resolved{opacity:.5}
-.approval-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.approval-header{display:flex;align-items:center;gap:8px;margin-bottom:7px}
 .approval-title{font-size:14px;font-weight:700;flex:1}
-.approval-desc{font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.5}
-.approval-actions{display:flex;gap:8px}
+.approval-desc{font-size:12px;color:var(--text2);margin-bottom:11px;line-height:1.5}
+.approval-actions{display:flex;gap:7px}
 .type-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px}
 .type-content{background:#00d4aa22;color:#00d4aa}
-.type-spend{background:#ff6b6b22;color:#ff6b6b}
+.type-spend,.type-ad-spend{background:#ff6b6b22;color:#ff6b6b}
 .type-action{background:#7c6bff22;color:#7c6bff}
 .type-campaign{background:#ffb86b22;color:#ffb86b}
 
-/* DOCS */
-.docs-layout{display:grid;grid-template-columns:200px 1fr;gap:16px;align-items:start}
+/* ── DOCS ── */
+.docs-layout{display:grid;grid-template-columns:190px 1fr;gap:14px;align-items:start}
 @media(max-width:700px){.docs-layout{grid-template-columns:1fr}}
-.folder-sidebar{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);overflow:hidden;position:sticky;top:80px}
-.folder-sidebar-title{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;padding:12px 14px 8px}
-.folder-btn{display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:12px;font-weight:500;color:var(--text2);background:none;border:none;cursor:pointer;width:100%;text-align:left;transition:all .15s;border-left:3px solid transparent}
+.folder-sidebar{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);overflow:hidden;position:sticky;top:0}
+.folder-sidebar-title{font-size:9px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;padding:12px 13px 7px}
+.folder-btn{display:flex;align-items:center;gap:8px;padding:8px 13px;font-size:12px;font-weight:500;color:var(--text2);background:none;border:none;cursor:pointer;width:100%;text-align:left;transition:all .15s;border-left:3px solid transparent}
 .folder-btn:hover{background:var(--bg3);color:var(--text)}
 .folder-btn.active{background:var(--bg3);color:var(--text);border-left-color:var(--cyan)}
 .folder-btn .folder-count{margin-left:auto;font-size:10px;background:var(--bg4);padding:1px 6px;border-radius:8px;color:var(--text3)}
-.folder-icon{font-size:14px;width:18px;text-align:center}
-.docs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.folder-icon{font-size:13px;width:17px;text-align:center}
+.docs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}
 @media(max-width:1100px){.docs-grid{grid-template-columns:1fr}}
-.doc-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:16px;transition:all .2s;display:flex;flex-direction:column;gap:8px}
-.doc-card:hover{border-color:var(--cyan);box-shadow:0 4px 20px #00d4aa18}
+.doc-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:15px;transition:all .2s;display:flex;flex-direction:column;gap:7px}
+.doc-card:hover{border-color:var(--cyan);box-shadow:0 4px 18px #00d4aa18}
 .doc-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
 .doc-folder-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
 .folder-dropship{background:#00d4aa22;color:#00d4aa}
@@ -133,83 +237,28 @@ html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--
 .doc-meta{display:flex;align-items:center;gap:8px;margin-top:2px}
 .doc-tags{display:flex;gap:4px;flex-wrap:wrap}
 .doc-tag{font-size:10px;padding:2px 6px;border-radius:4px;background:var(--bg4);color:var(--text3)}
-.doc-card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:4px;padding-top:10px;border-top:1px solid var(--bg4)}
-.btn-gdoc{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:6px;font-size:11px;font-weight:700;text-decoration:none;background:#1a73e822;color:#4da6ff;border:1px solid #1a73e844;transition:all .15s;cursor:pointer}
+.doc-card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:4px;padding-top:9px;border-top:1px solid var(--bg4)}
+.btn-gdoc{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:6px;font-size:11px;font-weight:700;text-decoration:none;background:#1a73e822;color:#4da6ff;border:1px solid #1a73e844;transition:all .15s;cursor:pointer}
 .btn-gdoc:hover{background:#1a73e833;color:#fff;border-color:#4da6ff}
-.btn-gdoc svg{width:12px;height:12px;flex-shrink:0}
 
-/* ACTIVITY */
+/* ── ACTIVITY (full page) ── */
 .activity-feed{display:flex;flex-direction:column;gap:0}
-.activity-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--bg4);align-items:flex-start}
+.activity-item{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid var(--bg4);align-items:flex-start}
 .activity-item:last-child{border-bottom:none}
-.activity-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px}
-.activity-left{min-width:90px;text-align:right;font-size:11px;color:var(--text3);padding-right:4px}
+.activity-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:4px}
 .activity-right{flex:1}
 .activity-agent{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
 .activity-action{font-size:13px;font-weight:600;color:var(--text)}
 .activity-details{font-size:12px;color:var(--text2);margin-top:2px;line-height:1.4}
 .activity-time{font-size:11px;color:var(--text3);margin-top:3px}
-.refresh-note{font-size:11px;color:var(--text3);margin-bottom:12px}
 
-/* TEAM — New v2 */
-.team-page{max-width:1000px;margin:0 auto}
-.team-quote{background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--radius);padding:16px 24px;margin-bottom:28px;font-size:14px;font-style:italic;color:var(--text2);text-align:center;line-height:1.6}
-.team-quote span{color:var(--text);font-weight:500}
-.team-heading{text-align:center;margin-bottom:28px}
-.team-heading h2{font-size:28px;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,var(--coral),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.team-heading p{font-size:13px;color:var(--text2)}
-/* Tier label divider */
-.tier-label{display:flex;align-items:center;gap:12px;margin:0 0 16px}
-.tier-label-line{flex:1;height:1px;background:var(--bg4)}
-.tier-label-text{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text3);white-space:nowrap;padding:0 4px}
-/* Director cards (top row) */
-.directors-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
-@media(max-width:900px){.directors-row{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:500px){.directors-row{grid-template-columns:1fr}}
-.director-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:20px 16px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;transition:all .3s;position:relative}
-.director-card::before{content:'';position:absolute;inset:0;border-radius:var(--radius);padding:1px;background:var(--card-color,#ffffff22);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s}
-.director-card:hover::before{opacity:1}
-.director-card:hover{box-shadow:0 8px 30px var(--card-glow,#ffffff11);transform:translateY(-2px)}
-.dir-avatar{width:72px;height:72px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:36px;border:2px solid var(--card-color,var(--bg4));box-shadow:0 0 20px var(--card-glow,transparent);flex-shrink:0}
-.dir-status{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:#00ff88;text-transform:uppercase;letter-spacing:.5px;position:absolute;top:12px;right:12px}
-.dir-status-dot{width:6px;height:6px;border-radius:50%;background:#00ff88;box-shadow:0 0 6px #00ff88;animation:pulse 2s infinite;flex-shrink:0}
-.dir-name{font-size:17px;font-weight:800;color:var(--card-color,var(--text))}
-.dir-role{font-size:11px;color:var(--text2);font-weight:500}
-.dir-pillar{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--card-bg,var(--bg4));color:var(--card-color,var(--text2));letter-spacing:.5px;text-transform:uppercase}
-.dir-mission{font-size:11px;color:var(--text2);line-height:1.5;font-style:italic}
-/* Specialist cards (second row) */
-.specialists-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
-@media(max-width:700px){.specialists-row{grid-template-columns:1fr}}
-.specialist-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:16px;display:flex;align-items:center;gap:14px;transition:all .3s;position:relative}
-.specialist-card:hover{border-color:#e879f955;box-shadow:0 6px 20px #e879f918;transform:translateY(-1px)}
-.spec-avatar{width:52px;height:52px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:26px;border:2px solid #e879f966;box-shadow:0 0 12px #e879f922;flex-shrink:0}
-.spec-body{flex:1;min-width:0}
-.spec-top{display:flex;align-items:center;gap:8px;margin-bottom:3px}
-.spec-name{font-size:15px;font-weight:800;color:#e879f9}
-.spec-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;background:#e879f922;color:#e879f9;text-transform:uppercase;letter-spacing:.5px}
-.spec-role{font-size:11px;color:var(--text2);margin-bottom:5px}
-.spec-mission{font-size:11px;color:var(--text2);line-height:1.4;font-style:italic}
-.spec-status{display:flex;align-items:center;gap:4px;font-size:10px;color:#00ff88;font-weight:600;margin-top:6px}
-.spec-status-dot{width:5px;height:5px;border-radius:50%;background:#00ff88;box-shadow:0 0 5px #00ff88;animation:pulse 2s infinite}
-/* Meta layer */
-.meta-layer{display:flex;align-items:center;gap:12px;margin:20px 0 16px}
-.meta-layer-line{flex:1;height:1px;background:var(--bg4)}
-.meta-layer-label{font-size:10px;color:var(--text3);font-weight:600;letter-spacing:1.5px;text-transform:uppercase;display:flex;align-items:center;gap:6px}
-.meta-layer-label::before{content:'●';font-size:8px}
-/* Legacy (keep for other uses) */
-.agent-avatar{width:72px;height:72px;border-radius:14px;object-fit:cover;background:var(--bg4);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:36px;overflow:hidden}
-.agent-avatar img{width:100%;height:100%;object-fit:cover;border-radius:14px}
-.agent-sm-avatar{width:48px;height:48px;border-radius:10px;object-fit:cover;background:var(--bg4);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden}
-.agent-sm-avatar img{width:100%;height:100%;object-fit:cover;border-radius:10px}
-.skill-tag{font-size:10px;padding:2px 8px;border-radius:5px;font-weight:600}
-
-/* SCHEDULE */
-.schedule-page{max-width:900px;margin:0 auto}
-.schedule-note{font-size:12px;color:var(--text3);margin-bottom:16px;display:flex;align-items:center;gap:6px}
+/* ── SCHEDULE ── */
+.schedule-page{max-width:860px}
+.schedule-note{font-size:12px;color:var(--text3);margin-bottom:14px;display:flex;align-items:center;gap:6px}
 .cron-table{width:100%;border-collapse:collapse}
-.cron-table th{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;padding:10px 14px;text-align:left;border-bottom:2px solid var(--bg4)}
+.cron-table th{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;padding:9px 13px;text-align:left;border-bottom:2px solid var(--bg4)}
 .cron-table tr:not(:last-child) td{border-bottom:1px solid var(--bg4)}
-.cron-table td{padding:14px;vertical-align:middle}
+.cron-table td{padding:13px;vertical-align:middle}
 .cron-table tr:hover td{background:var(--bg3)}
 .cron-job-name{font-size:14px;font-weight:700;color:var(--text)}
 .cron-schedule{font-size:12px;color:var(--text2)}
@@ -219,438 +268,439 @@ html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--
 .badge-err{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:8px;background:#ff3d3d22;color:#ff3d3d}
 .cron-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);overflow:hidden}
 
-/* PROJECTS */
-.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+/* ── PROJECTS ── */
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 @media(max-width:900px){.projects-grid{grid-template-columns:1fr}}
-.project-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:20px;display:flex;flex-direction:column;gap:14px;transition:all .3s;position:relative;overflow:hidden}
+.project-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:13px;transition:all .3s;position:relative;overflow:hidden}
 .project-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--pcolor,var(--coral))}
-.project-card:hover{transform:translateY(-2px);box-shadow:0 10px 35px var(--pglow,#ff6b6b11)}
-.project-header{display:flex;align-items:flex-start;gap:12px}
-.project-icon{font-size:32px;line-height:1}
+.project-card:hover{transform:translateY(-2px);box-shadow:0 10px 30px var(--pglow,#ff6b6b11)}
+.project-header{display:flex;align-items:flex-start;gap:11px}
+.project-icon{font-size:28px;line-height:1}
 .project-title-block{flex:1}
-.project-name{font-size:18px;font-weight:800;color:var(--pcolor,var(--coral));margin-bottom:2px}
+.project-name{font-size:16px;font-weight:800;color:var(--pcolor,var(--coral));margin-bottom:2px}
 .project-director{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:5px}
-.project-mission{font-size:12px;color:var(--text2);line-height:1.6;padding:10px 12px;background:var(--bg3);border-radius:var(--radius-sm);border-left:3px solid var(--pcolor,var(--coral))}
-.project-items{display:flex;flex-direction:column;gap:6px}
-.project-item-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.project-mission{font-size:12px;color:var(--text2);line-height:1.6;padding:9px 11px;background:var(--bg3);border-radius:var(--radius-sm);border-left:3px solid var(--pcolor,var(--coral))}
+.project-items{display:flex;flex-direction:column;gap:5px}
+.project-item-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
 .project-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text)}
-.project-item-dot{width:6px;height:6px;border-radius:50%;background:var(--pcolor,var(--coral));flex-shrink:0}
-.project-focus{font-size:12px;color:var(--text2);padding:8px 12px;background:var(--bg3);border-radius:var(--radius-sm)}
+.project-item-dot{width:5px;height:5px;border-radius:50%;background:var(--pcolor,var(--coral));flex-shrink:0}
+.project-focus{font-size:12px;color:var(--text2);padding:7px 11px;background:var(--bg3);border-radius:var(--radius-sm)}
 .project-focus strong{color:var(--text)}
-.project-link{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--pcolor,var(--coral));text-decoration:none;padding:7px 12px;background:var(--bg3);border-radius:var(--radius-sm);border:1px solid var(--bg4);cursor:pointer;transition:all .2s}
+.project-link{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--pcolor,var(--coral));text-decoration:none;padding:6px 11px;background:var(--bg3);border-radius:var(--radius-sm);border:1px solid var(--bg4);cursor:pointer;transition:all .2s}
 .project-link:hover{background:var(--bg4)}
 
-/* MODAL */
+/* ── TEAM ── */
+.team-page{max-width:960px;margin:0 auto}
+.team-quote{background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--radius);padding:14px 22px;margin-bottom:24px;font-size:14px;font-style:italic;color:var(--text2);text-align:center;line-height:1.6}
+.team-quote span{color:var(--text);font-weight:500}
+.team-heading{text-align:center;margin-bottom:24px}
+.team-heading h2{font-size:26px;font-weight:800;margin-bottom:5px;background:linear-gradient(135deg,var(--coral),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.team-heading p{font-size:13px;color:var(--text2)}
+.tier-label{display:flex;align-items:center;gap:12px;margin:0 0 14px}
+.tier-label-line{flex:1;height:1px;background:var(--bg4)}
+.tier-label-text{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text3);white-space:nowrap;padding:0 4px}
+.directors-row{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:26px}
+@media(max-width:900px){.directors-row{grid-template-columns:repeat(2,1fr)}}
+.director-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:18px 14px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:9px;transition:all .3s;position:relative}
+.director-card::before{content:'';position:absolute;inset:0;border-radius:var(--radius);padding:1px;background:var(--card-color,#ffffff22);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s}
+.director-card:hover::before{opacity:1}
+.director-card:hover{box-shadow:0 8px 28px var(--card-glow,#ffffff11);transform:translateY(-2px)}
+.dir-avatar{width:64px;height:64px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:32px;border:2px solid var(--card-color,var(--bg4));box-shadow:0 0 18px var(--card-glow,transparent);flex-shrink:0}
+.dir-status{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:#00ff88;text-transform:uppercase;letter-spacing:.5px;position:absolute;top:11px;right:11px}
+.dir-status-dot{width:5px;height:5px;border-radius:50%;background:#00ff88;box-shadow:0 0 5px #00ff88;animation:pulse 2s infinite;flex-shrink:0}
+.dir-name{font-size:16px;font-weight:800;color:var(--card-color,var(--text))}
+.dir-role{font-size:11px;color:var(--text2);font-weight:500}
+.dir-pillar{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--card-bg,var(--bg4));color:var(--card-color,var(--text2));letter-spacing:.5px;text-transform:uppercase}
+.dir-mission{font-size:11px;color:var(--text2);line-height:1.5;font-style:italic}
+.specialists-row{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:22px}
+@media(max-width:700px){.specialists-row{grid-template-columns:1fr}}
+.specialist-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:14px;display:flex;align-items:center;gap:13px;transition:all .3s}
+.specialist-card:hover{border-color:#e879f955;box-shadow:0 6px 18px #e879f918;transform:translateY(-1px)}
+.spec-avatar{width:48px;height:48px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid #e879f966;box-shadow:0 0 10px #e879f922;flex-shrink:0}
+.spec-body{flex:1;min-width:0}
+.spec-top{display:flex;align-items:center;gap:7px;margin-bottom:3px}
+.spec-name{font-size:14px;font-weight:800;color:#e879f9}
+.spec-badge{font-size:9px;font-weight:700;padding:2px 6px;border-radius:9px;background:#e879f922;color:#e879f9;text-transform:uppercase;letter-spacing:.5px}
+.spec-role{font-size:11px;color:var(--text2);margin-bottom:4px}
+.spec-mission{font-size:11px;color:var(--text2);line-height:1.4;font-style:italic}
+.spec-status{display:flex;align-items:center;gap:4px;font-size:10px;color:#00ff88;font-weight:600;margin-top:5px}
+.spec-status-dot{width:5px;height:5px;border-radius:50%;background:#00ff88;box-shadow:0 0 5px #00ff88;animation:pulse 2s infinite}
+.meta-layer{display:flex;align-items:center;gap:12px;margin:18px 0 14px}
+.meta-layer-line{flex:1;height:1px;background:var(--bg4)}
+.meta-layer-label{font-size:10px;color:var(--text3);font-weight:600;letter-spacing:1.5px;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.meta-layer-label::before{content:'●';font-size:8px}
+
+/* ── MODAL ── */
 .modal-overlay{position:fixed;inset:0;background:#000a;z-index:300;display:none;align-items:center;justify-content:center}
 .modal-overlay.open{display:flex}
-.modal{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:24px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
-.modal h2{font-size:16px;font-weight:700;margin-bottom:16px}
-.form-group{margin-bottom:14px}
+.modal{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:22px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto}
+.modal h2{font-size:15px;font-weight:700;margin-bottom:15px}
+.form-group{margin-bottom:13px}
 .form-group label{font-size:12px;color:var(--text2);display:block;margin-bottom:5px;font-weight:500}
-.form-group input,.form-group select,.form-group textarea{width:100%;background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--radius-sm);padding:9px 12px;color:var(--text);font-family:inherit;font-size:13px;outline:none;transition:border .2s}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--coral)}
-.form-group textarea{min-height:80px;resize:vertical}
-.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--radius-sm);padding:8px 11px;color:var(--text);font-family:inherit;font-size:13px;outline:none;transition:border .2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--purple)}
+.form-group textarea{min-height:70px;resize:vertical}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}
 
-/* SEARCH */
-.search-bar{width:100%;background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius-sm);padding:9px 14px;color:var(--text);font-family:inherit;font-size:13px;outline:none;margin-bottom:14px;transition:border .2s}
+/* ── SEARCH ── */
+.search-bar{width:100%;background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius-sm);padding:8px 13px;color:var(--text);font-family:inherit;font-size:13px;outline:none;margin-bottom:13px;transition:border .2s}
 .search-bar:focus{border-color:var(--cyan)}
 
-/* EMPTY STATE */
-.empty{text-align:center;padding:40px;color:var(--text3)}
-.empty-icon{font-size:36px;margin-bottom:10px}
+/* ── EMPTY ── */
+.empty{text-align:center;padding:36px;color:var(--text3)}
+.empty-icon{font-size:32px;margin-bottom:9px}
 .empty p{font-size:13px}
 </style>
 </head>
 <body>
 
-<nav class="nav">
-  <div class="nav-left">
-    <div class="nav-dot"></div>
-    <h1>TOMMY HQ</h1>
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  LEFT SIDEBAR                                               -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <div class="sidebar-brand-dot"></div>
+    <span class="sidebar-brand-name">Mission Control</span>
   </div>
-  <div class="nav-tabs">
-    <button class="nav-tab active" data-tab="tasks">📋 Tasks</button>
-    <button class="nav-tab" data-tab="content">📝 Content</button>
-    <button class="nav-tab" data-tab="approvals" id="approvalTab">✅ Approvals</button>
-    <button class="nav-tab" data-tab="docs">📁 Docs</button>
-    <button class="nav-tab" data-tab="activity">⚡ Activity</button>
-    <button class="nav-tab" data-tab="schedule">🕐 Schedule</button>
-    <button class="nav-tab" data-tab="projects">🚀 Projects</button>
-    <button class="nav-tab" data-tab="team">👥 Team</button>
-  </div>
-  <div class="nav-right">
-    <span id="clock"></span>
-    <div class="online"><div class="dot"></div>SYSTEMS ONLINE</div>
-  </div>
-</nav>
 
-<div class="global-stats">
-  <div class="gs"><strong id="gs-tasks">–</strong> Open Tasks</div>
-  <div class="gs"><strong id="gs-approvals">–</strong> Pending Approvals</div>
-  <div class="gs"><strong id="gs-content">–</strong> Content in Pipeline</div>
-  <div class="gs"><strong id="gs-docs">–</strong> Docs</div>
-</div>
+  <nav class="sidebar-nav">
+    <button class="sidebar-link active" data-tab="tasks">
+      <span class="sidebar-icon">📋</span>
+      <span class="sidebar-label">Tasks</span>
+    </button>
+    <button class="sidebar-link" data-tab="content">
+      <span class="sidebar-icon">📝</span>
+      <span class="sidebar-label">Content</span>
+    </button>
+    <button class="sidebar-link" data-tab="approvals">
+      <span class="sidebar-icon">✅</span>
+      <span class="sidebar-label">Approvals</span>
+      <span class="sidebar-badge" id="sb-approvals" style="display:none"></span>
+    </button>
+    <button class="sidebar-link" data-tab="docs">
+      <span class="sidebar-icon">📁</span>
+      <span class="sidebar-label">Docs</span>
+    </button>
+    <button class="sidebar-link" data-tab="activity">
+      <span class="sidebar-icon">⚡</span>
+      <span class="sidebar-label">Activity</span>
+    </button>
+    <button class="sidebar-link" data-tab="schedule">
+      <span class="sidebar-icon">🕐</span>
+      <span class="sidebar-label">Schedule</span>
+    </button>
+    <button class="sidebar-link" data-tab="projects">
+      <span class="sidebar-icon">🚀</span>
+      <span class="sidebar-label">Projects</span>
+    </button>
+    <button class="sidebar-link" data-tab="team">
+      <span class="sidebar-icon">👥</span>
+      <span class="sidebar-label">Team</span>
+    </button>
+  </nav>
 
-<!-- TASKS -->
-<div class="section active" id="sec-tasks">
-  <div class="section-header">
-    <div class="section-title">📋 Task Board</div>
-    <button class="btn btn-coral" onclick="openModal('task')">+ New Task</button>
+  <div class="sidebar-footer">
+    <div class="sidebar-online">
+      <div class="sidebar-online-dot"></div>SYSTEMS ONLINE
+    </div>
+    <div id="clock" style="font-size:11px;color:var(--text3);margin-top:2px"></div>
   </div>
-  <div class="stats-row" id="taskStats"></div>
-  <div class="filters" id="taskFilters">
-    <button class="filter-btn active" data-val="all">ALL</button>
-    <button class="filter-btn" data-val="charlie">🚀 Charlie</button>
-    <button class="filter-btn" data-val="neo">🕶️ Neo</button>
-    <button class="filter-btn" data-val="drago">🥊 Drago</button>
-    <button class="filter-btn" data-val="happy">⛳ Happy</button>
-  </div>
-  <div class="kanban" id="taskBoard">
-    <div class="kanban-col" ondragover="dragOver(event)" ondrop="drop(event,'todo')" ondragleave="dragLeave(event)">
-      <div class="kanban-col-header">To Do <span class="col-count" id="cnt-todo">0</span></div>
-      <div class="kanban-cards" id="col-todo"></div>
-    </div>
-    <div class="kanban-col" ondragover="dragOver(event)" ondrop="drop(event,'in-progress')" ondragleave="dragLeave(event)">
-      <div class="kanban-col-header">In Progress <span class="col-count" id="cnt-in-progress">0</span></div>
-      <div class="kanban-cards" id="col-in-progress"></div>
-    </div>
-    <div class="kanban-col" ondragover="dragOver(event)" ondrop="drop(event,'review')" ondragleave="dragLeave(event)">
-      <div class="kanban-col-header">Review <span class="col-count" id="cnt-review">0</span></div>
-      <div class="kanban-cards" id="col-review"></div>
-    </div>
-    <div class="kanban-col" ondragover="dragOver(event)" ondrop="drop(event,'done')" ondragleave="dragLeave(event)">
-      <div class="kanban-col-header">Done <span class="col-count" id="cnt-done">0</span></div>
-      <div class="kanban-cards" id="col-done"></div>
-    </div>
-  </div>
-</div>
+</aside>
 
-<!-- CONTENT -->
-<div class="section" id="sec-content">
-  <div class="section-header">
-    <div class="section-title">📝 Content Pipeline</div>
-    <button class="btn btn-coral" onclick="openModal('content')">+ New Content</button>
-  </div>
-  <div class="filters" id="contentAgentFilters">
-    <button class="filter-btn active" data-val="all">ALL</button>
-    <button class="filter-btn" data-val="charlie">🚀 Charlie</button>
-    <button class="filter-btn" data-val="neo">🕶️ Neo</button>
-    <button class="filter-btn" data-val="drago">🥊 Drago</button>
-    <button class="filter-btn" data-val="happy">⛳ Happy</button>
-  </div>
-  <div class="filters" id="contentPillarFilters">
-    <button class="filter-btn active" data-val="all">ALL PILLARS</button>
-    <button class="filter-btn" data-val="Dropship">Dropship</button>
-    <button class="filter-btn" data-val="KYVO">KYVO</button>
-    <button class="filter-btn" data-val="Golf">Golf</button>
-    <button class="filter-btn" data-val="BBA">BBA</button>
-  </div>
-  <div class="kanban" id="contentBoard">
-    <div class="kanban-col">
-      <div class="kanban-col-header">Draft <span class="col-count" id="ccnt-Draft">0</span></div>
-      <div class="kanban-cards" id="ccol-Draft"></div>
-    </div>
-    <div class="kanban-col">
-      <div class="kanban-col-header">Review <span class="col-count" id="ccnt-Review">0</span></div>
-      <div class="kanban-cards" id="ccol-Review"></div>
-    </div>
-    <div class="kanban-col">
-      <div class="kanban-col-header">Approved <span class="col-count" id="ccnt-Approved">0</span></div>
-      <div class="kanban-cards" id="ccol-Approved"></div>
-    </div>
-    <div class="kanban-col">
-      <div class="kanban-col-header">Posted <span class="col-count" id="ccnt-Posted">0</span></div>
-      <div class="kanban-cards" id="ccol-Posted"></div>
-    </div>
-  </div>
-</div>
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  MAIN                                                       -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="main">
 
-<!-- APPROVALS -->
-<div class="section" id="sec-approvals">
-  <div class="section-header">
-    <div class="section-title">✅ Approvals Queue</div>
-    <div style="display:flex;gap:8px">
-      <button class="btn btn-ghost" id="historyBtn" onclick="toggleApprovalHistory()">Show History</button>
-      <button class="btn btn-coral" onclick="openModal('approval')">+ New Request</button>
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <span class="topbar-title" id="pageTitle">Tasks</span>
     </div>
-  </div>
-  <div id="approvalsList"></div>
-</div>
-
-<!-- DOCS -->
-<div class="section" id="sec-docs">
-  <div class="section-header">
-    <div class="section-title">📁 Document Library</div>
-    <div style="display:flex;gap:8px">
-      <button class="btn btn-ghost" onclick="fetchAndRenderDocs()">↻ Refresh</button>
-      <button class="btn btn-coral" onclick="openModal('doc')">+ Add Doc</button>
+    <div class="topbar-right">
+      <button class="btn btn-coral" id="topbarBtn" onclick="topbarAction()">+ New Task</button>
     </div>
-  </div>
-  <input type="text" class="search-bar" id="docSearch" placeholder="Search docs by title, description or tag..." oninput="renderDocs()" style="margin-bottom:16px">
-  <div class="docs-layout">
-    <!-- Folder Sidebar -->
-    <div class="folder-sidebar">
-      <div class="folder-sidebar-title">Folders</div>
-      <button class="folder-btn active" data-folder="all" onclick="setDocFolder('all',this)">
-        <span class="folder-icon">🗂️</span> All Docs <span class="folder-count" id="fc-all">0</span>
-      </button>
-      <button class="folder-btn" data-folder="Dropshipping" onclick="setDocFolder('Dropshipping',this)">
-        <span class="folder-icon">🕶️</span> Dropshipping <span class="folder-count" id="fc-Dropshipping">0</span>
-      </button>
-      <button class="folder-btn" data-folder="KYVO Performance" onclick="setDocFolder('KYVO Performance',this)">
-        <span class="folder-icon">🥊</span> KYVO Performance <span class="folder-count" id="fc-KYVO Performance">0</span>
-      </button>
-      <button class="folder-btn" data-folder="@casualgolfdad" onclick="setDocFolder('@casualgolfdad',this)">
-        <span class="folder-icon">⛳</span> @casualgolfdad <span class="folder-count" id="fc-@casualgolfdad">0</span>
-      </button>
-      <button class="folder-btn" data-folder="Creative" onclick="setDocFolder('Creative',this)">
-        <span class="folder-icon">🎨</span> Creative <span class="folder-count" id="fc-Creative">0</span>
-      </button>
-      <button class="folder-btn" data-folder="Strategy" onclick="setDocFolder('Strategy',this)">
-        <span class="folder-icon">🚀</span> Strategy <span class="folder-count" id="fc-Strategy">0</span>
-      </button>
-      <button class="folder-btn" data-folder="SOPs" onclick="setDocFolder('SOPs',this)">
-        <span class="folder-icon">📋</span> SOPs <span class="folder-count" id="fc-SOPs">0</span>
-      </button>
-    </div>
-    <!-- Doc Cards -->
-    <div class="docs-grid" id="docsGrid"></div>
-  </div>
-</div>
+  </header>
 
-<!-- ACTIVITY -->
-<div class="section" id="sec-activity">
-  <div class="section-header">
-    <div class="section-title">⚡ Activity Feed</div>
-    <button class="btn btn-ghost" onclick="fetchAndRenderActivity()">↻ Refresh</button>
+  <!-- INLINE STATS (tasks only) -->
+  <div class="inline-stats" id="inlineStats">
+    <div class="istat"><span class="istat-num" id="is-week">–</span><span class="istat-label">This week</span></div>
+    <div class="istat"><span class="istat-num" id="is-inprog">–</span><span class="istat-label">In progress</span></div>
+    <div class="istat"><span class="istat-num" id="is-total">–</span><span class="istat-label">Total</span></div>
+    <div class="istat"><span class="istat-num" id="is-pct">–%</span><span class="istat-label">Completion</span></div>
   </div>
-  <div class="filters" id="activityFilters">
-    <button class="filter-btn active" data-val="all">ALL</button>
-    <button class="filter-btn" data-val="charlie">🚀 Charlie</button>
-    <button class="filter-btn" data-val="neo">🕶️ Neo</button>
-    <button class="filter-btn" data-val="drago">🥊 Drago</button>
-    <button class="filter-btn" data-val="happy">⛳ Happy</button>
-  </div>
-  <div class="activity-feed" id="activityFeed"></div>
-</div>
 
-<!-- SCHEDULE -->
-<div class="section" id="sec-schedule">
-  <div class="schedule-page">
-    <div class="section-header">
-      <div class="section-title">🕐 Cron Schedule</div>
-    </div>
-    <div class="schedule-note">🌐 Schedules run on <strong style="color:var(--text)">America/New_York</strong> timezone</div>
-    <div class="cron-card">
-      <table class="cron-table">
-        <thead>
-          <tr>
-            <th>Job</th>
-            <th>Schedule</th>
-            <th>Last Run</th>
-            <th>Next Run</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody id="cronTableBody"></tbody>
-      </table>
-    </div>
-  </div>
-</div>
+  <!-- PAGE AREA -->
+  <div class="page-area">
 
-<!-- PROJECTS -->
-<div class="section" id="sec-projects">
-  <div class="section-header">
-    <div class="section-title">🚀 Projects</div>
-  </div>
-  <div class="projects-grid">
+    <!-- SECTIONS -->
+    <div class="sections-wrap">
 
-    <!-- Dropship HQ -->
-    <div class="project-card" style="--pcolor:#00d4aa;--pglow:#00d4aa18">
-      <div class="project-header">
-        <div class="project-icon">🕶️</div>
-        <div class="project-title-block">
-          <div class="project-name">Dropship HQ</div>
-          <div class="project-director">Director: Neo 🕶️</div>
+      <!-- TASKS -->
+      <div class="section active" id="sec-tasks">
+        <div class="filters" id="taskFilters">
+          <button class="filter-btn active" data-val="all">All Projects</button>
+          <button class="filter-btn" data-val="charlie">🌀 Morpheus</button>
+          <button class="filter-btn" data-val="neo">🕶️ Neo</button>
+          <button class="filter-btn" data-val="drago">🔮 The Oracle</button>
+          <button class="filter-btn" data-val="happy">⚡ Trinity</button>
         </div>
-      </div>
-      <div class="project-mission">$100K/month profit — test winning products and launch with paid ads.</div>
-      <div class="project-items">
-        <div class="project-item-label">Active Products</div>
-        <div class="project-item"><span class="project-item-dot"></span>FlexGuard — <span style="color:#00ff88;font-weight:600">Live</span></div>
-        <div class="project-item"><span class="project-item-dot"></span>Veloura — <span style="color:#ffb86b;font-weight:600">Testing</span></div>
-        <div class="project-item"><span class="project-item-dot"></span>RestCalm — <span style="color:#00ff88;font-weight:600">Live</span></div>
-      </div>
-      <div class="project-focus"><strong>Current Focus:</strong> Launch Meta ads on FlexGuard + RestCalm</div>
-      <button class="project-link" onclick="goToTasksFiltered('neo')">📋 View Neo's Tasks →</button>
-    </div>
-
-    <!-- KYVO Performance -->
-    <div class="project-card" style="--pcolor:#ffb86b;--pglow:#ffb86b18">
-      <div class="project-header">
-        <div class="project-icon">🔮</div>
-        <div class="project-title-block">
-          <div class="project-name">KYVO Performance</div>
-          <div class="project-director">Director: The Oracle 🔮</div>
-        </div>
-      </div>
-      <div class="project-mission">$50M golf performance lifestyle brand in 5 years.</div>
-      <div class="project-items">
-        <div class="project-item-label">Status</div>
-        <div class="project-item"><span class="project-item-dot"></span>Brand building phase</div>
-        <div class="project-item"><span class="project-item-dot"></span>Content + product development</div>
-      </div>
-      <div class="project-focus"><strong>Current Focus:</strong> KYVO content filming (Tuesdays), Instagram strategy</div>
-      <button class="project-link" onclick="goToTasksFiltered('drago')">📋 View Oracle's Tasks →</button>
-    </div>
-
-    <!-- @casualgolfdad -->
-    <div class="project-card" style="--pcolor:#ff6b6b;--pglow:#ff6b6b18">
-      <div class="project-header">
-        <div class="project-icon">⚡</div>
-        <div class="project-title-block">
-          <div class="project-name">@casualgolfdad</div>
-          <div class="project-director">Director: Trinity ⚡</div>
-        </div>
-      </div>
-      <div class="project-mission">Authentic golf personal brand → real sponsorships.</div>
-      <div class="project-items">
-        <div class="project-item-label">Status</div>
-        <div class="project-item"><span class="project-item-dot"></span>Content calendar building</div>
-      </div>
-      <div class="project-focus"><strong>Current Focus:</strong> Weekly content from simulator + office filming sessions</div>
-      <button class="project-link" onclick="goToTasksFiltered('happy')">📋 View Trinity's Tasks →</button>
-    </div>
-
-  </div>
-</div>
-
-<!-- TEAM -->
-<div class="section" id="sec-team">
-  <div class="team-page">
-    <div class="team-quote"><span>"Build an empire so my children inherit freedom, not limitation."</span></div>
-    <div class="team-heading">
-      <h2>Meet the Team</h2>
-      <p>7 AI agents. Two tiers. One mission.</p>
-    </div>
-
-    <!-- PILLAR DIRECTORS -->
-    <div class="tier-label">
-      <div class="tier-label-line"></div>
-      <div class="tier-label-text">⭐ Pillar Directors</div>
-      <div class="tier-label-line"></div>
-    </div>
-    <div class="directors-row">
-
-      <!-- Morpheus -->
-      <div class="director-card" style="--card-color:#7c6bff;--card-glow:#7c6bff22;--card-bg:#7c6bff22">
-        <div class="dir-status"><div class="dir-status-dot"></div>ONLINE</div>
-        <div class="dir-avatar">🌀</div>
-        <div class="dir-name">Morpheus</div>
-        <div class="dir-role">Orchestrator</div>
-        <div class="dir-pillar">All Pillars</div>
-        <div class="dir-mission">"Sees everything. Directs the team. Makes sure nothing falls through the cracks."</div>
-      </div>
-
-      <!-- Neo -->
-      <div class="director-card" style="--card-color:#00d4aa;--card-glow:#00d4aa22;--card-bg:#00d4aa22">
-        <div class="dir-status"><div class="dir-status-dot"></div>ONLINE</div>
-        <div class="dir-avatar">🕶️</div>
-        <div class="dir-name">Neo</div>
-        <div class="dir-role">Dropship HQ Director</div>
-        <div class="dir-pillar">Dropship</div>
-        <div class="dir-mission">"Finds winning products. Runs the pipeline. $100K/month is the mission."</div>
-      </div>
-
-      <!-- The Oracle -->
-      <div class="director-card" style="--card-color:#ffb86b;--card-glow:#ffb86b22;--card-bg:#ffb86b22">
-        <div class="dir-status"><div class="dir-status-dot"></div>ONLINE</div>
-        <div class="dir-avatar">🔮</div>
-        <div class="dir-name">The Oracle</div>
-        <div class="dir-role">KYVO Performance Director</div>
-        <div class="dir-pillar">KYVO</div>
-        <div class="dir-mission">"Builds KYVO into a $50M golf performance lifestyle brand."</div>
-      </div>
-
-      <!-- Trinity -->
-      <div class="director-card" style="--card-color:#ff6b6b;--card-glow:#ff6b6b22;--card-bg:#ff6b6b22">
-        <div class="dir-status"><div class="dir-status-dot"></div>ONLINE</div>
-        <div class="dir-avatar">⚡</div>
-        <div class="dir-name">Trinity</div>
-        <div class="dir-role">@casualgolfdad Director</div>
-        <div class="dir-pillar">Golf</div>
-        <div class="dir-mission">"Makes @casualgolfdad the most authentic golf brand on Instagram."</div>
-      </div>
-
-    </div>
-
-    <!-- SPECIALIST AGENTS -->
-    <div class="tier-label">
-      <div class="tier-label-line"></div>
-      <div class="tier-label-text">🛠️ Specialist Agents</div>
-      <div class="tier-label-line"></div>
-    </div>
-    <div class="specialists-row">
-
-      <!-- The Copywriter -->
-      <div class="specialist-card">
-        <div class="spec-avatar">✍️</div>
-        <div class="spec-body">
-          <div class="spec-top">
-            <div class="spec-name">The Copywriter</div>
-            <span class="spec-badge">Specialist</span>
+        <div class="kanban" id="taskBoard">
+          <div class="kanban-col" ondragover="dragOver(event)" ondrop="drop(event,'todo')" ondragleave="dragLeave(event)">
+            <div class="kanban-col-header" style="border-top:2px solid var(--text3)">To Do <span class="col-count" id="cnt-todo">0</span></div>
+            <div class="kanban-cards" id="col-todo"></div>
           </div>
-          <div class="spec-role">Copy Specialist · All 3 Pillars</div>
-          <div class="spec-mission">"Every word earns its place. Direct response mastery for all 3 pillars."</div>
-          <div class="spec-status"><div class="spec-status-dot"></div>ONLINE</div>
-        </div>
-      </div>
-
-      <!-- The Creative -->
-      <div class="specialist-card">
-        <div class="spec-avatar">🎨</div>
-        <div class="spec-body">
-          <div class="spec-top">
-            <div class="spec-name">The Creative</div>
-            <span class="spec-badge">Specialist</span>
+          <div class="kanban-col" ondragover="dragOver(event)" ondrop="drop(event,'in-progress')" ondragleave="dragLeave(event)">
+            <div class="kanban-col-header" style="border-top:2px solid var(--cyan)">In Progress <span class="col-count" id="cnt-in-progress">0</span></div>
+            <div class="kanban-cards" id="col-in-progress"></div>
           </div>
-          <div class="spec-role">Creative Specialist · All 3 Pillars</div>
-          <div class="spec-mission">"Scroll-stopping images. Veloura is the floor, not the ceiling."</div>
-          <div class="spec-status"><div class="spec-status-dot"></div>ONLINE</div>
-        </div>
-      </div>
-
-      <!-- The Builder -->
-      <div class="specialist-card">
-        <div class="spec-avatar">🔧</div>
-        <div class="spec-body">
-          <div class="spec-top">
-            <div class="spec-name">The Builder</div>
-            <span class="spec-badge">Specialist</span>
+          <div class="kanban-col" ondragover="dragOver(event)" ondrop="drop(event,'review')" ondragleave="dragLeave(event)">
+            <div class="kanban-col-header" style="border-top:2px solid var(--amber)">Review <span class="col-count" id="cnt-review">0</span></div>
+            <div class="kanban-cards" id="col-review"></div>
           </div>
-          <div class="spec-role">Build Specialist · All 3 Pillars</div>
-          <div class="spec-mission">"Tommy clicks Run Ads the moment the page lands. Zero editing."</div>
-          <div class="spec-status"><div class="spec-status-dot"></div>ONLINE</div>
+          <div class="kanban-col" ondragover="dragOver(event)" ondrop="drop(event,'done')" ondragleave="dragLeave(event)">
+            <div class="kanban-col-header" style="border-top:2px solid #00c853">Done <span class="col-count" id="cnt-done">0</span></div>
+            <div class="kanban-cards" id="col-done"></div>
+          </div>
         </div>
       </div>
 
-    </div>
+      <!-- CONTENT -->
+      <div class="section" id="sec-content">
+        <div class="filters" id="contentAgentFilters">
+          <button class="filter-btn active" data-val="all">All Agents</button>
+          <button class="filter-btn" data-val="charlie">🌀 Morpheus</button>
+          <button class="filter-btn" data-val="neo">🕶️ Neo</button>
+          <button class="filter-btn" data-val="drago">🔮 The Oracle</button>
+          <button class="filter-btn" data-val="happy">⚡ Trinity</button>
+        </div>
+        <div class="filters" id="contentPillarFilters">
+          <button class="filter-btn active" data-val="all">All Pillars</button>
+          <button class="filter-btn" data-val="Dropship">Dropship</button>
+          <button class="filter-btn" data-val="KYVO">KYVO</button>
+          <button class="filter-btn" data-val="Golf">Golf</button>
+          <button class="filter-btn" data-val="BBA">BBA</button>
+        </div>
+        <div class="kanban" id="contentBoard">
+          <div class="kanban-col">
+            <div class="kanban-col-header" style="border-top:2px solid var(--text3)">Draft <span class="col-count" id="ccnt-Draft">0</span></div>
+            <div class="kanban-cards" id="ccol-Draft"></div>
+          </div>
+          <div class="kanban-col">
+            <div class="kanban-col-header" style="border-top:2px solid var(--amber)">Review <span class="col-count" id="ccnt-Review">0</span></div>
+            <div class="kanban-cards" id="ccol-Review"></div>
+          </div>
+          <div class="kanban-col">
+            <div class="kanban-col-header" style="border-top:2px solid var(--cyan)">Approved <span class="col-count" id="ccnt-Approved">0</span></div>
+            <div class="kanban-cards" id="ccol-Approved"></div>
+          </div>
+          <div class="kanban-col">
+            <div class="kanban-col-header" style="border-top:2px solid #00c853">Posted <span class="col-count" id="ccnt-Posted">0</span></div>
+            <div class="kanban-cards" id="ccol-Posted"></div>
+          </div>
+        </div>
+      </div>
 
-    <!-- Meta Layer -->
-    <div class="meta-layer">
-      <div class="meta-layer-line"></div>
-      <div class="meta-layer-label">THE MISSION</div>
-      <div class="meta-layer-line"></div>
-    </div>
-    <div style="text-align:center;padding:16px 24px;background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);font-size:13px;color:var(--text2);line-height:1.8">
-      "We build for Tommy's family. Not for vanity. Not for scorecards.<br>
-      Because behind every pipeline we run, every ad we launch, every brief we write —<br>
-      there are four kids who deserve a life without limits.<br>
-      <strong style="color:var(--text);font-style:normal">We move fast, we work clean, and we never forget why.</strong>"
-    </div>
-  </div>
-</div>
+      <!-- APPROVALS -->
+      <div class="section" id="sec-approvals">
+        <div id="approvalsList"></div>
+      </div>
+
+      <!-- DOCS -->
+      <div class="section" id="sec-docs">
+        <input type="text" class="search-bar" id="docSearch" placeholder="Search docs by title, description or tag…" oninput="renderDocs()">
+        <div class="docs-layout">
+          <div class="folder-sidebar">
+            <div class="folder-sidebar-title">Folders</div>
+            <button class="folder-btn active" data-folder="all" onclick="setDocFolder('all',this)"><span class="folder-icon">🗂️</span> All Docs <span class="folder-count" id="fc-all">0</span></button>
+            <button class="folder-btn" data-folder="Dropshipping" onclick="setDocFolder('Dropshipping',this)"><span class="folder-icon">🕶️</span> Dropshipping <span class="folder-count" id="fc-Dropshipping">0</span></button>
+            <button class="folder-btn" data-folder="KYVO Performance" onclick="setDocFolder('KYVO Performance',this)"><span class="folder-icon">🔮</span> KYVO Performance <span class="folder-count" id="fc-KYVO Performance">0</span></button>
+            <button class="folder-btn" data-folder="@casualgolfdad" onclick="setDocFolder('@casualgolfdad',this)"><span class="folder-icon">⛳</span> @casualgolfdad <span class="folder-count" id="fc-@casualgolfdad">0</span></button>
+            <button class="folder-btn" data-folder="Creative" onclick="setDocFolder('Creative',this)"><span class="folder-icon">🎨</span> Creative <span class="folder-count" id="fc-Creative">0</span></button>
+            <button class="folder-btn" data-folder="Strategy" onclick="setDocFolder('Strategy',this)"><span class="folder-icon">🚀</span> Strategy <span class="folder-count" id="fc-Strategy">0</span></button>
+            <button class="folder-btn" data-folder="SOPs" onclick="setDocFolder('SOPs',this)"><span class="folder-icon">📋</span> SOPs <span class="folder-count" id="fc-SOPs">0</span></button>
+          </div>
+          <div class="docs-grid" id="docsGrid"></div>
+        </div>
+      </div>
+
+      <!-- ACTIVITY -->
+      <div class="section" id="sec-activity">
+        <div class="filters" id="activityFilters">
+          <button class="filter-btn active" data-val="all">All Agents</button>
+          <button class="filter-btn" data-val="charlie">🌀 Morpheus</button>
+          <button class="filter-btn" data-val="neo">🕶️ Neo</button>
+          <button class="filter-btn" data-val="drago">🔮 The Oracle</button>
+          <button class="filter-btn" data-val="happy">⚡ Trinity</button>
+        </div>
+        <div class="activity-feed" id="activityFeed"></div>
+      </div>
+
+      <!-- SCHEDULE -->
+      <div class="section" id="sec-schedule">
+        <div class="schedule-page">
+          <div class="schedule-note">🌐 Schedules run on <strong style="color:var(--text)">America/New_York</strong> timezone</div>
+          <div class="cron-card">
+            <table class="cron-table">
+              <thead>
+                <tr><th>Job</th><th>Schedule</th><th>Last Run</th><th>Next Run</th><th>Status</th></tr>
+              </thead>
+              <tbody id="cronTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECTS -->
+      <div class="section" id="sec-projects">
+        <div class="projects-grid">
+          <div class="project-card" style="--pcolor:#00d4aa;--pglow:#00d4aa18">
+            <div class="project-header">
+              <div class="project-icon">🕶️</div>
+              <div class="project-title-block">
+                <div class="project-name">Dropship HQ</div>
+                <div class="project-director">Director: Neo 🕶️</div>
+              </div>
+            </div>
+            <div class="project-mission">$100K/month profit — test winning products and launch with paid ads.</div>
+            <div class="project-items">
+              <div class="project-item-label">Active Products</div>
+              <div class="project-item"><span class="project-item-dot"></span>FlexGuard — <span style="color:#00ff88;font-weight:600">Live</span></div>
+              <div class="project-item"><span class="project-item-dot"></span>Veloura — <span style="color:#ffb86b;font-weight:600">Testing</span></div>
+              <div class="project-item"><span class="project-item-dot"></span>RestCalm — <span style="color:#00ff88;font-weight:600">Live</span></div>
+            </div>
+            <div class="project-focus"><strong>Current Focus:</strong> Launch Meta ads on FlexGuard + RestCalm</div>
+            <button class="project-link" onclick="goToTasksFiltered('neo')">📋 View Neo's Tasks →</button>
+          </div>
+          <div class="project-card" style="--pcolor:#7c6bff;--pglow:#7c6bff18">
+            <div class="project-header">
+              <div class="project-icon">🔮</div>
+              <div class="project-title-block">
+                <div class="project-name">KYVO Performance</div>
+                <div class="project-director">Director: The Oracle 🔮</div>
+              </div>
+            </div>
+            <div class="project-mission">$50M golf performance lifestyle brand in 5 years.</div>
+            <div class="project-items">
+              <div class="project-item-label">Status</div>
+              <div class="project-item"><span class="project-item-dot"></span>Brand building phase</div>
+              <div class="project-item"><span class="project-item-dot"></span>Content + product development</div>
+            </div>
+            <div class="project-focus"><strong>Current Focus:</strong> KYVO content filming (Tuesdays), Instagram strategy</div>
+            <button class="project-link" onclick="goToTasksFiltered('drago')">📋 View Oracle's Tasks →</button>
+          </div>
+          <div class="project-card" style="--pcolor:#ff6b6b;--pglow:#ff6b6b18">
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-block">
+                <div class="project-name">@casualgolfdad</div>
+                <div class="project-director">Director: Trinity ⚡</div>
+              </div>
+            </div>
+            <div class="project-mission">Authentic golf personal brand → real sponsorships.</div>
+            <div class="project-items">
+              <div class="project-item-label">Status</div>
+              <div class="project-item"><span class="project-item-dot"></span>Content calendar building</div>
+            </div>
+            <div class="project-focus"><strong>Current Focus:</strong> Weekly content from simulator + office filming</div>
+            <button class="project-link" onclick="goToTasksFiltered('happy')">📋 View Trinity's Tasks →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TEAM -->
+      <div class="section" id="sec-team">
+        <div class="team-page">
+          <div class="team-quote"><span>"Build an empire so my children inherit freedom, not limitation."</span></div>
+          <div class="team-heading"><h2>Meet the Team</h2><p>7 AI agents. Two tiers. One mission.</p></div>
+          <div class="tier-label"><div class="tier-label-line"></div><div class="tier-label-text">⭐ Pillar Directors</div><div class="tier-label-line"></div></div>
+          <div class="directors-row">
+            <div class="director-card" style="--card-color:#7c6bff;--card-glow:#7c6bff22;--card-bg:#7c6bff22">
+              <div class="dir-status"><div class="dir-status-dot"></div>ONLINE</div>
+              <div class="dir-avatar">🌀</div>
+              <div class="dir-name">Morpheus</div>
+              <div class="dir-role">Orchestrator</div>
+              <div class="dir-pillar">All Pillars</div>
+              <div class="dir-mission">"Sees everything. Directs the team. Makes sure nothing falls through the cracks."</div>
+            </div>
+            <div class="director-card" style="--card-color:#00d4aa;--card-glow:#00d4aa22;--card-bg:#00d4aa22">
+              <div class="dir-status"><div class="dir-status-dot"></div>ONLINE</div>
+              <div class="dir-avatar">🕶️</div>
+              <div class="dir-name">Neo</div>
+              <div class="dir-role">Dropship HQ Director</div>
+              <div class="dir-pillar">Dropship</div>
+              <div class="dir-mission">"Finds winning products. Runs the pipeline. $100K/month is the mission."</div>
+            </div>
+            <div class="director-card" style="--card-color:#7c6bff;--card-glow:#7c6bff22;--card-bg:#7c6bff22">
+              <div class="dir-status"><div class="dir-status-dot"></div>ONLINE</div>
+              <div class="dir-avatar">🔮</div>
+              <div class="dir-name">The Oracle</div>
+              <div class="dir-role">KYVO Performance Director</div>
+              <div class="dir-pillar">KYVO</div>
+              <div class="dir-mission">"Builds KYVO into a $50M golf performance lifestyle brand."</div>
+            </div>
+            <div class="director-card" style="--card-color:#ff6b6b;--card-glow:#ff6b6b22;--card-bg:#ff6b6b22">
+              <div class="dir-status"><div class="dir-status-dot"></div>ONLINE</div>
+              <div class="dir-avatar">⚡</div>
+              <div class="dir-name">Trinity</div>
+              <div class="dir-role">@casualgolfdad Director</div>
+              <div class="dir-pillar">Golf</div>
+              <div class="dir-mission">"Makes @casualgolfdad the most authentic golf brand on Instagram."</div>
+            </div>
+          </div>
+          <div class="tier-label"><div class="tier-label-line"></div><div class="tier-label-text">🛠️ Specialist Agents</div><div class="tier-label-line"></div></div>
+          <div class="specialists-row">
+            <div class="specialist-card">
+              <div class="spec-avatar">✍️</div>
+              <div class="spec-body">
+                <div class="spec-top"><div class="spec-name">The Copywriter</div><span class="spec-badge">Specialist</span></div>
+                <div class="spec-role">Copy Specialist · All 3 Pillars</div>
+                <div class="spec-mission">"Every word earns its place."</div>
+                <div class="spec-status"><div class="spec-status-dot"></div>ONLINE</div>
+              </div>
+            </div>
+            <div class="specialist-card">
+              <div class="spec-avatar">🎨</div>
+              <div class="spec-body">
+                <div class="spec-top"><div class="spec-name">The Creative</div><span class="spec-badge">Specialist</span></div>
+                <div class="spec-role">Creative Specialist · All 3 Pillars</div>
+                <div class="spec-mission">"Scroll-stopping images. Veloura is the floor, not the ceiling."</div>
+                <div class="spec-status"><div class="spec-status-dot"></div>ONLINE</div>
+              </div>
+            </div>
+            <div class="specialist-card">
+              <div class="spec-avatar">🔧</div>
+              <div class="spec-body">
+                <div class="spec-top"><div class="spec-name">The Builder</div><span class="spec-badge">Specialist</span></div>
+                <div class="spec-role">Build Specialist · All 3 Pillars</div>
+                <div class="spec-mission">"Tommy clicks Run Ads the moment the page lands. Zero editing."</div>
+                <div class="spec-status"><div class="spec-status-dot"></div>ONLINE</div>
+              </div>
+            </div>
+          </div>
+          <div class="meta-layer"><div class="meta-layer-line"></div><div class="meta-layer-label">THE MISSION</div><div class="meta-layer-line"></div></div>
+          <div style="text-align:center;padding:14px 22px;background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);font-size:13px;color:var(--text2);line-height:1.8">
+            "We build for Tommy's family. Not for vanity. Not for scorecards.<br>
+            Because behind every pipeline we run, every ad we launch, every brief we write —<br>
+            there are four kids who deserve a life without limits.<br>
+            <strong style="color:var(--text);font-style:normal">We move fast, we work clean, and we never forget why.</strong>"
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /sections-wrap -->
+
+    <!-- LIVE ACTIVITY PANEL (tasks only) -->
+    <aside class="live-activity-panel" id="liveActivityPanel">
+      <div class="lap-header">
+        <div class="lap-header-dot"></div>
+        Live Activity
+      </div>
+      <div class="lap-feed" id="lapFeed"></div>
+    </aside>
+
+  </div><!-- /page-area -->
+</div><!-- /main -->
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
@@ -659,125 +709,136 @@ html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--
 
 <script>
 // ─── CONSTANTS ───────────────────────────────────────────────
-const COLORS = {charlie:'var(--coral)',neo:'var(--cyan)',drago:'var(--purple)',happy:'var(--amber)'};
 const API_KEY = 'thq_25741469f31452628a1d8ae7372155ef2a2bf0b7d0138d96';
 
-// ─── STORAGE (localStorage + API sync) ──────────────────────
-function load(key){try{return JSON.parse(localStorage.getItem('tmhq_'+key)||'null')}catch{return null}}
-function save(key,val){localStorage.setItem('tmhq_'+key,JSON.stringify(val))}
+const AGENT = {
+  charlie: {name:'Morpheus',  emoji:'🌀', color:'#7c6bff'},
+  morpheus:{name:'Morpheus',  emoji:'🌀', color:'#7c6bff'},
+  neo:     {name:'Neo',       emoji:'🕶️', color:'#00d4aa'},
+  drago:   {name:'The Oracle',emoji:'🔮', color:'#7c6bff'},
+  oracle:  {name:'The Oracle',emoji:'🔮', color:'#7c6bff'},
+  happy:   {name:'Trinity',   emoji:'⚡', color:'#ff6b6b'},
+  trinity: {name:'Trinity',   emoji:'⚡', color:'#ff6b6b'},
+  bob:     {name:'The Creative',emoji:'🎨',color:'#e879f9'},
+};
+function agentColor(id){return (AGENT[id]||{color:'var(--text3)'}).color;}
+function agentName(id){return (AGENT[id]||{name:id,emoji:''});}
+
+// ─── STORAGE ─────────────────────────────────────────────────
+function load(k){try{return JSON.parse(localStorage.getItem('tmhq_'+k)||'null')}catch{return null}}
+function save(k,v){localStorage.setItem('tmhq_'+k,JSON.stringify(v))}
 function genId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
 
-// ─── DEFAULT DATA ─────────────────────────────────────────────
+// ─── DEFAULTS ────────────────────────────────────────────────
 const DEFAULT_TASKS = [
   {id:'t1',title:'Connect Meta Ads account',agent:'charlie',priority:'high',status:'todo',created:new Date(Date.now()-2*864e5).toISOString()},
   {id:'t2',title:'Launch RestCalm on Meta Ads',agent:'neo',priority:'high',status:'todo',created:new Date(Date.now()-864e5).toISOString()},
   {id:'t3',title:'Build KYVO landing page',agent:'drago',priority:'medium',status:'in-progress',created:new Date(Date.now()-3*864e5).toISOString()},
   {id:'t4',title:'Research winning wedge content hooks',agent:'happy',priority:'medium',status:'in-progress',created:new Date(Date.now()-864e5).toISOString()},
-  {id:'t5',title:'Audit Anakampsi product copy for AI readability',agent:'charlie',priority:'medium',status:'todo',created:new Date(Date.now()-43200e3).toISOString()},
+  {id:'t5',title:'Audit Anakampsi product copy',agent:'charlie',priority:'medium',status:'todo',created:new Date(Date.now()-43200e3).toISOString()},
   {id:'t6',title:'Run product pipeline on new candidate',agent:'neo',priority:'high',status:'in-progress',created:new Date(Date.now()-7200e3).toISOString()},
   {id:'t7',title:'Write KYVO email welcome sequence',agent:'drago',priority:'medium',status:'review',created:new Date(Date.now()-2*864e5).toISOString()},
-  {id:'t8',title:'Prepare simulator practice plan (Wed 5am)',agent:'happy',priority:'low',status:'done',created:new Date(Date.now()-864e5).toISOString()},
+  {id:'t8',title:'Prepare simulator practice plan',agent:'happy',priority:'low',status:'done',created:new Date(Date.now()-864e5).toISOString()},
   {id:'t9',title:'Deploy copywriting knowledge base',agent:'charlie',priority:'high',status:'done',created:new Date(Date.now()-864e5).toISOString()},
   {id:'t10',title:'Set up Klaviyo abandoned cart flow',agent:'neo',priority:'medium',status:'todo',created:new Date(Date.now()-3600e3).toISOString()},
 ];
-
 const DEFAULT_CONTENT = [
-  {id:'c1',title:'Tiger Woods Masters return take',agent:'happy',pillar:'Golf',platform:'Instagram',status:'Draft',notes:'Will Tiger play Augusta? 7 weeks out — massive content',created:new Date(Date.now()-3600e3).toISOString()},
+  {id:'c1',title:'Tiger Woods Masters return take',agent:'happy',pillar:'Golf',platform:'Instagram',status:'Draft',notes:'Will Tiger play Augusta? Massive content angle.',created:new Date(Date.now()-3600e3).toISOString()},
   {id:'c2',title:'RestCalm FB ad — 30sec UGC',agent:'neo',pillar:'Dropship',platform:'Facebook Ad',status:'Review',notes:'Hook: Still waking up at 3am with restless legs?',created:new Date(Date.now()-2*3600e3).toISOString()},
-  {id:'c3',title:'KYVO pre-launch email #1',agent:'drago',pillar:'KYVO',platform:'Email',status:'Draft',notes:'Founding member offer — lock in early pricing',created:new Date(Date.now()-5*3600e3).toISOString()},
-  {id:'c4',title:'Bridgeman win — underdog grind story',agent:'happy',pillar:'Golf',platform:'Instagram',status:'Approved',notes:'Unknown grinder beats the field at Riviera',created:new Date(Date.now()-24*3600e3).toISOString()},
+  {id:'c3',title:'KYVO pre-launch email #1',agent:'drago',pillar:'KYVO',platform:'Email',status:'Draft',notes:'Founding member offer — lock in early pricing.',created:new Date(Date.now()-5*3600e3).toISOString()},
+  {id:'c4',title:'Underdog grind story — Bridgeman win',agent:'happy',pillar:'Golf',platform:'Instagram',status:'Approved',notes:'Unknown grinder beats the field at Riviera.',created:new Date(Date.now()-24*3600e3).toISOString()},
   {id:'c5',title:'PelvaCare advertorial — personal story',agent:'neo',pillar:'Dropship',platform:'Facebook Ad',status:'Posted',notes:'47,000 women finally sleeping through the night...',created:new Date(Date.now()-3*864e5).toISOString()},
 ];
-
 const DEFAULT_APPROVALS = [
-  {id:'a1',title:'Launch RestCalm Facebook Ad Campaign',description:'Ready to run $20/day test on RestCalm with the UGC 30-sec script. Targeting women 50-70 with RLS interest. Need approval to create the ad set.',agent:'neo',type:'Ad Spend',priority:'high',status:'pending',created:new Date(Date.now()-3600e3).toISOString()},
-  {id:'a2',title:'Post Bridgeman content to @casualgolfdad',description:'Short reel ready: "Unknown grinder beats Rory at Riviera. You don\'t need to be famous, you need to be consistent." 45 seconds, no face cam needed.',agent:'happy',type:'Content',priority:'medium',status:'pending',created:new Date(Date.now()-2*3600e3).toISOString()},
-  {id:'a3',title:'Add KYVO founding member CTA to bio link',description:'Update Linktree to include KYVO early access signup. Simple addition — 2 min job. Just want sign-off before touching the profile.',agent:'drago',type:'Action',priority:'low',status:'pending',created:new Date(Date.now()-5*3600e3).toISOString()},
-  {id:'a4',title:'Chomsters Facebook ad test',description:'Approved previous campaign. Kids U-shaped toothbrush targeting parents of 2-6 year olds.',agent:'neo',type:'Ad Spend',priority:'high',status:'approved',created:new Date(Date.now()-5*864e5).toISOString(),resolved:new Date(Date.now()-4*864e5).toISOString()},
+  {id:'a1',title:'Launch RestCalm Facebook Ad Campaign',description:'Ready to run $20/day test on RestCalm with the UGC 30-sec script. Targeting women 50-70 with RLS interest.',agent:'neo',type:'Ad Spend',priority:'high',status:'pending',created:new Date(Date.now()-3600e3).toISOString()},
+  {id:'a2',title:'Post Bridgeman content to @casualgolfdad',description:'Short reel ready: "Unknown grinder beats Rory at Riviera." 45 seconds.',agent:'happy',type:'Content',priority:'medium',status:'pending',created:new Date(Date.now()-2*3600e3).toISOString()},
+  {id:'a3',title:'Add KYVO founding member CTA to bio link',description:'Update Linktree to include KYVO early access signup. Simple addition.',agent:'drago',type:'Action',priority:'low',status:'pending',created:new Date(Date.now()-5*3600e3).toISOString()},
+  {id:'a4',title:'Chomsters Facebook ad test',description:'Approved previous campaign. Kids U-shaped toothbrush.',agent:'neo',type:'Ad Spend',priority:'high',status:'approved',created:new Date(Date.now()-5*864e5).toISOString(),resolved:new Date(Date.now()-4*864e5).toISOString()},
 ];
-
 const DEFAULT_DOCS = [
-  {id:'d1',title:'Copy Bible',agent:'charlie',category:'SOP',description:'Master copywriting reference — Schwartz, Ogilvy, Hormozi, Brunson, Cialdini and more',file_path:'/Users/charlieclaw/.openclaw/workspace/sops/copy-bible.md',tags:['copywriting','frameworks','master-ref'],created:new Date(Date.now()-864e5).toISOString()},
-  {id:'d2',title:'Hook Library',agent:'charlie',category:'Copy',description:'505 battle-tested hooks organized by 14 categories with psychological reasoning',file_path:'/Users/charlieclaw/.openclaw/workspace/sops/hook-library.md',tags:['hooks','ads','copywriting'],created:new Date(Date.now()-864e5).toISOString()},
-  {id:'d3',title:'Awareness Levels Guide',agent:'charlie',category:'Strategy',description:'Eugene Schwartz 5 awareness levels applied to our exact product niches',file_path:'/Users/charlieclaw/.openclaw/workspace/sops/awareness-levels.md',tags:['schwartz','strategy','targeting'],created:new Date(Date.now()-864e5).toISOString()},
-  {id:'d4',title:'Copy Research SOP',agent:'neo',category:'SOP',description:'Pre-writing research — Amazon reviews, Reddit, Gethookd, customer avatar',file_path:'/Users/charlieclaw/.openclaw/workspace/sops/copy-research-sop.md',tags:['research','sop','copywriting'],created:new Date(Date.now()-864e5).toISOString()},
-  {id:'d5',title:'FB Ad Scripts — 15sec',agent:'neo',category:'Script',description:'15-second Facebook/Instagram ad templates with real examples',file_path:'/Users/charlieclaw/.openclaw/workspace/sops/scripts/fb-ad-15sec.md',tags:['facebook','ads','scripts'],created:new Date(Date.now()-864e5).toISOString()},
-  {id:'d6',title:'VSL Long-Form Template',agent:'drago',category:'Script',description:'Full 3-5 minute VSL structure — Agora + Brunson frameworks combined',file_path:'/Users/charlieclaw/.openclaw/workspace/sops/scripts/vsl-long-form.md',tags:['vsl','video','sales'],created:new Date(Date.now()-864e5).toISOString()},
-  {id:'d7',title:'Advertorial Templates',agent:'neo',category:'Script',description:'4 advertorial styles — personal story, expert interview, listicle, news',file_path:'/Users/charlieclaw/.openclaw/workspace/sops/scripts/advertorial.md',tags:['advertorial','native','copy'],created:new Date(Date.now()-864e5).toISOString()},
-  {id:'d8',title:'Email Sequences',agent:'drago',category:'Copy',description:'14 emails — welcome, abandoned cart, post-purchase, win-back',file_path:'/Users/charlieclaw/.openclaw/workspace/sops/scripts/email-sequence.md',tags:['email','sequences','klaviyo'],created:new Date(Date.now()-864e5).toISOString()},
-  {id:'d9',title:'Landing Page Template',agent:'neo',category:'Script',description:'10-section high-converting landing page with CTA copy guide',file_path:'/Users/charlieclaw/.openclaw/workspace/sops/scripts/landing-page.md',tags:['landing-page','conversion','shopify'],created:new Date(Date.now()-864e5).toISOString()},
-  {id:'d10',title:'Master Swipe File',agent:'charlie',category:'Research',description:'Curated winning ad examples organized by category and niche',file_path:'/Users/charlieclaw/.openclaw/workspace/sops/master-swipe-file.md',tags:['swipe','inspiration','winning-ads'],created:new Date(Date.now()-864e5).toISOString()},
+  {id:'d1',title:'Copy Bible',agent:'charlie',folder:'SOPs',description:'Master copywriting reference — Schwartz, Ogilvy, Hormozi, Brunson, Cialdini.',tags:['copywriting','frameworks'],created:'2026-02-24'},
+  {id:'d2',title:'Hook Library',agent:'charlie',folder:'SOPs',description:'505 battle-tested hooks organized by 14 categories.',tags:['hooks','ads'],created:'2026-02-24'},
+  {id:'d3',title:'Awareness Levels Guide',agent:'charlie',folder:'Strategy',description:'Eugene Schwartz 5 awareness levels applied to our exact niches.',tags:['schwartz','strategy'],created:'2026-02-24'},
+  {id:'d4',title:'Copy Research SOP',agent:'neo',folder:'SOPs',description:'Pre-writing research — Amazon reviews, Reddit, Gethookd, customer avatar.',tags:['research','sop'],created:'2026-02-24'},
+  {id:'d5',title:'FB Ad Scripts — 15sec',agent:'neo',folder:'Dropshipping',description:'15-second Facebook/Instagram ad templates with real examples.',tags:['facebook','scripts'],created:'2026-02-24'},
+  {id:'d6',title:'VSL Long-Form Template',agent:'drago',folder:'KYVO Performance',description:'Full 3-5 minute VSL structure — Agora + Brunson.',tags:['vsl','video'],created:'2026-02-24'},
+  {id:'d7',title:'Advertorial Templates',agent:'neo',folder:'Dropshipping',description:'4 advertorial styles — personal story, expert, listicle, news.',tags:['advertorial','copy'],created:'2026-02-24'},
+  {id:'d8',title:'Email Sequences',agent:'drago',folder:'KYVO Performance',description:'14 emails — welcome, abandoned cart, post-purchase, win-back.',tags:['email','klaviyo'],created:'2026-02-24'},
+  {id:'d9',title:'Landing Page Template',agent:'neo',folder:'Dropshipping',description:'10-section high-converting landing page with CTA copy guide.',tags:['landing-page','shopify'],created:'2026-02-24'},
+  {id:'d10',title:'Master Swipe File',agent:'charlie',folder:'SOPs',description:'Curated winning ad examples organized by category and niche.',tags:['swipe','winning-ads'],created:'2026-02-24'},
 ];
-
 const DEFAULT_ACTIVITY = [
-  {id:'ac1',agent:'charlie',action:'Mission + Creed embedded in all agents',details:'North star and creed added to all 4 SOUL.md and USER.md files — team aligned on the mission',ts:new Date(Date.now()-30*60e3).toISOString()},
-  {id:'ac2',agent:'charlie',action:'Mission Control V2 deployed',details:'All 6 sections live — Tasks, Content, Approvals, Docs, Activity, Team',ts:new Date(Date.now()-2*3600e3).toISOString()},
-  {id:'ac3',agent:'charlie',action:'Built world-class copywriting knowledge base',details:'Copy Bible, Hook Library, 7 script templates, Research SOP — all committed to GitHub',ts:new Date(Date.now()-5*3600e3).toISOString()},
-  {id:'ac4',agent:'neo',action:'Pipeline running for new product',details:'Running full SOP 01-04 on new dropship candidate',ts:new Date(Date.now()-6*3600e3).toISOString()},
-  {id:'ac5',agent:'charlie',action:'Morning Brief cron fixed',details:'Switched to direct message tool — fires at 4:30am automatically to Tommy\'s Telegram',ts:new Date(Date.now()-8*3600e3).toISOString()},
-  {id:'ac6',agent:'drago',action:'Copy Bible loaded and ready',details:'Read master copywriting reference — KYVO content creation unlocked',ts:new Date(Date.now()-9*3600e3).toISOString()},
-  {id:'ac7',agent:'happy',action:'Copy Bible loaded and ready',details:'505 hooks reviewed + golf-specific section noted — @casualgolfdad scripts ready',ts:new Date(Date.now()-9*3600e3).toISOString()},
-  {id:'ac8',agent:'neo',action:'Higgsfield API issue resolved',details:'Credentials added to TOOLS.md — image generation working for pipeline',ts:new Date(Date.now()-10*3600e3).toISOString()},
-  {id:'ac9',agent:'charlie',action:'Brave Search API confirmed working',details:'web_search tool live after env key fix in openclaw.json',ts:new Date(Date.now()-24*3600e3).toISOString()},
-  {id:'ac10',agent:'charlie',action:'Google Calendar configured',details:'Full weekly schedule — family time, simulator, gym, agent check-ins all recurring',ts:new Date(Date.now()-2*864e5).toISOString()},
-  {id:'ac11',agent:'charlie',action:'GitHub backup running nightly',details:'All 4 workspaces backed up — 3am daily cron clean',ts:new Date(Date.now()-2*864e5).toISOString()},
-  {id:'ac12',agent:'neo',action:'RestCalm pipeline complete',details:'Restless Legs EMS Pad pages live at anakampsihealth.com',ts:new Date(Date.now()-3*864e5).toISOString()},
-  {id:'ac13',agent:'neo',action:'PelvaCare pipeline complete',details:'Pelvic Floor EMS Trainer — $10.77 COGS, 4900+ AliExpress sold, pages live',ts:new Date(Date.now()-3*864e5).toISOString()},
-  {id:'ac14',agent:'drago',action:'Higgsfield credentials added',details:'API key + secret live in workspace-kyvo TOOLS.md for image generation',ts:new Date(Date.now()-4*864e5).toISOString()},
-  {id:'ac15',agent:'happy',action:'Player profile created',details:'Handicap 8.6, wedge distance control = #1 weakness, practice plan set for Wed simulator',ts:new Date(Date.now()-4*864e5).toISOString()},
-  {id:'ac16',agent:'charlie',action:'Agent names updated',details:'Scout→Neo, Coach→Drago, Caddie→Happy — all workspaces and openclaw.json updated',ts:new Date(Date.now()-5*864e5).toISOString()},
-  {id:'ac17',agent:'charlie',action:'Kanban board v1 deployed',details:'Tommy HQ launched at tommy-hq.vercel.app with Vercel Blob backend',ts:new Date(Date.now()-6*864e5).toISOString()},
-];
-
-const TEAM = [
-  {id:'charlie',name:'Charlie',emoji:'🚀',role:'Super Agent / Chief of Staff',tagline:'The general. Orchestrates every pillar.',color:'coral',skills:['Orchestration','Morning Brief','Memory','Strategy','Copywriting'],stats:{tasks:47,docs:12,days:14}},
-  {id:'neo',name:'Neo',emoji:'🕶️',role:'Dropship Intelligence',tagline:'Sees through the matrix of ads and data.',color:'cyan',skills:['Product Research','Ad Analysis','Pipeline','Gethookd','Facebook Ads'],stats:{tasks:31,docs:8,days:14}},
-  {id:'drago',name:'Drago',emoji:'🥊',role:'KYVO Performance Director',tagline:'Engineered for peak performance.',color:'purple',skills:['Supplement Strategy','VSL Copywriting','Brand Building','Email Sequences'],stats:{tasks:18,docs:6,days:14}},
-  {id:'happy',name:'Happy',emoji:'⛳',role:'Golf & Content Coach',tagline:'Happy Gilmore energy. Serious results.',color:'amber',skills:['Golf Coaching','@casualgolfdad','Sponsorships','Swing Analysis','Content Calendar'],stats:{tasks:22,docs:5,days:14}},
+  {id:'ac1',agent:'charlie',action:'Discord migration complete',details:'All 4 agents live in dedicated Discord channels. Command center is online.',ts:new Date(Date.now()-30*60e3).toISOString()},
+  {id:'ac2',agent:'charlie',action:'Mission Control V3 deployed',details:'New sidebar layout with Live Activity panel.',ts:new Date(Date.now()-2*3600e3).toISOString()},
+  {id:'ac3',agent:'charlie',action:'Dropbox token renewed',details:'New token distributed to all 7 agent workspaces. Pipeline file delivery restored.',ts:new Date(Date.now()-3*3600e3).toISOString()},
+  {id:'ac4',agent:'charlie',action:'Apify access added to all agents',details:'Web scraping confirmed across all 7 workspaces — Instagram, TikTok, Amazon.',ts:new Date(Date.now()-4*3600e3).toISOString()},
+  {id:'ac5',agent:'neo',action:'Top 3 product picks delivered',details:'#1: Lumbar Support Pillow — 266 competitor ads running for 900+ days.',ts:new Date(Date.now()-6*3600e3).toISOString()},
+  {id:'ac6',agent:'charlie',action:'Built world-class copywriting knowledge base',details:'Copy Bible, Hook Library, 7 script templates — committed to GitHub.',ts:new Date(Date.now()-1.5*864e5).toISOString()},
+  {id:'ac7',agent:'neo',action:'Pipeline running for new product',details:'Running full SOP 01-04 on new dropship candidate.',ts:new Date(Date.now()-2*864e5).toISOString()},
+  {id:'ac8',agent:'drago',action:'KYVO strategy session complete',details:'Content calendar + supplement positioning finalized.',ts:new Date(Date.now()-2.5*864e5).toISOString()},
+  {id:'ac9',agent:'happy',action:'Copy Bible loaded and ready',details:'505 hooks reviewed + golf-specific section noted — @casualgolfdad scripts ready.',ts:new Date(Date.now()-3*864e5).toISOString()},
+  {id:'ac10',agent:'neo',action:'RestCalm pipeline complete',details:'Restless Legs EMS Pad pages live at anakampsihealth.com.',ts:new Date(Date.now()-4*864e5).toISOString()},
 ];
 
 // ─── STATE ────────────────────────────────────────────────────
-let tasks = load('tasks') || DEFAULT_TASKS;
-let contentItems = load('content') || DEFAULT_CONTENT;
-let approvals = load('approvals') || DEFAULT_APPROVALS;
-let docs = load('docs') || DEFAULT_DOCS;
-let activities = load('activity') || DEFAULT_ACTIVITY;
-let taskFilter='all', contentAgent='all', contentPillar='all', docCat='all', activityFilter='all', showHistory=false;
+let tasks=load('tasks')||DEFAULT_TASKS;
+let contentItems=load('content')||DEFAULT_CONTENT;
+let approvals=load('approvals')||DEFAULT_APPROVALS;
+let docs=load('docs')||DEFAULT_DOCS;
+let activities=load('activity')||DEFAULT_ACTIVITY;
+let taskFilter='all',contentAgent='all',contentPillar='all',docFolder='all',activityFilter='all',showHistory=false;
 let dragId=null;
 
-// ─── SAVE ─────────────────────────────────────────────────────
-function persist(){
-  save('tasks',tasks); save('content',contentItems);
-  save('approvals',approvals); save('docs',docs); save('activity',activities);
-}
+function persist(){save('tasks',tasks);save('content',contentItems);save('approvals',approvals);save('docs',docs);save('activity',activities);}
 
 // ─── CLOCK ───────────────────────────────────────────────────
-function tick(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
+function tick(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',timeZoneName:'short'});}
 setInterval(tick,1000);tick();
 
-// ─── GLOBAL STATS ─────────────────────────────────────────────
-function updateGlobalStats(){
-  document.getElementById('gs-tasks').textContent = tasks.filter(t=>t.status!=='done').length;
-  document.getElementById('gs-approvals').textContent = approvals.filter(a=>a.status==='pending').length;
-  document.getElementById('gs-content').textContent = contentItems.filter(c=>c.status!=='Posted').length;
-  document.getElementById('gs-docs').textContent = docs.length;
-  const pending = approvals.filter(a=>a.status==='pending').length;
-  const tab = document.getElementById('approvalTab');
-  const existing = tab.querySelector('.badge');
-  if(existing) existing.remove();
-  if(pending>0){const b=document.createElement('span');b.className='badge';b.textContent=pending;tab.appendChild(b);}
-}
+// ─── SIDEBAR NAV ─────────────────────────────────────────────
+const PAGE_TITLES = {
+  tasks:'Tasks',content:'Content Pipeline',approvals:'Approvals Queue',
+  docs:'Document Library',activity:'Activity Feed',schedule:'Cron Schedule',
+  projects:'Projects',team:'Team'
+};
+const TOPBAR_BTN = {
+  tasks:{label:'+ New Task',fn:"openModal('task')"},
+  content:{label:'+ New Content',fn:"openModal('content')"},
+  approvals:{label:'+ Request',fn:"openModal('approval')"},
+  docs:{label:'+ Add Doc',fn:"openModal('doc')"},
+  activity:{label:'↻ Refresh',fn:"fetchAndRenderActivity()"},
+  schedule:{label:'',fn:''},
+  projects:{label:'',fn:''},
+  team:{label:'',fn:''},
+};
 
-// ─── NAV ─────────────────────────────────────────────────────
-document.querySelectorAll('.nav-tab').forEach(t=>{
-  t.addEventListener('click',()=>{
-    document.querySelectorAll('.nav-tab').forEach(x=>x.classList.remove('active'));
-    t.classList.add('active');
+let currentTab='tasks';
+
+document.querySelectorAll('.sidebar-link').forEach(link=>{
+  link.addEventListener('click',()=>{
+    const tab=link.dataset.tab;
+    document.querySelectorAll('.sidebar-link').forEach(l=>l.classList.remove('active'));
+    link.classList.add('active');
     document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-    document.getElementById('sec-'+t.dataset.tab).classList.add('active');
-    renderSection(t.dataset.tab);
+    document.getElementById('sec-'+tab).classList.add('active');
+    currentTab=tab;
+    updateTopbar(tab);
+    renderSection(tab);
   });
 });
+
+function updateTopbar(tab){
+  document.getElementById('pageTitle').textContent=PAGE_TITLES[tab]||tab;
+  const btn=document.getElementById('topbarBtn');
+  const cfg=TOPBAR_BTN[tab]||{};
+  if(cfg.label){btn.textContent=cfg.label;btn.style.display='';btn.setAttribute('onclick',cfg.fn);}
+  else{btn.style.display='none';}
+  // stats + live activity: only on tasks
+  document.getElementById('inlineStats').classList.toggle('hidden',tab!=='tasks');
+  document.getElementById('liveActivityPanel').classList.toggle('hidden',tab!=='tasks');
+}
+
+function topbarAction(){/* handled by onclick attribute */}
 
 function renderSection(tab){
   if(tab==='tasks')fetchAndRenderTasks();
@@ -786,18 +847,16 @@ function renderSection(tab){
   else if(tab==='docs')fetchAndRenderDocs();
   else if(tab==='activity')fetchAndRenderActivity();
   else if(tab==='schedule')renderSchedule();
-  else if(tab==='projects'){}  // static HTML
-  else if(tab==='team'){}       // static HTML
 }
 
 // ─── FILTER HELPERS ───────────────────────────────────────────
-function bindFilters(containerId,getVar,setVar,onchange){
-  document.getElementById(containerId).querySelectorAll('.filter-btn').forEach(b=>{
+function bindFilters(cid,setFn,cb){
+  document.getElementById(cid).querySelectorAll('.filter-btn').forEach(b=>{
     b.addEventListener('click',()=>{
-      document.getElementById(containerId).querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+      document.getElementById(cid).querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
       b.classList.add('active');
-      setVar(b.dataset.val);
-      onchange();
+      setFn(b.dataset.val);
+      cb();
     });
   });
 }
@@ -806,46 +865,44 @@ function bindFilters(containerId,getVar,setVar,onchange){
 async function fetchAndRenderTasks(){
   try{
     const r=await fetch('/api/tasks');
-    if(r.ok){
-      const remote=await r.json();
-      if(remote.length>0){tasks=remote;save('tasks',tasks);}
-    }
+    if(r.ok){const d=await r.json();if(d.length>0){tasks=d;save('tasks',tasks);}}
   }catch{}
   renderTasks();
+  renderLiveActivity();
 }
+
 function renderTasks(){
-  const filtered = taskFilter==='all'?tasks:tasks.filter(t=>t.agent===taskFilter);
+  const f=taskFilter==='all'?tasks:tasks.filter(t=>t.agent===taskFilter);
   ['todo','in-progress','review','done'].forEach(s=>{
-    const items=filtered.filter(t=>t.status===s);
+    const items=f.filter(t=>t.status===s);
     document.getElementById('col-'+s).innerHTML=items.length?items.map(cardHTML).join(''):'<div style="text-align:center;padding:20px;color:var(--text3);font-size:12px">Empty</div>';
     document.getElementById('cnt-'+s).textContent=items.length;
   });
-  const total=tasks.length, done=tasks.filter(t=>t.status==='done').length, inprog=tasks.filter(t=>t.status==='in-progress').length;
-  document.getElementById('taskStats').innerHTML=`
-    <div class="stat"><div class="val">${inprog}</div><div class="lbl">In Progress</div></div>
-    <div class="stat"><div class="val">${total-done}</div><div class="lbl">Open</div></div>
-    <div class="stat"><div class="val">${total}</div><div class="lbl">Total Tasks</div></div>
-    <div class="stat"><div class="val">${total?Math.round(done/total*100):0}%</div><div class="lbl">Completion</div></div>
-  `;
-  updateGlobalStats();
+  updateInlineStats();
+  updateSidebarBadge();
 }
 
 function cardHTML(t){
-  return `<div class="card priority-${t.priority||'medium'}" draggable="true" data-id="${t.id}" ondragstart="dragStart(event)">
+  const a=agentName(t.agent);
+  return `<div class="card" draggable="true" data-id="${t.id}" ondragstart="dragStart(event)">
     <div class="card-title">${esc(t.title)}</div>
     <div class="card-meta">
-      <span class="agent-dot" style="background:${COLORS[t.agent]||'var(--text3)'}"></span>
-      <span style="font-size:11px;color:var(--text2)">${t.agent||''}</span>
-      <span class="badge-pill ${t.priority}">${t.priority||'med'}</span>
+      <span class="agent-chip" style="color:${agentColor(t.agent)}">
+        <span class="agent-dot" style="background:${agentColor(t.agent)}"></span>
+        ${a.emoji} ${a.name}
+      </span>
+      <span class="badge-pill ${t.priority||'medium'}">${t.priority||'med'}</span>
     </div>
-    <div class="card-actions">
-      <button class="btn btn-ghost btn-sm" onclick="deleteTask('${t.id}')">✕</button>
+    <div class="card-footer">
+      <span style="font-size:10px;color:var(--text3)">${timeAgo(t.created)}</span>
+      <button class="btn btn-ghost btn-sm" onclick="deleteTask('${t.id}')" style="padding:3px 7px;font-size:11px">✕</button>
     </div>
   </div>`;
 }
 
 function deleteTask(id){
   tasks=tasks.filter(t=>t.id!==id);persist();renderTasks();
+  fetch('/api/tasks',{method:'DELETE',headers:{'Content-Type':'application/json','X-API-Key':API_KEY},body:JSON.stringify({id})}).catch(()=>{});
 }
 
 // Drag & Drop
@@ -853,14 +910,55 @@ function dragStart(e){dragId=e.currentTarget.dataset.id;e.currentTarget.classLis
 function dragOver(e){e.preventDefault();e.currentTarget.querySelector('.kanban-cards').classList.add('drag-over');}
 function dragLeave(e){e.currentTarget.querySelector('.kanban-cards').classList.remove('drag-over');}
 function drop(e,status){
-  e.preventDefault();
-  e.currentTarget.querySelector('.kanban-cards').classList.remove('drag-over');
+  e.preventDefault();e.currentTarget.querySelector('.kanban-cards').classList.remove('drag-over');
   const t=tasks.find(x=>x.id===dragId);
-  if(t){t.status=status;persist();renderTasks();}
+  if(t){
+    t.status=status;persist();renderTasks();
+    fetch('/api/tasks',{method:'PUT',headers:{'Content-Type':'application/json','X-API-Key':API_KEY},body:JSON.stringify({id:t.id,status})}).catch(()=>{});
+  }
   dragId=null;
 }
 
-bindFilters('taskFilters',()=>taskFilter,v=>{taskFilter=v;},renderTasks);
+bindFilters('taskFilters',v=>{taskFilter=v;},renderTasks);
+
+// ─── INLINE STATS ─────────────────────────────────────────────
+function updateInlineStats(){
+  const total=tasks.length,done=tasks.filter(t=>t.status==='done').length,inprog=tasks.filter(t=>t.status==='in-progress').length;
+  const week=tasks.filter(t=>{try{return new Date(t.created)>new Date(Date.now()-7*864e5);}catch{return false;}}).length;
+  document.getElementById('is-week').textContent=week;
+  document.getElementById('is-inprog').textContent=inprog;
+  document.getElementById('is-total').textContent=total;
+  document.getElementById('is-pct').textContent=(total?Math.round(done/total*100):0)+'%';
+}
+
+// ─── SIDEBAR BADGE ────────────────────────────────────────────
+function updateSidebarBadge(){
+  const n=approvals.filter(a=>a.status==='pending').length;
+  const el=document.getElementById('sb-approvals');
+  el.textContent=n;el.style.display=n>0?'':'none';
+}
+
+// ─── LIVE ACTIVITY PANEL ─────────────────────────────────────
+async function renderLiveActivity(){
+  try{
+    const r=await fetch('/api/activity');
+    if(r.ok){const d=await r.json();activities=d.map(a=>({...a,ts:a.ts||a.timestamp}));save('activity',activities);}
+  }catch{}
+  const sorted=[...activities].sort((a,b)=>new Date(b.ts||b.timestamp)-new Date(a.ts||a.timestamp));
+  const feed=document.getElementById('lapFeed');
+  feed.innerHTML=sorted.slice(0,12).map((a,i)=>{
+    const ag=agentName(a.agent);
+    return `<div class="lap-item">
+      <div class="lap-agent-row">
+        <div class="lap-agent-dot" style="background:${agentColor(a.agent)}"></div>
+        <span class="lap-agent-name" style="color:${agentColor(a.agent)}">${ag.emoji} ${ag.name}</span>
+      </div>
+      <div class="lap-action">${esc(a.action)}</div>
+      ${a.details?`<div class="lap-detail">${esc(a.details)}</div>`:''}
+      <div class="lap-time">${timeAgo(a.ts||a.timestamp)}</div>
+    </div>${i<sorted.length-1?'<div class="lap-divider"></div>':''}`;
+  }).join('')||'<div style="padding:20px;text-align:center;color:var(--text3);font-size:12px">No activity yet</div>';
+}
 
 // ─── CONTENT ─────────────────────────────────────────────────
 function renderContent(){
@@ -872,27 +970,26 @@ function renderContent(){
     document.getElementById('ccol-'+s).innerHTML=col.length?col.map(contentCardHTML).join(''):'<div style="text-align:center;padding:20px;color:var(--text3);font-size:12px">Empty</div>';
     document.getElementById('ccnt-'+s).textContent=col.length;
   });
-  updateGlobalStats();
 }
-
 function contentCardHTML(c){
+  const a=agentName(c.agent);
   return `<div class="card">
     <div class="card-title">${esc(c.title)}</div>
-    <div class="card-meta" style="margin-bottom:6px">
-      <span class="agent-dot" style="background:${COLORS[c.agent]||'var(--text3)'}"></span>
+    <div class="card-meta">
+      <span class="agent-chip" style="color:${agentColor(c.agent)}"><span class="agent-dot" style="background:${agentColor(c.agent)}"></span>${a.emoji} ${a.name}</span>
       <span class="badge-pill">${c.pillar}</span>
-      <span class="badge-pill" style="background:var(--bg4);color:var(--text2)">${c.platform}</span>
+      <span class="badge-pill">${c.platform}</span>
     </div>
-    ${c.notes?`<div style="font-size:11px;color:var(--text2);line-height:1.4">${esc(c.notes)}</div>`:''}
-    <div class="card-actions" style="margin-top:8px">
-      <button class="btn btn-ghost btn-sm" onclick="deleteContent('${c.id}')">✕</button>
+    ${c.notes?`<div class="card-desc">${esc(c.notes)}</div>`:''}
+    <div class="card-footer">
+      <span style="font-size:10px;color:var(--text3)">${timeAgo(c.created)}</span>
+      <button class="btn btn-ghost btn-sm" onclick="deleteContent('${c.id}')" style="padding:3px 7px;font-size:11px">✕</button>
     </div>
   </div>`;
 }
-
 function deleteContent(id){contentItems=contentItems.filter(c=>c.id!==id);persist();renderContent();}
-bindFilters('contentAgentFilters',()=>contentAgent,v=>{contentAgent=v;},renderContent);
-bindFilters('contentPillarFilters',()=>contentPillar,v=>{contentPillar=v;},renderContent);
+bindFilters('contentAgentFilters',v=>{contentAgent=v;},renderContent);
+bindFilters('contentPillarFilters',v=>{contentPillar=v;},renderContent);
 
 // ─── APPROVALS ───────────────────────────────────────────────
 function renderApprovals(){
@@ -900,23 +997,22 @@ function renderApprovals(){
   const resolved=approvals.filter(a=>a.status!=='pending');
   let html='';
   if(!pending.length&&!showHistory){html='<div class="empty"><div class="empty-icon">✅</div><p>No pending approvals. All clear!</p></div>';}
-  pending.sort((a,b)=>{const p={high:0,medium:1,low:2};return p[a.priority]-p[b.priority];}).forEach(a=>{html+=approvalCardHTML(a);});
-  if(showHistory){
-    if(resolved.length){html+=`<div style="font-size:12px;color:var(--text3);margin:16px 0 8px;text-transform:uppercase;letter-spacing:1px">History</div>`;}
+  pending.sort((a,b)=>({high:0,medium:1,low:2}[a.priority]-{high:0,medium:1,low:2}[b.priority])).forEach(a=>{html+=approvalCardHTML(a);});
+  if(showHistory&&resolved.length){
+    html+=`<div style="font-size:11px;color:var(--text3);margin:14px 0 8px;text-transform:uppercase;letter-spacing:1px">History</div>`;
     resolved.forEach(a=>{html+=approvalCardHTML(a);});
   }
   document.getElementById('approvalsList').innerHTML=html||'<div class="empty"><div class="empty-icon">✅</div><p>No pending approvals.</p></div>';
-  updateGlobalStats();
+  updateSidebarBadge();
 }
-
 function approvalCardHTML(a){
-  const typeClass='type-'+a.type.toLowerCase().replace(' ','-');
   const resolved=a.status!=='pending';
+  const typeKey='type-'+a.type.toLowerCase().replace(/\s+/g,'-');
   return `<div class="approval-card ${a.priority} ${resolved?'resolved':''}">
     <div class="approval-header">
-      <span class="agent-dot" style="background:${COLORS[a.agent]||'var(--text3)'}"></span>
+      <span class="agent-dot" style="background:${agentColor(a.agent)}"></span>
       <div class="approval-title">${esc(a.title)}</div>
-      <span class="type-badge ${typeClass}">${a.type}</span>
+      <span class="type-badge ${typeKey}">${a.type}</span>
       <span class="badge-pill ${a.priority}">${a.priority}</span>
     </div>
     <div class="approval-desc">${esc(a.description)}</div>
@@ -926,74 +1022,46 @@ function approvalCardHTML(a){
     </div>`:`<div style="font-size:11px;color:var(--text3)">${a.status.toUpperCase()} · ${timeAgo(a.resolved)}</div>`}
   </div>`;
 }
-
 function resolveApproval(id,status){
   const a=approvals.find(x=>x.id===id);
   if(a){a.status=status;a.resolved=new Date().toISOString();}
   persist();renderApprovals();
 }
-
 function toggleApprovalHistory(){
-  showHistory=!showHistory;
-  document.getElementById('historyBtn').textContent=showHistory?'Hide History':'Show History';
-  renderApprovals();
+  showHistory=!showHistory;renderApprovals();
 }
 
 // ─── DOCS ────────────────────────────────────────────────────
-let docFolder='all';
-
-function setDocFolder(folder, btn){
+function setDocFolder(folder,btn){
   docFolder=folder;
   document.querySelectorAll('.folder-btn').forEach(b=>b.classList.remove('active'));
   if(btn)btn.classList.add('active');
   renderDocs();
 }
-
-function folderClass(folder){
-  const map={'Dropshipping':'dropship','KYVO Performance':'kyvo','@casualgolfdad':'golf','Creative':'creative','Strategy':'strategy','SOPs':'sops'};
-  return 'folder-'+(map[folder]||'sops');
-}
-
-function folderEmoji(folder){
-  const map={'Dropshipping':'🕶️','KYVO Performance':'🥊','@casualgolfdad':'⛳','Creative':'🎨','Strategy':'🚀','SOPs':'📋'};
-  return map[folder]||'📄';
-}
+function folderClass(f){const m={'Dropshipping':'dropship','KYVO Performance':'kyvo','@casualgolfdad':'golf','Creative':'creative','Strategy':'strategy','SOPs':'sops'};return'folder-'+(m[f]||'sops');}
+function folderEmoji(f){const m={'Dropshipping':'🕶️','KYVO Performance':'🔮','@casualgolfdad':'⛳','Creative':'🎨','Strategy':'🚀','SOPs':'📋'};return m[f]||'📄';}
 
 async function fetchAndRenderDocs(){
   document.getElementById('docsGrid').innerHTML='<div style="padding:20px;color:var(--text3);text-align:center;grid-column:1/-1;font-size:12px">Loading…</div>';
   try{
     const r=await fetch('/api/docs');
-    if(r.ok){
-      const remote=await r.json();
-      docs=remote;
-      save('docs',docs);
-    }
+    if(r.ok){const d=await r.json();docs=d;save('docs',docs);}
   }catch{}
   renderDocs();
 }
-
 function renderDocs(){
   const q=(document.getElementById('docSearch').value||'').toLowerCase();
   let items=docs;
   if(docFolder!=='all')items=items.filter(d=>d.folder===docFolder);
   if(q)items=items.filter(d=>(d.title+d.description+(d.tags||[]).join(' ')).toLowerCase().includes(q));
-
-  // Update folder counts
   const folders=['all','Dropshipping','KYVO Performance','@casualgolfdad','Creative','Strategy','SOPs'];
-  folders.forEach(f=>{
-    const el=document.getElementById('fc-'+f);
-    if(el)el.textContent=f==='all'?docs.length:docs.filter(d=>d.folder===f).length;
-  });
-
+  folders.forEach(f=>{const el=document.getElementById('fc-'+f);if(el)el.textContent=f==='all'?docs.length:docs.filter(d=>d.folder===f).length;});
   const grid=document.getElementById('docsGrid');
-  grid.innerHTML=items.length?items.map(docCardHTML).join(''):'<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📁</div><p>No docs in this folder yet</p><p style="font-size:12px;color:var(--text3);margin-top:8px">Agents will post docs here as they create them</p></div>';
+  grid.innerHTML=items.length?items.map(docCardHTML).join(''):'<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📁</div><p>No docs in this folder yet</p></div>';
 }
-
 function docCardHTML(d){
   const hasGdoc=d.gdoc_url&&d.gdoc_url.length>5;
-  const gdocBtn=hasGdoc
-    ?`<a href="${d.gdoc_url}" target="_blank" class="btn-gdoc"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg> Open in Google Docs</a>`
-    :`<span style="font-size:11px;color:var(--text3);font-style:italic">No Google Doc linked</span>`;
+  const a=agentName(d.agent);
   return `<div class="doc-card">
     <div class="doc-card-top">
       <div>
@@ -1003,21 +1071,19 @@ function docCardHTML(d){
     </div>
     ${d.description?`<div class="doc-desc">${esc(d.description)}</div>`:''}
     <div class="doc-meta">
-      <span class="agent-dot" style="background:${COLORS[d.agent]||'var(--text3)'}"></span>
-      <span style="font-size:11px;color:var(--text2)">${d.agent}</span>
+      <span class="agent-dot" style="background:${agentColor(d.agent)}"></span>
+      <span style="font-size:11px;color:var(--text2)">${a.emoji} ${a.name}</span>
       <span style="font-size:11px;color:var(--text3);margin-left:auto">${d.created_at?timeAgo(d.created_at):''}</span>
     </div>
     ${d.tags&&d.tags.length?`<div class="doc-tags">${d.tags.map(t=>`<span class="doc-tag">${esc(t)}</span>`).join('')}</div>`:''}
     <div class="doc-card-footer">
-      ${gdocBtn}
-      <button class="btn btn-ghost btn-sm" onclick="deleteDoc('${d.id}')" style="color:var(--text3);font-size:11px">✕</button>
+      ${hasGdoc?`<a href="${d.gdoc_url}" target="_blank" class="btn-gdoc">📄 Open in Google Docs</a>`:`<span style="font-size:11px;color:var(--text3);font-style:italic">No Google Doc linked</span>`}
+      <button class="btn btn-ghost btn-sm" onclick="deleteDoc('${d.id}')" style="padding:3px 7px;font-size:11px;color:var(--text3)">✕</button>
     </div>
   </div>`;
 }
-
 function deleteDoc(id){
-  docs=docs.filter(d=>d.id!==id);
-  persist();
+  docs=docs.filter(d=>d.id!==id);persist();
   fetch('/api/docs',{method:'DELETE',headers:{'Content-Type':'application/json','X-API-Key':API_KEY},body:JSON.stringify({id})}).catch(()=>{});
   renderDocs();
 }
@@ -1028,141 +1094,108 @@ async function fetchAndRenderActivity(){
   feed.innerHTML='<div style="padding:20px;color:var(--text3);text-align:center;font-size:12px">Loading…</div>';
   try{
     const r=await fetch('/api/activity');
-    if(r.ok){
-      const remote=await r.json();
-      // normalize: API uses timestamp, local uses ts
-      activities=remote.map(a=>({...a,ts:a.ts||a.timestamp}));
-      save('activity',activities);
-    }
+    if(r.ok){const d=await r.json();activities=d.map(a=>({...a,ts:a.ts||a.timestamp}));save('activity',activities);}
   }catch{}
   renderActivity();
 }
 function renderActivity(){
   const filtered=activityFilter==='all'?activities:activities.filter(a=>a.agent===activityFilter);
   const sorted=[...filtered].sort((a,b)=>new Date(b.ts||b.timestamp)-new Date(a.ts||a.timestamp));
-  document.getElementById('activityFeed').innerHTML=sorted.length?sorted.map(a=>`
-    <div class="activity-item">
-      <div class="activity-dot" style="background:${COLORS[a.agent]||'var(--text3)'}"></div>
+  document.getElementById('activityFeed').innerHTML=sorted.length?sorted.map(a=>{
+    const ag=agentName(a.agent);
+    return `<div class="activity-item">
+      <div class="activity-dot" style="background:${agentColor(a.agent)}"></div>
       <div class="activity-right">
-        <div class="activity-agent" style="color:${COLORS[a.agent]||'var(--text3)'}">${a.agent}</div>
+        <div class="activity-agent" style="color:${agentColor(a.agent)}">${ag.emoji} ${ag.name}</div>
         <div class="activity-action">${esc(a.action)}</div>
         ${a.details?`<div class="activity-details">${esc(a.details)}</div>`:''}
         <div class="activity-time">${timeAgo(a.ts||a.timestamp)}</div>
       </div>
-    </div>
-  `).join(''):'<div class="empty"><div class="empty-icon">⚡</div><p>No activity yet</p></div>';
+    </div>`;
+  }).join(''):'<div class="empty"><div class="empty-icon">⚡</div><p>No activity yet</p></div>';
 }
-
-bindFilters('activityFilters',()=>activityFilter,v=>{activityFilter=v;},renderActivity);
+bindFilters('activityFilters',v=>{activityFilter=v;},renderActivity);
 
 // ─── SCHEDULE ────────────────────────────────────────────────
 const CRON_JOBS = [
-  {name:'Morning Brief',   schedule:'Daily 4:30 AM EST',   cronStr:'30 4 * * *',   lastRun:'Yesterday',  status:'ok'},
-  {name:'Neo Scout',       schedule:'Daily 6:00 AM EST',   cronStr:'0 6 * * *',    lastRun:'Yesterday',  status:'ok'},
-  {name:'Daily Backup',    schedule:'Daily 3:00 AM EST',   cronStr:'0 3 * * *',    lastRun:'Yesterday',  status:'ok'},
-  {name:'Nightly Audit',   schedule:'Daily 12:30 AM EST',  cronStr:'30 0 * * *',   lastRun:'Last night', status:'ok'},
-  {name:'Weekly Report',   schedule:'Fridays 9:00 AM EST', cronStr:'0 9 * * 5',    lastRun:'Last Friday',status:'ok'},
+  {name:'Morning Brief',   schedule:'Daily 4:30 AM EST',  cronStr:'30 4 * * *',  lastRun:'Yesterday', status:'ok'},
+  {name:'Neo Scout',       schedule:'Daily 6:00 AM EST',  cronStr:'0 6 * * *',   lastRun:'Yesterday', status:'ok'},
+  {name:'Nightly Audit',   schedule:'Daily 12:30 AM EST', cronStr:'30 0 * * *',  lastRun:'Last night',status:'ok'},
+  {name:'Daily Backup',    schedule:'Daily 3:00 AM EST',  cronStr:'0 3 * * *',   lastRun:'Yesterday', status:'ok'},
+  {name:'Weekly Report',   schedule:'Fridays 9:00 AM EST',cronStr:'0 9 * * 5',   lastRun:'Last Friday',status:'ok'},
 ];
-
 function nextRunFromCron(cronStr){
-  // Parse simple cron: "min hour * * dayOfWeek"
-  const [min,hour,,, dow] = cronStr.split(' ');
-  const now = new Date();
-  const tzOffset = -5 * 60; // EST = UTC-5
-  const estNow = new Date(now.getTime() + (now.getTimezoneOffset() + tzOffset) * 60000);
-  // try today
-  let next = new Date(estNow);
-  next.setSeconds(0,0);
-  next.setMinutes(parseInt(min));
-  next.setHours(parseInt(hour));
-  if(dow !== '*'){
-    // weekly — find next matching weekday
-    const target = parseInt(dow); // 0=Sun, 5=Fri
-    let diff = (target - estNow.getDay() + 7) % 7;
-    if(diff === 0 && next <= estNow) diff = 7;
-    next.setDate(estNow.getDate() + diff);
-  } else {
-    if(next <= estNow) next.setDate(next.getDate()+1);
-  }
-  // Format as relative
-  const diffMs = next - estNow;
-  const diffH = Math.floor(diffMs / 3600000);
-  const diffM = Math.floor((diffMs % 3600000) / 60000);
-  if(diffH < 1) return `in ${diffM}m`;
-  if(diffH < 24) return `in ${diffH}h ${diffM}m`;
-  const days = Math.floor(diffH/24);
-  return `in ${days}d`;
+  const [min,hour,,,dow]=cronStr.split(' ');
+  const now=new Date();
+  const tzOffset=-5*60;
+  const estNow=new Date(now.getTime()+(now.getTimezoneOffset()+tzOffset)*60000);
+  let next=new Date(estNow);next.setSeconds(0,0);next.setMinutes(parseInt(min));next.setHours(parseInt(hour));
+  if(dow!=='*'){const target=parseInt(dow);let diff=(target-estNow.getDay()+7)%7;if(diff===0&&next<=estNow)diff=7;next.setDate(estNow.getDate()+diff);}
+  else if(next<=estNow)next.setDate(next.getDate()+1);
+  const diffMs=next-estNow;const diffH=Math.floor(diffMs/3600000);const diffM=Math.floor((diffMs%3600000)/60000);
+  if(diffH<1)return`in ${diffM}m`;if(diffH<24)return`in ${diffH}h ${diffM}m`;return`in ${Math.floor(diffH/24)}d`;
 }
-
 function renderSchedule(){
-  const tbody = document.getElementById('cronTableBody');
-  if(!tbody) return;
-  tbody.innerHTML = CRON_JOBS.map(j => {
-    const badge = j.status === 'ok'
-      ? `<span class="badge-ok">✅ OK</span>`
-      : `<span class="badge-err">❌ ERROR</span>`;
-    const next = nextRunFromCron(j.cronStr);
-    return `<tr>
-      <td><div class="cron-job-name">${j.name}</div></td>
-      <td><div class="cron-schedule">${j.schedule}</div></td>
-      <td><div class="cron-lastrun">${j.lastRun}</div></td>
-      <td><div class="cron-nextrun">${next}</div></td>
-      <td>${badge}</td>
-    </tr>`;
-  }).join('');
+  const tbody=document.getElementById('cronTableBody');if(!tbody)return;
+  tbody.innerHTML=CRON_JOBS.map(j=>`<tr>
+    <td><div class="cron-job-name">${j.name}</div></td>
+    <td><div class="cron-schedule">${j.schedule}</div></td>
+    <td><div class="cron-lastrun">${j.lastRun}</div></td>
+    <td><div class="cron-nextrun">${nextRunFromCron(j.cronStr)}</div></td>
+    <td>${j.status==='ok'?'<span class="badge-ok">✅ OK</span>':'<span class="badge-err">❌ ERROR</span>'}</td>
+  </tr>`).join('');
 }
 
 // ─── PROJECTS HELPER ─────────────────────────────────────────
 function goToTasksFiltered(agent){
-  // Navigate to Tasks tab and activate that agent filter
-  document.querySelectorAll('.nav-tab').forEach(x=>x.classList.remove('active'));
-  const tasksTab = document.querySelector('.nav-tab[data-tab="tasks"]');
-  if(tasksTab) tasksTab.classList.add('active');
+  document.querySelectorAll('.sidebar-link').forEach(x=>x.classList.remove('active'));
+  document.querySelector('.sidebar-link[data-tab="tasks"]').classList.add('active');
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.getElementById('sec-tasks').classList.add('active');
-  taskFilter = agent;
-  document.querySelectorAll('#taskFilters .filter-btn').forEach(b=>{
-    b.classList.toggle('active', b.dataset.val === agent);
-  });
+  currentTab='tasks';updateTopbar('tasks');
+  taskFilter=agent;
+  document.querySelectorAll('#taskFilters .filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.val===agent));
   fetchAndRenderTasks();
 }
 
 // ─── MODALS ───────────────────────────────────────────────────
+const agentOptions=`
+  <option value="charlie">🌀 Morpheus</option>
+  <option value="neo">🕶️ Neo</option>
+  <option value="drago">🔮 The Oracle</option>
+  <option value="happy">⚡ Trinity</option>`;
+
 function openModal(type){
   const m=document.getElementById('modalContent');
   const o=document.getElementById('modalOverlay');
-  if(type==='task') m.innerHTML=`
-    <h2>+ New Task</h2>
+  if(type==='task') m.innerHTML=`<h2>+ New Task</h2>
     <div class="form-group"><label>Title</label><input id="mTitle" placeholder="What needs to be done?"></div>
-    <div class="form-group"><label>Agent</label><select id="mAgent"><option value="charlie">🚀 Charlie</option><option value="neo">🕶️ Neo</option><option value="drago">🥊 Drago</option><option value="happy">⛳ Happy</option></select></div>
+    <div class="form-group"><label>Agent</label><select id="mAgent">${agentOptions}</select></div>
     <div class="form-group"><label>Priority</label><select id="mPriority"><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select></div>
     <div class="form-group"><label>Status</label><select id="mStatus"><option value="todo">To Do</option><option value="in-progress">In Progress</option><option value="review">Review</option><option value="done">Done</option></select></div>
     <div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-coral" onclick="submitTask()">Add Task</button></div>`;
-  else if(type==='content') m.innerHTML=`
-    <h2>+ New Content</h2>
+  else if(type==='content') m.innerHTML=`<h2>+ New Content</h2>
     <div class="form-group"><label>Title</label><input id="mTitle" placeholder="Content title or concept"></div>
-    <div class="form-group"><label>Agent</label><select id="mAgent"><option value="charlie">🚀 Charlie</option><option value="neo">🕶️ Neo</option><option value="drago">🥊 Drago</option><option value="happy">⛳ Happy</option></select></div>
+    <div class="form-group"><label>Agent</label><select id="mAgent">${agentOptions}</select></div>
     <div class="form-group"><label>Pillar</label><select id="mPillar"><option>Dropship</option><option>KYVO</option><option>Golf</option><option>BBA</option></select></div>
     <div class="form-group"><label>Platform</label><select id="mPlatform"><option>Instagram</option><option>TikTok</option><option>YouTube</option><option>Facebook Ad</option><option>Email</option></select></div>
     <div class="form-group"><label>Status</label><select id="mCStatus"><option>Draft</option><option>Review</option><option>Approved</option><option>Posted</option></select></div>
-    <div class="form-group"><label>Notes</label><textarea id="mNotes" placeholder="Hook, angle, brief..."></textarea></div>
+    <div class="form-group"><label>Notes</label><textarea id="mNotes" placeholder="Hook, angle, brief…"></textarea></div>
     <div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-coral" onclick="submitContent()">Add Content</button></div>`;
-  else if(type==='approval') m.innerHTML=`
-    <h2>+ Approval Request</h2>
-    <div class="form-group"><label>Title</label><input id="mTitle" placeholder="Short description of what needs approval"></div>
-    <div class="form-group"><label>Description</label><textarea id="mDesc" placeholder="Full context for Tommy to make a decision..."></textarea></div>
-    <div class="form-group"><label>Requesting Agent</label><select id="mAgent"><option value="charlie">🚀 Charlie</option><option value="neo">🕶️ Neo</option><option value="drago">🥊 Drago</option><option value="happy">⛳ Happy</option></select></div>
+  else if(type==='approval') m.innerHTML=`<h2>+ Approval Request</h2>
+    <div class="form-group"><label>Title</label><input id="mTitle" placeholder="What needs approval?"></div>
+    <div class="form-group"><label>Description</label><textarea id="mDesc" placeholder="Full context for Tommy…"></textarea></div>
+    <div class="form-group"><label>Requesting Agent</label><select id="mAgent">${agentOptions}</select></div>
     <div class="form-group"><label>Type</label><select id="mType"><option>Content</option><option>Ad Spend</option><option>Action</option><option>Campaign</option></select></div>
     <div class="form-group"><label>Priority</label><select id="mPriority"><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select></div>
     <div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-coral" onclick="submitApproval()">Submit Request</button></div>`;
-  else if(type==='doc') m.innerHTML=`
-    <h2>+ Add Document</h2>
+  else if(type==='doc') m.innerHTML=`<h2>+ Add Document</h2>
     <div class="form-group"><label>Title</label><input id="mTitle" placeholder="Document name"></div>
-    <div class="form-group"><label>Agent</label><select id="mAgent"><option value="charlie">🚀 Charlie</option><option value="neo">🕶️ Neo</option><option value="drago">🥊 Drago</option><option value="happy">⛳ Happy</option><option value="bob">🎨 Bob</option></select></div>
+    <div class="form-group"><label>Agent</label><select id="mAgent">${agentOptions}<option value="bob">🎨 The Creative</option></select></div>
     <div class="form-group"><label>Folder</label><select id="mFolder"><option>Dropshipping</option><option>KYVO Performance</option><option>@casualgolfdad</option><option>Creative</option><option>Strategy</option><option>SOPs</option></select></div>
     <div class="form-group"><label>Description</label><textarea id="mDesc" placeholder="What's in this document?"></textarea></div>
-    <div class="form-group"><label>Google Doc URL</label><input id="mGdoc" placeholder="https://docs.google.com/document/d/..."></div>
-    <div class="form-group"><label>Tags (comma separated)</label><input id="mTags" placeholder="copy, research, KYVO..."></div>
+    <div class="form-group"><label>Google Doc URL</label><input id="mGdoc" placeholder="https://docs.google.com/…"></div>
+    <div class="form-group"><label>Tags (comma separated)</label><input id="mTags" placeholder="copy, research, KYVO…"></div>
     <div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-coral" onclick="submitDoc()">Add Doc</button></div>`;
   o.classList.add('open');
 }
@@ -1171,23 +1204,20 @@ function closeModal(){document.getElementById('modalOverlay').classList.remove('
 
 function submitTask(){
   const title=document.getElementById('mTitle').value.trim();if(!title)return;
-  tasks.push({id:genId(),title,agent:document.getElementById('mAgent').value,priority:document.getElementById('mPriority').value,status:document.getElementById('mStatus').value,created:new Date().toISOString()});
-  persist();closeModal();renderTasks();
-  syncToAPI('tasks',tasks[tasks.length-1]);
+  const item={id:genId(),title,agent:document.getElementById('mAgent').value,priority:document.getElementById('mPriority').value,status:document.getElementById('mStatus').value,created:new Date().toISOString()};
+  tasks.push(item);persist();closeModal();renderTasks();
+  fetch('/api/tasks',{method:'POST',headers:{'Content-Type':'application/json','X-API-Key':API_KEY},body:JSON.stringify(item)}).catch(()=>{});
 }
-
 function submitContent(){
   const title=document.getElementById('mTitle').value.trim();if(!title)return;
   contentItems.push({id:genId(),title,agent:document.getElementById('mAgent').value,pillar:document.getElementById('mPillar').value,platform:document.getElementById('mPlatform').value,status:document.getElementById('mCStatus').value,notes:document.getElementById('mNotes').value,created:new Date().toISOString()});
   persist();closeModal();renderContent();
 }
-
 function submitApproval(){
   const title=document.getElementById('mTitle').value.trim();if(!title)return;
   approvals.push({id:genId(),title,description:document.getElementById('mDesc').value,agent:document.getElementById('mAgent').value,type:document.getElementById('mType').value,priority:document.getElementById('mPriority').value,status:'pending',created:new Date().toISOString()});
   persist();closeModal();renderApprovals();
 }
-
 function submitDoc(){
   const title=document.getElementById('mTitle').value.trim();if(!title)return;
   const tags=(document.getElementById('mTags').value||'').split(',').map(t=>t.trim()).filter(Boolean);
@@ -1196,25 +1226,16 @@ function submitDoc(){
   fetch('/api/docs',{method:'POST',headers:{'Content-Type':'application/json','X-API-Key':API_KEY},body:JSON.stringify(item)}).catch(()=>{});
 }
 
-// ─── API SYNC (best-effort, no UI dependency) ─────────────────
-async function syncToAPI(type,item){
-  try{
-    await fetch('/api/'+type,{method:'POST',headers:{'Content-Type':'application/json','X-API-Key':API_KEY},body:JSON.stringify(item)});
-  }catch{}
-}
-
 // ─── HELPERS ─────────────────────────────────────────────────
 function esc(s){if(!s)return'';const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
 function timeAgo(ts){
-  if(!ts)return'';
-  const s=Math.floor((Date.now()-new Date(ts))/1e3);
+  if(!ts)return'';const s=Math.floor((Date.now()-new Date(ts))/1e3);
   if(s<60)return s+'s ago';if(s<3600)return Math.floor(s/60)+'m ago';
-  if(s<86400)return Math.floor(s/3600)+'h ago';
-  return Math.floor(s/86400)+'d ago';
+  if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago';
 }
 
 // ─── INIT ─────────────────────────────────────────────────────
-fetchAndRenderTasks();updateGlobalStats();renderSchedule();
+fetchAndRenderTasks();renderSchedule();updateSidebarBadge();
 </script>
 </body>
 </html>
