@@ -151,52 +151,94 @@ html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--
 .activity-time{font-size:11px;color:var(--text3);margin-top:3px}
 .refresh-note{font-size:11px;color:var(--text3);margin-bottom:12px}
 
-/* TEAM */
-.team-page{max-width:900px;margin:0 auto}
+/* TEAM — New v2 */
+.team-page{max-width:1000px;margin:0 auto}
 .team-quote{background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--radius);padding:16px 24px;margin-bottom:28px;font-size:14px;font-style:italic;color:var(--text2);text-align:center;line-height:1.6}
 .team-quote span{color:var(--text);font-weight:500}
 .team-heading{text-align:center;margin-bottom:28px}
 .team-heading h2{font-size:28px;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,var(--coral),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .team-heading p{font-size:13px;color:var(--text2)}
-/* Chief card */
-.chief-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:20px 24px;display:flex;align-items:center;gap:20px;margin-bottom:0;transition:all .3s}
-.chief-card:hover{border-color:#ff6b6b55;box-shadow:0 8px 30px #ff6b6b22}
-.agent-avatar{width:72px;height:72px;border-radius:14px;object-fit:cover;background:var(--bg4);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:36px;overflow:hidden}
-.agent-avatar img{width:100%;height:100%;object-fit:cover;border-radius:14px}
-.chief-info{flex:1}
-.chief-name{font-size:20px;font-weight:800;margin-bottom:2px}
-.chief-role{font-size:13px;color:var(--text2);margin-bottom:6px}
-.chief-desc{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:10px}
-.role-card-btn{font-size:12px;color:var(--text3);text-decoration:none;font-weight:600;letter-spacing:.5px;transition:color .2s;background:none;border:none;cursor:pointer;font-family:inherit}
-.role-card-btn:hover{color:var(--coral)}
-/* Org connector */
-.org-connector{display:flex;flex-direction:column;align-items:center;padding:8px 0;gap:0}
-.org-line{width:1px;height:24px;background:var(--bg4)}
-.org-labels{display:flex;width:100%;justify-content:space-between;align-items:center;padding:8px 0;position:relative}
-.org-labels::before{content:'';position:absolute;top:50%;left:20%;right:20%;height:1px;background:var(--bg4)}
-.org-label{font-size:10px;color:var(--text3);font-weight:600;letter-spacing:1px;text-transform:uppercase;background:var(--bg);padding:0 8px;z-index:1;position:relative}
-/* Agent row */
-.agents-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-@media(max-width:900px){.agents-row{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:500px){.agents-row{grid-template-columns:1fr}}
-.agent-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:16px;transition:all .3s}
-.agent-neo:hover{box-shadow:0 8px 25px #00d4aa22;border-color:#00d4aa55}
-.agent-drago:hover{box-shadow:0 8px 25px #7c6bff22;border-color:#7c6bff55}
-.agent-happy:hover{box-shadow:0 8px 25px #ffb86b22;border-color:#ffb86b55}
-.agent-bob:hover{box-shadow:0 8px 25px #e879f922;border-color:#e879f955}
-.agent-header{display:flex;align-items:center;gap:12px;margin-bottom:10px}
-.agent-sm-avatar{width:48px;height:48px;border-radius:10px;object-fit:cover;background:var(--bg4);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden}
-.agent-sm-avatar img{width:100%;height:100%;object-fit:cover;border-radius:10px}
-.agent-name{font-size:16px;font-weight:800;margin-bottom:2px}
-.agent-role{font-size:11px;color:var(--text2)}
-.agent-desc{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:10px}
-.agent-skills{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
-.skill-tag{font-size:10px;padding:2px 8px;border-radius:5px;font-weight:600}
+/* Tier label divider */
+.tier-label{display:flex;align-items:center;gap:12px;margin:0 0 16px}
+.tier-label-line{flex:1;height:1px;background:var(--bg4)}
+.tier-label-text{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text3);white-space:nowrap;padding:0 4px}
+/* Director cards (top row) */
+.directors-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
+@media(max-width:900px){.directors-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.directors-row{grid-template-columns:1fr}}
+.director-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:20px 16px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;transition:all .3s;position:relative}
+.director-card::before{content:'';position:absolute;inset:0;border-radius:var(--radius);padding:1px;background:var(--card-color,#ffffff22);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s}
+.director-card:hover::before{opacity:1}
+.director-card:hover{box-shadow:0 8px 30px var(--card-glow,#ffffff11);transform:translateY(-2px)}
+.dir-avatar{width:72px;height:72px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:36px;border:2px solid var(--card-color,var(--bg4));box-shadow:0 0 20px var(--card-glow,transparent);flex-shrink:0}
+.dir-status{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:#00ff88;text-transform:uppercase;letter-spacing:.5px;position:absolute;top:12px;right:12px}
+.dir-status-dot{width:6px;height:6px;border-radius:50%;background:#00ff88;box-shadow:0 0 6px #00ff88;animation:pulse 2s infinite;flex-shrink:0}
+.dir-name{font-size:17px;font-weight:800;color:var(--card-color,var(--text))}
+.dir-role{font-size:11px;color:var(--text2);font-weight:500}
+.dir-pillar{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--card-bg,var(--bg4));color:var(--card-color,var(--text2));letter-spacing:.5px;text-transform:uppercase}
+.dir-mission{font-size:11px;color:var(--text2);line-height:1.5;font-style:italic}
+/* Specialist cards (second row) */
+.specialists-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+@media(max-width:700px){.specialists-row{grid-template-columns:1fr}}
+.specialist-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:16px;display:flex;align-items:center;gap:14px;transition:all .3s;position:relative}
+.specialist-card:hover{border-color:#e879f955;box-shadow:0 6px 20px #e879f918;transform:translateY(-1px)}
+.spec-avatar{width:52px;height:52px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:26px;border:2px solid #e879f966;box-shadow:0 0 12px #e879f922;flex-shrink:0}
+.spec-body{flex:1;min-width:0}
+.spec-top{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.spec-name{font-size:15px;font-weight:800;color:#e879f9}
+.spec-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;background:#e879f922;color:#e879f9;text-transform:uppercase;letter-spacing:.5px}
+.spec-role{font-size:11px;color:var(--text2);margin-bottom:5px}
+.spec-mission{font-size:11px;color:var(--text2);line-height:1.4;font-style:italic}
+.spec-status{display:flex;align-items:center;gap:4px;font-size:10px;color:#00ff88;font-weight:600;margin-top:6px}
+.spec-status-dot{width:5px;height:5px;border-radius:50%;background:#00ff88;box-shadow:0 0 5px #00ff88;animation:pulse 2s infinite}
 /* Meta layer */
 .meta-layer{display:flex;align-items:center;gap:12px;margin:20px 0 16px}
 .meta-layer-line{flex:1;height:1px;background:var(--bg4)}
 .meta-layer-label{font-size:10px;color:var(--text3);font-weight:600;letter-spacing:1.5px;text-transform:uppercase;display:flex;align-items:center;gap:6px}
 .meta-layer-label::before{content:'●';font-size:8px}
+/* Legacy (keep for other uses) */
+.agent-avatar{width:72px;height:72px;border-radius:14px;object-fit:cover;background:var(--bg4);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:36px;overflow:hidden}
+.agent-avatar img{width:100%;height:100%;object-fit:cover;border-radius:14px}
+.agent-sm-avatar{width:48px;height:48px;border-radius:10px;object-fit:cover;background:var(--bg4);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden}
+.agent-sm-avatar img{width:100%;height:100%;object-fit:cover;border-radius:10px}
+.skill-tag{font-size:10px;padding:2px 8px;border-radius:5px;font-weight:600}
+
+/* SCHEDULE */
+.schedule-page{max-width:900px;margin:0 auto}
+.schedule-note{font-size:12px;color:var(--text3);margin-bottom:16px;display:flex;align-items:center;gap:6px}
+.cron-table{width:100%;border-collapse:collapse}
+.cron-table th{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;padding:10px 14px;text-align:left;border-bottom:2px solid var(--bg4)}
+.cron-table tr:not(:last-child) td{border-bottom:1px solid var(--bg4)}
+.cron-table td{padding:14px;vertical-align:middle}
+.cron-table tr:hover td{background:var(--bg3)}
+.cron-job-name{font-size:14px;font-weight:700;color:var(--text)}
+.cron-schedule{font-size:12px;color:var(--text2)}
+.cron-lastrun{font-size:12px;color:var(--text3)}
+.cron-nextrun{font-size:11px;font-weight:600;color:var(--cyan)}
+.badge-ok{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:8px;background:#00c85322;color:#00c853}
+.badge-err{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:8px;background:#ff3d3d22;color:#ff3d3d}
+.cron-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);overflow:hidden}
+
+/* PROJECTS */
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:900px){.projects-grid{grid-template-columns:1fr}}
+.project-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:20px;display:flex;flex-direction:column;gap:14px;transition:all .3s;position:relative;overflow:hidden}
+.project-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--pcolor,var(--coral))}
+.project-card:hover{transform:translateY(-2px);box-shadow:0 10px 35px var(--pglow,#ff6b6b11)}
+.project-header{display:flex;align-items:flex-start;gap:12px}
+.project-icon{font-size:32px;line-height:1}
+.project-title-block{flex:1}
+.project-name{font-size:18px;font-weight:800;color:var(--pcolor,var(--coral));margin-bottom:2px}
+.project-director{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:5px}
+.project-mission{font-size:12px;color:var(--text2);line-height:1.6;padding:10px 12px;background:var(--bg3);border-radius:var(--radius-sm);border-left:3px solid var(--pcolor,var(--coral))}
+.project-items{display:flex;flex-direction:column;gap:6px}
+.project-item-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.project-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text)}
+.project-item-dot{width:6px;height:6px;border-radius:50%;background:var(--pcolor,var(--coral));flex-shrink:0}
+.project-focus{font-size:12px;color:var(--text2);padding:8px 12px;background:var(--bg3);border-radius:var(--radius-sm)}
+.project-focus strong{color:var(--text)}
+.project-link{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--pcolor,var(--coral));text-decoration:none;padding:7px 12px;background:var(--bg3);border-radius:var(--radius-sm);border:1px solid var(--bg4);cursor:pointer;transition:all .2s}
+.project-link:hover{background:var(--bg4)}
 
 /* MODAL */
 .modal-overlay{position:fixed;inset:0;background:#000a;z-index:300;display:none;align-items:center;justify-content:center}
@@ -233,6 +275,8 @@ html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--
     <button class="nav-tab" data-tab="approvals" id="approvalTab">✅ Approvals</button>
     <button class="nav-tab" data-tab="docs">📁 Docs</button>
     <button class="nav-tab" data-tab="activity">⚡ Activity</button>
+    <button class="nav-tab" data-tab="schedule">🕐 Schedule</button>
+    <button class="nav-tab" data-tab="projects">🚀 Projects</button>
     <button class="nav-tab" data-tab="team">👥 Team</button>
   </div>
   <div class="nav-right">
@@ -391,134 +435,219 @@ html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--
   <div class="activity-feed" id="activityFeed"></div>
 </div>
 
+<!-- SCHEDULE -->
+<div class="section" id="sec-schedule">
+  <div class="schedule-page">
+    <div class="section-header">
+      <div class="section-title">🕐 Cron Schedule</div>
+    </div>
+    <div class="schedule-note">🌐 Schedules run on <strong style="color:var(--text)">America/New_York</strong> timezone</div>
+    <div class="cron-card">
+      <table class="cron-table">
+        <thead>
+          <tr>
+            <th>Job</th>
+            <th>Schedule</th>
+            <th>Last Run</th>
+            <th>Next Run</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="cronTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="section" id="sec-projects">
+  <div class="section-header">
+    <div class="section-title">🚀 Projects</div>
+  </div>
+  <div class="projects-grid">
+
+    <!-- Dropship HQ -->
+    <div class="project-card" style="--pcolor:#00d4aa;--pglow:#00d4aa18">
+      <div class="project-header">
+        <div class="project-icon">🕶️</div>
+        <div class="project-title-block">
+          <div class="project-name">Dropship HQ</div>
+          <div class="project-director">Director: Neo 🕶️</div>
+        </div>
+      </div>
+      <div class="project-mission">$100K/month profit — test winning products and launch with paid ads.</div>
+      <div class="project-items">
+        <div class="project-item-label">Active Products</div>
+        <div class="project-item"><span class="project-item-dot"></span>FlexGuard — <span style="color:#00ff88;font-weight:600">Live</span></div>
+        <div class="project-item"><span class="project-item-dot"></span>Veloura — <span style="color:#ffb86b;font-weight:600">Testing</span></div>
+        <div class="project-item"><span class="project-item-dot"></span>RestCalm — <span style="color:#00ff88;font-weight:600">Live</span></div>
+      </div>
+      <div class="project-focus"><strong>Current Focus:</strong> Launch Meta ads on FlexGuard + RestCalm</div>
+      <button class="project-link" onclick="goToTasksFiltered('neo')">📋 View Neo's Tasks →</button>
+    </div>
+
+    <!-- KYVO Performance -->
+    <div class="project-card" style="--pcolor:#ffb86b;--pglow:#ffb86b18">
+      <div class="project-header">
+        <div class="project-icon">🔮</div>
+        <div class="project-title-block">
+          <div class="project-name">KYVO Performance</div>
+          <div class="project-director">Director: The Oracle 🔮</div>
+        </div>
+      </div>
+      <div class="project-mission">$50M golf performance lifestyle brand in 5 years.</div>
+      <div class="project-items">
+        <div class="project-item-label">Status</div>
+        <div class="project-item"><span class="project-item-dot"></span>Brand building phase</div>
+        <div class="project-item"><span class="project-item-dot"></span>Content + product development</div>
+      </div>
+      <div class="project-focus"><strong>Current Focus:</strong> KYVO content filming (Tuesdays), Instagram strategy</div>
+      <button class="project-link" onclick="goToTasksFiltered('drago')">📋 View Oracle's Tasks →</button>
+    </div>
+
+    <!-- @casualgolfdad -->
+    <div class="project-card" style="--pcolor:#ff6b6b;--pglow:#ff6b6b18">
+      <div class="project-header">
+        <div class="project-icon">⚡</div>
+        <div class="project-title-block">
+          <div class="project-name">@casualgolfdad</div>
+          <div class="project-director">Director: Trinity ⚡</div>
+        </div>
+      </div>
+      <div class="project-mission">Authentic golf personal brand → real sponsorships.</div>
+      <div class="project-items">
+        <div class="project-item-label">Status</div>
+        <div class="project-item"><span class="project-item-dot"></span>Content calendar building</div>
+      </div>
+      <div class="project-focus"><strong>Current Focus:</strong> Weekly content from simulator + office filming sessions</div>
+      <button class="project-link" onclick="goToTasksFiltered('happy')">📋 View Trinity's Tasks →</button>
+    </div>
+
+  </div>
+</div>
+
 <!-- TEAM -->
 <div class="section" id="sec-team">
   <div class="team-page">
     <div class="team-quote"><span>"Build an empire so my children inherit freedom, not limitation."</span></div>
     <div class="team-heading">
       <h2>Meet the Team</h2>
-      <p>5 AI agents, each with a real role and a real personality.</p>
-      <p style="margin-top:12px;font-size:13px;color:var(--text2);font-style:italic;line-height:1.8;max-width:640px;margin-left:auto;margin-right:auto">
-        "We build for Tommy's family. Not for vanity. Not for scorecards.<br>
-        Because behind every pipeline we run, every ad we launch, every brief we write —<br>
-        there are four kids who deserve a life without limits.<br>
-        <strong style="color:var(--text);font-style:normal">We move fast, we work clean, and we never forget why.</strong>"
-      </p>
+      <p>7 AI agents. Two tiers. One mission.</p>
     </div>
 
-    <!-- Charlie — Chief of Staff -->
-    <div class="chief-card">
-      <div class="agent-avatar" id="avatar-charlie">🚀</div>
-      <div class="chief-info">
-        <div class="chief-name" style="color:var(--coral)">Charlie</div>
-        <div class="chief-role">Super Agent / Chief of Staff</div>
-        <div class="chief-desc">Coordinates, delegates, keeps the ship tight. The first point of contact between Tommy and the machine. Orchestrates all 4 pillars and makes sure nothing falls through the cracks.</div>
-        <div class="agent-skills">
-          <span class="skill-tag" style="background:#ff6b6b22;color:#ff6b6b">Orchestration</span>
-          <span class="skill-tag" style="background:#ff6b6b22;color:#ff6b6b">Strategy</span>
-          <span class="skill-tag" style="background:#ff6b6b22;color:#ff6b6b">Morning Brief</span>
-          <span class="skill-tag" style="background:#ff6b6b22;color:#ff6b6b">Memory</span>
-          <span class="skill-tag" style="background:#ff6b6b22;color:#ff6b6b">Copywriting</span>
-        </div>
-        <button class="role-card-btn">ROLE CARD →</button>
+    <!-- PILLAR DIRECTORS -->
+    <div class="tier-label">
+      <div class="tier-label-line"></div>
+      <div class="tier-label-text">⭐ Pillar Directors</div>
+      <div class="tier-label-line"></div>
+    </div>
+    <div class="directors-row">
+
+      <!-- Morpheus -->
+      <div class="director-card" style="--card-color:#7c6bff;--card-glow:#7c6bff22;--card-bg:#7c6bff22">
+        <div class="dir-status"><div class="dir-status-dot"></div>ONLINE</div>
+        <div class="dir-avatar">🌀</div>
+        <div class="dir-name">Morpheus</div>
+        <div class="dir-role">Orchestrator</div>
+        <div class="dir-pillar">All Pillars</div>
+        <div class="dir-mission">"Sees everything. Directs the team. Makes sure nothing falls through the cracks."</div>
       </div>
+
+      <!-- Neo -->
+      <div class="director-card" style="--card-color:#00d4aa;--card-glow:#00d4aa22;--card-bg:#00d4aa22">
+        <div class="dir-status"><div class="dir-status-dot"></div>ONLINE</div>
+        <div class="dir-avatar">🕶️</div>
+        <div class="dir-name">Neo</div>
+        <div class="dir-role">Dropship HQ Director</div>
+        <div class="dir-pillar">Dropship</div>
+        <div class="dir-mission">"Finds winning products. Runs the pipeline. $100K/month is the mission."</div>
+      </div>
+
+      <!-- The Oracle -->
+      <div class="director-card" style="--card-color:#ffb86b;--card-glow:#ffb86b22;--card-bg:#ffb86b22">
+        <div class="dir-status"><div class="dir-status-dot"></div>ONLINE</div>
+        <div class="dir-avatar">🔮</div>
+        <div class="dir-name">The Oracle</div>
+        <div class="dir-role">KYVO Performance Director</div>
+        <div class="dir-pillar">KYVO</div>
+        <div class="dir-mission">"Builds KYVO into a $50M golf performance lifestyle brand."</div>
+      </div>
+
+      <!-- Trinity -->
+      <div class="director-card" style="--card-color:#ff6b6b;--card-glow:#ff6b6b22;--card-bg:#ff6b6b22">
+        <div class="dir-status"><div class="dir-status-dot"></div>ONLINE</div>
+        <div class="dir-avatar">⚡</div>
+        <div class="dir-name">Trinity</div>
+        <div class="dir-role">@casualgolfdad Director</div>
+        <div class="dir-pillar">Golf</div>
+        <div class="dir-mission">"Makes @casualgolfdad the most authentic golf brand on Instagram."</div>
+      </div>
+
     </div>
 
-    <!-- Connector -->
-    <div class="org-connector">
-      <div class="org-line"></div>
-      <div class="org-labels">
-        <div class="org-label">↓ INPUT SIGNAL</div>
-        <div class="org-label">OUTPUT ACTION ↓</div>
-      </div>
+    <!-- SPECIALIST AGENTS -->
+    <div class="tier-label">
+      <div class="tier-label-line"></div>
+      <div class="tier-label-text">🛠️ Specialist Agents</div>
+      <div class="tier-label-line"></div>
     </div>
+    <div class="specialists-row">
 
-    <!-- Specialist Agents -->
-    <div class="agents-row">
-      <div class="agent-card agent-neo">
-        <div class="agent-header">
-          <div class="agent-sm-avatar" id="avatar-neo">🕶️</div>
-          <div>
-            <div class="agent-name" style="color:var(--cyan)">Neo</div>
-            <div class="agent-role">Dropship Intelligence</div>
+      <!-- The Copywriter -->
+      <div class="specialist-card">
+        <div class="spec-avatar">✍️</div>
+        <div class="spec-body">
+          <div class="spec-top">
+            <div class="spec-name">The Copywriter</div>
+            <span class="spec-badge">Specialist</span>
           </div>
+          <div class="spec-role">Copy Specialist · All 3 Pillars</div>
+          <div class="spec-mission">"Every word earns its place. Direct response mastery for all 3 pillars."</div>
+          <div class="spec-status"><div class="spec-status-dot"></div>ONLINE</div>
         </div>
-        <div class="agent-desc">Sees through the matrix of ads and data. Finds winning products, builds full funnels, tracks competitors, runs the pipeline.</div>
-        <div class="agent-skills">
-          <span class="skill-tag" style="background:#00d4aa22;color:#00d4aa">Product Research</span>
-          <span class="skill-tag" style="background:#00d4aa22;color:#00d4aa">Pipeline</span>
-          <span class="skill-tag" style="background:#00d4aa22;color:#00d4aa">Gethookd</span>
-          <span class="skill-tag" style="background:#00d4aa22;color:#00d4aa">Facebook Ads</span>
-        </div>
-        <button class="role-card-btn">ROLE CARD →</button>
       </div>
 
-      <div class="agent-card agent-drago">
-        <div class="agent-header">
-          <div class="agent-sm-avatar" id="avatar-drago">🥊</div>
-          <div>
-            <div class="agent-name" style="color:var(--purple)">Drago</div>
-            <div class="agent-role">KYVO Performance Director</div>
+      <!-- The Creative -->
+      <div class="specialist-card">
+        <div class="spec-avatar">🎨</div>
+        <div class="spec-body">
+          <div class="spec-top">
+            <div class="spec-name">The Creative</div>
+            <span class="spec-badge">Specialist</span>
           </div>
+          <div class="spec-role">Creative Specialist · All 3 Pillars</div>
+          <div class="spec-mission">"Scroll-stopping images. Veloura is the floor, not the ceiling."</div>
+          <div class="spec-status"><div class="spec-status-dot"></div>ONLINE</div>
         </div>
-        <div class="agent-desc">Engineered for peak performance. Builds the KYVO supplements brand from strategy to copy to email — relentless and precise.</div>
-        <div class="agent-skills">
-          <span class="skill-tag" style="background:#7c6bff22;color:#7c6bff">Supplement Strategy</span>
-          <span class="skill-tag" style="background:#7c6bff22;color:#7c6bff">VSL Copy</span>
-          <span class="skill-tag" style="background:#7c6bff22;color:#7c6bff">Email</span>
-          <span class="skill-tag" style="background:#7c6bff22;color:#7c6bff">Brand</span>
-        </div>
-        <button class="role-card-btn">ROLE CARD →</button>
       </div>
 
-      <div class="agent-card agent-happy">
-        <div class="agent-header">
-          <div class="agent-sm-avatar" id="avatar-happy">⛳</div>
-          <div>
-            <div class="agent-name" style="color:var(--amber)">Happy</div>
-            <div class="agent-role">Golf & Content Coach</div>
+      <!-- The Builder -->
+      <div class="specialist-card">
+        <div class="spec-avatar">🔧</div>
+        <div class="spec-body">
+          <div class="spec-top">
+            <div class="spec-name">The Builder</div>
+            <span class="spec-badge">Specialist</span>
           </div>
+          <div class="spec-role">Build Specialist · All 3 Pillars</div>
+          <div class="spec-mission">"Tommy clicks Run Ads the moment the page lands. Zero editing."</div>
+          <div class="spec-status"><div class="spec-status-dot"></div>ONLINE</div>
         </div>
-        <div class="agent-desc">Happy Gilmore energy. Serious results. Coaches Tommy to scratch, builds @casualgolfdad, and turns every simulator session into content gold.</div>
-        <div class="agent-skills">
-          <span class="skill-tag" style="background:#ffb86b22;color:#ffb86b">Golf Coaching</span>
-          <span class="skill-tag" style="background:#ffb86b22;color:#ffb86b">@casualgolfdad</span>
-          <span class="skill-tag" style="background:#ffb86b22;color:#ffb86b">Sponsorships</span>
-          <span class="skill-tag" style="background:#ffb86b22;color:#ffb86b">Content</span>
-        </div>
-        <button class="role-card-btn">ROLE CARD →</button>
       </div>
 
-      <div class="agent-card agent-bob">
-        <div class="agent-header">
-          <div class="agent-sm-avatar" id="avatar-bob">🎨</div>
-          <div>
-            <div class="agent-name" style="color:#e879f9">Bob</div>
-            <div class="agent-role">Creative Agent</div>
-          </div>
-        </div>
-        <div class="agent-desc">Named after Bob Ross. Turns product briefs into scroll-stopping ad creatives. Every image is a weapon. Happy little accidents that convert.</div>
-        <div class="agent-skills">
-          <span class="skill-tag" style="background:#e879f922;color:#e879f9">Ad Creatives</span>
-          <span class="skill-tag" style="background:#e879f922;color:#e879f9">Product Photos</span>
-          <span class="skill-tag" style="background:#e879f922;color:#e879f9">Higgsfield</span>
-          <span class="skill-tag" style="background:#e879f922;color:#e879f9">Brand Visuals</span>
-        </div>
-        <button class="role-card-btn">ROLE CARD →</button>
-      </div>
     </div>
 
     <!-- Meta Layer -->
     <div class="meta-layer">
       <div class="meta-layer-line"></div>
-      <div class="meta-layer-label">META LAYER — The Mission</div>
+      <div class="meta-layer-label">THE MISSION</div>
       <div class="meta-layer-line"></div>
     </div>
-    <div style="text-align:center;padding:16px 24px;background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);font-size:13px;color:var(--text2);line-height:1.7">
-      "I am building an autonomous empire — one system, one agent, one dollar at a time —<br>
-      so that my children grow up knowing no ceiling.<br>
-      Every 4:30am alarm, every product launched, every agent deployed is a brick in the foundation<br>
-      of <strong style="color:var(--text)">a life they'll never need to escape.</strong>"
+    <div style="text-align:center;padding:16px 24px;background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);font-size:13px;color:var(--text2);line-height:1.8">
+      "We build for Tommy's family. Not for vanity. Not for scorecards.<br>
+      Because behind every pipeline we run, every ad we launch, every brief we write —<br>
+      there are four kids who deserve a life without limits.<br>
+      <strong style="color:var(--text);font-style:normal">We move fast, we work clean, and we never forget why.</strong>"
     </div>
   </div>
 </div>
@@ -656,7 +785,9 @@ function renderSection(tab){
   else if(tab==='approvals')renderApprovals();
   else if(tab==='docs')fetchAndRenderDocs();
   else if(tab==='activity')fetchAndRenderActivity();
-  else if(tab==='team')renderTeam();
+  else if(tab==='schedule')renderSchedule();
+  else if(tab==='projects'){}  // static HTML
+  else if(tab==='team'){}       // static HTML
 }
 
 // ─── FILTER HELPERS ───────────────────────────────────────────
@@ -924,31 +1055,76 @@ function renderActivity(){
 
 bindFilters('activityFilters',()=>activityFilter,v=>{activityFilter=v;},renderActivity);
 
-// ─── TEAM (static HTML — no render needed) ───────────────────
-function renderTeam(){
-  // Team section is static HTML — nothing to render
-  // Avatar images are loaded via loadAvatars()
+// ─── SCHEDULE ────────────────────────────────────────────────
+const CRON_JOBS = [
+  {name:'Morning Brief',   schedule:'Daily 4:30 AM EST',   cronStr:'30 4 * * *',   lastRun:'Yesterday',  status:'ok'},
+  {name:'Neo Scout',       schedule:'Daily 6:00 AM EST',   cronStr:'0 6 * * *',    lastRun:'Yesterday',  status:'ok'},
+  {name:'Daily Backup',    schedule:'Daily 3:00 AM EST',   cronStr:'0 3 * * *',    lastRun:'Yesterday',  status:'ok'},
+  {name:'Nightly Audit',   schedule:'Daily 12:30 AM EST',  cronStr:'30 0 * * *',   lastRun:'Last night', status:'ok'},
+  {name:'Weekly Report',   schedule:'Fridays 9:00 AM EST', cronStr:'0 9 * * 5',    lastRun:'Last Friday',status:'ok'},
+];
+
+function nextRunFromCron(cronStr){
+  // Parse simple cron: "min hour * * dayOfWeek"
+  const [min,hour,,, dow] = cronStr.split(' ');
+  const now = new Date();
+  const tzOffset = -5 * 60; // EST = UTC-5
+  const estNow = new Date(now.getTime() + (now.getTimezoneOffset() + tzOffset) * 60000);
+  // try today
+  let next = new Date(estNow);
+  next.setSeconds(0,0);
+  next.setMinutes(parseInt(min));
+  next.setHours(parseInt(hour));
+  if(dow !== '*'){
+    // weekly — find next matching weekday
+    const target = parseInt(dow); // 0=Sun, 5=Fri
+    let diff = (target - estNow.getDay() + 7) % 7;
+    if(diff === 0 && next <= estNow) diff = 7;
+    next.setDate(estNow.getDate() + diff);
+  } else {
+    if(next <= estNow) next.setDate(next.getDate()+1);
+  }
+  // Format as relative
+  const diffMs = next - estNow;
+  const diffH = Math.floor(diffMs / 3600000);
+  const diffM = Math.floor((diffMs % 3600000) / 60000);
+  if(diffH < 1) return `in ${diffM}m`;
+  if(diffH < 24) return `in ${diffH}h ${diffM}m`;
+  const days = Math.floor(diffH/24);
+  return `in ${days}d`;
 }
 
-// Avatar URLs — update these once Higgsfield images are generated
-const AVATARS = {
-  charlie: '/avatars/charlie.png',
-  neo: '/avatars/neo.png',
-  drago: '/avatars/drago.png',
-  happy: '/avatars/happy.png',
-  bob: '/avatars/bob.png',
-};
+function renderSchedule(){
+  const tbody = document.getElementById('cronTableBody');
+  if(!tbody) return;
+  tbody.innerHTML = CRON_JOBS.map(j => {
+    const badge = j.status === 'ok'
+      ? `<span class="badge-ok">✅ OK</span>`
+      : `<span class="badge-err">❌ ERROR</span>`;
+    const next = nextRunFromCron(j.cronStr);
+    return `<tr>
+      <td><div class="cron-job-name">${j.name}</div></td>
+      <td><div class="cron-schedule">${j.schedule}</div></td>
+      <td><div class="cron-lastrun">${j.lastRun}</div></td>
+      <td><div class="cron-nextrun">${next}</div></td>
+      <td>${badge}</td>
+    </tr>`;
+  }).join('');
+}
 
-function loadAvatars(){
-  Object.entries(AVATARS).forEach(([agent, url])=>{
-    if(!url) return;
-    const el = document.getElementById('avatar-'+agent);
-    if(!el) return;
-    const img = document.createElement('img');
-    img.src = url;
-    img.onerror = ()=>{}; // keep emoji fallback
-    img.onload = ()=>{ el.innerHTML=''; el.appendChild(img); };
+// ─── PROJECTS HELPER ─────────────────────────────────────────
+function goToTasksFiltered(agent){
+  // Navigate to Tasks tab and activate that agent filter
+  document.querySelectorAll('.nav-tab').forEach(x=>x.classList.remove('active'));
+  const tasksTab = document.querySelector('.nav-tab[data-tab="tasks"]');
+  if(tasksTab) tasksTab.classList.add('active');
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec-tasks').classList.add('active');
+  taskFilter = agent;
+  document.querySelectorAll('#taskFilters .filter-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.val === agent);
   });
+  fetchAndRenderTasks();
 }
 
 // ─── MODALS ───────────────────────────────────────────────────
@@ -1038,7 +1214,7 @@ function timeAgo(ts){
 }
 
 // ─── INIT ─────────────────────────────────────────────────────
-fetchAndRenderTasks();updateGlobalStats();loadAvatars();
+fetchAndRenderTasks();updateGlobalStats();renderSchedule();
 </script>
 </body>
 </html>
