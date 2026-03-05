@@ -6,5 +6,13 @@
     "priority": "high",
     "status": "todo",
     "date": "2026-03-05"
+  },
+  {
+    "id": "mmdv1squw3bm",
+    "title": "Review Veloura ad metrics (CPM / CTR / ROAS)",
+    "agent": "neo",
+    "priority": "high",
+    "status": "todo",
+    "date": "2026-03-05"
   }
 ]
