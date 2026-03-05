@@ -38,5 +38,13 @@
     "priority": "medium",
     "status": "in-progress",
     "date": "2026-03-05"
+  },
+  {
+    "id": "mmdv1vcn1hzm",
+    "title": "Write KYVO VSL script",
+    "agent": "drago",
+    "priority": "medium",
+    "status": "in-progress",
+    "date": "2026-03-05"
   }
 ]
