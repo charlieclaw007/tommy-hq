@@ -62,5 +62,13 @@
     "priority": "low",
     "status": "todo",
     "date": "2026-03-05"
+  },
+  {
+    "id": "mmdv1xbgsaf4",
+    "title": "Veloura advertorial page — update with new copy angle",
+    "agent": "charlie",
+    "priority": "medium",
+    "status": "review",
+    "date": "2026-03-05"
   }
 ]
