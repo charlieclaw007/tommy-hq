@@ -1,13 +1,5 @@
 [
   {
-    "id": "task009",
-    "title": "Share BBA calendar with Charlie",
-    "agent": "charlie",
-    "priority": "low",
-    "status": "todo",
-    "date": "2026-02-25"
-  },
-  {
     "id": "task010",
     "title": "Wedge baseline measurements — 50/75/100yd",
     "agent": "happy",
