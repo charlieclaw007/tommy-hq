@@ -1,13 +1,5 @@
 [
   {
-    "id": "task004",
-    "title": "Build KYVO landing page + email capture",
-    "agent": "drago",
-    "priority": "high",
-    "status": "in-progress",
-    "date": "2026-02-25"
-  },
-  {
     "id": "task005",
     "title": "Write KYVO VSL script",
     "agent": "drago",
