@@ -1,5 +1,12 @@
 [
   {
+    "id": "mmdv1d7p2lzw",
+    "agent": "charlie",
+    "action": "Mission Control agent reporting wired up",
+    "details": "All agent AGENTS.md updated with Mission Control API instructions. Agents now required to post activity after every significant work output.",
+    "timestamp": "2026-03-05T19:30:13.669Z"
+  },
+  {
     "id": "mmdv1ckht55s",
     "agent": "charlie",
     "action": "3 specialist agents deployed",
