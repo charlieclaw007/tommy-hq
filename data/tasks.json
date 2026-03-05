@@ -30,5 +30,13 @@
     "priority": "high",
     "status": "todo",
     "date": "2026-03-05"
+  },
+  {
+    "id": "mmdv1utswe84",
+    "title": "Build KYVO landing page + email capture",
+    "agent": "drago",
+    "priority": "medium",
+    "status": "in-progress",
+    "date": "2026-03-05"
   }
 ]
