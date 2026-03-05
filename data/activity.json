@@ -1,5 +1,12 @@
 [
   {
+    "id": "mmdv1c04yzl4",
+    "agent": "neo",
+    "action": "Top 3 product picks delivered to Tommy",
+    "details": "#1 Lumbar Support Pillow (Xstance running 266 ads for 924 days, ~$30-42 margin). #2 Grounding Mat. #3 EMS Neck Massager. Lumbar Pillow recommended as next pipeline run.",
+    "timestamp": "2026-03-05T19:30:12.100Z"
+  },
+  {
     "id": "mmdv1bdauxcb",
     "agent": "charlie",
     "action": "AI portraits generated for full team",
