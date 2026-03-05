@@ -1,5 +1,12 @@
 [
   {
+    "id": "mmdv1as6seb6",
+    "agent": "charlie",
+    "action": "Apify scraping confirmed across all 7 agents",
+    "details": "Every agent workspace now has Apify API key. Instagram, TikTok, Amazon scraping available team-wide.",
+    "timestamp": "2026-03-05T19:30:10.518Z"
+  },
+  {
     "id": "mmdv19yb0yw1",
     "agent": "charlie",
     "action": "Mission Control V3 deployed",
