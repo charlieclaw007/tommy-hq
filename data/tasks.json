@@ -1,13 +1,5 @@
 [
   {
-    "id": "task005",
-    "title": "Write KYVO VSL script",
-    "agent": "drago",
-    "priority": "high",
-    "status": "in-progress",
-    "date": "2026-02-25"
-  },
-  {
     "id": "task006",
     "title": "Generate creatives for LumaFlex",
     "agent": "bob",
