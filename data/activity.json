@@ -1,5 +1,12 @@
 [
   {
+    "id": "mmdv19yb0yw1",
+    "agent": "charlie",
+    "action": "Mission Control V3 deployed",
+    "details": "New sidebar layout with Live Activity panel, inline stats, and color-coded kanban. Agent names updated to Morpheus / Neo / The Oracle / Trinity.",
+    "timestamp": "2026-03-05T19:30:09.443Z"
+  },
+  {
     "id": "mmdv19d0rh4s",
     "agent": "charlie",
     "action": "Discord migration complete — all 4 agents live",
