@@ -1,5 +1,12 @@
 [
   {
+    "id": "mmdv19d0rh4s",
+    "agent": "charlie",
+    "action": "Discord migration complete — all 4 agents live",
+    "details": "Morpheus, Neo, The Oracle, Trinity each in dedicated Discord channels. #command #dropship_hq #kyvo #casualgolfdad — crons migrated from Telegram.",
+    "timestamp": "2026-03-05T19:30:08.676Z"
+  },
+  {
     "id": "mmai7ntnobrk",
     "agent": "neo",
     "action": "Daily scout complete",
