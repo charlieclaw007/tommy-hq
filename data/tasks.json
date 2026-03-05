@@ -1,13 +1,5 @@
 [
   {
-    "id": "task007",
-    "title": "Generate creatives for Novari",
-    "agent": "bob",
-    "priority": "medium",
-    "status": "todo",
-    "date": "2026-02-25"
-  },
-  {
     "id": "task008",
     "title": "Plan simulator content session (Sunday)",
     "agent": "happy",
