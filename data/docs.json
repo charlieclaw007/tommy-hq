@@ -58,15 +58,16 @@
   {
     "id": "doc005",
     "title": "Image Generation Bible",
-    "agent": "bob",
+    "agent": "the-creative",
     "folder": "Creative",
-    "description": "6-component prompt formula, platform specs, product playbooks for EMS devices, supplements, and golf. Image type templates, advanced techniques, and quality checklist.",
+    "description": "Higgsfield nano-banana-pro prompt formula, platform specs, product playbooks. 6-component prompt structure, image type templates (TOF/MOF/BOF), advanced techniques, and quality checklist. Maintained by The Creative.",
     "gdoc_url": "https://docs.google.com/document/d/1CGQkqjxvX8jQzwJZfqnzpJOYQFxGLLTK8hu0yBLfSx8/edit",
     "tags": [
       "images",
       "Higgsfield",
       "ads",
-      "creative"
+      "creative",
+      "the-creative"
     ],
     "created_at": "2026-02-25T16:00:00.000Z"
   },
