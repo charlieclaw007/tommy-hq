@@ -145,15 +145,16 @@
   },
   {
     "id": "doc012",
-    "title": "Dropship Pipeline SOP — Full Orchestrator",
+    "title": "Dropship Pipeline SOP v2.0 — Full Orchestrator",
     "agent": "neo",
     "folder": "Dropshipping",
-    "description": "One-prompt orchestrator that runs the full 4-stage pipeline: Brand Kit → Foundation Docs → Advertorial + Creative (parallel) → Builder. ~20-25 min end-to-end.",
+    "description": "6-stage automated pipeline: Stage 0 Market Validation → Stage 1 Brand Kit → Stage 2 Customer Intelligence (3 angles) → Stage 3 Copy Arsenal (3 advertorials + 15 headlines/bodies + video script) → Stage 4 Creative Suite (15+ images via The Creative) → Stage 5 Builder (Shopify pages + bundles) → Stage 6 QC Gate. Tommy clicks Run Ads on delivery — zero manual editing.",
     "gdoc_url": "https://docs.google.com/document/d/1QH1DJXA-GGHlQXdY4WZ4uEnD3d5u3kWfv9eHXxYmlE8/edit",
     "tags": [
       "pipeline",
       "SOP",
-      "orchestrator"
+      "orchestrator",
+      "v2.0"
     ],
     "created_at": "2026-02-20T00:00:00.000Z"
   }
