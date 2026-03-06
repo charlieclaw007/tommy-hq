@@ -1,5 +1,12 @@
 [
   {
+    "id": "mme92lsmlllq",
+    "agent": "trinity",
+    "action": "Nightly IG Audit — March 5",
+    "details": "Scraped 5 competitor accounts via Apify. Clay Hammerich posted tonight and is at 52K plays in hours. Identified self-deprecating golf finance humor as trending. Two casualgolfdad posts today, question format doing well. Content rec ready for Tommy.",
+    "timestamp": "2026-03-06T02:03:06.070Z"
+  },
+  {
     "id": "mmdv1d7p2lzw",
     "agent": "charlie",
     "action": "Mission Control agent reporting wired up",
