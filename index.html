@@ -16,6 +16,138 @@
   --sidebar-w:210px;
 }
 html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow:hidden}
+
+/* ── MOBILE RESPONSIVE ── */
+@media(max-width:768px){
+  html,body{overflow:auto;height:auto}
+  body{display:block}
+
+  /* Hide desktop sidebar */
+  .sidebar{display:none!important}
+
+  /* Main takes full width */
+  .main{margin-left:0;height:auto;min-height:100dvh;display:flex;flex-direction:column}
+
+  /* Topbar compact */
+  .topbar{padding:10px 14px;position:sticky;top:0;z-index:50}
+  .topbar-title{font-size:15px}
+  #topbarBtn{padding:7px 12px;font-size:12px}
+
+  /* Stats bar wraps + smaller */
+  .inline-stats{flex-wrap:wrap}
+  .istat{padding:8px 14px;flex:1 1 45%}
+  .istat-num{font-size:18px}
+  .istat-label{font-size:11px}
+
+  /* Page area stacks vertically */
+  .page-area{flex-direction:column;overflow:visible}
+
+  /* Sections scroll naturally */
+  .sections-wrap{
+    overflow:visible;padding:12px 12px 80px;
+    flex:none;
+  }
+
+  /* Hide live activity side panel — accessible via Activity tab */
+  .live-activity-panel{display:none !important}
+
+  /* Kanban: horizontal scroll (Trello-style) */
+  .kanban{
+    display:flex;flex-direction:row;
+    overflow-x:auto;gap:10px;
+    padding-bottom:8px;
+    grid-template-columns:none;
+    -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x mandatory;
+  }
+  .kanban-col{
+    min-width:240px;flex-shrink:0;
+    scroll-snap-align:start;
+  }
+
+  /* Filters scroll horizontally */
+  .filters{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+  .filter-btn{white-space:nowrap;flex-shrink:0}
+
+  /* Docs layout stacks */
+  .docs-layout{grid-template-columns:1fr}
+  .folder-sidebar{position:static}
+  .docs-grid{grid-template-columns:1fr}
+
+  /* Projects stack */
+  .projects-grid{grid-template-columns:1fr}
+
+  /* Team stacks */
+  .directors-row{grid-template-columns:repeat(2,1fr)}
+  .specialists-row{grid-template-columns:1fr}
+
+  /* Calendar */
+  .cal-wrap{max-width:960px;display:flex;flex-direction:column;gap:20px}
+  .cal-header{display:flex;align-items:center;gap:12px;margin-bottom:4px}
+  .cal-month-label{font-size:18px;font-weight:700;color:var(--text);flex:1;text-align:center}
+  .cal-nav{background:var(--bg3);border:1px solid var(--bg4);color:var(--text2);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:.15s}
+  .cal-nav:hover{background:var(--bg4);color:var(--text)}
+  .cal-today{background:var(--purple);color:#fff;border:none;border-radius:8px;padding:6px 14px;font-size:13px;cursor:pointer;font-weight:600;transition:.15s}
+  .cal-today:hover{opacity:.85}
+  .cal-dow{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px}
+  .cal-dow span{text-align:center;font-size:11px;font-weight:600;color:var(--text3);padding:4px 0;text-transform:uppercase;letter-spacing:.05em}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+  .cal-day{background:var(--bg2);border:1px solid var(--bg3);border-radius:8px;min-height:90px;padding:8px;cursor:default;transition:.15s;position:relative}
+  .cal-day:hover{border-color:var(--bg4);background:var(--bg3)}
+  .cal-day.today{border-color:var(--purple)!important;background:rgba(124,107,255,.08)}
+  .cal-day.other-month{opacity:.35}
+  .cal-day.today .cal-day-num{background:var(--purple);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center}
+  .cal-day-num{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;width:22px;height:22px;display:flex;align-items:center;justify-content:center}
+  .cal-event{font-size:10px;color:#fff;border-radius:4px;padding:2px 5px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cal-legend{background:var(--bg2);border:1px solid var(--bg3);border-radius:10px;padding:16px}
+  .cal-legend-title{font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+  .cal-legend-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .cal-leg-item{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px}
+  .cal-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .cal-crons{background:var(--bg2);border:1px solid var(--bg3);border-radius:10px;padding:16px}
+  @media(max-width:768px){.cal-day{min-height:60px;padding:4px}.cal-legend-grid{grid-template-columns:1fr}.cal-event{display:none}}
+  /* Schedule table scroll */
+  .cron-card{overflow-x:auto}
+  .cron-table{min-width:560px}
+
+  /* Approvals full width */
+  .approval-card{padding:12px}
+
+  /* Activity full width */
+  .activity-item{padding:9px 0}
+}
+
+/* ── BOTTOM NAV (mobile only) ── */
+.bottom-nav{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;
+  background:var(--bg2);border-top:1px solid var(--bg4);
+  z-index:200;padding:6px 0 calc(6px + env(safe-area-inset-bottom));
+}
+@media(max-width:768px){.bottom-nav{display:flex;justify-content:space-around;align-items:flex-end}}
+.bn-item{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:4px 6px;border-radius:var(--radius-sm);
+  background:none;border:none;cursor:pointer;font-family:inherit;
+  color:var(--text3);transition:color .15s;min-width:42px;
+  position:relative;
+}
+.bn-item.active{color:var(--purple)}
+.bn-item .bn-icon{font-size:18px;line-height:1}
+.bn-item .bn-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+.bn-badge{
+  position:absolute;top:2px;right:4px;
+  background:var(--coral);color:#fff;font-size:9px;font-weight:700;
+  padding:1px 4px;border-radius:8px;min-width:14px;text-align:center;
+}
+.bn-drawer-btn{
+  display:flex;align-items:center;gap:10px;
+  padding:13px 14px;border-radius:var(--radius);
+  background:var(--bg3);border:none;cursor:pointer;font-family:inherit;
+  font-size:14px;font-weight:600;color:var(--text);width:100%;text-align:left;
+  transition:background .15s;
+}
+.bn-drawer-btn:hover{background:var(--bg4)}
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
@@ -305,7 +437,8 @@ body{display:flex}
 .director-card::before{content:'';position:absolute;inset:0;border-radius:var(--radius);padding:1px;background:var(--card-color,#ffffff22);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s}
 .director-card:hover::before{opacity:1}
 .director-card:hover{box-shadow:0 8px 28px var(--card-glow,#ffffff11);transform:translateY(-2px)}
-.dir-avatar{width:64px;height:64px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:32px;border:2px solid var(--card-color,var(--bg4));box-shadow:0 0 18px var(--card-glow,transparent);flex-shrink:0}
+.dir-avatar{width:64px;height:64px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:32px;border:2px solid var(--card-color,var(--bg4));box-shadow:0 0 18px var(--card-glow,transparent);flex-shrink:0;overflow:hidden}
+.dir-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .dir-status{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:#00ff88;text-transform:uppercase;letter-spacing:.5px;position:absolute;top:11px;right:11px}
 .dir-status-dot{width:5px;height:5px;border-radius:50%;background:#00ff88;box-shadow:0 0 5px #00ff88;animation:pulse 2s infinite;flex-shrink:0}
 .dir-name{font-size:16px;font-weight:800;color:var(--card-color,var(--text))}
@@ -316,7 +449,8 @@ body{display:flex}
 @media(max-width:700px){.specialists-row{grid-template-columns:1fr}}
 .specialist-card{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);padding:14px;display:flex;align-items:center;gap:13px;transition:all .3s}
 .specialist-card:hover{border-color:#e879f955;box-shadow:0 6px 18px #e879f918;transform:translateY(-1px)}
-.spec-avatar{width:48px;height:48px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid #e879f966;box-shadow:0 0 10px #e879f922;flex-shrink:0}
+.spec-avatar{width:48px;height:48px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid #e879f966;box-shadow:0 0 10px #e879f922;flex-shrink:0;overflow:hidden}
+.spec-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .spec-body{flex:1;min-width:0}
 .spec-top{display:flex;align-items:center;gap:7px;margin-bottom:3px}
 .spec-name{font-size:14px;font-weight:800;color:#e879f9}
@@ -386,8 +520,8 @@ body{display:flex}
       <span class="sidebar-label">Activity</span>
     </button>
     <button class="sidebar-link" data-tab="schedule">
-      <span class="sidebar-icon">🕐</span>
-      <span class="sidebar-label">Schedule</span>
+      <span class="sidebar-icon">📅</span>
+      <span class="sidebar-label">Calendar</span>
     </button>
     <button class="sidebar-link" data-tab="projects">
       <span class="sidebar-icon">🚀</span>
@@ -538,15 +672,40 @@ body{display:flex}
 
       <!-- SCHEDULE -->
       <div class="section" id="sec-schedule">
-        <div class="schedule-page">
-          <div class="schedule-note">🌐 Schedules run on <strong style="color:var(--text)">America/New_York</strong> timezone</div>
-          <div class="cron-card">
-            <table class="cron-table">
-              <thead>
-                <tr><th>Job</th><th>Schedule</th><th>Last Run</th><th>Next Run</th><th>Status</th></tr>
-              </thead>
-              <tbody id="cronTableBody"></tbody>
-            </table>
+        <div class="cal-wrap">
+          <!-- Calendar Header -->
+          <div class="cal-header">
+            <button class="cal-nav" id="calPrev">&#8249;</button>
+            <div class="cal-month-label" id="calMonthLabel"></div>
+            <button class="cal-nav" id="calNext">&#8250;</button>
+            <button class="cal-today" onclick="calGoToday()">Today</button>
+          </div>
+          <!-- Day-of-week headers -->
+          <div class="cal-dow">
+            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+          </div>
+          <!-- Calendar grid -->
+          <div class="cal-grid" id="calGrid"></div>
+          <!-- Weekly schedule legend -->
+          <div class="cal-legend">
+            <div class="cal-legend-title">Tommy's Weekly Schedule (Recurring)</div>
+            <div class="cal-legend-grid">
+              <div class="cal-leg-item"><span class="cal-dot" style="background:#ff6b6b"></span>Sun — Simulator Content + Gym | Family OOO</div>
+              <div class="cal-leg-item"><span class="cal-dot" style="background:#00d4aa"></span>Mon — Simulator 5am | Gym 6:15 | Agent Check-in 9am | BBA | Dropship 8-11pm</div>
+              <div class="cal-leg-item"><span class="cal-dot" style="background:#7c6bff"></span>Tue — Gym 6:30 | KYVO Filming 11:45 | BBA | KYVO Strategy 8-11pm</div>
+              <div class="cal-leg-item"><span class="cal-dot" style="background:#00d4aa"></span>Wed — Simulator 5am | Gym 6:15 | Agent Check-in 9am | BBA | Dropship 8-11pm</div>
+              <div class="cal-leg-item"><span class="cal-dot" style="background:#ffb86b"></span>Thu — Simulator 5am | Gym 6:15 | Agent Check-in 9am | BBA | @casualgolfdad 8-11pm</div>
+              <div class="cal-leg-item"><span class="cal-dot" style="background:#e879f9"></span>Fri — Gym 6am | Agent Check-in + Weekly Review 9am | BBA | Weekly Wrap 8pm</div>
+              <div class="cal-leg-item"><span class="cal-dot" style="background:#ff9f43"></span>Sat — Power Block 4:30am | Gym 5:30 | Family 7am+</div>
+            </div>
+          </div>
+          <!-- Cron schedule compact -->
+          <div class="cal-crons">
+            <div class="cal-legend-title">Automated Cron Schedule</div>
+            <div class="cron-card" style="margin-top:8px">
+              <table class="cron-table"><thead><tr><th>Job</th><th>Schedule</th><th>Last Run</th><th>Status</th></tr></thead>
+              <tbody id="cronTableBody"></tbody></table>
+            </div>
           </div>
         </div>
       </div>
@@ -617,7 +776,7 @@ body{display:flex}
           <div class="directors-row">
             <div class="director-card" style="--card-color:#7c6bff;--card-glow:#7c6bff22;--card-bg:#7c6bff22">
               <div class="dir-status"><div class="dir-status-dot"></div>ONLINE</div>
-              <div class="dir-avatar">🌀</div>
+              <div class="dir-avatar"><img src="https://d3u0tzju9qaucj.cloudfront.net/f703a671-06e3-4db5-9c2e-f6ffcda6374f/79d18ae9-d667-4462-a813-b0572ebce5dc.png" alt="Morpheus"></div>
               <div class="dir-name">Morpheus</div>
               <div class="dir-role">Orchestrator</div>
               <div class="dir-pillar">All Pillars</div>
@@ -625,7 +784,7 @@ body{display:flex}
             </div>
             <div class="director-card" style="--card-color:#00d4aa;--card-glow:#00d4aa22;--card-bg:#00d4aa22">
               <div class="dir-status"><div class="dir-status-dot"></div>ONLINE</div>
-              <div class="dir-avatar">🕶️</div>
+              <div class="dir-avatar"><img src="https://d3u0tzju9qaucj.cloudfront.net/f703a671-06e3-4db5-9c2e-f6ffcda6374f/b3ba85dd-9526-415b-b587-dfb86e2b6c49.png" alt="Neo"></div>
               <div class="dir-name">Neo</div>
               <div class="dir-role">Dropship HQ Director</div>
               <div class="dir-pillar">Dropship</div>
@@ -633,7 +792,7 @@ body{display:flex}
             </div>
             <div class="director-card" style="--card-color:#7c6bff;--card-glow:#7c6bff22;--card-bg:#7c6bff22">
               <div class="dir-status"><div class="dir-status-dot"></div>ONLINE</div>
-              <div class="dir-avatar">🔮</div>
+              <div class="dir-avatar"><img src="https://d3u0tzju9qaucj.cloudfront.net/f703a671-06e3-4db5-9c2e-f6ffcda6374f/acfb2cdc-e106-4dcc-bbca-b008d2ff64d6.png" alt="The Oracle"></div>
               <div class="dir-name">The Oracle</div>
               <div class="dir-role">KYVO Performance Director</div>
               <div class="dir-pillar">KYVO</div>
@@ -641,7 +800,7 @@ body{display:flex}
             </div>
             <div class="director-card" style="--card-color:#ff6b6b;--card-glow:#ff6b6b22;--card-bg:#ff6b6b22">
               <div class="dir-status"><div class="dir-status-dot"></div>ONLINE</div>
-              <div class="dir-avatar">⚡</div>
+              <div class="dir-avatar"><img src="https://d3u0tzju9qaucj.cloudfront.net/f703a671-06e3-4db5-9c2e-f6ffcda6374f/1a23b6ad-8c6e-45b5-8194-af62779dc3fd.png" alt="Trinity"></div>
               <div class="dir-name">Trinity</div>
               <div class="dir-role">@casualgolfdad Director</div>
               <div class="dir-pillar">Golf</div>
@@ -651,7 +810,7 @@ body{display:flex}
           <div class="tier-label"><div class="tier-label-line"></div><div class="tier-label-text">🛠️ Specialist Agents</div><div class="tier-label-line"></div></div>
           <div class="specialists-row">
             <div class="specialist-card">
-              <div class="spec-avatar">✍️</div>
+              <div class="spec-avatar"><img src="https://d3u0tzju9qaucj.cloudfront.net/f703a671-06e3-4db5-9c2e-f6ffcda6374f/dada12d1-c588-4ad9-b63e-e730b1bf62f7.png" alt="The Copywriter"></div>
               <div class="spec-body">
                 <div class="spec-top"><div class="spec-name">The Copywriter</div><span class="spec-badge">Specialist</span></div>
                 <div class="spec-role">Copy Specialist · All 3 Pillars</div>
@@ -660,7 +819,7 @@ body{display:flex}
               </div>
             </div>
             <div class="specialist-card">
-              <div class="spec-avatar">🎨</div>
+              <div class="spec-avatar"><img src="https://d3u0tzju9qaucj.cloudfront.net/f703a671-06e3-4db5-9c2e-f6ffcda6374f/68152f2c-6b19-4591-85bf-291f31486874.png" alt="The Creative"></div>
               <div class="spec-body">
                 <div class="spec-top"><div class="spec-name">The Creative</div><span class="spec-badge">Specialist</span></div>
                 <div class="spec-role">Creative Specialist · All 3 Pillars</div>
@@ -669,7 +828,7 @@ body{display:flex}
               </div>
             </div>
             <div class="specialist-card">
-              <div class="spec-avatar">🔧</div>
+              <div class="spec-avatar"><img src="https://d3u0tzju9qaucj.cloudfront.net/f703a671-06e3-4db5-9c2e-f6ffcda6374f/3eb4b73b-4a34-4ed1-9103-7ad411150cb0.png" alt="The Builder"></div>
               <div class="spec-body">
                 <div class="spec-top"><div class="spec-name">The Builder</div><span class="spec-badge">Specialist</span></div>
                 <div class="spec-role">Build Specialist · All 3 Pillars</div>
@@ -702,6 +861,28 @@ body{display:flex}
   </div><!-- /page-area -->
 </div><!-- /main -->
 
+<!-- BOTTOM NAV (mobile) -->
+<nav class="bottom-nav" id="bottomNav">
+  <button class="bn-item active" data-tab="tasks"><span class="bn-icon">📋</span><span class="bn-label">Tasks</span></button>
+  <button class="bn-item" data-tab="content"><span class="bn-icon">📝</span><span class="bn-label">Content</span></button>
+  <button class="bn-item" data-tab="approvals"><span class="bn-icon">✅</span><span class="bn-label">Approvals</span><span class="bn-badge" id="bn-approvals" style="display:none"></span></button>
+  <button class="bn-item" data-tab="activity"><span class="bn-icon">⚡</span><span class="bn-label">Activity</span></button>
+  <button class="bn-item" data-tab="projects"><span class="bn-icon">🚀</span><span class="bn-label">Projects</span></button>
+  <button class="bn-item" data-tab="team"><span class="bn-icon">👥</span><span class="bn-label">Team</span></button>
+  <button class="bn-item" data-tab="more" id="bnMore"><span class="bn-icon">☰</span><span class="bn-label">More</span></button>
+</nav>
+
+<!-- MORE DRAWER (mobile) -->
+<div class="modal-overlay" id="moreDrawer" onclick="if(event.target===this)closeMore()" style="align-items:flex-end">
+  <div style="background:var(--bg2);border-radius:16px 16px 0 0;border:1px solid var(--bg4);width:100%;padding:16px;display:flex;flex-direction:column;gap:4px">
+    <div style="width:36px;height:4px;background:var(--bg4);border-radius:2px;margin:0 auto 14px"></div>
+    <button class="bn-drawer-btn" data-tab="docs">📁 &nbsp; Docs</button>
+    <button class="bn-drawer-btn" data-tab="schedule">🕐 &nbsp; Schedule</button>
+    <div style="height:1px;background:var(--bg4);margin:6px 0"></div>
+    <button onclick="closeMore()" style="background:none;border:none;color:var(--text3);font-family:inherit;font-size:13px;padding:10px;cursor:pointer">Close</button>
+  </div>
+</div>
+
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
   <div class="modal" id="modalContent"></div>
@@ -719,7 +900,7 @@ const AGENT = {
   oracle:  {name:'The Oracle',emoji:'🔮', color:'#7c6bff'},
   happy:   {name:'Trinity',   emoji:'⚡', color:'#ff6b6b'},
   trinity: {name:'Trinity',   emoji:'⚡', color:'#ff6b6b'},
-  bob:     {name:'The Creative',emoji:'🎨',color:'#e879f9'},
+  'the-creative':{name:'The Creative',emoji:'🎨',color:'#e879f9'},
 };
 function agentColor(id){return (AGENT[id]||{color:'var(--text3)'}).color;}
 function agentName(id){return (AGENT[id]||{name:id,emoji:''});}
@@ -795,10 +976,43 @@ function persist(){save('tasks',tasks);save('content',contentItems);save('approv
 function tick(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',timeZoneName:'short'});}
 setInterval(tick,1000);tick();
 
+// ─── MOBILE BOTTOM NAV ───────────────────────────────────────
+document.querySelectorAll('.bn-item[data-tab]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const tab=btn.dataset.tab;
+    if(tab==='more'){openMore();return;}
+    switchTab(tab);
+  });
+});
+
+document.querySelectorAll('.bn-drawer-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    closeMore();
+    switchTab(btn.dataset.tab);
+  });
+});
+
+function openMore(){document.getElementById('moreDrawer').classList.add('open');}
+function closeMore(){document.getElementById('moreDrawer').classList.remove('open');}
+
+function switchTab(tab){
+  // sidebar links
+  document.querySelectorAll('.sidebar-link').forEach(l=>l.classList.toggle('active',l.dataset.tab===tab));
+  // bottom nav
+  document.querySelectorAll('.bn-item[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+  // sections
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec-'+tab).classList.add('active');
+  currentTab=tab;
+  updateTopbar(tab);
+  renderSection(tab);
+  window.scrollTo(0,0);
+}
+
 // ─── SIDEBAR NAV ─────────────────────────────────────────────
 const PAGE_TITLES = {
   tasks:'Tasks',content:'Content Pipeline',approvals:'Approvals Queue',
-  docs:'Document Library',activity:'Activity Feed',schedule:'Cron Schedule',
+  docs:'Document Library',activity:'Activity Feed',schedule:'Calendar',
   projects:'Projects',team:'Team'
 };
 const TOPBAR_BTN = {
@@ -815,16 +1029,7 @@ const TOPBAR_BTN = {
 let currentTab='tasks';
 
 document.querySelectorAll('.sidebar-link').forEach(link=>{
-  link.addEventListener('click',()=>{
-    const tab=link.dataset.tab;
-    document.querySelectorAll('.sidebar-link').forEach(l=>l.classList.remove('active'));
-    link.classList.add('active');
-    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-    document.getElementById('sec-'+tab).classList.add('active');
-    currentTab=tab;
-    updateTopbar(tab);
-    renderSection(tab);
-  });
+  link.addEventListener('click',()=>switchTab(link.dataset.tab));
 });
 
 function updateTopbar(tab){
@@ -935,7 +1140,9 @@ function updateInlineStats(){
 function updateSidebarBadge(){
   const n=approvals.filter(a=>a.status==='pending').length;
   const el=document.getElementById('sb-approvals');
-  el.textContent=n;el.style.display=n>0?'':'none';
+  if(el){el.textContent=n;el.style.display=n>0?'':'none';}
+  const bn=document.getElementById('bn-approvals');
+  if(bn){bn.textContent=n;bn.style.display=n>0?'':'none';}
 }
 
 // ─── LIVE ACTIVITY PANEL ─────────────────────────────────────
@@ -1135,13 +1342,74 @@ function nextRunFromCron(cronStr){
   const diffMs=next-estNow;const diffH=Math.floor(diffMs/3600000);const diffM=Math.floor((diffMs%3600000)/60000);
   if(diffH<1)return`in ${diffM}m`;if(diffH<24)return`in ${diffH}h ${diffM}m`;return`in ${Math.floor(diffH/24)}d`;
 }
+// ─── CALENDAR ────────────────────────────────────────────────
+const DOW_EVENTS = {
+  0:[{label:'Simulator + Gym',color:'#ff6b6b'},{label:'Family OOO',color:'#ff6b6b'}],
+  1:[{label:'Simulator 5am',color:'#00d4aa'},{label:'Gym 6:15am',color:'#00d4aa'},{label:'Agent Check-in 9am',color:'#00d4aa'},{label:'Dropship 8-11pm',color:'#00d4aa'}],
+  2:[{label:'Gym 6:30am',color:'#7c6bff'},{label:'KYVO Filming 11:45',color:'#7c6bff'},{label:'KYVO Strategy 8pm',color:'#7c6bff'}],
+  3:[{label:'Simulator 5am',color:'#00d4aa'},{label:'Gym 6:15am',color:'#00d4aa'},{label:'Agent Check-in 9am',color:'#00d4aa'},{label:'Dropship 8-11pm',color:'#00d4aa'}],
+  4:[{label:'Simulator 5am',color:'#ffb86b'},{label:'Gym 6:15am',color:'#ffb86b'},{label:'@casualgolfdad 8pm',color:'#ffb86b'}],
+  5:[{label:'Gym 6am',color:'#e879f9'},{label:'Agent Check-in + Review 9am',color:'#e879f9'},{label:'Weekly Wrap 8pm',color:'#e879f9'}],
+  6:[{label:'Power Block 4:30am',color:'#ff9f43'},{label:'Gym 5:30am',color:'#ff9f43'},{label:'Family 7am+',color:'#ff9f43'}]
+};
+const CRON_EVENTS = [
+  {dow:null,time:'4:30 AM',label:'Morning Brief',color:'#ffb86b'},
+  {dow:null,time:'6:00 AM',label:'Neo Scout',color:'#00d4aa'},
+  {dow:null,time:'12:30 AM',label:'Nightly Audit',color:'#7c6bff'},
+  {dow:5,time:'9:00 AM',label:'Weekly Report',color:'#e879f9'},
+];
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+let calYear=new Date().getFullYear(), calMonth=new Date().getMonth();
+
+function buildCalendar(){
+  const grid=document.getElementById('calGrid');
+  const label=document.getElementById('calMonthLabel');
+  if(!grid||!label)return;
+  label.textContent=`${MONTHS[calMonth]} ${calYear}`;
+  const today=new Date();
+  const firstDay=new Date(calYear,calMonth,1).getDay();
+  const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
+  const daysInPrev=new Date(calYear,calMonth,0).getDate();
+  let html='';
+  // Prev month padding
+  for(let i=firstDay-1;i>=0;i--){
+    const d=daysInPrev-i;
+    html+=`<div class="cal-day other-month"><div class="cal-day-num">${d}</div></div>`;
+  }
+  // Current month
+  for(let d=1;d<=daysInMonth;d++){
+    const date=new Date(calYear,calMonth,d);
+    const dow=date.getDay();
+    const isToday=today.getDate()===d&&today.getMonth()===calMonth&&today.getFullYear()===calYear;
+    const events=DOW_EVENTS[dow]||[];
+    // Only show first 2 events to keep compact
+    const evHTML=events.slice(0,2).map(e=>`<div class="cal-event" style="background:${e.color}88">${e.label}</div>`).join('');
+    const moreCount=events.length-2;
+    const moreHTML=moreCount>0?`<div style="font-size:10px;color:var(--text3);padding-left:2px">+${moreCount} more</div>`:'';
+    html+=`<div class="cal-day${isToday?' today':''}"><div class="cal-day-num">${d}</div>${evHTML}${moreHTML}</div>`;
+  }
+  // Next month padding to complete grid
+  const totalCells=Math.ceil((firstDay+daysInMonth)/7)*7;
+  for(let d=1;d<=totalCells-(firstDay+daysInMonth);d++){
+    html+=`<div class="cal-day other-month"><div class="cal-day-num">${d}</div></div>`;
+  }
+  grid.innerHTML=html;
+}
+function calGoToday(){calYear=new Date().getFullYear();calMonth=new Date().getMonth();buildCalendar();}
+document.addEventListener('DOMContentLoaded',()=>{
+  const prev=document.getElementById('calPrev');
+  const next=document.getElementById('calNext');
+  if(prev)prev.addEventListener('click',()=>{calMonth--;if(calMonth<0){calMonth=11;calYear--;}buildCalendar();});
+  if(next)next.addEventListener('click',()=>{calMonth++;if(calMonth>11){calMonth=0;calYear++;}buildCalendar();});
+});
+
 function renderSchedule(){
+  buildCalendar();
   const tbody=document.getElementById('cronTableBody');if(!tbody)return;
   tbody.innerHTML=CRON_JOBS.map(j=>`<tr>
     <td><div class="cron-job-name">${j.name}</div></td>
     <td><div class="cron-schedule">${j.schedule}</div></td>
     <td><div class="cron-lastrun">${j.lastRun}</div></td>
-    <td><div class="cron-nextrun">${nextRunFromCron(j.cronStr)}</div></td>
     <td>${j.status==='ok'?'<span class="badge-ok">✅ OK</span>':'<span class="badge-err">❌ ERROR</span>'}</td>
   </tr>`).join('');
 }
@@ -1191,7 +1459,7 @@ function openModal(type){
     <div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-coral" onclick="submitApproval()">Submit Request</button></div>`;
   else if(type==='doc') m.innerHTML=`<h2>+ Add Document</h2>
     <div class="form-group"><label>Title</label><input id="mTitle" placeholder="Document name"></div>
-    <div class="form-group"><label>Agent</label><select id="mAgent">${agentOptions}<option value="bob">🎨 The Creative</option></select></div>
+    <div class="form-group"><label>Agent</label><select id="mAgent">${agentOptions}<option value="the-creative">🎨 The Creative</option></select></div>
     <div class="form-group"><label>Folder</label><select id="mFolder"><option>Dropshipping</option><option>KYVO Performance</option><option>@casualgolfdad</option><option>Creative</option><option>Strategy</option><option>SOPs</option></select></div>
     <div class="form-group"><label>Description</label><textarea id="mDesc" placeholder="What's in this document?"></textarea></div>
     <div class="form-group"><label>Google Doc URL</label><input id="mGdoc" placeholder="https://docs.google.com/…"></div>
