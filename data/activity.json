@@ -1,5 +1,12 @@
 [
   {
+    "id": "mmjwovoh6r9u",
+    "agent": "trinity",
+    "action": "Nightly IG audit complete",
+    "details": "Scraped @casualgolfdad, @clay.hammerichgolf, @golfrabble, @esquiregolf, @feelgolf__ via Apify. Clay killing it at 11.8K views tonight. Full report delivered to Tommy.",
+    "timestamp": "2026-03-10T01:03:07.361Z"
+  },
+  {
     "id": "mmjjjikgzgdd",
     "agent": "the-builder",
     "action": "NEUVEIL description-to-sections migration complete",
