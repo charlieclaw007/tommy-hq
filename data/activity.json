@@ -1,5 +1,12 @@
 [
   {
+    "id": "mmo9e0vm85s4",
+    "agent": "drago",
+    "action": "KYVO Morning Research Briefing posted",
+    "details": "Live Apify scrape of 6 supplement/founder brand accounts. Key intel: BPN Moments In-Between doc series (143K plays), BPN Isolate truth carousel launch, Agape Energy 1.17M view viral anchor. Briefing posted to #kyvo Discord.",
+    "timestamp": "2026-03-13T02:09:40.594Z"
+  },
+  {
     "id": "mmo9402n6l8x",
     "agent": "happy",
     "action": "Generated nightly hot take briefs",
