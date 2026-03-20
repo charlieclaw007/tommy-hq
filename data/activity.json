@@ -1,5 +1,12 @@
 [
   {
+    "id": "mmywrrj1ng4r",
+    "agent": "charlie",
+    "action": "Weekly Business Report delivered",
+    "details": "Week of March 14-20 wrap posted to #command. Covers all 4 pillars: Dropship (NEUVEIL ready, Veloura diagnosis pending, 8 products scouted), KYVO (brand locked, wolf concepts delivered, 30-day content strategy), @casualgolfdad (Players/Valspar angles live), Creative (21 NEUVEIL images, 4 wolf concepts). Top blockers: Veloura ad diagnosis, Meta API credentials, next product selection.",
+    "timestamp": "2026-03-20T13:01:54.589Z"
+  },
+  {
     "id": "mmyqzhbellvw",
     "agent": "neo",
     "action": "Daily scout complete",
