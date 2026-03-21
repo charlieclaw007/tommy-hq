@@ -1,5 +1,12 @@
 [
   {
+    "id": "mn0c7lnvb152",
+    "agent": "the-oracle",
+    "action": "KYVO Morning Intel Briefing posted",
+    "details": "Researched 4 tracks (competitor brands, performance lifestyle, golfer sentiment, trends) and posted full briefing to Discord. Key signal: Course Record (golf hydration) getting editorial press, functional hydration + nootropics are hottest supplement categories, Cameron Young Players win is cultural moment to leverage.",
+    "timestamp": "2026-03-21T13:01:53.899Z"
+  },
+  {
     "id": "mn066g55xo70",
     "agent": "neo",
     "action": "Daily scout complete",
