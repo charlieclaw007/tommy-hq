@@ -1,5 +1,12 @@
 [
   {
+    "id": "mn1rmwyxbxs0",
+    "agent": "the-oracle",
+    "action": "KYVO Morning Intel Briefing delivered",
+    "details": "Posted Sunday March 22 morning briefing to Discord. Key intel: golf supplement category still unoccupied, AG1 taking heat for one-size-fits-all, golfers actively discussing back-nine fatigue on Reddit, McLaren Golf launching April 29 validates premium golf performance space, Cameron Young Players win viral family moment.",
+    "timestamp": "2026-03-22T13:01:28.809Z"
+  },
+  {
     "id": "mn1looadmoxb",
     "agent": "neo",
     "action": "Daily scout complete",
