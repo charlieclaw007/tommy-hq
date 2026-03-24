@@ -81,6 +81,7 @@ body {
 .tab.active.t-dropship { color: var(--cyan); border-bottom-color: var(--cyan); }
 .tab.active.t-kyvo { color: var(--amber); border-bottom-color: var(--amber); }
 .tab.active.t-cgd { color: var(--coral); border-bottom-color: var(--coral); }
+.tab.active.t-all { color: var(--purple); border-bottom-color: var(--purple); }
 .tab .dot {
   width: 7px; height: 7px; border-radius: 50%;
   display: inline-block; flex-shrink: 0;
@@ -88,6 +89,17 @@ body {
 .t-dropship .dot { background: var(--cyan); }
 .t-kyvo .dot { background: var(--amber); }
 .t-cgd .dot { background: var(--coral); }
+.t-all .dot { background: var(--purple); }
+
+/* ── PILLAR PILL ── */
+.pillar-tag {
+  font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px;
+  letter-spacing: .3px; text-transform: uppercase;
+}
+.pt-dropship { background: rgba(0,212,170,.12); color: var(--cyan); }
+.pt-kyvo { background: rgba(255,184,107,.12); color: var(--amber); }
+.pt-cgd { background: rgba(255,107,107,.12); color: var(--coral); }
+.pt-all { background: rgba(124,107,255,.12); color: var(--purple); }
 
 /* ── PAGES ── */
 .page { display: none; padding: 28px 24px; max-width: 900px; }
@@ -376,6 +388,15 @@ body {
 }
 .notes-box strong { color: var(--amber); }
 
+/* ── FILTER BTNS ── */
+.filter-btn {
+  padding: 5px 13px; border-radius: 6px; font-size: 12px; font-weight: 600;
+  border: 1px solid var(--border); background: var(--card); color: var(--muted);
+  cursor: pointer; transition: all .15s;
+}
+.filter-btn:hover { border-color: var(--dim); color: var(--text); }
+.filter-btn.active { background: rgba(124,107,255,.12); border-color: rgba(124,107,255,.3); color: var(--purple); }
+
 /* ── MOBILE ── */
 @media (max-width: 600px) {
   .page { padding: 16px; }
@@ -404,6 +425,9 @@ body {
     </div>
     <div class="tab t-cgd" onclick="showTab('cgd')">
       <span class="dot"></span> @casualgolfdad
+    </div>
+    <div class="tab t-all" onclick="showTab('all')">
+      <span class="dot"></span> All Tasks
     </div>
   </div>
 </div>
@@ -515,6 +539,20 @@ body {
     <div id="cgd-docs"><div class="loading">Loading docs…</div></div>
   </div>
 
+</div>
+
+<!-- ═══════════ ALL TASKS ═══════════ -->
+<div class="page" id="tab-all">
+  <div class="section-block">
+    <div class="section-title">📋 All Open Tasks — Empire-Wide</div>
+    <div class="filters" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">
+      <div class="filter-btn active" data-filter="all" onclick="filterAll(this,'all')">All</div>
+      <div class="filter-btn" data-filter="dropship" onclick="filterAll(this,'dropship')" style="color:var(--cyan)">🛒 Dropship</div>
+      <div class="filter-btn" data-filter="kyvo" onclick="filterAll(this,'kyvo')" style="color:var(--amber)">🏌️ KYVO</div>
+      <div class="filter-btn" data-filter="cgd" onclick="filterAll(this,'cgd')" style="color:var(--coral)">⛳ @casualgolfdad</div>
+    </div>
+    <div id="all-tasks"><div class="loading">Loading tasks…</div></div>
+  </div>
 </div>
 
 <script>
@@ -904,15 +942,120 @@ function renderDocsFor(folders, containerId) {
     .catch(()=>{ el.innerHTML='<div class="empty">Could not load files.</div>'; });
 }
 
+// ════════════════ ALL TASKS ════════════════
+
+const pillarAgents = {
+  dropship: ['neo','charlie','the-builder'],
+  kyvo: ['the-oracle'],
+  cgd: ['trinity'],
+  all: ['the-creative','the-copywriter']
+};
+
+function getPillar(agent) {
+  for(const [pillar, agents] of Object.entries(pillarAgents)) {
+    if(agents.includes(agent)) return pillar;
+  }
+  return 'all';
+}
+
+const pillarLabel = { dropship:'Dropship HQ', kyvo:'KYVO Performance', cgd:'@casualgolfdad', all:'All Pillars' };
+const pillarTagClass = { dropship:'pt-dropship', kyvo:'pt-kyvo', cgd:'pt-cgd', all:'pt-all' };
+const pillarIcon = { dropship:'🛒', kyvo:'🏌️', cgd:'⛳', all:'🌀' };
+
+let allTasksData = [];
+
+function renderAllTasks(filter='all') {
+  const el = document.getElementById('all-tasks');
+  const tasks = filter === 'all'
+    ? allTasksData
+    : allTasksData.filter(t => getPillar(t.agent||'') === filter || (filter==='all' && getPillar(t.agent||'')==='all'));
+
+  const open = tasks.filter(t => t.status !== 'done')
+    .sort((a,b) => {
+      const po = {high:0,medium:1,low:2};
+      return (po[a.priority]||1) - (po[b.priority]||1);
+    });
+
+  if(!open.length) { el.innerHTML='<div class="no-tasks">No open tasks 🎉</div>'; return; }
+
+  el.innerHTML = open.map(t => {
+    const pillar = getPillar(t.agent||'');
+    return `
+    <div class="task-item" id="at-${t.id}">
+      <div class="task-check" onclick="markDoneAll('${t.id}')"></div>
+      <div class="task-body">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap">
+          <span class="pillar-tag ${pillarTagClass[pillar]}">${pillarIcon[pillar]} ${pillarLabel[pillar]}</span>
+          <span style="font-size:11px;color:var(--dim)">${t.agent||''}</span>
+        </div>
+        <div class="task-text">${t.title||''}</div>
+        <div class="task-meta" style="margin-top:6px">
+          <span class="badge ${badgeClass(t.priority||'medium')}">${t.priority||'medium'}</span>
+          <span class="badge ${badgeClass(t.status||'todo')}">${(t.status||'todo').replace('-',' ')}</span>
+        </div>
+      </div>
+      <div class="task-time">${t.createdAt?timeAgo(t.createdAt):''}</div>
+    </div>`}).join('');
+}
+
+function filterAll(btn, filter) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderAllTasks(filter);
+}
+
+function markDoneAll(id) {
+  const el = document.getElementById('at-'+id);
+  if(el) { el.style.opacity='0.4'; el.style.pointerEvents='none'; }
+  fetch('https://tommy-hq.vercel.app/api/tasks', {
+    method:'PUT',
+    headers:{'Content-Type':'application/json','X-API-Key':'thq_25741469f31452628a1d8ae7372155ef2a2bf0b7d0138d96'},
+    body:JSON.stringify({id, status:'done'})
+  }).then(()=>{ if(el) el.remove(); }).catch(()=>{});
+}
+
+function loadAllTasks() {
+  fetch('https://tommy-hq.vercel.app/api/tasks')
+    .then(r=>r.json())
+    .then(tasks => {
+      allTasksData = tasks;
+      renderAllTasks('all');
+      // also feed pillar-specific sections
+      renderTasksFromCache(['neo','charlie','the-builder','the-creative','the-copywriter'], 'dropship-tasks');
+      renderTasksFromCache(['the-oracle','the-creative','the-copywriter'], 'kyvo-tasks');
+      renderTasksFromCache(['trinity','the-creative','the-copywriter'], 'cgd-tasks');
+    })
+    .catch(()=>{ document.getElementById('all-tasks').innerHTML='<div class="no-tasks">Could not load tasks.</div>'; });
+}
+
+function renderTasksFromCache(agents, containerId) {
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const filtered = allTasksData.filter(t => agents.includes(t.agent) && t.status !== 'done')
+    .sort((a,b) => new Date(b.createdAt||0)-new Date(a.createdAt||0));
+  if(!filtered.length) { el.innerHTML='<div class="no-tasks">No open tasks 🎉</div>'; return; }
+  el.innerHTML = filtered.map(t => `
+    <div class="task-item" id="ti-${t.id}">
+      <div class="task-check" onclick="markDone('${t.id}')"></div>
+      <div class="task-body">
+        <div class="task-text">${t.title||''}</div>
+        <div class="task-meta">
+          <span class="badge ${badgeClass(t.priority||'medium')}">${t.priority||'medium'}</span>
+          <span class="badge ${badgeClass(t.status||'todo')}">${(t.status||'todo').replace('-',' ')}</span>
+          <span>${t.agent||''}</span>
+        </div>
+      </div>
+      <div class="task-time">${t.createdAt?timeAgo(t.createdAt):''}</div>
+    </div>`).join('');
+}
+
 // ════════════════ INIT ════════════════
 
 renderBatch(0);
 renderContentCards(kyvoScripts, 'kyvo-content');
 renderContentCards(cgdScripts, 'cgd-content');
 
-renderTasksFor(['neo','charlie','the-builder','the-creative','the-copywriter'], 'dropship-tasks');
-renderTasksFor(['the-oracle','the-builder','the-creative','the-copywriter'], 'kyvo-tasks');
-renderTasksFor(['trinity','the-creative','the-copywriter'], 'cgd-tasks');
+loadAllTasks(); // loads all tasks once, feeds all 4 task containers
 
 renderDocsFor(['Dropshipping','SOPs','Creative'], 'dropship-docs');
 renderDocsFor(['KYVO Performance','SOPs','Creative'], 'kyvo-docs');
