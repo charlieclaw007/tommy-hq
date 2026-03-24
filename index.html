@@ -27,6 +27,77 @@ body {
   color: var(--text);
   font-size: 14px;
   min-height: 100vh;
+  display: flex;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: 200px;
+  background: var(--card);
+  border-right: 1px solid var(--border);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.sidebar-brand {
+  padding: 18px 14px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand-icon {
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, var(--purple), #a855f7);
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px;
+  flex-shrink: 0;
+}
+.brand h1 { font-size: 15px; font-weight: 800; letter-spacing: -.4px; line-height: 1.2; }
+.brand span { font-size: 10px; color: var(--muted); font-weight: 400; display: block; }
+
+.sidebar-section-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--dim);
+  padding: 12px 18px 6px;
+  font-weight: 700;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all .15s;
+  border-left: 2px solid transparent;
+  user-select: none;
+}
+.nav-item:hover {
+  color: var(--text);
+  background: rgba(255,255,255,.03);
+}
+.nav-item.active {
+  border-left-color: var(--purple);
+  color: var(--text);
+  background: rgba(124,107,255,.08);
+}
+.nav-item .nav-icon { font-size: 15px; flex-shrink: 0; }
+
+/* ── MAIN WRAPPER ── */
+.main-wrapper {
+  margin-left: 200px;
+  flex: 1;
+  min-width: 0;
 }
 
 /* ── HEADER ── */
@@ -38,26 +109,6 @@ body {
   top: 0;
   z-index: 50;
 }
-.header-top {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.brand-icon {
-  width: 34px; height: 34px;
-  background: linear-gradient(135deg, var(--purple), #a855f7);
-  border-radius: 9px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 17px;
-}
-.brand h1 { font-size: 17px; font-weight: 800; letter-spacing: -.4px; }
-.brand span { font-size: 11px; color: var(--muted); margin-left: 4px; font-weight: 400; }
 
 /* ── TABS ── */
 .tabs {
@@ -104,6 +155,10 @@ body {
 /* ── PAGES ── */
 .page { display: none; padding: 28px 24px; max-width: 900px; }
 .page.active { display: block; }
+
+/* ── SIDEBAR PAGES ── */
+.sidebar-page { display: none; padding: 28px 24px; }
+.sidebar-page.active { display: block; }
 
 /* ── SECTION BLOCK ── */
 .section-block { margin-bottom: 36px; }
@@ -397,163 +452,569 @@ body {
 .filter-btn:hover { border-color: var(--dim); color: var(--text); }
 .filter-btn.active { background: rgba(124,107,255,.12); border-color: rgba(124,107,255,.3); color: var(--purple); }
 
+/* ── CALENDAR PAGE ── */
+.cal-page-title { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.cal-page-sub { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+
+.week-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 36px; }
+.day-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--card);
+}
+.day-row.sunday {
+  border-color: rgba(255,107,107,.3);
+  background: rgba(255,107,107,.04);
+}
+.day-name {
+  font-size: 12px; font-weight: 800;
+  color: var(--text);
+  min-width: 80px;
+  padding-top: 3px;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+}
+.day-events {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  flex: 1;
+}
+.ev-chip {
+  font-size: 11px; font-weight: 600;
+  padding: 3px 9px; border-radius: 20px;
+  background: rgba(255,255,255,.05);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+.ev-chip.ev-sim { background: rgba(0,212,170,.1); color: var(--cyan); border-color: rgba(0,212,170,.2); }
+.ev-chip.ev-gym { background: rgba(0,212,170,.08); color: #00b894; border-color: rgba(0,212,170,.15); }
+.ev-chip.ev-agent { background: rgba(124,107,255,.1); color: var(--purple); border-color: rgba(124,107,255,.2); }
+.ev-chip.ev-family { background: rgba(255,107,107,.1); color: var(--coral); border-color: rgba(255,107,107,.2); }
+.ev-chip.ev-bba { background: rgba(255,255,255,.05); color: var(--muted); }
+.dnd-badge {
+  font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 20px;
+  background: rgba(255,71,87,.2); color: #ff4757; border: 1px solid rgba(255,71,87,.3);
+  text-transform: uppercase; letter-spacing: .5px; white-space: nowrap;
+}
+
+.cron-section-title {
+  font-size: 14px; font-weight: 800; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.cron-list { display: flex; flex-direction: column; gap: 8px; }
+.cron-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--card);
+}
+.cron-status { font-size: 16px; flex-shrink: 0; }
+.cron-info { flex: 1; }
+.cron-name { font-size: 13px; font-weight: 700; }
+.cron-schedule { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.cron-badge {
+  font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px;
+}
+.cron-active { background: rgba(0,212,170,.15); color: var(--cyan); }
+.cron-error { background: rgba(255,71,87,.15); color: #ff4757; }
+
+/* ── TEAM PAGE ── */
+.team-page-title { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.team-page-sub { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+.team-tier-label {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+  color: var(--muted); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.team-tier-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.agent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+  margin-bottom: 32px;
+}
+.agent-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  overflow: hidden;
+  transition: border-color .15s, transform .15s;
+}
+.agent-card:hover { border-color: var(--dim); transform: translateY(-2px); }
+.agent-card-stripe { height: 3px; width: 100%; }
+.agent-card-body { padding: 18px 16px 16px; }
+.agent-emoji { font-size: 28px; margin-bottom: 10px; display: block; }
+.agent-name { font-size: 15px; font-weight: 800; margin-bottom: 3px; }
+.agent-role { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+.agent-footer { display: flex; align-items: center; justify-content: space-between; }
+.agent-pillar-tag {
+  font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px;
+  text-transform: uppercase; letter-spacing: .3px;
+}
+.online-dot { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--green); font-weight: 600; }
+.online-dot::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--green); display: inline-block; }
+
 /* ── MOBILE ── */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  .sidebar {
+    top: auto; left: 0; right: 0; bottom: 0;
+    width: 100%;
+    height: 60px;
+    flex-direction: row;
+    border-right: none;
+    border-top: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .sidebar-brand { display: none; }
+  .sidebar-section-label { display: none; }
+  .sidebar-nav { display: flex; flex-direction: row; flex: 1; justify-content: space-around; }
+  .nav-item {
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px 12px;
+    font-size: 10px;
+    border-left: none;
+    border-top: 2px solid transparent;
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+  }
+  .nav-item.active {
+    border-left-color: transparent;
+    border-top-color: var(--purple);
+  }
+  .nav-icon { font-size: 18px; }
+  .main-wrapper { margin-left: 0; padding-bottom: 70px; }
   .page { padding: 16px; }
+  .sidebar-page { padding: 16px; }
   .copy-box-text { padding-right: 0; padding-bottom: 40px; }
   .copy-btn { top: auto; bottom: 8px; right: 8px; }
   .script-text { padding-right: 0; padding-bottom: 40px; }
+  .agent-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+}
+
+@media (max-width: 600px) {
+  .day-row { flex-direction: column; gap: 8px; }
+  .day-name { min-width: auto; }
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="header-top">
+<!-- ════════════ SIDEBAR ════════════ -->
+<div class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon">🌀</div>
     <div class="brand">
-      <div class="brand-icon">🌀</div>
-      <h1>Tommy HQ <span>Empire Control</span></h1>
+      <h1>Tommy HQ</h1>
+      <span>Empire Control</span>
     </div>
   </div>
-  <div class="tabs">
-    <div class="tab t-dropship active" onclick="showTab('dropship')">
-      <span class="dot"></span> Dropship HQ
+  <div class="sidebar-nav">
+    <div class="sidebar-section-label">GLOBAL</div>
+    <div class="nav-item" data-page="calendar" onclick="showSidebarPage('calendar')">
+      <span class="nav-icon">📅</span> Calendar
     </div>
-    <div class="tab t-kyvo" onclick="showTab('kyvo')">
-      <span class="dot"></span> KYVO Performance
-    </div>
-    <div class="tab t-cgd" onclick="showTab('cgd')">
-      <span class="dot"></span> @casualgolfdad
-    </div>
-    <div class="tab t-all" onclick="showTab('all')">
-      <span class="dot"></span> All Tasks
+    <div class="nav-item" data-page="team" onclick="showSidebarPage('team')">
+      <span class="nav-icon">👥</span> Team
     </div>
   </div>
 </div>
 
-<!-- ═══════════ DROPSHIP ═══════════ -->
-<div class="page active" id="tab-dropship">
+<!-- ════════════ MAIN WRAPPER ════════════ -->
+<div class="main-wrapper">
 
-  <div class="section-block">
-    <div class="section-title">✅ To-Do</div>
-    <div id="dropship-tasks"><div class="loading">Loading tasks…</div></div>
-  </div>
-
-  <div class="section-block">
-    <div class="section-title">📦 Products & Ad Copy</div>
-
-    <!-- NEUVEIL -->
-    <div class="product-section">
-      <div class="product-header">
-        <span class="product-name">NEUVEIL</span>
-        <span class="product-sub">Microneedle Eye Patches</span>
-        <span class="pill pill-testing">Testing</span>
-        <a href="https://anakampsihealth.com/products/neuveil-microneedle-eye-patches-1" target="_blank" style="font-size:11px;color:var(--muted);text-decoration:none;border:1px solid var(--border);padding:3px 9px;border-radius:5px;margin-left:auto">Store ↗</a>
+  <!-- HEADER -->
+  <div class="header">
+    <div class="tabs">
+      <div class="tab t-dropship active" onclick="showTab('dropship')">
+        <span class="dot"></span> Dropship HQ
       </div>
-      <div class="stage-track">
-        <span class="stage done">Scout</span><span class="stage-sep">›</span>
-        <span class="stage done">Brand</span><span class="stage-sep">›</span>
-        <span class="stage done">Copy</span><span class="stage-sep">›</span>
-        <span class="stage done">Creative</span><span class="stage-sep">›</span>
-        <span class="stage done">Build</span><span class="stage-sep">›</span>
-        <span class="stage done">QC</span><span class="stage-sep">›</span>
-        <span class="stage current">Live</span>
+      <div class="tab t-kyvo" onclick="showTab('kyvo')">
+        <span class="dot"></span> KYVO Performance
       </div>
-
-      <!-- Batch tabs -->
-      <div style="display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:16px">
-        <div class="tab t-dropship active" id="btab-0" onclick="switchBatch(0)" style="padding:7px 16px;font-size:12px">Batch 1 — Mechanism</div>
-        <div class="tab t-dropship" id="btab-1" onclick="switchBatch(1)" style="padding:7px 16px;font-size:12px">Batch 2 — Avatar</div>
-        <div class="tab t-dropship" id="btab-2" onclick="switchBatch(2)" style="padding:7px 16px;font-size:12px">Batch 3 — Clinical</div>
+      <div class="tab t-cgd" onclick="showTab('cgd')">
+        <span class="dot"></span> @casualgolfdad
       </div>
-
-      <div id="batch-content"></div>
-
-      <div class="notes-box"><strong>Notes:</strong> Bundle: 1-box $49 | 3-box $119 (Roller free) | 5-box $189 (Eye Mask free)<br>Launch order: B1 → B3 → B2 | Kill: CTR &lt; 0.8% Day 3 | Scale: CTR &gt; 1.2% → +20%/day</div>
-    </div>
-
-    <!-- Veloura -->
-    <div style="border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;background:var(--card)">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-        <span class="product-name">Veloura</span>
-        <span class="product-sub">Facial Hair Removal Cream</span>
-        <span class="pill pill-paused">Paused</span>
-      </div>
-      <div class="notes-box"><strong>Status:</strong> Went unprofitable after ~2 weeks on Meta. Diagnosis pending — need CPP/budget/creative data from Tommy.</div>
-    </div>
-
-    <!-- RestCalm -->
-    <div style="border:1px solid var(--border);border-radius:10px;padding:16px;background:var(--card)">
-      <div style="display:flex;align-items:center;gap:10px">
-        <span class="product-name">RestCalm</span>
-        <span class="product-sub">Restless Legs EMS Pad</span>
-        <span class="pill pill-live">Live</span>
+      <div class="tab t-all" onclick="showTab('all')">
+        <span class="dot"></span> All Tasks
       </div>
     </div>
-
   </div>
 
-  <div class="section-block">
-    <div class="section-title">📁 Files & Docs</div>
-    <div id="dropship-docs"><div class="loading">Loading docs…</div></div>
-  </div>
+  <!-- ═══════════ DROPSHIP ═══════════ -->
+  <div class="page active" id="tab-dropship">
 
-</div>
-
-<!-- ═══════════ KYVO ═══════════ -->
-<div class="page" id="tab-kyvo">
-
-  <div class="section-block">
-    <div class="section-title">✅ To-Do</div>
-    <div id="kyvo-tasks"><div class="loading">Loading tasks…</div></div>
-  </div>
-
-  <div class="section-block">
-    <div class="section-title">🎬 Content — Sunday Batch March 23</div>
-    <div id="kyvo-content"></div>
-  </div>
-
-  <div class="section-block">
-    <div class="section-title">📁 Files & Docs</div>
-    <div id="kyvo-docs"><div class="loading">Loading docs…</div></div>
-  </div>
-
-</div>
-
-<!-- ═══════════ @CGD ═══════════ -->
-<div class="page" id="tab-cgd">
-
-  <div class="section-block">
-    <div class="section-title">✅ To-Do</div>
-    <div id="cgd-tasks"><div class="loading">Loading tasks…</div></div>
-  </div>
-
-  <div class="section-block">
-    <div class="section-title">🎬 Content — March Week of March 23</div>
-    <div id="cgd-content"></div>
-  </div>
-
-  <div class="section-block">
-    <div class="section-title">📁 Files & Docs</div>
-    <div id="cgd-docs"><div class="loading">Loading docs…</div></div>
-  </div>
-
-</div>
-
-<!-- ═══════════ ALL TASKS ═══════════ -->
-<div class="page" id="tab-all">
-  <div class="section-block">
-    <div class="section-title">📋 All Open Tasks — Empire-Wide</div>
-    <div class="filters" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">
-      <div class="filter-btn active" data-filter="all" onclick="filterAll(this,'all')">All</div>
-      <div class="filter-btn" data-filter="dropship" onclick="filterAll(this,'dropship')" style="color:var(--cyan)">🛒 Dropship</div>
-      <div class="filter-btn" data-filter="kyvo" onclick="filterAll(this,'kyvo')" style="color:var(--amber)">🏌️ KYVO</div>
-      <div class="filter-btn" data-filter="cgd" onclick="filterAll(this,'cgd')" style="color:var(--coral)">⛳ @casualgolfdad</div>
+    <div class="section-block">
+      <div class="section-title">✅ To-Do</div>
+      <div id="dropship-tasks"><div class="loading">Loading tasks…</div></div>
     </div>
-    <div id="all-tasks"><div class="loading">Loading tasks…</div></div>
+
+    <div class="section-block">
+      <div class="section-title">📦 Products & Ad Copy</div>
+
+      <!-- NEUVEIL -->
+      <div class="product-section">
+        <div class="product-header">
+          <span class="product-name">NEUVEIL</span>
+          <span class="product-sub">Microneedle Eye Patches</span>
+          <span class="pill pill-testing">Testing</span>
+          <a href="https://anakampsihealth.com/products/neuveil-microneedle-eye-patches-1" target="_blank" style="font-size:11px;color:var(--muted);text-decoration:none;border:1px solid var(--border);padding:3px 9px;border-radius:5px;margin-left:auto">Store ↗</a>
+        </div>
+        <div class="stage-track">
+          <span class="stage done">Scout</span><span class="stage-sep">›</span>
+          <span class="stage done">Brand</span><span class="stage-sep">›</span>
+          <span class="stage done">Copy</span><span class="stage-sep">›</span>
+          <span class="stage done">Creative</span><span class="stage-sep">›</span>
+          <span class="stage done">Build</span><span class="stage-sep">›</span>
+          <span class="stage done">QC</span><span class="stage-sep">›</span>
+          <span class="stage current">Live</span>
+        </div>
+
+        <!-- Batch tabs -->
+        <div style="display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:16px">
+          <div class="tab t-dropship active" id="btab-0" onclick="switchBatch(0)" style="padding:7px 16px;font-size:12px">Batch 1 — Mechanism</div>
+          <div class="tab t-dropship" id="btab-1" onclick="switchBatch(1)" style="padding:7px 16px;font-size:12px">Batch 2 — Avatar</div>
+          <div class="tab t-dropship" id="btab-2" onclick="switchBatch(2)" style="padding:7px 16px;font-size:12px">Batch 3 — Clinical</div>
+        </div>
+
+        <div id="batch-content"></div>
+
+        <div class="notes-box"><strong>Notes:</strong> Bundle: 1-box $49 | 3-box $119 (Roller free) | 5-box $189 (Eye Mask free)<br>Launch order: B1 → B3 → B2 | Kill: CTR &lt; 0.8% Day 3 | Scale: CTR &gt; 1.2% → +20%/day</div>
+      </div>
+
+      <!-- Veloura -->
+      <div style="border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;background:var(--card)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <span class="product-name">Veloura</span>
+          <span class="product-sub">Facial Hair Removal Cream</span>
+          <span class="pill pill-paused">Paused</span>
+        </div>
+        <div class="notes-box"><strong>Status:</strong> Went unprofitable after ~2 weeks on Meta. Diagnosis pending — need CPP/budget/creative data from Tommy.</div>
+      </div>
+
+      <!-- RestCalm -->
+      <div style="border:1px solid var(--border);border-radius:10px;padding:16px;background:var(--card)">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="product-name">RestCalm</span>
+          <span class="product-sub">Restless Legs EMS Pad</span>
+          <span class="pill pill-live">Live</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section-block">
+      <div class="section-title">📁 Files & Docs</div>
+      <div id="dropship-docs"><div class="loading">Loading docs…</div></div>
+    </div>
+
   </div>
-</div>
+
+  <!-- ═══════════ KYVO ═══════════ -->
+  <div class="page" id="tab-kyvo">
+
+    <div class="section-block">
+      <div class="section-title">✅ To-Do</div>
+      <div id="kyvo-tasks"><div class="loading">Loading tasks…</div></div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-title">🎬 Content — Sunday Batch March 23</div>
+      <div id="kyvo-content"></div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-title">📁 Files & Docs</div>
+      <div id="kyvo-docs"><div class="loading">Loading docs…</div></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════ @CGD ═══════════ -->
+  <div class="page" id="tab-cgd">
+
+    <div class="section-block">
+      <div class="section-title">✅ To-Do</div>
+      <div id="cgd-tasks"><div class="loading">Loading tasks…</div></div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-title">🎬 Content — March Week of March 23</div>
+      <div id="cgd-content"></div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-title">📁 Files & Docs</div>
+      <div id="cgd-docs"><div class="loading">Loading docs…</div></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════ ALL TASKS ═══════════ -->
+  <div class="page" id="tab-all">
+    <div class="section-block">
+      <div class="section-title">📋 All Open Tasks — Empire-Wide</div>
+      <div class="filters" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">
+        <div class="filter-btn active" data-filter="all" onclick="filterAll(this,'all')">All</div>
+        <div class="filter-btn" data-filter="dropship" onclick="filterAll(this,'dropship')" style="color:var(--cyan)">🛒 Dropship</div>
+        <div class="filter-btn" data-filter="kyvo" onclick="filterAll(this,'kyvo')" style="color:var(--amber)">🏌️ KYVO</div>
+        <div class="filter-btn" data-filter="cgd" onclick="filterAll(this,'cgd')" style="color:var(--coral)">⛳ @casualgolfdad</div>
+      </div>
+      <div id="all-tasks"><div class="loading">Loading tasks…</div></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ SIDEBAR PAGE: CALENDAR ═══════════ -->
+  <div class="sidebar-page" id="sp-calendar">
+    <div class="cal-page-title">📅 Calendar</div>
+    <div class="cal-page-sub">Tommy's schedule and upcoming events</div>
+
+    <div class="section-block">
+      <div class="section-title">📆 Weekly Schedule</div>
+      <div class="week-grid">
+
+        <div class="day-row">
+          <div class="day-name">Monday</div>
+          <div class="day-events">
+            <span class="ev-chip ev-sim">5am Simulator</span>
+            <span class="ev-chip ev-gym">6:15am Gym</span>
+            <span class="ev-chip ev-agent">9am Agent Check-in</span>
+            <span class="ev-chip ev-bba">BBA</span>
+            <span class="ev-chip ev-family">4–8pm Family</span>
+            <span class="ev-chip">8–11pm Dropship</span>
+          </div>
+        </div>
+
+        <div class="day-row">
+          <div class="day-name">Tuesday</div>
+          <div class="day-events">
+            <span class="ev-chip ev-gym">6:30am Gym</span>
+            <span class="ev-chip">11:45am KYVO filming</span>
+            <span class="ev-chip ev-family">4–8pm Family</span>
+            <span class="ev-chip">8–11pm KYVO Strategy</span>
+          </div>
+        </div>
+
+        <div class="day-row">
+          <div class="day-name">Wednesday</div>
+          <div class="day-events">
+            <span class="ev-chip ev-sim">5am Simulator</span>
+            <span class="ev-chip ev-gym">6:15am Gym</span>
+            <span class="ev-chip ev-agent">9am Agent Check-in</span>
+            <span class="ev-chip ev-bba">BBA</span>
+            <span class="ev-chip ev-family">4–8pm Family</span>
+            <span class="ev-chip">8–11pm Dropship</span>
+          </div>
+        </div>
+
+        <div class="day-row">
+          <div class="day-name">Thursday</div>
+          <div class="day-events">
+            <span class="ev-chip ev-sim">5am Simulator</span>
+            <span class="ev-chip ev-gym">6:15am Gym</span>
+            <span class="ev-chip ev-agent">9am Agent Check-in</span>
+            <span class="ev-chip ev-bba">BBA</span>
+            <span class="ev-chip ev-family">4–8pm Family</span>
+            <span class="ev-chip">8–11pm @casualgolfdad</span>
+          </div>
+        </div>
+
+        <div class="day-row">
+          <div class="day-name">Friday</div>
+          <div class="day-events">
+            <span class="ev-chip ev-gym">6am Gym</span>
+            <span class="ev-chip ev-agent">9am Agent Check-in + Weekly Review</span>
+            <span class="ev-chip ev-bba">BBA</span>
+            <span class="ev-chip ev-family">4–8pm Family</span>
+            <span class="ev-chip">8–10pm Weekly Wrap</span>
+          </div>
+        </div>
+
+        <div class="day-row">
+          <div class="day-name">Saturday</div>
+          <div class="day-events">
+            <span class="ev-chip ev-sim">4:30am Power Block</span>
+            <span class="ev-chip ev-gym">5:30am Gym</span>
+            <span class="ev-chip ev-family">7am+ Family</span>
+          </div>
+        </div>
+
+        <div class="day-row sunday">
+          <div class="day-name">Sunday</div>
+          <div class="day-events">
+            <span class="ev-chip ev-sim">5–6:30am Simulator Content (KYVO + Golf)</span>
+            <span class="ev-chip ev-gym">6:30–7:30am Gym</span>
+            <span class="ev-chip ev-family">Family OOO rest of day</span>
+            <span class="dnd-badge">⛔ DO NOT DISTURB</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="cron-section-title">⏰ Cron Jobs</div>
+      <div class="cron-list">
+        <div class="cron-item">
+          <div class="cron-status">🟢</div>
+          <div class="cron-info">
+            <div class="cron-name">Morning Brief</div>
+            <div class="cron-schedule">Daily 4:30 AM EST</div>
+          </div>
+          <div class="cron-badge cron-active">Active</div>
+        </div>
+        <div class="cron-item">
+          <div class="cron-status">🟢</div>
+          <div class="cron-info">
+            <div class="cron-name">Neo Scout</div>
+            <div class="cron-schedule">Daily 6:00 AM EST</div>
+          </div>
+          <div class="cron-badge cron-active">Active</div>
+        </div>
+        <div class="cron-item">
+          <div class="cron-status">🟢</div>
+          <div class="cron-info">
+            <div class="cron-name">Nightly Audit</div>
+            <div class="cron-schedule">Daily 12:30 AM EST</div>
+          </div>
+          <div class="cron-badge cron-active">Active</div>
+        </div>
+        <div class="cron-item">
+          <div class="cron-status">🔴</div>
+          <div class="cron-info">
+            <div class="cron-name">Weekly Deep Sync</div>
+            <div class="cron-schedule">Friday 9:00 PM EST</div>
+          </div>
+          <div class="cron-badge cron-error">Error</div>
+        </div>
+        <div class="cron-item">
+          <div class="cron-status">🔴</div>
+          <div class="cron-info">
+            <div class="cron-name">Daily GitHub Backup</div>
+            <div class="cron-schedule">Daily 3:00 AM EST</div>
+          </div>
+          <div class="cron-badge cron-error">Error</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ SIDEBAR PAGE: TEAM ═══════════ -->
+  <div class="sidebar-page" id="sp-team">
+    <div class="team-page-title">👥 The Team</div>
+    <div class="team-page-sub">7 agents. 3 pillars. One mission.</div>
+
+    <div class="team-tier-label">PILLAR DIRECTORS</div>
+    <div class="agent-grid">
+
+      <div class="agent-card">
+        <div class="agent-card-stripe" style="background:#7c6bff"></div>
+        <div class="agent-card-body">
+          <span class="agent-emoji">🌀</span>
+          <div class="agent-name">Morpheus</div>
+          <div class="agent-role">Orchestrator</div>
+          <div class="agent-footer">
+            <span class="agent-pillar-tag" style="background:rgba(124,107,255,.12);color:#7c6bff">All Pillars</span>
+            <span class="online-dot">Online</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-card-stripe" style="background:#00d4aa"></div>
+        <div class="agent-card-body">
+          <span class="agent-emoji">🕶️</span>
+          <div class="agent-name">Neo</div>
+          <div class="agent-role">Dropship HQ Director</div>
+          <div class="agent-footer">
+            <span class="agent-pillar-tag" style="background:rgba(0,212,170,.12);color:#00d4aa">Dropship</span>
+            <span class="online-dot">Online</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-card-stripe" style="background:#ffb86b"></div>
+        <div class="agent-card-body">
+          <span class="agent-emoji">🔮</span>
+          <div class="agent-name">The Oracle</div>
+          <div class="agent-role">KYVO Performance Director</div>
+          <div class="agent-footer">
+            <span class="agent-pillar-tag" style="background:rgba(255,184,107,.12);color:#ffb86b">KYVO</span>
+            <span class="online-dot">Online</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-card-stripe" style="background:#ff6b6b"></div>
+        <div class="agent-card-body">
+          <span class="agent-emoji">⚡</span>
+          <div class="agent-name">Trinity</div>
+          <div class="agent-role">@casualgolfdad Director</div>
+          <div class="agent-footer">
+            <span class="agent-pillar-tag" style="background:rgba(255,107,107,.12);color:#ff6b6b">Golf</span>
+            <span class="online-dot">Online</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="team-tier-label">SPECIALIST AGENTS</div>
+    <div class="agent-grid">
+
+      <div class="agent-card">
+        <div class="agent-card-stripe" style="background:#4da6ff"></div>
+        <div class="agent-card-body">
+          <span class="agent-emoji">🎨</span>
+          <div class="agent-name">The Creative</div>
+          <div class="agent-role">Image Generation</div>
+          <div class="agent-footer">
+            <span class="agent-pillar-tag" style="background:rgba(77,166,255,.12);color:#4da6ff">All Pillars</span>
+            <span class="online-dot">Online</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-card-stripe" style="background:#7c6bff"></div>
+        <div class="agent-card-body">
+          <span class="agent-emoji">✍️</span>
+          <div class="agent-name">The Copywriter</div>
+          <div class="agent-role">DR Copy Specialist</div>
+          <div class="agent-footer">
+            <span class="agent-pillar-tag" style="background:rgba(124,107,255,.12);color:#7c6bff">All Pillars</span>
+            <span class="online-dot">Online</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-card-stripe" style="background:#00d4aa"></div>
+        <div class="agent-card-body">
+          <span class="agent-emoji">🔧</span>
+          <div class="agent-name">The Builder</div>
+          <div class="agent-role">Shopify Builder</div>
+          <div class="agent-footer">
+            <span class="agent-pillar-tag" style="background:rgba(0,212,170,.12);color:#00d4aa">All Pillars</span>
+            <span class="online-dot">Online</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /main-wrapper -->
 
 <script>
 // ════════════════ DATA ════════════════
@@ -745,13 +1206,29 @@ function badgeClass(s) {
   return m[s.toLowerCase()] || 'b-low';
 }
 
-// ════════════════ TAB ════════════════
+// ════════════════ NAVIGATION ════════════════
 
 function showTab(name) {
+  // deactivate sidebar pages
+  document.querySelectorAll('.sidebar-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  // activate tab pages
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
   document.querySelectorAll('.tab.t-'+name).forEach(t => t.classList.add('active'));
+}
+
+function showSidebarPage(name) {
+  // hide all tab pages and deactivate tabs
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  // show the sidebar page
+  document.querySelectorAll('.sidebar-page').forEach(p => p.classList.remove('active'));
+  document.getElementById('sp-'+name).classList.add('active');
+  // update sidebar nav active
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelector('.nav-item[data-page="'+name+'"]').classList.add('active');
 }
 
 // ════════════════ DROPSHIP BATCHES ════════════════
@@ -907,7 +1384,6 @@ function markDone(id) {
   const el = document.getElementById('ti-'+id);
   el.classList.add('done');
   el.querySelector('.task-check').innerHTML = '<span style="font-size:11px;color:#000;font-weight:800">✓</span>';
-  // fire-and-forget API update
   fetch('https://tommy-hq.vercel.app/api/tasks', {
     method:'PUT',
     headers:{'Content-Type':'application/json','X-API-Key':'thq_25741469f31452628a1d8ae7372155ef2a2bf0b7d0138d96'},
@@ -1020,7 +1496,6 @@ function loadAllTasks() {
     .then(tasks => {
       allTasksData = tasks;
       renderAllTasks('all');
-      // also feed pillar-specific sections
       renderTasksFromCache(['neo','charlie','the-builder','the-creative','the-copywriter'], 'dropship-tasks');
       renderTasksFromCache(['the-oracle','the-creative','the-copywriter'], 'kyvo-tasks');
       renderTasksFromCache(['trinity','the-creative','the-copywriter'], 'cgd-tasks');
@@ -1055,7 +1530,7 @@ renderBatch(0);
 renderContentCards(kyvoScripts, 'kyvo-content');
 renderContentCards(cgdScripts, 'cgd-content');
 
-loadAllTasks(); // loads all tasks once, feeds all 4 task containers
+loadAllTasks();
 
 renderDocsFor(['Dropshipping','SOPs','Creative'], 'dropship-docs');
 renderDocsFor(['KYVO Performance','SOPs','Creative'], 'kyvo-docs');
@@ -1064,4 +1539,3 @@ renderDocsFor(['@casualgolfdad','SOPs','Creative'], 'cgd-docs');
 </script>
 </body>
 </html>
-<!-- force-redeploy 1774384850918912000 -->
