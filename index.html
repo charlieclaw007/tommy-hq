@@ -4,643 +4,556 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tommy HQ</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#0d0d14;
-  --surface:#13131d;
-  --surface2:#18182400;
-  --border:#1f1f30;
-  --border2:#2a2a40;
-  --text:#f0f0f8;
-  --muted:#8888aa;
-  --dim:#44445a;
-  --cyan:#00d4aa;
-  --amber:#ffb86b;
-  --coral:#ff6b6b;
-  --purple:#7c6bff;
-  --blue:#4da6ff;
-  --green:#2ecc71;
-  --red:#ff4757;
-  --sidebar:220px;
-  --topbar:56px;
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0d0d14;
+  --card: #13131d;
+  --border: #1f1f30;
+  --text: #f0f0f8;
+  --muted: #7777aa;
+  --dim: #3a3a55;
+  --cyan: #00d4aa;
+  --amber: #ffb86b;
+  --coral: #ff6b6b;
+  --purple: #7c6bff;
+  --blue: #4da6ff;
+  --green: #2ecc71;
 }
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;display:flex;min-height:100vh}
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  min-height: 100vh;
+}
 
-/* ── SIDEBAR ── */
-#nav{
-  width:var(--sidebar);min-height:100vh;background:var(--surface);
-  border-right:1px solid var(--border);display:flex;flex-direction:column;
-  position:fixed;top:0;left:0;z-index:50;overflow-y:auto;
+/* ── HEADER ── */
+.header {
+  padding: 18px 24px 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--card);
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
-.nav-brand{
-  padding:20px 18px 14px;display:flex;align-items:center;gap:10px;
-  border-bottom:1px solid var(--border);
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
 }
-.nav-brand .logo{
-  width:32px;height:32px;background:linear-gradient(135deg,var(--purple),#a855f7);
-  border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-.nav-brand h1{font-size:15px;font-weight:700;letter-spacing:-0.3px}
-.nav-brand span{font-size:11px;color:var(--muted);display:block;font-weight:400}
-.nav-group{padding:12px 0 4px}
-.nav-label{
-  font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
-  color:var(--dim);padding:0 18px 6px;
+.brand-icon {
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, var(--purple), #a855f7);
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px;
 }
-.nav-item{
-  display:flex;align-items:center;gap:10px;padding:8px 18px;cursor:pointer;
-  color:var(--muted);font-size:13px;font-weight:500;transition:all .15s;
-  border-left:2px solid transparent;
-}
-.nav-item:hover{color:var(--text);background:rgba(255,255,255,.04)}
-.nav-item.active{color:var(--text);border-left-color:var(--purple);background:rgba(124,107,255,.08)}
-.nav-item .icon{font-size:15px;width:18px;text-align:center}
-.nav-item.cyan.active{border-left-color:var(--cyan);color:var(--cyan);background:rgba(0,212,170,.07)}
-.nav-item.amber.active{border-left-color:var(--amber);color:var(--amber);background:rgba(255,184,107,.07)}
-.nav-item.coral.active{border-left-color:var(--coral);color:var(--coral);background:rgba(255,107,107,.07)}
-.nav-divider{height:1px;background:var(--border);margin:8px 0}
+.brand h1 { font-size: 17px; font-weight: 800; letter-spacing: -.4px; }
+.brand span { font-size: 11px; color: var(--muted); margin-left: 4px; font-weight: 400; }
 
-/* ── MAIN ── */
-#main{margin-left:var(--sidebar);flex:1;min-height:100vh;display:flex;flex-direction:column}
-.topbar{
-  height:var(--topbar);border-bottom:1px solid var(--border);
-  display:flex;align-items:center;padding:0 28px;
-  background:var(--surface);position:sticky;top:0;z-index:40;
-  gap:12px;
+/* ── TABS ── */
+.tabs {
+  display: flex;
+  gap: 0;
 }
-.topbar h2{font-size:15px;font-weight:600;flex:1}
-.topbar .pill{
-  font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600;
-  background:rgba(124,107,255,.15);color:var(--purple);
+.tab {
+  padding: 10px 22px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all .15s;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
 }
-.page{padding:28px 32px;flex:1;display:none}
-.page.active{display:block}
+.tab:hover { color: var(--text); }
+.tab.active.t-dropship { color: var(--cyan); border-bottom-color: var(--cyan); }
+.tab.active.t-kyvo { color: var(--amber); border-bottom-color: var(--amber); }
+.tab.active.t-cgd { color: var(--coral); border-bottom-color: var(--coral); }
+.tab .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  display: inline-block; flex-shrink: 0;
+}
+.t-dropship .dot { background: var(--cyan); }
+.t-kyvo .dot { background: var(--amber); }
+.t-cgd .dot { background: var(--coral); }
 
-/* ── CARDS ── */
-.card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:12px;overflow:hidden;margin-bottom:16px;
-}
-.card-header{
-  padding:16px 20px;display:flex;align-items:center;gap:12px;
-  border-bottom:1px solid var(--border);cursor:pointer;
-  user-select:none;
-}
-.card-header:hover{background:rgba(255,255,255,.02)}
-.card-body{padding:20px}
-.card-title{font-size:14px;font-weight:600;flex:1}
-.card-sub{font-size:12px;color:var(--muted);margin-top:2px}
-.card-toggle{color:var(--muted);font-size:18px;transition:transform .2s}
-.card.open .card-toggle{transform:rotate(180deg)}
-.card-content{display:none}
-.card.open .card-content{display:block}
+/* ── PAGES ── */
+.page { display: none; padding: 28px 24px; max-width: 900px; }
+.page.active { display: block; }
 
-/* ── GRID ── */
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
-.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-@media(max-width:900px){.grid-3{grid-template-columns:1fr 1fr}.grid-2{grid-template-columns:1fr}}
-@media(max-width:600px){.grid-3{grid-template-columns:1fr}}
+/* ── SECTION BLOCK ── */
+.section-block { margin-bottom: 36px; }
+.section-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
 
-/* ── PILLAR SUMMARY CARDS (dashboard) ── */
-.pillar-tile{
-  background:var(--surface);border:1px solid var(--border);border-radius:12px;
-  padding:20px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;
+/* ── TASKS ── */
+.task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  margin-bottom: 8px;
+  background: var(--card);
+  transition: border-color .15s;
 }
-.pillar-tile::after{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+.task-item:hover { border-color: var(--dim); }
+.task-check {
+  width: 18px; height: 18px;
+  border: 2px solid var(--dim);
+  border-radius: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s;
 }
-.pillar-tile.cyan::after{background:var(--cyan)}
-.pillar-tile.amber::after{background:var(--amber)}
-.pillar-tile.coral::after{background:var(--coral)}
-.pillar-tile:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
-.pillar-tile h3{font-size:15px;font-weight:700;margin-bottom:4px}
-.pillar-tile .dir{font-size:12px;color:var(--muted);margin-bottom:14px}
-.pillar-tile .stat{font-size:24px;font-weight:800;margin-bottom:4px}
-.pillar-tile .stat-label{font-size:11px;color:var(--muted)}
-.pillar-tile.cyan .stat{color:var(--cyan)}
-.pillar-tile.amber .stat{color:var(--amber)}
-.pillar-tile.coral .stat{color:var(--coral)}
-.tile-go{
-  margin-top:14px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:4px;
+.task-check:hover { border-color: var(--cyan); }
+.task-item.done .task-check {
+  background: var(--cyan);
+  border-color: var(--cyan);
 }
-.pillar-tile.cyan .tile-go{color:var(--cyan)}
-.pillar-tile.amber .tile-go{color:var(--amber)}
-.pillar-tile.coral .tile-go{color:var(--coral)}
+.task-item.done .task-check::after { content: '✓'; font-size: 11px; color: #000; font-weight: 800; }
+.task-item.done .task-text { text-decoration: line-through; color: var(--muted); }
+.task-body { flex: 1; min-width: 0; }
+.task-text { font-size: 13px; font-weight: 500; }
+.task-meta { font-size: 11px; color: var(--muted); margin-top: 4px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.badge {
+  font-size: 10px; font-weight: 700; padding: 2px 7px;
+  border-radius: 4px; text-transform: uppercase; letter-spacing: .3px;
+  display: inline-flex; align-items: center;
+}
+.b-high { background: rgba(255,71,87,.15); color: #ff4757; }
+.b-medium { background: rgba(255,184,107,.15); color: var(--amber); }
+.b-low { background: rgba(58,58,85,.5); color: var(--muted); }
+.b-todo { background: rgba(124,107,255,.15); color: var(--purple); }
+.b-in-progress { background: rgba(255,184,107,.15); color: var(--amber); }
+.b-review { background: rgba(77,166,255,.15); color: var(--blue); }
+.b-done { background: rgba(0,212,170,.15); color: var(--cyan); }
+.task-time { font-size: 11px; color: var(--dim); flex-shrink: 0; margin-top: 2px; }
+.no-tasks { color: var(--muted); font-size: 13px; padding: 16px 0; text-align: center; }
 
-/* ── SECTION HEADER ── */
-.section-header{margin-bottom:24px}
-.section-header h1{font-size:22px;font-weight:800;letter-spacing:-0.5px}
-.section-header p{font-size:13px;color:var(--muted);margin-top:4px}
+/* ── CONTENT CARDS ── */
+.content-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  background: var(--card);
+  overflow: hidden;
+}
+.content-card-header {
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.content-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  flex: 1;
+}
+.content-card-meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 3px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.status-badge {
+  font-size: 11px; font-weight: 700; padding: 3px 9px;
+  border-radius: 20px; text-transform: uppercase; letter-spacing: .3px;
+  cursor: pointer; border: 1px solid transparent; transition: all .15s;
+}
+.sb-script { background: rgba(77,166,255,.15); color: var(--blue); border-color: rgba(77,166,255,.2); }
+.sb-filmed { background: rgba(255,184,107,.15); color: var(--amber); border-color: rgba(255,184,107,.2); }
+.sb-edited { background: rgba(124,107,255,.15); color: var(--purple); border-color: rgba(124,107,255,.2); }
+.sb-posted { background: rgba(0,212,170,.15); color: var(--cyan); border-color: rgba(0,212,170,.2); }
 
-/* ── BADGES ── */
-.badge{
-  display:inline-flex;align-items:center;font-size:11px;font-weight:700;
-  padding:2px 8px;border-radius:4px;letter-spacing:.3px;text-transform:uppercase;
+/* ── COPY SECTIONS ── */
+.copy-section { padding: 18px; border-bottom: 1px solid var(--border); }
+.copy-section:last-child { border-bottom: none; }
+.copy-label {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px;
+  color: var(--muted); margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
 }
-.b-live,.b-active,.b-posted,.b-complete{background:rgba(0,212,170,.15);color:var(--cyan)}
-.b-testing,.b-filmed{background:rgba(255,184,107,.15);color:var(--amber)}
-.b-ready,.b-script-ready,.b-building{background:rgba(77,166,255,.15);color:var(--blue)}
-.b-paused,.b-edited{background:rgba(68,68,90,.3);color:var(--dim)}
-.b-story{background:rgba(124,107,255,.15);color:var(--purple)}
-.b-educational{background:rgba(77,166,255,.12);color:var(--blue)}
-.b-behind-the-scenes{background:rgba(255,107,107,.12);color:var(--coral)}
-.b-high{background:rgba(255,71,87,.15);color:var(--red)}
-.b-medium{background:rgba(255,184,107,.15);color:var(--amber)}
-.b-low{background:rgba(68,68,90,.3);color:var(--dim)}
-.b-todo{background:rgba(124,107,255,.15);color:var(--purple)}
-.b-in-progress{background:rgba(255,184,107,.15);color:var(--amber)}
-.b-review{background:rgba(77,166,255,.15);color:var(--blue)}
-.b-done{background:rgba(0,212,170,.15);color:var(--cyan)}
+.copy-box {
+  background: rgba(255,255,255,.03);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  position: relative;
+}
+.copy-box-text {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding-right: 90px;
+}
+.copy-btn {
+  position: absolute;
+  top: 10px; right: 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 12px; font-weight: 700;
+  padding: 6px 14px; border-radius: 6px;
+  cursor: pointer; transition: all .15s;
+  white-space: nowrap;
+}
+.copy-btn:hover { border-color: var(--purple); color: var(--text); }
+.copy-btn.done { background: var(--cyan); border-color: var(--cyan); color: #000; }
 
-/* ── STAGE TRACKER ── */
-.stages{display:flex;align-items:center;gap:0;margin:16px 0;flex-wrap:wrap;gap:4px}
-.stage{
-  font-size:10px;font-weight:600;padding:4px 10px;border-radius:4px;
-  background:rgba(255,255,255,.04);color:var(--dim);letter-spacing:.3px;
-  text-transform:uppercase;white-space:nowrap;
+/* ── SCRIPT TEXT ── */
+.script-section {
+  padding: 18px;
+  border-bottom: 1px solid var(--border);
 }
-.stage.done{background:rgba(0,212,170,.1);color:var(--cyan)}
-.stage.current{background:var(--cyan);color:#000;font-weight:800}
-.stage-arrow{color:var(--border2);font-size:12px}
+.script-text {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--muted);
+  white-space: pre-wrap;
+  background: rgba(255,255,255,.02);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 10px;
+  position: relative;
+  padding-right: 90px;
+}
 
-/* ── COPY BLOCK ── */
-.copy-block{margin-bottom:12px}
-.copy-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:6px}
-.copy-row{
-  display:flex;align-items:flex-start;gap:8px;
-  background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:8px;
-  padding:12px 14px;
+/* ── STATUS TRACK ── */
+.status-track {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+  flex-wrap: wrap;
 }
-.copy-text{flex:1;font-size:13px;color:var(--text);line-height:1.5;white-space:pre-wrap;word-break:break-word}
-.copy-btn{
-  flex-shrink:0;background:var(--surface);border:1px solid var(--border2);
-  color:var(--muted);font-size:11px;font-weight:600;padding:5px 12px;border-radius:6px;
-  cursor:pointer;transition:all .15s;white-space:nowrap;align-self:flex-start;
+.st-btn {
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 11px; font-weight: 700;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.03);
+  color: var(--dim);
+  transition: all .15s;
 }
-.copy-btn:hover{border-color:var(--purple);color:var(--text)}
-.copy-btn.copied{background:var(--cyan);border-color:var(--cyan);color:#000}
-
-/* ── BATCH TABS ── */
-.batch-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:20px}
-.batch-tab{
-  padding:8px 16px;font-size:13px;font-weight:600;color:var(--muted);
-  cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;
-}
-.batch-tab:hover{color:var(--text)}
-.batch-tab.active{color:var(--cyan);border-bottom-color:var(--cyan)}
-
-/* ── STATUS TRACKER ── */
-.status-track{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}
-.status-btn{
-  padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;
-  border:1px solid var(--border);background:rgba(255,255,255,.03);color:var(--dim);
-  transition:all .15s;
-}
-.status-btn:hover{border-color:var(--border2);color:var(--muted)}
-.status-btn.current-SCRIPT_READY,.status-btn.set-SCRIPT_READY{background:rgba(77,166,255,.15);color:var(--blue);border-color:rgba(77,166,255,.3)}
-.status-btn.current-FILMED,.status-btn.set-FILMED{background:rgba(255,184,107,.15);color:var(--amber);border-color:rgba(255,184,107,.3)}
-.status-btn.current-EDITED,.status-btn.set-EDITED{background:rgba(124,107,255,.15);color:var(--purple);border-color:rgba(124,107,255,.3)}
-.status-btn.current-POSTED,.status-btn.set-POSTED{background:rgba(0,212,170,.15);color:var(--cyan);border-color:rgba(0,212,170,.3)}
-
-/* ── SCRIPT BLOCK ── */
-.script-expand{
-  border:none;background:none;color:var(--purple);font-size:12px;font-weight:600;
-  cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;margin-bottom:12px;
-}
-.script-block{
-  background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:8px;
-  padding:16px;font-size:13px;color:var(--muted);white-space:pre-wrap;line-height:1.7;
-  margin-bottom:16px;display:none;
-}
-.script-block.open{display:block}
-.captions-block{display:none}
-.captions-block.open{display:block}
-.caption-section{margin-bottom:16px}
-.caption-section-label{
-  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
-  color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:6px;
-}
+.st-btn:hover { color: var(--muted); border-color: var(--dim); }
+.st-btn.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,212,170,.1); }
 
 /* ── CHECKLIST ── */
-.checklist{
-  background:rgba(255,255,255,.02);border:1px solid var(--border);
-  border-radius:8px;padding:14px;margin-top:12px;
+.checklist-section {
+  padding: 16px 18px;
+  background: rgba(255,255,255,.01);
 }
-.checklist-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:10px}
-.check-item{
-  display:flex;align-items:center;gap:10px;padding:5px 0;
-  font-size:13px;color:var(--muted);cursor:pointer;border-radius:4px;
+.checklist-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); margin-bottom: 10px; }
+.cl-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 0; font-size: 13px; color: var(--muted); cursor: pointer;
 }
-.check-item:hover{color:var(--text)}
-.check-item input{accent-color:var(--cyan);width:14px;height:14px;cursor:pointer}
-.check-item.checked{color:var(--dim);text-decoration:line-through}
+.cl-item:hover { color: var(--text); }
+.cl-item.checked { color: var(--dim); text-decoration: line-through; }
+.cl-item input { accent-color: var(--cyan); width: 15px; height: 15px; cursor: pointer; }
 
-/* ── ACTIVITY FEED ── */
-.activity-item{
-  display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);
+/* ── FILES ── */
+.file-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  margin-bottom: 8px;
+  background: var(--card);
+  transition: border-color .15s;
 }
-.activity-item:last-child{border-bottom:none}
-.activity-avatar{
-  width:32px;height:32px;border-radius:8px;display:flex;align-items:center;
-  justify-content:center;font-size:16px;flex-shrink:0;background:rgba(255,255,255,.05);
+.file-item:hover { border-color: var(--dim); }
+.file-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+  background: rgba(255,255,255,.04);
 }
-.activity-meta{flex:1;min-width:0}
-.activity-agent{font-size:12px;font-weight:700;color:var(--muted)}
-.activity-action{font-size:13px;font-weight:500;color:var(--text);margin:1px 0}
-.activity-detail{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.activity-time{font-size:11px;color:var(--dim);flex-shrink:0;margin-top:2px}
+.file-info { flex: 1; min-width: 0; }
+.file-name { font-size: 13px; font-weight: 600; }
+.file-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.file-link {
+  padding: 6px 14px;
+  border-radius: 7px;
+  font-size: 12px; font-weight: 600;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  text-decoration: none;
+  transition: all .15s;
+  flex-shrink: 0;
+}
+.file-link:hover { border-color: var(--blue); color: var(--blue); }
 
-/* ── TASK ITEM ── */
-.task-item{
-  background:var(--surface);border:1px solid var(--border);border-radius:10px;
-  padding:14px 16px;margin-bottom:10px;display:flex;gap:14px;align-items:flex-start;
+/* ── FILE GROUP ── */
+.file-group-label {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .8px; color: var(--dim);
+  margin: 20px 0 8px;
 }
-.task-left{flex:1;min-width:0}
-.task-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px}
-.task-details{font-size:12px;color:var(--muted);margin-top:4px}
-.task-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
-.task-agent{font-size:11px;color:var(--muted)}
-.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
-.filter-btn{
-  padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;
-  border:1px solid var(--border);background:var(--surface);color:var(--muted);transition:all .15s;
-}
-.filter-btn:hover{color:var(--text);border-color:var(--border2)}
-.filter-btn.active{background:rgba(124,107,255,.15);color:var(--purple);border-color:rgba(124,107,255,.3)}
+.file-group-label:first-child { margin-top: 0; }
 
-/* ── DOC CARD ── */
-.doc-group-label{
-  font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;
-  color:var(--muted);margin:20px 0 8px;
-}
-.doc-card{
-  background:var(--surface);border:1px solid var(--border);border-radius:8px;
-  padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;
-}
-.doc-info{flex:1}
-.doc-title{font-size:13px;font-weight:600}
-.doc-desc{font-size:12px;color:var(--muted);margin-top:2px}
-.doc-btn{
-  padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;
-  background:rgba(77,166,255,.1);color:var(--blue);border:1px solid rgba(77,166,255,.2);
-  text-decoration:none;flex-shrink:0;cursor:pointer;
-}
+/* ── EMPTY STATE ── */
+.empty { padding: 24px 0; text-align: center; color: var(--dim); font-size: 13px; }
 
-/* ── TEAM ── */
-.team-tier-label{
-  font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
-  color:var(--muted);margin:24px 0 12px;display:flex;align-items:center;gap:8px;
-}
-.team-tier-label::after{content:'';flex:1;height:1px;background:var(--border)}
-.agent-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}
-.agent-grid.spec{grid-template-columns:repeat(3,1fr)}
-@media(max-width:900px){.agent-grid{grid-template-columns:repeat(2,1fr)}}
-.agent-card{
-  background:var(--surface);border:1px solid var(--border);border-radius:10px;
-  padding:18px;position:relative;overflow:hidden;
-}
-.agent-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-}
-.agent-card[data-color="purple"]::before{background:var(--purple)}
-.agent-card[data-color="cyan"]::before{background:var(--cyan)}
-.agent-card[data-color="amber"]::before{background:var(--amber)}
-.agent-card[data-color="coral"]::before{background:var(--coral)}
-.agent-card[data-color="blue"]::before{background:var(--blue)}
-.agent-emoji{font-size:28px;margin-bottom:10px;display:block}
-.agent-name{font-size:14px;font-weight:700;margin-bottom:3px}
-.agent-role{font-size:12px;color:var(--muted);margin-bottom:8px}
-.agent-pillar{font-size:11px;font-weight:600;color:var(--dim)}
-.agent-status{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:11px;color:var(--green)}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block}
+/* ── LOADING ── */
+.loading { color: var(--muted); font-size: 13px; padding: 12px 0; }
 
-/* ── DIVIDER ── */
-.divider{height:1px;background:var(--border);margin:24px 0}
+/* ── PRODUCT STAGE (Dropship) ── */
+.product-section { margin-bottom: 24px; }
+.product-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 12px;
+}
+.product-name { font-size: 16px; font-weight: 800; }
+.product-sub { font-size: 12px; color: var(--muted); margin-left: 6px; }
+.stage-track {
+  display: flex; align-items: center; gap: 4px; flex-wrap: wrap; margin-bottom: 16px;
+}
+.stage {
+  font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 4px;
+  text-transform: uppercase; letter-spacing: .3px;
+  background: rgba(255,255,255,.04); color: var(--dim);
+}
+.stage.done { background: rgba(0,212,170,.1); color: var(--cyan); }
+.stage.current { background: var(--cyan); color: #000; font-weight: 800; }
+.stage-sep { color: var(--border); font-size: 12px; }
 
-/* ── PRODUCT CARD ── */
-.product-card{
-  background:var(--surface);border:1px solid var(--border);border-radius:12px;
-  margin-bottom:16px;overflow:hidden;
+/* ── PILL STATUS ── */
+.pill {
+  font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px;
+  text-transform: uppercase; letter-spacing: .3px;
 }
-.product-header{
-  padding:16px 20px;display:flex;align-items:center;gap:14px;
-  border-bottom:1px solid var(--border);cursor:pointer;
-}
-.product-header:hover{background:rgba(255,255,255,.02)}
-.product-name{font-size:16px;font-weight:800;letter-spacing:-.3px}
-.product-sub{font-size:12px;color:var(--muted);margin-top:1px}
-.product-body{padding:20px;display:none}
-.product-card.open .product-body{display:block}
-.product-card.open .card-toggle{transform:rotate(180deg)}
+.pill-live { background: rgba(0,212,170,.15); color: var(--cyan); }
+.pill-testing { background: rgba(255,184,107,.15); color: var(--amber); }
+.pill-paused { background: rgba(58,58,85,.4); color: var(--muted); }
+.pill-active { background: rgba(0,212,170,.15); color: var(--cyan); }
+.pill-ready { background: rgba(77,166,255,.15); color: var(--blue); }
 
-/* ── NOTES BOX ── */
-.notes-box{
-  background:rgba(255,184,107,.05);border:1px solid rgba(255,184,107,.15);
-  border-radius:8px;padding:12px 14px;font-size:13px;color:var(--muted);
-  margin-top:16px;line-height:1.6;
+/* ── NOTES ── */
+.notes-box {
+  background: rgba(255,184,107,.05); border: 1px solid rgba(255,184,107,.15);
+  border-radius: 8px; padding: 12px 14px; font-size: 13px; color: var(--muted);
+  line-height: 1.6; margin-top: 16px;
 }
-.notes-box strong{color:var(--amber)}
-
-/* ── CONTENT BATCH ── */
-.batch-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:12px;margin-bottom:16px;overflow:hidden;
-}
-.batch-header{
-  padding:14px 20px;display:flex;align-items:center;gap:12px;
-  background:rgba(255,255,255,.02);border-bottom:1px solid var(--border);
-  cursor:pointer;
-}
-.batch-header:hover{background:rgba(255,255,255,.04)}
-.batch-header h3{font-size:14px;font-weight:700;flex:1}
-.batch-header .date{font-size:12px;color:var(--muted)}
-.batch-body{padding:20px;display:none}
-.batch-card.open .batch-body{display:block}
-
-/* ── SCRIPT CARD ── */
-.script-card{
-  border:1px solid var(--border);border-radius:10px;
-  margin-bottom:12px;overflow:hidden;
-}
-.script-header{
-  padding:14px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;
-}
-.script-header:hover{background:rgba(255,255,255,.02)}
-.script-info{flex:1}
-.script-title{font-size:13px;font-weight:700}
-.script-meta{font-size:11px;color:var(--muted);margin-top:2px;display:flex;gap:8px;align-items:center}
-.script-body{padding:0 16px 16px;display:none}
-.script-card.open .script-body{display:block}
+.notes-box strong { color: var(--amber); }
 
 /* ── MOBILE ── */
-.hamburger{
-  display:none;background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;
-  margin-right:8px;
+@media (max-width: 600px) {
+  .page { padding: 16px; }
+  .copy-box-text { padding-right: 0; padding-bottom: 40px; }
+  .copy-btn { top: auto; bottom: 8px; right: 8px; }
+  .script-text { padding-right: 0; padding-bottom: 40px; }
 }
-@media(max-width:768px){
-  #nav{transform:translateX(-100%);transition:transform .25s;z-index:100}
-  #nav.open{transform:translateX(0)}
-  #main{margin-left:0}
-  .hamburger{display:block}
-  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:90;display:none}
-  .overlay.active{display:block}
-  .page{padding:16px}
-}
-
-/* ── MISC ── */
-.empty{padding:32px;text-align:center;color:var(--dim);font-size:13px}
-.loading{color:var(--muted);font-size:13px;padding:16px 0}
-.stat-row{display:flex;gap:24px;margin-bottom:20px;flex-wrap:wrap}
-.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 18px;min-width:120px}
-.stat-box .num{font-size:22px;font-weight:800;color:var(--cyan)}
-.stat-box .lbl{font-size:11px;color:var(--muted);margin-top:2px}
 </style>
 </head>
 <body>
 
-<div class="overlay" id="overlay" onclick="closeNav()"></div>
-
-<!-- ── NAV ── -->
-<nav id="nav">
-  <div class="nav-brand">
-    <div class="logo">🌀</div>
-    <div>
-      <h1>Tommy HQ</h1>
-      <span>Mission Control</span>
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div class="brand">
+      <div class="brand-icon">🌀</div>
+      <h1>Tommy HQ <span>Empire Control</span></h1>
     </div>
   </div>
+  <div class="tabs">
+    <div class="tab t-dropship active" onclick="showTab('dropship')">
+      <span class="dot"></span> Dropship HQ
+    </div>
+    <div class="tab t-kyvo" onclick="showTab('kyvo')">
+      <span class="dot"></span> KYVO Performance
+    </div>
+    <div class="tab t-cgd" onclick="showTab('cgd')">
+      <span class="dot"></span> @casualgolfdad
+    </div>
+  </div>
+</div>
 
-  <div class="nav-group">
-    <div class="nav-label">Overview</div>
-    <div class="nav-item active" data-page="dashboard"><span class="icon">📊</span> Dashboard</div>
+<!-- ═══════════ DROPSHIP ═══════════ -->
+<div class="page active" id="tab-dropship">
+
+  <div class="section-block">
+    <div class="section-title">✅ To-Do</div>
+    <div id="dropship-tasks"><div class="loading">Loading tasks…</div></div>
   </div>
 
-  <div class="nav-divider"></div>
+  <div class="section-block">
+    <div class="section-title">📦 Products & Ad Copy</div>
 
-  <div class="nav-group">
-    <div class="nav-label">Pillars</div>
-    <div class="nav-item cyan" data-page="dropship"><span class="icon">🛒</span> Dropship HQ</div>
-    <div class="nav-item amber" data-page="kyvo"><span class="icon">🏌️</span> KYVO Performance</div>
-    <div class="nav-item coral" data-page="cgd"><span class="icon">⛳</span> @casualgolfdad</div>
-  </div>
+    <!-- NEUVEIL -->
+    <div class="product-section">
+      <div class="product-header">
+        <span class="product-name">NEUVEIL</span>
+        <span class="product-sub">Microneedle Eye Patches</span>
+        <span class="pill pill-testing">Testing</span>
+        <a href="https://anakampsihealth.com/products/neuveil-microneedle-eye-patches-1" target="_blank" style="font-size:11px;color:var(--muted);text-decoration:none;border:1px solid var(--border);padding:3px 9px;border-radius:5px;margin-left:auto">Store ↗</a>
+      </div>
+      <div class="stage-track">
+        <span class="stage done">Scout</span><span class="stage-sep">›</span>
+        <span class="stage done">Brand</span><span class="stage-sep">›</span>
+        <span class="stage done">Copy</span><span class="stage-sep">›</span>
+        <span class="stage done">Creative</span><span class="stage-sep">›</span>
+        <span class="stage done">Build</span><span class="stage-sep">›</span>
+        <span class="stage done">QC</span><span class="stage-sep">›</span>
+        <span class="stage current">Live</span>
+      </div>
 
-  <div class="nav-divider"></div>
+      <!-- Batch tabs -->
+      <div style="display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:16px">
+        <div class="tab t-dropship active" id="btab-0" onclick="switchBatch(0)" style="padding:7px 16px;font-size:12px">Batch 1 — Mechanism</div>
+        <div class="tab t-dropship" id="btab-1" onclick="switchBatch(1)" style="padding:7px 16px;font-size:12px">Batch 2 — Avatar</div>
+        <div class="tab t-dropship" id="btab-2" onclick="switchBatch(2)" style="padding:7px 16px;font-size:12px">Batch 3 — Clinical</div>
+      </div>
 
-  <div class="nav-group">
-    <div class="nav-label">Operations</div>
-    <div class="nav-item" data-page="tasks"><span class="icon">✅</span> Tasks</div>
-    <div class="nav-item" data-page="activity"><span class="icon">📋</span> Activity</div>
-    <div class="nav-item" data-page="docs"><span class="icon">📁</span> Docs</div>
-    <div class="nav-item" data-page="team"><span class="icon">👥</span> Team</div>
-  </div>
-</nav>
+      <div id="batch-content"></div>
 
-<!-- ── MAIN ── -->
-<div id="main">
-
-  <!-- TOPBAR -->
-  <div class="topbar">
-    <button class="hamburger" onclick="openNav()">☰</button>
-    <h2 id="page-title">Dashboard</h2>
-  </div>
-
-  <!-- ══════════════════════ DASHBOARD ══════════════════════ -->
-  <div class="page active" id="page-dashboard">
-    <div class="section-header">
-      <h1>Good morning, Tommy 👋</h1>
-      <p>Here's where the empire stands right now.</p>
+      <div class="notes-box"><strong>Notes:</strong> Bundle: 1-box $49 | 3-box $119 (Roller free) | 5-box $189 (Eye Mask free)<br>Launch order: B1 → B3 → B2 | Kill: CTR &lt; 0.8% Day 3 | Scale: CTR &gt; 1.2% → +20%/day</div>
     </div>
 
-    <div class="grid-3">
-      <div class="pillar-tile cyan" onclick="navigate('dropship')">
-        <h3>🛒 Dropship HQ</h3>
-        <div class="dir">Director: Neo 🕶️</div>
-        <div class="stat" id="d-tasks">—</div>
-        <div class="stat-label">open tasks</div>
-        <div class="tile-go">Open Pillar →</div>
+    <!-- Veloura -->
+    <div style="border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;background:var(--card)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+        <span class="product-name">Veloura</span>
+        <span class="product-sub">Facial Hair Removal Cream</span>
+        <span class="pill pill-paused">Paused</span>
       </div>
-      <div class="pillar-tile amber" onclick="navigate('kyvo')">
-        <h3>🏌️ KYVO Performance</h3>
-        <div class="dir">Director: The Oracle 🔮</div>
-        <div class="stat" id="k-tasks">—</div>
-        <div class="stat-label">open tasks</div>
-        <div class="tile-go">Open Pillar →</div>
-      </div>
-      <div class="pillar-tile coral" onclick="navigate('cgd')">
-        <h3>⛳ @casualgolfdad</h3>
-        <div class="dir">Director: Trinity ⚡</div>
-        <div class="stat" id="c-tasks">—</div>
-        <div class="stat-label">open tasks</div>
-        <div class="tile-go">Open Pillar →</div>
-      </div>
+      <div class="notes-box"><strong>Status:</strong> Went unprofitable after ~2 weeks on Meta. Diagnosis pending — need CPP/budget/creative data from Tommy.</div>
     </div>
 
-    <div class="grid-2">
-      <div>
-        <div style="font-size:13px;font-weight:700;margin-bottom:12px;">📋 Recent Activity</div>
-        <div id="dash-activity"><div class="loading">Loading...</div></div>
-      </div>
-      <div>
-        <div style="font-size:13px;font-weight:700;margin-bottom:12px;">✅ Active Tasks</div>
-        <div id="dash-tasks"><div class="loading">Loading...</div></div>
+    <!-- RestCalm -->
+    <div style="border:1px solid var(--border);border-radius:10px;padding:16px;background:var(--card)">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="product-name">RestCalm</span>
+        <span class="product-sub">Restless Legs EMS Pad</span>
+        <span class="pill pill-live">Live</span>
       </div>
     </div>
+
   </div>
 
-  <!-- ══════════════════════ DROPSHIP ══════════════════════ -->
-  <div class="page" id="page-dropship">
-    <div class="section-header">
-      <h1>🛒 Dropship HQ</h1>
-      <p>Product pipeline — ad copy, batch status, launch tracker</p>
-    </div>
-    <div id="dropship-products"></div>
+  <div class="section-block">
+    <div class="section-title">📁 Files & Docs</div>
+    <div id="dropship-docs"><div class="loading">Loading docs…</div></div>
   </div>
 
-  <!-- ══════════════════════ KYVO ══════════════════════ -->
-  <div class="page" id="page-kyvo">
-    <div class="section-header">
-      <h1>🏌️ KYVO Performance</h1>
-      <p>Content studio — scripts, captions, posting status</p>
-    </div>
-    <div id="kyvo-batches"></div>
+</div>
+
+<!-- ═══════════ KYVO ═══════════ -->
+<div class="page" id="tab-kyvo">
+
+  <div class="section-block">
+    <div class="section-title">✅ To-Do</div>
+    <div id="kyvo-tasks"><div class="loading">Loading tasks…</div></div>
   </div>
 
-  <!-- ══════════════════════ @CGD ══════════════════════ -->
-  <div class="page" id="page-cgd">
-    <div class="section-header">
-      <h1>⛳ @casualgolfdad</h1>
-      <p>Content studio — scripts, captions, posting status</p>
-    </div>
-    <div id="cgd-batches"></div>
+  <div class="section-block">
+    <div class="section-title">🎬 Content — Sunday Batch March 23</div>
+    <div id="kyvo-content"></div>
   </div>
 
-  <!-- ══════════════════════ TASKS ══════════════════════ -->
-  <div class="page" id="page-tasks">
-    <div class="section-header">
-      <h1>✅ Tasks</h1>
-      <p>All open work across the empire</p>
-    </div>
-    <div class="filters" id="task-filters">
-      <div class="filter-btn active" data-agent="all">All</div>
-      <div class="filter-btn" data-agent="charlie">Morpheus</div>
-      <div class="filter-btn" data-agent="neo">Neo</div>
-      <div class="filter-btn" data-agent="the-oracle">The Oracle</div>
-      <div class="filter-btn" data-agent="trinity">Trinity</div>
-      <div class="filter-btn" data-agent="the-creative">The Creative</div>
-      <div class="filter-btn" data-agent="the-copywriter">The Copywriter</div>
-      <div class="filter-btn" data-agent="the-builder">The Builder</div>
-    </div>
-    <div id="tasks-list"><div class="loading">Loading...</div></div>
+  <div class="section-block">
+    <div class="section-title">📁 Files & Docs</div>
+    <div id="kyvo-docs"><div class="loading">Loading docs…</div></div>
   </div>
 
-  <!-- ══════════════════════ ACTIVITY ══════════════════════ -->
-  <div class="page" id="page-activity">
-    <div class="section-header">
-      <h1>📋 Activity Log</h1>
-      <p>Everything your agents have done</p>
-    </div>
-    <div id="activity-list"><div class="loading">Loading...</div></div>
+</div>
+
+<!-- ═══════════ @CGD ═══════════ -->
+<div class="page" id="tab-cgd">
+
+  <div class="section-block">
+    <div class="section-title">✅ To-Do</div>
+    <div id="cgd-tasks"><div class="loading">Loading tasks…</div></div>
   </div>
 
-  <!-- ══════════════════════ DOCS ══════════════════════ -->
-  <div class="page" id="page-docs">
-    <div class="section-header">
-      <h1>📁 Docs & SOPs</h1>
-      <p>Reference library for the empire</p>
-    </div>
-    <div id="docs-list"><div class="loading">Loading...</div></div>
+  <div class="section-block">
+    <div class="section-title">🎬 Content — March Week of March 23</div>
+    <div id="cgd-content"></div>
   </div>
 
-  <!-- ══════════════════════ TEAM ══════════════════════ -->
-  <div class="page" id="page-team">
-    <div class="section-header">
-      <h1>👥 The Team</h1>
-      <p>7 agents. All systems online.</p>
-    </div>
-    <div class="team-tier-label">⭐ Pillar Directors</div>
-    <div class="agent-grid">
-      <div class="agent-card" data-color="purple"><span class="agent-emoji">🌀</span><div class="agent-name">Morpheus</div><div class="agent-role">Orchestrator</div><div class="agent-pillar">All Pillars</div><div class="agent-status"><span class="dot"></span> Online</div></div>
-      <div class="agent-card" data-color="cyan"><span class="agent-emoji">🕶️</span><div class="agent-name">Neo</div><div class="agent-role">Dropship HQ Director</div><div class="agent-pillar">Dropship</div><div class="agent-status"><span class="dot"></span> Online</div></div>
-      <div class="agent-card" data-color="amber"><span class="agent-emoji">🔮</span><div class="agent-name">The Oracle</div><div class="agent-role">KYVO Performance Director</div><div class="agent-pillar">KYVO</div><div class="agent-status"><span class="dot"></span> Online</div></div>
-      <div class="agent-card" data-color="coral"><span class="agent-emoji">⚡</span><div class="agent-name">Trinity</div><div class="agent-role">@casualgolfdad Director</div><div class="agent-pillar">Golf</div><div class="agent-status"><span class="dot"></span> Online</div></div>
-    </div>
-    <div class="team-tier-label">🛠️ Specialists</div>
-    <div class="agent-grid spec">
-      <div class="agent-card" data-color="blue"><span class="agent-emoji">🎨</span><div class="agent-name">The Creative</div><div class="agent-role">Image Generation</div><div class="agent-pillar">All Pillars</div><div class="agent-status"><span class="dot"></span> Online</div></div>
-      <div class="agent-card" data-color="purple"><span class="agent-emoji">✍️</span><div class="agent-name">The Copywriter</div><div class="agent-role">DR Copy Specialist</div><div class="agent-pillar">All Pillars</div><div class="agent-status"><span class="dot"></span> Online</div></div>
-      <div class="agent-card" data-color="cyan"><span class="agent-emoji">🔧</span><div class="agent-name">The Builder</div><div class="agent-role">Shopify Builder</div><div class="agent-pillar">All Pillars</div><div class="agent-status"><span class="dot"></span> Online</div></div>
-    </div>
+  <div class="section-block">
+    <div class="section-title">📁 Files & Docs</div>
+    <div id="cgd-docs"><div class="loading">Loading docs…</div></div>
   </div>
 
-</div><!-- /main -->
+</div>
 
 <script>
-// ══════════════════════════════════
-// DATA
-// ══════════════════════════════════
+// ════════════════ DATA ════════════════
 
-const dropshipProducts = [
+const batches = [
   {
-    id:'neuveil', name:'NEUVEIL', subtitle:'Microneedle Eye Patches',
-    status:'TESTING', stage:6,
-    storeUrl:'https://anakampsihealth.com/products/neuveil-microneedle-eye-patches-1',
-    batches:[
-      {
-        id:'neu-b1', name:'Batch 1', concept:'Mechanism — BioVeil Delivery System™', batchStatus:'ACTIVE',
-        copy:{
-          hook:`The reason your eye cream stopped working has nothing to do with the formula.`,
-          body1:`Most women over 40 have tried every eye cream on the market. Peptides. Retinol. Vitamin C. And yet — nothing changes. Here's what nobody tells you: the skin around your eyes is 40% thinner than the rest of your face. Creams can't penetrate deep enough to reach the dermis where collagen lives. NEUVEIL changes that. 600 microneedles — thinner than a human hair — create invisible microchannels that deliver active ingredients exactly where they need to go.`,
-          body2:`You've been applying eye cream to the surface of a problem that lives underneath. NEUVEIL's BioVeil Delivery System uses 600 ultra-fine microneedles to open microchannels in the skin — bypassing the surface barrier and delivering hyaluronic acid and peptides directly into the dermis. Results women notice in 28 days.`,
-          headline1:`Finally — an eye patch that actually reaches the wrinkle.`,
-          headline2:`600 microneedles. Real depth. Real results.`
-        }
-      },
-      {
-        id:'neu-b2', name:'Batch 2', concept:"Avatar Pain — Margaret (wrinkles, 52)", batchStatus:'READY',
-        copy:{
-          hook:`I spent $400 on eye creams this year. My crow's feet are still there.`,
-          body1:`Margaret is 52. She's tried Estée Lauder, La Mer, and every "miracle" eye cream her dermatologist recommended. The crow's feet haven't budged. Not because she's doing something wrong. Because eye cream — no matter how expensive — can't penetrate the dermis. NEUVEIL can. 600 microneedles create pathways the active ingredients actually use.`,
-          body2:`If you're over 45 and eye cream has stopped working, it's not your fault. The skin barrier around your eyes gets denser with age — making topical creams less effective every year. NEUVEIL bypasses the barrier entirely with 600 precision microneedles. The science your eye cream doesn't have.`,
-          headline1:`Eye cream can't reach the wrinkle. This can.`,
-          headline2:`For women who've tried everything — and still see crow's feet.`
-        }
-      },
-      {
-        id:'neu-b3', name:'Batch 3', concept:'Clinical Authority — The Science', batchStatus:'READY',
-        copy:{
-          hook:`Dermatologists have known for years that the skin around your eyes is different.`,
-          body1:`The periorbital area — the skin around your eyes — is clinically documented as the thinnest and most permeable skin on your face. It's also where topical creams are least effective. That's why dermatologists have used microneedling in-clinic for over a decade. NEUVEIL brings that same mechanism home. 600 microneedles. Clinical delivery. No appointment.`,
-          body2:`Microneedling for the eye area has been validated in peer-reviewed research. The problem: in-clinic treatments cost $200–400 per session and require recovery time. NEUVEIL replicates the delivery mechanism at home — 600 precision microneedles, dissolvable serum, 30 minutes. The clinical result. The convenient format.`,
-          headline1:`Microneedling. At home. Under your eyes.`,
-          headline2:`The clinical delivery system — without the clinic.`
-        }
-      }
-    ],
-    notes:'Bundle: 1-box ($49) no gift | 3-box ($119) Rose Quartz Roller | 5-box ($189) Silk Eye Mask\nLaunch order: B1 → B3 → B2\nKill threshold: CTR < 0.8% at Day 3 | Scale: CTR > 1.2% → +20%/day'
+    label: 'Batch 1 — Mechanism', status: 'ACTIVE',
+    hook: `The reason your eye cream stopped working has nothing to do with the formula.`,
+    body1: `Most women over 40 have tried every eye cream on the market. Peptides. Retinol. Vitamin C. And yet — nothing changes. Here's what nobody tells you: the skin around your eyes is 40% thinner than the rest of your face. Creams can't penetrate deep enough to reach the dermis where collagen lives. NEUVEIL changes that. 600 microneedles — thinner than a human hair — create invisible microchannels that deliver active ingredients exactly where they need to go.`,
+    body2: `You've been applying eye cream to the surface of a problem that lives underneath. NEUVEIL's BioVeil Delivery System uses 600 ultra-fine microneedles to open microchannels in the skin — bypassing the surface barrier and delivering hyaluronic acid and peptides directly into the dermis. Results women notice in 28 days.`,
+    h1: `Finally — an eye patch that actually reaches the wrinkle.`,
+    h2: `600 microneedles. Real depth. Real results.`
   },
   {
-    id:'veloura', name:'Veloura', subtitle:'Facial Hair Removal Cream',
-    status:'PAUSED', stage:6, storeUrl:'https://anakampsihealth.com', batches:[],
-    notes:'Went unprofitable after ~2 weeks on Meta. Diagnosis pending — need CPP/budget/creative data from Tommy.'
+    label: "Batch 2 — Avatar (Margaret, 52)", status: 'READY',
+    hook: `I spent $400 on eye creams this year. My crow's feet are still there.`,
+    body1: `Margaret is 52. She's tried Estée Lauder, La Mer, and every "miracle" eye cream her dermatologist recommended. The crow's feet haven't budged. Not because she's doing something wrong. Because eye cream — no matter how expensive — can't penetrate the dermis. NEUVEIL can. 600 microneedles create pathways the active ingredients actually use.`,
+    body2: `If you're over 45 and eye cream has stopped working, it's not your fault. The skin barrier around your eyes gets denser with age — making topical creams less effective every year. NEUVEIL bypasses the barrier entirely with 600 precision microneedles. The science your eye cream doesn't have.`,
+    h1: `Eye cream can't reach the wrinkle. This can.`,
+    h2: `For women who've tried everything — and still see crow's feet.`
   },
   {
-    id:'restcalm', name:'RestCalm', subtitle:'Restless Legs EMS Pad',
-    status:'LIVE', stage:6, storeUrl:'https://anakampsihealth.com', batches:[],
-    notes:'Pipeline complete. Pages live at anakampsihealth.com.'
+    label: 'Batch 3 — Clinical Authority', status: 'READY',
+    hook: `Dermatologists have known for years that the skin around your eyes is different.`,
+    body1: `The periorbital area — the skin around your eyes — is clinically documented as the thinnest and most permeable skin on your face. It's also where topical creams are least effective. That's why dermatologists have used microneedling in-clinic for over a decade. NEUVEIL brings that same mechanism home. 600 microneedles. Clinical delivery. No appointment.`,
+    body2: `Microneedling for the eye area has been validated in peer-reviewed research. The problem: in-clinic treatments cost $200–400 per session and require recovery time. NEUVEIL replicates the delivery mechanism at home — 600 precision microneedles, dissolvable serum, 30 minutes. The clinical result. The convenient format.`,
+    h1: `Microneedling. At home. Under your eyes.`,
+    h2: `The clinical delivery system — without the clinic.`
   }
 ];
 
-const stages = ['Scout','Brand','Copy','Creative','Build','QC','Live'];
-
-const kyvoContent = [
+const kyvoScripts = [
   {
-    id:'kyvo-march23', name:'Sunday Batch — March 23, 2026', date:'2026-03-23',
-    scripts:[
-      {
-        id:'kyvo-day1', title:'Day 1 — The Back Nine Problem', duration:'60–90 sec', type:'Story',
-        script:`You know that feeling when you step onto the 13th tee and you just... know?
+    id: 'kyvo-day1',
+    title: 'Day 1 — The Back Nine Problem',
+    duration: '60–90 sec', type: 'Story',
+    defaultStatus: 'FILMED',
+    script: `You know that feeling when you step onto the 13th tee and you just... know?
 
 Your legs are heavy. Your focus is gone. You're calculating bogeys instead of playing golf.
 
@@ -659,8 +572,7 @@ Not a drink. Not a pill that jacks up your heart rate.
 A performance system built for the 18th hole.
 
 More on how it works this week.`,
-        captions:{
-          instagram:`The back nine is where rounds go to die. 🏌️
+    instagram: `The back nine is where rounds go to die. 🏌️
 
 Not because you got tired.
 Because you ran out of fuel.
@@ -670,20 +582,22 @@ KYVO is the performance system built for golfers who want to finish as strong as
 Day 1 of the build-in-public series. Follow along.
 
 #kyvo #golfperformance #golfnutrition #golftips #backninemindset #golflife #performancegolf #mentalperformance #golfcoach #golffitness`,
-          tiktok:`The back nine fade is a fueling problem — not a fitness problem. Here's what I figured out after 20 years of playing golf. #kyvo #golfperformance #golfnutrition #golftips #backnine`,
-          youtubeTitle:`Why Your Golf Game Falls Apart on the Back Nine (It's Not What You Think)`,
-          youtubeDesc:`The "back nine fade" affects almost every amateur golfer — and most people blame their mental game or their fitness.
+    tiktok: `The back nine fade is a fueling problem — not a fitness problem. Here's what I figured out after 20 years of playing golf. #kyvo #golfperformance #golfnutrition #golftips #backnine`,
+    ytTitle: `Why Your Golf Game Falls Apart on the Back Nine (It's Not What You Think)`,
+    ytDesc: `The "back nine fade" affects almost every amateur golfer — and most people blame their mental game or their fitness.
 
 It's actually a fueling problem.
 
 In this video I break down exactly what's happening to your brain and body after hole 12, and what I built to fix it.
 
 KYVO Performance — built for golfers who want to finish as strong as they start.`
-        }
-      },
-      {
-        id:'kyvo-day2', title:"Day 2 — Why Coffee Isn't the Answer", duration:'60–90 sec', type:'Educational',
-        script:`Golfers love caffeine.
+  },
+  {
+    id: 'kyvo-day2',
+    title: "Day 2 — Why Coffee Isn't the Answer",
+    duration: '60–90 sec', type: 'Educational',
+    defaultStatus: 'SCRIPT_READY',
+    script: `Golfers love caffeine.
 
 Coffee before the round. Energy drink at the turn. Another coffee on 14.
 
@@ -698,8 +612,7 @@ KYVO doesn't use a caffeine spike. It uses a sustained focus blend — ingredien
 Think less like an energy drink. More like jet fuel that burns clean.
 
 The exact formula breakdown is coming later this week.`,
-        captions:{
-          instagram:`Coffee before the round. Energy drink at the turn.
+    instagram: `Coffee before the round. Energy drink at the turn.
 
 And you still fell apart on 15. ☕❌
 
@@ -708,56 +621,39 @@ Caffeine spikes — then drops. Golf is a 4–5 hour mental performance.
 KYVO uses a sustained focus blend instead of a spike.
 
 Day 2 of the build. #kyvo #golfperformance #golfnutrition #focus #golftips #energymanagement #performancegolf #golflife`,
-          tiktok:`The coffee → crash cycle is destroying your back nine. Here's what actually works for 4–5 hours of golf. #kyvo #golfnutrition #golfperformance #focus #golftips`,
-          youtubeTitle:`Why Coffee is Ruining Your Golf Game (And What to Use Instead)`,
-          youtubeDesc:`Most golfers are using caffeine to fuel a 4–5 hour mental performance. The problem: caffeine is a 90-minute tool.
+    tiktok: `The coffee → crash cycle is destroying your back nine. Here's what actually works for 4–5 hours of golf. #kyvo #golfnutrition #golfperformance #focus #golftips`,
+    ytTitle: `Why Coffee is Ruining Your Golf Game (And What to Use Instead)`,
+    ytDesc: `Most golfers are using caffeine to fuel a 4–5 hour mental performance. The problem: caffeine is a 90-minute tool.
 
 In this video I break down the caffeine crash cycle and what sustained focus actually looks like for golf.
 
 KYVO Performance — built for the back nine.`
-        }
-      }
-    ]
   }
 ];
 
-const cgdContent = [
+const cgdScripts = [
   {
-    id:'cgd-march', name:'March Content — Week of March 23', date:'2026-03-23',
-    scripts:[
-      {
-        id:'cgd-post1', title:'5am Simulator — Morning Reel', duration:'15–30 sec', type:'Behind-the-scenes',
-        script:`5am. Simulator room. Just me and the club.
+    id: 'cgd-post1',
+    title: '5am Simulator — Morning Reel',
+    duration: '15–30 sec', type: 'Behind-the-scenes',
+    defaultStatus: 'SCRIPT_READY',
+    script: `5am. Simulator room. Just me and the club.
 
 This is where the game gets better.
 
 (Keep it raw — no product, no pitch, just the lifestyle)`,
-        captions:{
-          instagram:`5am simulator sessions hit different. 🏌️⏰
+    instagram: `5am simulator sessions hit different. 🏌️⏰
 
 This is the game within the game.
 
 #casualgolfdad #golflife #5amclub #simulator #golfersofinstagram #golfdad #morninggolf #golfpractice`,
-          tiktok:`When the family is still asleep and you're getting reps in at 5am #casualgolfdad #golflife #simulator #golfdad #5amclub`,
-          youtubeTitle:`5AM Simulator Sessions — The Secret to Getting Better at Golf`,
-          youtubeDesc:`Early mornings in the simulator. This is where the handicap drops.`
-        }
-      }
-    ]
+    tiktok: `When the family is still asleep and you're getting reps in at 5am #casualgolfdad #golflife #simulator #golfdad #5amclub`,
+    ytTitle: `5AM Simulator Sessions — The Secret to Getting Better at Golf`,
+    ytDesc: `Early mornings in the simulator. This is where the handicap drops.`
   }
 ];
 
-const agentColors = {
-  charlie:['#7c6bff','🌀'],
-  neo:['#00d4aa','🕶️'],
-  'the-oracle':['#ffb86b','🔮'],
-  trinity:['#ff6b6b','⚡'],
-  'the-creative':['#4da6ff','🎨'],
-  'the-copywriter':['#7c6bff','✍️'],
-  'the-builder':['#00d4aa','🔧'],
-};
-
-const checklistItems = [
+const checklist = [
   'Post TikTok first',
   'Then Instagram Reel',
   'Then YouTube Shorts',
@@ -767,407 +663,261 @@ const checklistItems = [
   'Pin best comment'
 ];
 
-// ══════════════════════════════════
-// UTILS
-// ══════════════════════════════════
+const agentPillar = {
+  neo: 'dropship', charlie: 'dropship',
+  'the-oracle': 'kyvo',
+  trinity: 'cgd',
+  'the-creative': 'all', 'the-copywriter': 'all', 'the-builder': 'all'
+};
+
+// ════════════════ UTILS ════════════════
 
 function timeAgo(ts) {
   const d = Date.now() - new Date(ts).getTime();
   const m = Math.floor(d/60000);
-  if(m < 1) return 'just now';
-  if(m < 60) return m+'m ago';
+  if(m<1) return 'just now';
+  if(m<60) return m+'m ago';
   const h = Math.floor(m/60);
-  if(h < 24) return h+'h ago';
-  const dy = Math.floor(h/24);
-  return dy+'d ago';
+  if(h<24) return h+'h ago';
+  return Math.floor(h/24)+'d ago';
 }
 
-function badge(status) {
-  const s = (status||'').toLowerCase().replace(/[_\s]/g,'-');
-  return `<span class="badge b-${s}">${status.replace(/_/g,' ')}</span>`;
-}
-
-function copyToClipboard(text, btn) {
-  navigator.clipboard.writeText(text).then(()=>{
-    btn.textContent='Copied!';
-    btn.classList.add('copied');
-    setTimeout(()=>{ btn.textContent='Copy'; btn.classList.remove('copied'); },2000);
+function copy(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('done');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 2500);
   });
 }
 
-function getStatus(id, def) {
-  return localStorage.getItem('status:'+id) || def || 'SCRIPT_READY';
-}
-function setStatus(id, val) {
-  localStorage.setItem('status:'+id, val);
-}
-function getChecked(id) {
-  try { return JSON.parse(localStorage.getItem('check:'+id)||'{}'); } catch{return {};}
-}
-function setChecked(id, key, val) {
-  const c = getChecked(id);
-  c[key] = val;
-  localStorage.setItem('check:'+id, JSON.stringify(c));
+function getStatus(id, def) { return localStorage.getItem('s:'+id) || def; }
+function saveStatus(id, v) { localStorage.setItem('s:'+id, v); }
+function getChecked(id) { try{return JSON.parse(localStorage.getItem('cl:'+id)||'{}')}catch{return{}} }
+function saveCheck(id, i, v) { const c=getChecked(id); c[i]=v; localStorage.setItem('cl:'+id, JSON.stringify(c)); }
+
+function mkCopyBox(text) {
+  const id = 'cb'+Math.random().toString(36).slice(2,7);
+  return `<div class="copy-box"><div class="copy-box-text">${esc(text)}</div><button class="copy-btn" onclick="copy(${JSON.stringify(text)},this)">Copy</button></div>`;
 }
 
-// ══════════════════════════════════
-// RENDER: DROPSHIP
-// ══════════════════════════════════
+function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-function renderDropship() {
-  const el = document.getElementById('dropship-products');
-  el.innerHTML = dropshipProducts.map(p => {
-    const stageHtml = stages.map((s,i)=>{
-      let cls = i < p.stage ? 'stage done' : i === p.stage ? 'stage current' : 'stage';
-      return `<span class="${cls}">${s}</span>${i<stages.length-1?'<span class="stage-arrow">›</span>':''}`;
-    }).join('');
+function badgeClass(s) {
+  const m = {high:'b-high',medium:'b-medium',low:'b-low',todo:'b-todo','in-progress':'b-in-progress','in_progress':'b-in-progress',review:'b-review',done:'b-done'};
+  return m[s.toLowerCase()] || 'b-low';
+}
 
-    const batchesHtml = p.batches.length ? `
-      <div class="batch-tabs" id="tabs-${p.id}">
-        ${p.batches.map((b,i)=>`<div class="batch-tab${i===0?' active':''}" onclick="switchBatch('${p.id}',${i})">${b.name}</div>`).join('')}
-      </div>
-      ${p.batches.map((b,i)=>`
-        <div id="batch-${p.id}-${i}" style="${i>0?'display:none':''}">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
-            <span style="font-size:12px;color:var(--muted)">${b.concept}</span>
-            ${badge(b.batchStatus)}
-          </div>
-          ${renderCopyBlock('Hook', b.copy.hook)}
-          ${renderCopyBlock('Body Copy 1', b.copy.body1)}
-          ${renderCopyBlock('Body Copy 2', b.copy.body2)}
-          ${renderCopyBlock('Headline 1', b.copy.headline1)}
-          ${renderCopyBlock('Headline 2', b.copy.headline2)}
-        </div>
-      `).join('')}
-    ` : `<div class="empty">No ad batches yet.</div>`;
+// ════════════════ TAB ════════════════
+
+function showTab(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.querySelectorAll('.tab.t-'+name).forEach(t => t.classList.add('active'));
+}
+
+// ════════════════ DROPSHIP BATCHES ════════════════
+
+let activeBatch = 0;
+
+function renderBatch(i) {
+  const b = batches[i];
+  document.getElementById('batch-content').innerHTML = `
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+      <span style="font-size:13px;font-weight:700">${b.label}</span>
+      <span class="pill pill-${b.status.toLowerCase()}">${b.status}</span>
+    </div>
+    <div class="copy-section" style="padding:0 0 16px">
+      <div class="copy-label">🪝 Hook</div>${mkCopyBox(b.hook)}
+    </div>
+    <div class="copy-section" style="padding:16px 0">
+      <div class="copy-label">📝 Body Copy 1</div>${mkCopyBox(b.body1)}
+    </div>
+    <div class="copy-section" style="padding:16px 0">
+      <div class="copy-label">📝 Body Copy 2</div>${mkCopyBox(b.body2)}
+    </div>
+    <div class="copy-section" style="padding:16px 0">
+      <div class="copy-label">🔤 Headline 1</div>${mkCopyBox(b.h1)}
+    </div>
+    <div class="copy-section" style="padding:16px 0 0">
+      <div class="copy-label">🔤 Headline 2</div>${mkCopyBox(b.h2)}
+    </div>
+  `;
+}
+
+function switchBatch(i) {
+  activeBatch = i;
+  for(let j=0;j<3;j++) {
+    const t = document.getElementById('btab-'+j);
+    t.classList.toggle('active', j===i);
+  }
+  renderBatch(i);
+}
+
+// ════════════════ CONTENT CARDS ════════════════
+
+function renderContentCards(scripts, containerId) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = scripts.map(s => {
+    const status = getStatus(s.id, s.defaultStatus);
+    const statusMap = {SCRIPT_READY:'Script Ready', FILMED:'Filmed', EDITED:'Edited', POSTED:'Posted'};
+    const statusClass = {SCRIPT_READY:'sb-script', FILMED:'sb-filmed', EDITED:'sb-edited', POSTED:'sb-posted'};
+    const checked = getChecked(s.id);
+    const clHtml = checklist.map((item, i) => `
+      <label class="cl-item${checked[i]?' checked':''}" id="cl-${s.id}-${i}">
+        <input type="checkbox" ${checked[i]?'checked':''} onchange="toggleCheck('${s.id}',${i},this)"> ${item}
+      </label>`).join('');
 
     return `
-    <div class="product-card open" id="prod-${p.id}">
-      <div class="product-header" onclick="toggleProduct('${p.id}')">
+    <div class="content-card">
+      <div class="content-card-header">
         <div style="flex:1">
-          <div class="product-name">${p.name}</div>
-          <div class="product-sub">${p.subtitle}</div>
+          <div class="content-card-title">${s.title}</div>
+          <div class="content-card-meta">
+            <span>${s.duration}</span>
+            <span style="color:var(--dim)">·</span>
+            <span>${s.type}</span>
+          </div>
         </div>
-        ${badge(p.status)}
-        ${p.storeUrl ? `<a href="${p.storeUrl}" target="_blank" onclick="event.stopPropagation()" style="font-size:11px;color:var(--muted);text-decoration:none;border:1px solid var(--border);padding:4px 8px;border-radius:5px;margin-left:6px">View Store ↗</a>` : ''}
-        <span class="card-toggle" style="margin-left:8px;color:var(--muted)">⌄</span>
+        <span class="status-badge ${statusClass[status]}" id="sbadge-${s.id}" onclick="cycleStatus('${s.id}')" title="Click to advance status">${statusMap[status]}</span>
       </div>
-      <div class="product-body">
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:10px">Pipeline Stage</div>
-        <div class="stages">${stageHtml}</div>
-        <div class="divider"></div>
-        <div style="font-size:13px;font-weight:700;margin-bottom:16px">Ad Batches</div>
-        ${batchesHtml}
-        ${p.notes ? `<div class="notes-box"><strong>Notes:</strong> ${p.notes.replace(/\n/g,'<br>')}</div>` : ''}
+
+      <div class="script-section">
+        <div class="copy-label">📄 Script</div>
+        <div class="script-text">${esc(s.script)}<button class="copy-btn" onclick="copy(${JSON.stringify(s.script)},this)">Copy</button></div>
+      </div>
+
+      <div class="copy-section">
+        <div class="copy-label">📱 Instagram Caption</div>
+        ${mkCopyBox(s.instagram)}
+      </div>
+
+      <div class="copy-section">
+        <div class="copy-label">🎵 TikTok Caption</div>
+        ${mkCopyBox(s.tiktok)}
+      </div>
+
+      <div class="copy-section">
+        <div class="copy-label">▶️ YouTube Title</div>
+        ${mkCopyBox(s.ytTitle)}
+      </div>
+
+      <div class="copy-section">
+        <div class="copy-label">▶️ YouTube Description</div>
+        ${mkCopyBox(s.ytDesc)}
+      </div>
+
+      <div class="checklist-section">
+        <div class="checklist-title">📋 Posting Checklist</div>
+        ${clHtml}
       </div>
     </div>`;
   }).join('');
 }
 
-function renderCopyBlock(label, text) {
-  const id = 'cb-'+Math.random().toString(36).slice(2,8);
-  return `
-  <div class="copy-block">
-    <div class="copy-label">${label}</div>
-    <div class="copy-row">
-      <div class="copy-text">${text.replace(/</g,'&lt;')}</div>
-      <button class="copy-btn" id="${id}" onclick="copyToClipboard(${JSON.stringify(text)}, this)">Copy</button>
-    </div>
-  </div>`;
-}
-
-function toggleProduct(id) {
-  document.getElementById('prod-'+id).classList.toggle('open');
-}
-
-function switchBatch(productId, idx) {
-  const tabs = document.querySelectorAll(`#tabs-${productId} .batch-tab`);
-  tabs.forEach((t,i)=>t.classList.toggle('active',i===idx));
-  document.querySelectorAll(`[id^="batch-${productId}-"]`).forEach((el,i)=>{
-    el.style.display = i===idx ? 'block' : 'none';
-  });
-}
-
-// ══════════════════════════════════
-// RENDER: CONTENT (KYVO + CGD)
-// ══════════════════════════════════
-
-function renderContentStudio(data, containerId, color) {
-  const el = document.getElementById(containerId);
-  el.innerHTML = data.map(batch => `
-    <div class="batch-card open" id="batch-${batch.id}">
-      <div class="batch-header" onclick="toggleBatch('${batch.id}')">
-        <h3>${batch.name}</h3>
-        <span class="date">${batch.date}</span>
-        <span style="color:var(--muted);font-size:18px;margin-left:8px;transition:transform .2s" id="btoggle-${batch.id}">⌄</span>
-      </div>
-      <div class="batch-body">
-        ${batch.scripts.map(s => renderScriptCard(s, color)).join('')}
-      </div>
-    </div>
-  `).join('');
-}
-
-function renderScriptCard(s, color) {
-  const statuses = ['SCRIPT_READY','FILMED','EDITED','POSTED'];
-  const cur = getStatus(s.id, s.status || 'SCRIPT_READY');
-  const curLabel = {SCRIPT_READY:'Script Ready',FILMED:'Filmed',EDITED:'Edited',POSTED:'Posted'};
-
-  const statusBtns = statuses.map(st =>
-    `<button class="status-btn${cur===st?' set-'+st:''}" onclick="updateStatus('${s.id}',this,'${st}',${JSON.stringify(statuses)})">${curLabel[st]||st}</button>`
-  ).join('');
-
-  const checks = getChecked(s.id);
-  const checkHtml = checklistItems.map((item,i) => {
-    const checked = checks[i] || false;
-    return `<label class="check-item${checked?' checked':''}" id="ci-${s.id}-${i}">
-      <input type="checkbox" ${checked?'checked':''} onchange="toggleCheck('${s.id}',${i},this)"> ${item}
-    </label>`;
-  }).join('');
-
-  return `
-  <div class="script-card open" id="sc-${s.id}">
-    <div class="script-header" onclick="toggleScript('${s.id}')">
-      <div class="script-info">
-        <div class="script-title">${s.title}</div>
-        <div class="script-meta">
-          <span>${s.duration}</span>
-          <span>${badge(s.type)}</span>
-          <span>${badge(cur)}</span>
-        </div>
-      </div>
-      <span style="color:var(--muted);font-size:16px">⌄</span>
-    </div>
-    <div class="script-body">
-      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:8px">Status</div>
-      <div class="status-track" id="st-${s.id}">${statusBtns}</div>
-
-      <button class="script-expand" onclick="toggleScriptText('${s.id}')">
-        <span id="se-icon-${s.id}">▶</span> View Script
-      </button>
-      <div class="script-block" id="sb-${s.id}">${s.script.replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>
-
-      <div class="captions-block open" id="cap-${s.id}">
-        <div class="caption-section">
-          <div class="caption-section-label">📱 Instagram Caption</div>
-          ${renderCopyBlock('Instagram', s.captions.instagram)}
-        </div>
-        <div class="caption-section">
-          <div class="caption-section-label">🎵 TikTok Caption</div>
-          ${renderCopyBlock('TikTok', s.captions.tiktok)}
-        </div>
-        <div class="caption-section">
-          <div class="caption-section-label">▶️ YouTube</div>
-          ${renderCopyBlock('YouTube Title', s.captions.youtubeTitle)}
-          ${renderCopyBlock('YouTube Description', s.captions.youtubeDesc)}
-        </div>
-        <div class="checklist">
-          <div class="checklist-title">📋 Posting Checklist</div>
-          ${checkHtml}
-        </div>
-      </div>
-    </div>
-  </div>`;
-}
-
-function toggleBatch(id) {
-  const card = document.getElementById('batch-'+id);
-  card.classList.toggle('open');
-  const body = card.querySelector('.batch-body');
-  body.style.display = card.classList.contains('open') ? 'block' : 'none';
-}
-
-function toggleScript(id) {
-  document.getElementById('sc-'+id).classList.toggle('open');
-}
-
-function toggleScriptText(id) {
-  const sb = document.getElementById('sb-'+id);
-  const icon = document.getElementById('se-icon-'+id);
-  const open = sb.classList.toggle('open');
-  icon.textContent = open ? '▼' : '▶';
-}
-
-function updateStatus(scriptId, clickedBtn, newStatus, allStatuses) {
-  setStatus(scriptId, newStatus);
-  const track = document.getElementById('st-'+scriptId);
-  track.querySelectorAll('.status-btn').forEach((btn, i) => {
-    btn.className = 'status-btn' + (allStatuses[i]===newStatus ? ' set-'+newStatus : '');
-  });
-  // update badge in header
-  const card = document.getElementById('sc-'+scriptId);
-  const metaSpans = card.querySelectorAll('.script-meta .badge');
-  if(metaSpans.length >= 2) metaSpans[metaSpans.length-1].outerHTML = badge(newStatus);
+function cycleStatus(id) {
+  const order = ['SCRIPT_READY','FILMED','EDITED','POSTED'];
+  const cur = getStatus(id, 'SCRIPT_READY');
+  const next = order[(order.indexOf(cur)+1) % order.length];
+  saveStatus(id, next);
+  const el = document.getElementById('sbadge-'+id);
+  const statusMap = {SCRIPT_READY:'Script Ready', FILMED:'Filmed', EDITED:'Edited', POSTED:'Posted'};
+  const statusClass = {SCRIPT_READY:'sb-script', FILMED:'sb-filmed', EDITED:'sb-edited', POSTED:'sb-posted'};
+  el.textContent = statusMap[next];
+  el.className = 'status-badge '+statusClass[next];
 }
 
 function toggleCheck(scriptId, idx, input) {
-  setChecked(scriptId, idx, input.checked);
-  const item = document.getElementById('ci-'+scriptId+'-'+idx);
-  item.classList.toggle('checked', input.checked);
+  saveCheck(scriptId, idx, input.checked);
+  document.getElementById('cl-'+scriptId+'-'+idx).classList.toggle('checked', input.checked);
 }
 
-// ══════════════════════════════════
-// RENDER: TASKS
-// ══════════════════════════════════
+// ════════════════ TASKS ════════════════
 
-let allTasks = [];
-function renderTasks(filter='all') {
-  const el = document.getElementById('tasks-list');
-  const tasks = filter==='all' ? allTasks : allTasks.filter(t=>t.agent===filter);
-  const sorted = [...tasks].sort((a,b)=>new Date(b.createdAt||0)-new Date(a.createdAt||0));
-  if(!sorted.length) { el.innerHTML='<div class="empty">No tasks found.</div>'; return; }
-  el.innerHTML = sorted.map(t => `
-    <div class="task-item">
-      <div class="task-left">
-        <div class="task-title">${t.title}</div>
-        <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;align-items:center">
-          ${badge(t.priority||'medium')}
-          ${badge(t.status||'todo')}
-          <span style="font-size:11px;color:var(--dim)">${agentColors[t.agent]?agentColors[t.agent][1]:''} ${t.agent||''}</span>
-        </div>
-      </div>
-      <div style="font-size:11px;color:var(--dim)">${t.createdAt?timeAgo(t.createdAt):''}</div>
-    </div>
-  `).join('');
-}
-
-// ══════════════════════════════════
-// RENDER: ACTIVITY
-// ══════════════════════════════════
-
-function renderActivity(items, containerId, limit) {
+function renderTasksFor(agents, containerId) {
   const el = document.getElementById(containerId);
-  if(!items||!items.length){ el.innerHTML='<div class="empty">No activity yet.</div>'; return; }
-  const show = limit ? items.slice(0,limit) : items;
-  el.innerHTML = show.map(a => {
-    const [color,emoji] = agentColors[a.agent] || ['#555','🤖'];
-    return `
-    <div class="activity-item">
-      <div class="activity-avatar" style="border:1px solid ${color}30;background:${color}15">${emoji}</div>
-      <div class="activity-meta">
-        <div class="activity-agent">${a.agent||'agent'}</div>
-        <div class="activity-action">${a.action||''}</div>
-        <div class="activity-detail">${a.details||''}</div>
-      </div>
-      <div class="activity-time">${a.timestamp?timeAgo(a.timestamp):''}</div>
-    </div>`;
-  }).join('');
+  fetch('https://tommy-hq.vercel.app/api/tasks')
+    .then(r=>r.json())
+    .then(tasks => {
+      const filtered = tasks.filter(t => {
+        if(agents === 'all') return true;
+        return agents.includes(t.agent);
+      }).filter(t => t.status !== 'done')
+        .sort((a,b) => new Date(b.createdAt||0)-new Date(a.createdAt||0));
+
+      if(!filtered.length) { el.innerHTML='<div class="no-tasks">No open tasks 🎉</div>'; return; }
+      el.innerHTML = filtered.map(t => `
+        <div class="task-item${t.status==='done'?' done':''}" id="ti-${t.id}">
+          <div class="task-check" onclick="markDone('${t.id}')">
+            ${t.status==='done'?'<span style="font-size:11px;color:#000;font-weight:800">✓</span>':''}
+          </div>
+          <div class="task-body">
+            <div class="task-text">${t.title||''}</div>
+            <div class="task-meta">
+              <span class="badge ${badgeClass(t.priority||'medium')}">${t.priority||'medium'}</span>
+              <span class="badge ${badgeClass(t.status||'todo')}">${(t.status||'todo').replace('-',' ')}</span>
+              <span>${t.agent||''}</span>
+            </div>
+          </div>
+          <div class="task-time">${t.createdAt?timeAgo(t.createdAt):''}</div>
+        </div>`).join('');
+    })
+    .catch(()=>{ el.innerHTML='<div class="no-tasks">Could not load tasks.</div>'; });
 }
 
-// ══════════════════════════════════
-// RENDER: DOCS
-// ══════════════════════════════════
-
-function renderDocs(docs) {
-  const el = document.getElementById('docs-list');
-  if(!docs||!docs.length){ el.innerHTML='<div class="empty">No docs yet.</div>'; return; }
-  const groups = {};
-  docs.forEach(d=>{ (groups[d.folder||'Other']=groups[d.folder||'Other']||[]).push(d); });
-  el.innerHTML = Object.entries(groups).map(([folder,items])=>`
-    <div class="doc-group-label">${folder}</div>
-    ${items.map(d=>`
-      <div class="doc-card">
-        <div class="doc-info">
-          <div class="doc-title">${d.title||''}</div>
-          <div class="doc-desc">${d.description||''}</div>
-        </div>
-        ${d.gdoc_url?`<a href="${d.gdoc_url}" target="_blank" class="doc-btn">Open Doc ↗</a>`:''}
-      </div>
-    `).join('')}
-  `).join('');
+function markDone(id) {
+  const el = document.getElementById('ti-'+id);
+  el.classList.add('done');
+  el.querySelector('.task-check').innerHTML = '<span style="font-size:11px;color:#000;font-weight:800">✓</span>';
+  // fire-and-forget API update
+  fetch('https://tommy-hq.vercel.app/api/tasks', {
+    method:'PUT',
+    headers:{'Content-Type':'application/json','X-API-Key':'thq_25741469f31452628a1d8ae7372155ef2a2bf0b7d0138d96'},
+    body:JSON.stringify({id, status:'done'})
+  }).catch(()=>{});
 }
 
-// ══════════════════════════════════
-// NAVIGATION
-// ══════════════════════════════════
+// ════════════════ DOCS ════════════════
 
-const pageTitles = {
-  dashboard:'Dashboard', dropship:'Dropship HQ',
-  kyvo:'KYVO Performance', cgd:'@casualgolfdad',
-  tasks:'Tasks', activity:'Activity', docs:'Docs', team:'Team'
-};
-
-function navigate(page) {
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  document.getElementById('page-'+page).classList.add('active');
-  const ni = document.querySelector(`.nav-item[data-page="${page}"]`);
-  if(ni) ni.classList.add('active');
-  document.getElementById('page-title').textContent = pageTitles[page]||page;
-  closeNav();
+function renderDocsFor(folders, containerId) {
+  const el = document.getElementById(containerId);
+  fetch('https://tommy-hq.vercel.app/api/docs')
+    .then(r=>r.json())
+    .then(docs => {
+      const filtered = docs.filter(d => !folders || folders.includes(d.folder));
+      if(!filtered.length) { el.innerHTML='<div class="empty">No files yet.</div>'; return; }
+      const groups = {};
+      filtered.forEach(d => { (groups[d.folder||'Other']=groups[d.folder||'Other']||[]).push(d); });
+      el.innerHTML = Object.entries(groups).map(([folder, items])=>`
+        <div class="file-group-label">${folder}</div>
+        ${items.map(d=>`
+          <div class="file-item">
+            <div class="file-icon">📄</div>
+            <div class="file-info">
+              <div class="file-name">${d.title||''}</div>
+              <div class="file-desc">${d.description||''}</div>
+            </div>
+            ${d.gdoc_url?`<a href="${d.gdoc_url}" target="_blank" class="file-link">Open ↗</a>`:''}
+          </div>`).join('')}
+      `).join('');
+    })
+    .catch(()=>{ el.innerHTML='<div class="empty">Could not load files.</div>'; });
 }
 
-document.querySelectorAll('.nav-item').forEach(el=>{
-  el.addEventListener('click',()=>navigate(el.dataset.page));
-});
+// ════════════════ INIT ════════════════
 
-function openNav(){ document.getElementById('nav').classList.add('open'); document.getElementById('overlay').classList.add('active'); }
-function closeNav(){ document.getElementById('nav').classList.remove('open'); document.getElementById('overlay').classList.remove('active'); }
+renderBatch(0);
+renderContentCards(kyvoScripts, 'kyvo-content');
+renderContentCards(cgdScripts, 'cgd-content');
 
-// Task filters
-document.getElementById('task-filters').addEventListener('click', e=>{
-  const btn = e.target.closest('.filter-btn');
-  if(!btn) return;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderTasks(btn.dataset.agent);
-});
+renderTasksFor(['neo','charlie','the-builder','the-creative','the-copywriter'], 'dropship-tasks');
+renderTasksFor(['the-oracle','the-builder','the-creative','the-copywriter'], 'kyvo-tasks');
+renderTasksFor(['trinity','the-creative','the-copywriter'], 'cgd-tasks');
 
-// ══════════════════════════════════
-// INIT
-// ══════════════════════════════════
+renderDocsFor(['Dropshipping','SOPs','Creative'], 'dropship-docs');
+renderDocsFor(['KYVO Performance','SOPs','Creative'], 'kyvo-docs');
+renderDocsFor(['@casualgolfdad','SOPs','Creative'], 'cgd-docs');
 
-async function init() {
-  // Render static sections
-  renderDropship();
-  renderContentStudio(kyvoContent, 'kyvo-batches', 'amber');
-  renderContentStudio(cgdContent, 'cgd-batches', 'coral');
-
-  // Fetch tasks
-  try {
-    const res = await fetch('https://tommy-hq.vercel.app/api/tasks');
-    allTasks = await res.json();
-    renderTasks();
-    // Dashboard task counts
-    const open = allTasks.filter(t=>t.status!=='done');
-    const agents = {dropship:['neo'],kyvo:['the-oracle'],cgd:['trinity']};
-    document.getElementById('d-tasks').textContent = open.filter(t=>agents.dropship.includes(t.agent)).length;
-    document.getElementById('k-tasks').textContent = open.filter(t=>agents.kyvo.includes(t.agent)).length;
-    document.getElementById('c-tasks').textContent = open.filter(t=>agents.cgd.includes(t.agent)).length;
-
-    // Dashboard active tasks
-    const dashT = document.getElementById('dash-tasks');
-    const top = open.slice(0,5);
-    dashT.innerHTML = top.length ? top.map(t=>`
-      <div style="border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-bottom:8px">
-        <div style="font-size:13px;font-weight:600">${t.title}</div>
-        <div style="display:flex;gap:6px;margin-top:6px">${badge(t.priority||'medium')}${badge(t.status||'todo')}<span style="font-size:11px;color:var(--dim)">${agentColors[t.agent]?agentColors[t.agent][1]:''} ${t.agent||''}</span></div>
-      </div>
-    `).join('') : '<div class="empty">No open tasks.</div>';
-  } catch(e) {
-    document.getElementById('tasks-list').innerHTML='<div class="empty">Could not load tasks.</div>';
-  }
-
-  // Fetch activity
-  try {
-    const res = await fetch('https://tommy-hq.vercel.app/api/activity');
-    const activity = await res.json();
-    renderActivity(activity, 'activity-list');
-    renderActivity(activity, 'dash-activity', 8);
-  } catch(e) {
-    document.getElementById('activity-list').innerHTML='<div class="empty">Could not load activity.</div>';
-  }
-
-  // Fetch docs
-  try {
-    const res = await fetch('https://tommy-hq.vercel.app/api/docs');
-    renderDocs(await res.json());
-  } catch(e) {
-    document.getElementById('docs-list').innerHTML='<div class="empty">Could not load docs.</div>';
-  }
-}
-
-init();
 </script>
 </body>
 </html>
