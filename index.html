@@ -3,1146 +3,718 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tommy HQ — Mission Control</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>Tommy HQ</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0d14;
+  --surface:#13131d;
+  --surface2:#18182400;
+  --border:#1f1f30;
+  --border2:#2a2a40;
+  --text:#f0f0f8;
+  --muted:#8888aa;
+  --dim:#44445a;
+  --cyan:#00d4aa;
+  --amber:#ffb86b;
+  --coral:#ff6b6b;
+  --purple:#7c6bff;
+  --blue:#4da6ff;
+  --green:#2ecc71;
+  --red:#ff4757;
+  --sidebar:220px;
+  --topbar:56px;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;display:flex;min-height:100vh}
 
-  :root {
-    --bg: #0a0a0f;
-    --card: #12121a;
-    --card2: #16161f;
-    --border: #1e1e2e;
-    --border2: #252535;
-    --text: #e8e8f0;
-    --text2: #8888aa;
-    --text3: #555570;
-    --cyan: #00d4aa;
-    --amber: #ffb86b;
-    --coral: #ff6b6b;
-    --purple: #7c6bff;
-    --blue: #4da6ff;
-    --green: #00d4aa;
-    --red: #ff5555;
-    --sidebar-width: 240px;
-  }
+/* ── SIDEBAR ── */
+#nav{
+  width:var(--sidebar);min-height:100vh;background:var(--surface);
+  border-right:1px solid var(--border);display:flex;flex-direction:column;
+  position:fixed;top:0;left:0;z-index:50;overflow-y:auto;
+}
+.nav-brand{
+  padding:20px 18px 14px;display:flex;align-items:center;gap:10px;
+  border-bottom:1px solid var(--border);
+}
+.nav-brand .logo{
+  width:32px;height:32px;background:linear-gradient(135deg,var(--purple),#a855f7);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;
+}
+.nav-brand h1{font-size:15px;font-weight:700;letter-spacing:-0.3px}
+.nav-brand span{font-size:11px;color:var(--muted);display:block;font-weight:400}
+.nav-group{padding:12px 0 4px}
+.nav-label{
+  font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  color:var(--dim);padding:0 18px 6px;
+}
+.nav-item{
+  display:flex;align-items:center;gap:10px;padding:8px 18px;cursor:pointer;
+  color:var(--muted);font-size:13px;font-weight:500;transition:all .15s;
+  border-left:2px solid transparent;
+}
+.nav-item:hover{color:var(--text);background:rgba(255,255,255,.04)}
+.nav-item.active{color:var(--text);border-left-color:var(--purple);background:rgba(124,107,255,.08)}
+.nav-item .icon{font-size:15px;width:18px;text-align:center}
+.nav-item.cyan.active{border-left-color:var(--cyan);color:var(--cyan);background:rgba(0,212,170,.07)}
+.nav-item.amber.active{border-left-color:var(--amber);color:var(--amber);background:rgba(255,184,107,.07)}
+.nav-item.coral.active{border-left-color:var(--coral);color:var(--coral);background:rgba(255,107,107,.07)}
+.nav-divider{height:1px;background:var(--border);margin:8px 0}
 
-  body {
-    font-family: 'Inter', -apple-system, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    font-size: 14px;
-    line-height: 1.5;
-  }
+/* ── MAIN ── */
+#main{margin-left:var(--sidebar);flex:1;min-height:100vh;display:flex;flex-direction:column}
+.topbar{
+  height:var(--topbar);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 28px;
+  background:var(--surface);position:sticky;top:0;z-index:40;
+  gap:12px;
+}
+.topbar h2{font-size:15px;font-weight:600;flex:1}
+.topbar .pill{
+  font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600;
+  background:rgba(124,107,255,.15);color:var(--purple);
+}
+.page{padding:28px 32px;flex:1;display:none}
+.page.active{display:block}
 
-  /* ─── SIDEBAR ─── */
-  #sidebar {
-    width: var(--sidebar-width);
-    min-height: 100vh;
-    background: var(--card);
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 0; left: 0;
-    z-index: 100;
-    overflow-y: auto;
-  }
+/* ── CARDS ── */
+.card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;overflow:hidden;margin-bottom:16px;
+}
+.card-header{
+  padding:16px 20px;display:flex;align-items:center;gap:12px;
+  border-bottom:1px solid var(--border);cursor:pointer;
+  user-select:none;
+}
+.card-header:hover{background:rgba(255,255,255,.02)}
+.card-body{padding:20px}
+.card-title{font-size:14px;font-weight:600;flex:1}
+.card-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.card-toggle{color:var(--muted);font-size:18px;transition:transform .2s}
+.card.open .card-toggle{transform:rotate(180deg)}
+.card-content{display:none}
+.card.open .card-content{display:block}
 
-  .sidebar-logo {
-    padding: 20px 20px 16px;
-    border-bottom: 1px solid var(--border);
-  }
-  .sidebar-logo h1 {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--text);
-    letter-spacing: -0.3px;
-  }
-  .sidebar-logo span { color: var(--purple); }
+/* ── GRID ── */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:900px){.grid-3{grid-template-columns:1fr 1fr}.grid-2{grid-template-columns:1fr}}
+@media(max-width:600px){.grid-3{grid-template-columns:1fr}}
 
-  .nav-section {
-    padding: 16px 12px 4px;
-  }
-  .nav-section-label {
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text3);
-    padding: 0 8px;
-    margin-bottom: 4px;
-  }
-  .nav-divider {
-    height: 1px;
-    background: var(--border);
-    margin: 8px 12px;
-  }
+/* ── PILLAR SUMMARY CARDS (dashboard) ── */
+.pillar-tile{
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:20px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;
+}
+.pillar-tile::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+}
+.pillar-tile.cyan::after{background:var(--cyan)}
+.pillar-tile.amber::after{background:var(--amber)}
+.pillar-tile.coral::after{background:var(--coral)}
+.pillar-tile:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.pillar-tile h3{font-size:15px;font-weight:700;margin-bottom:4px}
+.pillar-tile .dir{font-size:12px;color:var(--muted);margin-bottom:14px}
+.pillar-tile .stat{font-size:24px;font-weight:800;margin-bottom:4px}
+.pillar-tile .stat-label{font-size:11px;color:var(--muted)}
+.pillar-tile.cyan .stat{color:var(--cyan)}
+.pillar-tile.amber .stat{color:var(--amber)}
+.pillar-tile.coral .stat{color:var(--coral)}
+.tile-go{
+  margin-top:14px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:4px;
+}
+.pillar-tile.cyan .tile-go{color:var(--cyan)}
+.pillar-tile.amber .tile-go{color:var(--amber)}
+.pillar-tile.coral .tile-go{color:var(--coral)}
 
-  .nav-link {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    color: var(--text2);
-    font-size: 13px;
-    font-weight: 500;
-    transition: all 0.15s;
-    text-decoration: none;
-    user-select: none;
-  }
-  .nav-link:hover { background: var(--border); color: var(--text); }
-  .nav-link.active { background: rgba(124,107,255,0.15); color: var(--purple); }
-  .nav-link.active.cyan { background: rgba(0,212,170,0.12); color: var(--cyan); }
-  .nav-link.active.amber { background: rgba(255,184,107,0.12); color: var(--amber); }
-  .nav-link.active.coral { background: rgba(255,107,107,0.12); color: var(--coral); }
+/* ── SECTION HEADER ── */
+.section-header{margin-bottom:24px}
+.section-header h1{font-size:22px;font-weight:800;letter-spacing:-0.5px}
+.section-header p{font-size:13px;color:var(--muted);margin-top:4px}
 
-  /* ─── MAIN ─── */
-  #main {
-    margin-left: var(--sidebar-width);
-    flex: 1;
-    min-height: 100vh;
-  }
+/* ── BADGES ── */
+.badge{
+  display:inline-flex;align-items:center;font-size:11px;font-weight:700;
+  padding:2px 8px;border-radius:4px;letter-spacing:.3px;text-transform:uppercase;
+}
+.b-live,.b-active,.b-posted,.b-complete{background:rgba(0,212,170,.15);color:var(--cyan)}
+.b-testing,.b-filmed{background:rgba(255,184,107,.15);color:var(--amber)}
+.b-ready,.b-script-ready,.b-building{background:rgba(77,166,255,.15);color:var(--blue)}
+.b-paused,.b-edited{background:rgba(68,68,90,.3);color:var(--dim)}
+.b-story{background:rgba(124,107,255,.15);color:var(--purple)}
+.b-educational{background:rgba(77,166,255,.12);color:var(--blue)}
+.b-behind-the-scenes{background:rgba(255,107,107,.12);color:var(--coral)}
+.b-high{background:rgba(255,71,87,.15);color:var(--red)}
+.b-medium{background:rgba(255,184,107,.15);color:var(--amber)}
+.b-low{background:rgba(68,68,90,.3);color:var(--dim)}
+.b-todo{background:rgba(124,107,255,.15);color:var(--purple)}
+.b-in-progress{background:rgba(255,184,107,.15);color:var(--amber)}
+.b-review{background:rgba(77,166,255,.15);color:var(--blue)}
+.b-done{background:rgba(0,212,170,.15);color:var(--cyan)}
 
-  .topbar {
-    display: none;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
-    background: var(--card);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 50;
-  }
-  .hamburger {
-    background: none;
-    border: none;
-    color: var(--text);
-    cursor: pointer;
-    font-size: 20px;
-    line-height: 1;
-    padding: 4px;
-  }
+/* ── STAGE TRACKER ── */
+.stages{display:flex;align-items:center;gap:0;margin:16px 0;flex-wrap:wrap;gap:4px}
+.stage{
+  font-size:10px;font-weight:600;padding:4px 10px;border-radius:4px;
+  background:rgba(255,255,255,.04);color:var(--dim);letter-spacing:.3px;
+  text-transform:uppercase;white-space:nowrap;
+}
+.stage.done{background:rgba(0,212,170,.1);color:var(--cyan)}
+.stage.current{background:var(--cyan);color:#000;font-weight:800}
+.stage-arrow{color:var(--border2);font-size:12px}
 
-  .section { display: none; padding: 32px; max-width: 1200px; }
-  .section.active { display: block; }
+/* ── COPY BLOCK ── */
+.copy-block{margin-bottom:12px}
+.copy-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:6px}
+.copy-row{
+  display:flex;align-items:flex-start;gap:8px;
+  background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:8px;
+  padding:12px 14px;
+}
+.copy-text{flex:1;font-size:13px;color:var(--text);line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.copy-btn{
+  flex-shrink:0;background:var(--surface);border:1px solid var(--border2);
+  color:var(--muted);font-size:11px;font-weight:600;padding:5px 12px;border-radius:6px;
+  cursor:pointer;transition:all .15s;white-space:nowrap;align-self:flex-start;
+}
+.copy-btn:hover{border-color:var(--purple);color:var(--text)}
+.copy-btn.copied{background:var(--cyan);border-color:var(--cyan);color:#000}
 
-  .page-header {
-    margin-bottom: 28px;
-  }
-  .page-header h2 {
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.4px;
-  }
-  .page-header p {
-    color: var(--text2);
-    margin-top: 4px;
-    font-size: 13px;
-  }
+/* ── BATCH TABS ── */
+.batch-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:20px}
+.batch-tab{
+  padding:8px 16px;font-size:13px;font-weight:600;color:var(--muted);
+  cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;
+}
+.batch-tab:hover{color:var(--text)}
+.batch-tab.active{color:var(--cyan);border-bottom-color:var(--cyan)}
 
-  /* ─── CARDS ─── */
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-  }
-  .card-sm {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px;
-  }
+/* ── STATUS TRACKER ── */
+.status-track{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}
+.status-btn{
+  padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;
+  border:1px solid var(--border);background:rgba(255,255,255,.03);color:var(--dim);
+  transition:all .15s;
+}
+.status-btn:hover{border-color:var(--border2);color:var(--muted)}
+.status-btn.current-SCRIPT_READY,.status-btn.set-SCRIPT_READY{background:rgba(77,166,255,.15);color:var(--blue);border-color:rgba(77,166,255,.3)}
+.status-btn.current-FILMED,.status-btn.set-FILMED{background:rgba(255,184,107,.15);color:var(--amber);border-color:rgba(255,184,107,.3)}
+.status-btn.current-EDITED,.status-btn.set-EDITED{background:rgba(124,107,255,.15);color:var(--purple);border-color:rgba(124,107,255,.3)}
+.status-btn.current-POSTED,.status-btn.set-POSTED{background:rgba(0,212,170,.15);color:var(--cyan);border-color:rgba(0,212,170,.3)}
 
-  /* ─── BADGES ─── */
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 8px;
-    border-radius: 20px;
-    letter-spacing: 0.3px;
-    text-transform: uppercase;
-  }
-  .badge-green { background: rgba(0,212,170,0.15); color: #00d4aa; }
-  .badge-amber { background: rgba(255,184,107,0.15); color: #ffb86b; }
-  .badge-blue { background: rgba(77,166,255,0.15); color: #4da6ff; }
-  .badge-gray { background: rgba(85,85,112,0.3); color: #8888aa; }
-  .badge-red { background: rgba(255,85,85,0.15); color: #ff5555; }
-  .badge-purple { background: rgba(124,107,255,0.15); color: #7c6bff; }
-  .badge-coral { background: rgba(255,107,107,0.15); color: #ff6b6b; }
+/* ── SCRIPT BLOCK ── */
+.script-expand{
+  border:none;background:none;color:var(--purple);font-size:12px;font-weight:600;
+  cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;margin-bottom:12px;
+}
+.script-block{
+  background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:8px;
+  padding:16px;font-size:13px;color:var(--muted);white-space:pre-wrap;line-height:1.7;
+  margin-bottom:16px;display:none;
+}
+.script-block.open{display:block}
+.captions-block{display:none}
+.captions-block.open{display:block}
+.caption-section{margin-bottom:16px}
+.caption-section-label{
+  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+  color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:6px;
+}
 
-  /* ─── BUTTONS ─── */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 7px 14px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    border: none;
-    transition: all 0.15s;
-    font-family: inherit;
-  }
-  .btn-copy {
-    background: rgba(77,166,255,0.12);
-    color: var(--blue);
-    border: 1px solid rgba(77,166,255,0.2);
-    padding: 4px 10px;
-    font-size: 11px;
-    font-weight: 600;
-    border-radius: 6px;
-  }
-  .btn-copy:hover { background: rgba(77,166,255,0.22); }
-  .btn-copy.copied { background: rgba(0,212,170,0.15); color: var(--cyan); border-color: rgba(0,212,170,0.3); }
-  .btn-link {
-    background: var(--border);
-    color: var(--text2);
-    border: 1px solid var(--border2);
-    font-size: 12px;
-  }
-  .btn-link:hover { background: var(--border2); color: var(--text); }
-  .btn-ghost {
-    background: transparent;
-    color: var(--text2);
-    border: 1px solid var(--border);
-    font-size: 12px;
-  }
-  .btn-ghost:hover { background: var(--border); color: var(--text); }
-  .btn-status {
-    font-size: 11px;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    font-family: inherit;
-    opacity: 0.45;
-    background: var(--border);
-    color: var(--text2);
-    transition: all 0.15s;
-  }
-  .btn-status.active-status { opacity: 1; }
-  .btn-status.s-script_ready.active-status { background: rgba(77,166,255,0.2); color: var(--blue); }
-  .btn-status.s-filmed.active-status { background: rgba(255,184,107,0.2); color: var(--amber); }
-  .btn-status.s-edited.active-status { background: rgba(85,85,112,0.4); color: #aaa; }
-  .btn-status.s-posted.active-status { background: rgba(0,212,170,0.2); color: var(--cyan); }
+/* ── CHECKLIST ── */
+.checklist{
+  background:rgba(255,255,255,.02);border:1px solid var(--border);
+  border-radius:8px;padding:14px;margin-top:12px;
+}
+.checklist-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:10px}
+.check-item{
+  display:flex;align-items:center;gap:10px;padding:5px 0;
+  font-size:13px;color:var(--muted);cursor:pointer;border-radius:4px;
+}
+.check-item:hover{color:var(--text)}
+.check-item input{accent-color:var(--cyan);width:14px;height:14px;cursor:pointer}
+.check-item.checked{color:var(--dim);text-decoration:line-through}
 
-  /* ─── GRID ─── */
-  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+/* ── ACTIVITY FEED ── */
+.activity-item{
+  display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);
+}
+.activity-item:last-child{border-bottom:none}
+.activity-avatar{
+  width:32px;height:32px;border-radius:8px;display:flex;align-items:center;
+  justify-content:center;font-size:16px;flex-shrink:0;background:rgba(255,255,255,.05);
+}
+.activity-meta{flex:1;min-width:0}
+.activity-agent{font-size:12px;font-weight:700;color:var(--muted)}
+.activity-action{font-size:13px;font-weight:500;color:var(--text);margin:1px 0}
+.activity-detail{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.activity-time{font-size:11px;color:var(--dim);flex-shrink:0;margin-top:2px}
 
-  /* ─── DASHBOARD ─── */
-  .pillar-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    cursor: pointer;
-    transition: border-color 0.2s, transform 0.15s;
-    position: relative;
-    overflow: hidden;
-  }
-  .pillar-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-  }
-  .pillar-card.cyan::before { background: var(--cyan); }
-  .pillar-card.amber::before { background: var(--amber); }
-  .pillar-card.coral::before { background: var(--coral); }
-  .pillar-card:hover { border-color: var(--border2); transform: translateY(-1px); }
-  .pillar-card .pillar-icon { font-size: 28px; margin-bottom: 12px; }
-  .pillar-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-  .pillar-card .director { font-size: 12px; color: var(--text2); margin-bottom: 12px; }
-  .pillar-card .view-link {
-    font-size: 12px;
-    font-weight: 600;
-    margin-top: 14px;
-    display: inline-block;
-  }
-  .pillar-card.cyan .view-link { color: var(--cyan); }
-  .pillar-card.amber .view-link { color: var(--amber); }
-  .pillar-card.coral .view-link { color: var(--coral); }
+/* ── TASK ITEM ── */
+.task-item{
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  padding:14px 16px;margin-bottom:10px;display:flex;gap:14px;align-items:flex-start;
+}
+.task-left{flex:1;min-width:0}
+.task-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px}
+.task-details{font-size:12px;color:var(--muted);margin-top:4px}
+.task-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
+.task-agent{font-size:11px;color:var(--muted)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.filter-btn{
+  padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;
+  border:1px solid var(--border);background:var(--surface);color:var(--muted);transition:all .15s;
+}
+.filter-btn:hover{color:var(--text);border-color:var(--border2)}
+.filter-btn.active{background:rgba(124,107,255,.15);color:var(--purple);border-color:rgba(124,107,255,.3)}
 
-  .activity-feed { margin-top: 24px; }
-  .activity-feed h3 { font-size: 14px; font-weight: 600; margin-bottom: 14px; }
-  .activity-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .activity-item:last-child { border-bottom: none; }
-  .activity-dot {
-    width: 32px; height: 32px;
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px;
-    flex-shrink: 0;
-    background: var(--border);
-  }
-  .activity-content { flex: 1; }
-  .activity-agent { font-weight: 600; font-size: 13px; }
-  .activity-action { color: var(--text2); font-size: 12px; margin-top: 1px; }
-  .activity-time { font-size: 11px; color: var(--text3); flex-shrink: 0; margin-top: 2px; }
+/* ── DOC CARD ── */
+.doc-group-label{
+  font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;
+  color:var(--muted);margin:20px 0 8px;
+}
+.doc-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;
+}
+.doc-info{flex:1}
+.doc-title{font-size:13px;font-weight:600}
+.doc-desc{font-size:12px;color:var(--muted);margin-top:2px}
+.doc-btn{
+  padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;
+  background:rgba(77,166,255,.1);color:var(--blue);border:1px solid rgba(77,166,255,.2);
+  text-decoration:none;flex-shrink:0;cursor:pointer;
+}
 
-  .tasks-summary {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-top: 24px;
-  }
-  .task-stat {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-  }
-  .task-stat .agent-name { font-size: 12px; color: var(--text2); margin-bottom: 4px; }
-  .task-stat .count { font-size: 22px; font-weight: 700; }
-  .task-stat .label { font-size: 11px; color: var(--text3); }
+/* ── TEAM ── */
+.team-tier-label{
+  font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  color:var(--muted);margin:24px 0 12px;display:flex;align-items:center;gap:8px;
+}
+.team-tier-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.agent-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}
+.agent-grid.spec{grid-template-columns:repeat(3,1fr)}
+@media(max-width:900px){.agent-grid{grid-template-columns:repeat(2,1fr)}}
+.agent-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  padding:18px;position:relative;overflow:hidden;
+}
+.agent-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+}
+.agent-card[data-color="purple"]::before{background:var(--purple)}
+.agent-card[data-color="cyan"]::before{background:var(--cyan)}
+.agent-card[data-color="amber"]::before{background:var(--amber)}
+.agent-card[data-color="coral"]::before{background:var(--coral)}
+.agent-card[data-color="blue"]::before{background:var(--blue)}
+.agent-emoji{font-size:28px;margin-bottom:10px;display:block}
+.agent-name{font-size:14px;font-weight:700;margin-bottom:3px}
+.agent-role{font-size:12px;color:var(--muted);margin-bottom:8px}
+.agent-pillar{font-size:11px;font-weight:600;color:var(--dim)}
+.agent-status{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:11px;color:var(--green)}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block}
 
-  /* ─── DROPSHIP ─── */
-  .product-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 16px;
-  }
-  .product-header {
-    padding: 18px 20px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    cursor: pointer;
-    user-select: none;
-  }
-  .product-header:hover { background: rgba(255,255,255,0.02); }
-  .product-info { flex: 1; }
-  .product-info h3 { font-size: 16px; font-weight: 700; letter-spacing: -0.3px; }
-  .product-info .subtitle { font-size: 12px; color: var(--text2); margin-top: 2px; }
-  .product-chevron { color: var(--text3); font-size: 12px; transition: transform 0.2s; }
-  .product-card.expanded .product-chevron { transform: rotate(90deg); }
+/* ── DIVIDER ── */
+.divider{height:1px;background:var(--border);margin:24px 0}
 
-  .pipeline-stages {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    padding: 0 20px 18px;
-    overflow-x: auto;
-  }
-  .stage {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    flex-shrink: 0;
-  }
-  .stage-dot {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    background: var(--border);
-    border: 2px solid var(--border2);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--text3);
-    position: relative;
-    z-index: 1;
-    flex-shrink: 0;
-  }
-  .stage-dot.done { background: rgba(0,212,170,0.2); border-color: var(--cyan); color: var(--cyan); }
-  .stage-dot.current { background: rgba(255,184,107,0.25); border-color: var(--amber); color: var(--amber); box-shadow: 0 0 12px rgba(255,184,107,0.4); }
-  .stage-label {
-    font-size: 10px;
-    color: var(--text3);
-    text-align: center;
-    position: absolute;
-    top: 32px;
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap;
-    font-weight: 500;
-  }
-  .stage-label.done { color: var(--cyan); }
-  .stage-label.current { color: var(--amber); }
-  .stage-wrapper { position: relative; display: flex; flex-direction: column; align-items: center; padding-bottom: 22px; }
-  .stage-line {
-    width: 32px; height: 2px;
-    background: var(--border);
-    flex-shrink: 0;
-  }
-  .stage-line.done { background: var(--cyan); }
+/* ── PRODUCT CARD ── */
+.product-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  margin-bottom:16px;overflow:hidden;
+}
+.product-header{
+  padding:16px 20px;display:flex;align-items:center;gap:14px;
+  border-bottom:1px solid var(--border);cursor:pointer;
+}
+.product-header:hover{background:rgba(255,255,255,.02)}
+.product-name{font-size:16px;font-weight:800;letter-spacing:-.3px}
+.product-sub{font-size:12px;color:var(--muted);margin-top:1px}
+.product-body{padding:20px;display:none}
+.product-card.open .product-body{display:block}
+.product-card.open .card-toggle{transform:rotate(180deg)}
 
-  .product-body { padding: 0 20px 20px; }
+/* ── NOTES BOX ── */
+.notes-box{
+  background:rgba(255,184,107,.05);border:1px solid rgba(255,184,107,.15);
+  border-radius:8px;padding:12px 14px;font-size:13px;color:var(--muted);
+  margin-top:16px;line-height:1.6;
+}
+.notes-box strong{color:var(--amber)}
 
-  .tabs {
-    display: flex;
-    gap: 4px;
-    margin-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 0;
-  }
-  .tab-btn {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text2);
-    padding: 8px 16px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    font-family: inherit;
-    border-bottom: 2px solid transparent;
-    margin-bottom: -1px;
-    transition: all 0.15s;
-  }
-  .tab-btn:hover { color: var(--text); }
-  .tab-btn.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+/* ── CONTENT BATCH ── */
+.batch-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;margin-bottom:16px;overflow:hidden;
+}
+.batch-header{
+  padding:14px 20px;display:flex;align-items:center;gap:12px;
+  background:rgba(255,255,255,.02);border-bottom:1px solid var(--border);
+  cursor:pointer;
+}
+.batch-header:hover{background:rgba(255,255,255,.04)}
+.batch-header h3{font-size:14px;font-weight:700;flex:1}
+.batch-header .date{font-size:12px;color:var(--muted)}
+.batch-body{padding:20px;display:none}
+.batch-card.open .batch-body{display:block}
 
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
+/* ── SCRIPT CARD ── */
+.script-card{
+  border:1px solid var(--border);border-radius:10px;
+  margin-bottom:12px;overflow:hidden;
+}
+.script-header{
+  padding:14px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;
+}
+.script-header:hover{background:rgba(255,255,255,.02)}
+.script-info{flex:1}
+.script-title{font-size:13px;font-weight:700}
+.script-meta{font-size:11px;color:var(--muted);margin-top:2px;display:flex;gap:8px;align-items:center}
+.script-body{padding:0 16px 16px;display:none}
+.script-card.open .script-body{display:block}
 
-  .batch-card {
-    background: var(--card2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px;
-    margin-bottom: 12px;
-  }
-  .batch-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 14px;
-  }
-  .batch-header h4 { font-size: 14px; font-weight: 600; }
-  .batch-header .concept { font-size: 12px; color: var(--text2); flex: 1; }
+/* ── MOBILE ── */
+.hamburger{
+  display:none;background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;
+  margin-right:8px;
+}
+@media(max-width:768px){
+  #nav{transform:translateX(-100%);transition:transform .25s;z-index:100}
+  #nav.open{transform:translateX(0)}
+  #main{margin-left:0}
+  .hamburger{display:block}
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:90;display:none}
+  .overlay.active{display:block}
+  .page{padding:16px}
+}
 
-  .copy-block {
-    margin-bottom: 12px;
-  }
-  .copy-block-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 6px;
-  }
-  .copy-block-label {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--text3);
-  }
-  .copy-text {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 12px;
-    font-size: 13px;
-    color: var(--text);
-    line-height: 1.6;
-  }
-
-  .notes-box {
-    background: var(--card2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    font-size: 13px;
-    color: var(--text2);
-    line-height: 1.7;
-  }
-
-  /* ─── CONTENT STUDIO (KYVO/CGD) ─── */
-  .batch-group {
-    margin-bottom: 24px;
-  }
-  .batch-group-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border);
-  }
-  .batch-group-header h3 { font-size: 15px; font-weight: 600; }
-  .batch-group-header .date { font-size: 12px; color: var(--text2); }
-
-  .script-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    margin-bottom: 12px;
-    overflow: hidden;
-  }
-  .script-header {
-    padding: 16px 18px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-  .script-info { flex: 1; }
-  .script-info h4 { font-size: 14px; font-weight: 600; margin-bottom: 5px; }
-  .script-meta { display: flex; gap: 8px; align-items: center; }
-  .script-duration { font-size: 11px; color: var(--text2); }
-
-  .status-row {
-    display: flex;
-    gap: 6px;
-    padding: 0 18px 14px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  .status-row-label { font-size: 11px; color: var(--text3); margin-right: 4px; }
-
-  .expand-btn {
-    background: none;
-    border: 1px solid var(--border);
-    color: var(--text2);
-    font-size: 12px;
-    font-weight: 600;
-    padding: 5px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-family: inherit;
-    transition: all 0.15s;
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  .expand-btn:hover { background: var(--border); color: var(--text); }
-
-  .script-expanded {
-    display: none;
-    border-top: 1px solid var(--border);
-    padding: 18px;
-    background: var(--card2);
-  }
-  .script-expanded.open { display: block; }
-
-  .script-text {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px 16px;
-    font-size: 13px;
-    color: var(--text);
-    line-height: 1.8;
-    white-space: pre-wrap;
-    margin-bottom: 18px;
-  }
-  .script-text-label {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--text3);
-    margin-bottom: 8px;
-  }
-
-  .captions-grid { display: grid; gap: 12px; }
-  .caption-label {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--text3);
-    margin-bottom: 6px;
-  }
-
-  .checklist {
-    margin-top: 18px;
-    padding: 14px 16px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-  }
-  .checklist-title {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--text3);
-    margin-bottom: 10px;
-  }
-  .checklist-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 5px 0;
-    cursor: pointer;
-    user-select: none;
-  }
-  .checklist-item input[type="checkbox"] {
-    width: 15px; height: 15px;
-    cursor: pointer;
-    accent-color: var(--cyan);
-  }
-  .checklist-item span { font-size: 13px; color: var(--text2); }
-  .checklist-item input:checked + span { color: var(--cyan); text-decoration: line-through; text-decoration-color: rgba(0,212,170,0.4); }
-
-  /* ─── TASKS ─── */
-  .filter-bar {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-  }
-  .filter-btn {
-    font-size: 12px;
-    font-weight: 500;
-    padding: 6px 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    border: 1px solid var(--border);
-    background: var(--card);
-    color: var(--text2);
-    font-family: inherit;
-    transition: all 0.15s;
-  }
-  .filter-btn:hover { border-color: var(--border2); color: var(--text); }
-  .filter-btn.active { background: rgba(124,107,255,0.15); border-color: rgba(124,107,255,0.4); color: var(--purple); }
-
-  .task-list { display: flex; flex-direction: column; gap: 8px; }
-  .task-item {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .task-item:hover { border-color: var(--border2); }
-  .task-content { flex: 1; }
-  .task-title { font-size: 13px; font-weight: 500; }
-  .task-meta { font-size: 11px; color: var(--text3); margin-top: 3px; }
-
-  /* ─── ACTIVITY ─── */
-  .activity-list { display: flex; flex-direction: column; gap: 8px; }
-  .act-item {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-  }
-  .act-emoji {
-    font-size: 20px;
-    width: 36px; height: 36px;
-    display: flex; align-items: center; justify-content: center;
-    background: var(--border);
-    border-radius: 8px;
-    flex-shrink: 0;
-  }
-  .act-body { flex: 1; }
-  .act-agent { font-size: 13px; font-weight: 600; }
-  .act-action { font-size: 13px; color: var(--text); margin-top: 2px; }
-  .act-details { font-size: 12px; color: var(--text2); margin-top: 2px; }
-  .act-time { font-size: 11px; color: var(--text3); flex-shrink: 0; margin-top: 2px; }
-
-  /* ─── DOCS ─── */
-  .docs-folder { margin-bottom: 28px; }
-  .docs-folder-title {
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    color: var(--text3);
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .doc-item {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-  .doc-item:hover { border-color: var(--border2); }
-  .doc-info { flex: 1; }
-  .doc-title { font-size: 13px; font-weight: 600; }
-  .doc-desc { font-size: 12px; color: var(--text2); margin-top: 3px; }
-
-  /* ─── TEAM ─── */
-  .team-section-label {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text3);
-    margin-bottom: 12px;
-    margin-top: 24px;
-  }
-  .team-section-label:first-child { margin-top: 0; }
-  .agent-card-large {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 22px;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.2s;
-  }
-  .agent-card-large:hover { border-color: var(--border2); }
-  .agent-card-large::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-  }
-  .agent-card-large.purple::before { background: var(--purple); }
-  .agent-card-large.cyan::before { background: var(--cyan); }
-  .agent-card-large.amber::before { background: var(--amber); }
-  .agent-card-large.coral::before { background: var(--coral); }
-
-  .agent-emoji { font-size: 32px; margin-bottom: 12px; }
-  .agent-name { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-  .agent-role { font-size: 12px; color: var(--text2); }
-  .agent-pillar { font-size: 11px; font-weight: 600; margin-top: 10px; }
-  .agent-pillar.purple { color: var(--purple); }
-  .agent-pillar.cyan { color: var(--cyan); }
-  .agent-pillar.amber { color: var(--amber); }
-  .agent-pillar.coral { color: var(--coral); }
-  .online-dot {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 11px;
-    color: var(--cyan);
-    margin-top: 8px;
-  }
-  .online-dot::before {
-    content: '';
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--cyan);
-    box-shadow: 0 0 8px var(--cyan);
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
-
-  .agent-card-small {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px 18px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    transition: border-color 0.2s;
-  }
-  .agent-card-small:hover { border-color: var(--border2); }
-  .agent-emoji-sm { font-size: 24px; }
-  .agent-info-sm { flex: 1; }
-  .agent-name-sm { font-size: 14px; font-weight: 600; }
-  .agent-role-sm { font-size: 12px; color: var(--text2); margin-top: 2px; }
-
-  /* ─── LOADING / EMPTY ─── */
-  .loading {
-    color: var(--text3);
-    font-size: 13px;
-    padding: 20px;
-    text-align: center;
-  }
-  .empty-state {
-    color: var(--text3);
-    font-size: 13px;
-    padding: 32px;
-    text-align: center;
-    border: 1px dashed var(--border);
-    border-radius: 10px;
-  }
-
-  /* ─── MOBILE ─── */
-  @media (max-width: 768px) {
-    #sidebar {
-      transform: translateX(-100%);
-      transition: transform 0.3s;
-    }
-    #sidebar.open { transform: translateX(0); }
-    #main { margin-left: 0; }
-    .topbar { display: flex; }
-    .section { padding: 20px 16px; }
-    .grid-3 { grid-template-columns: 1fr; }
-    .grid-2 { grid-template-columns: 1fr; }
-    .tasks-summary { grid-template-columns: repeat(2, 1fr); }
-    .sidebar-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      z-index: 99;
-    }
-    .sidebar-overlay.active { display: block; }
-  }
-
-  /* ─── SCROLLBAR ─── */
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+/* ── MISC ── */
+.empty{padding:32px;text-align:center;color:var(--dim);font-size:13px}
+.loading{color:var(--muted);font-size:13px;padding:16px 0}
+.stat-row{display:flex;gap:24px;margin-bottom:20px;flex-wrap:wrap}
+.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 18px;min-width:120px}
+.stat-box .num{font-size:22px;font-weight:800;color:var(--cyan)}
+.stat-box .lbl{font-size:11px;color:var(--muted);margin-top:2px}
 </style>
 </head>
 <body>
 
-<!-- Sidebar Overlay (mobile) -->
-<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+<div class="overlay" id="overlay" onclick="closeNav()"></div>
 
-<!-- ─── SIDEBAR ─── -->
-<nav id="sidebar">
-  <div class="sidebar-logo">
-    <h1><span>🌀</span> Tommy HQ</h1>
+<!-- ── NAV ── -->
+<nav id="nav">
+  <div class="nav-brand">
+    <div class="logo">🌀</div>
+    <div>
+      <h1>Tommy HQ</h1>
+      <span>Mission Control</span>
+    </div>
   </div>
 
-  <div class="nav-section">
-    <div class="nav-section-label">Overview</div>
-    <a class="nav-link active" data-section="dashboard">
-      <span>📊</span> Dashboard
-    </a>
-  </div>
-
-  <div class="nav-divider"></div>
-
-  <div class="nav-section">
-    <div class="nav-section-label">Pillars</div>
-    <a class="nav-link" data-section="dropship" data-color="cyan">
-      <span>🛒</span> Dropship HQ
-    </a>
-    <a class="nav-link" data-section="kyvo" data-color="amber">
-      <span>🏌️</span> KYVO Performance
-    </a>
-    <a class="nav-link" data-section="cgd" data-color="coral">
-      <span>⛳</span> @casualgolfdad
-    </a>
+  <div class="nav-group">
+    <div class="nav-label">Overview</div>
+    <div class="nav-item active" data-page="dashboard"><span class="icon">📊</span> Dashboard</div>
   </div>
 
   <div class="nav-divider"></div>
 
-  <div class="nav-section">
-    <div class="nav-section-label">Operations</div>
-    <a class="nav-link" data-section="tasks">
-      <span>✅</span> Tasks
-    </a>
-    <a class="nav-link" data-section="activity">
-      <span>📋</span> Activity
-    </a>
-    <a class="nav-link" data-section="docs">
-      <span>📁</span> Docs
-    </a>
-    <a class="nav-link" data-section="team">
-      <span>👥</span> Team
-    </a>
+  <div class="nav-group">
+    <div class="nav-label">Pillars</div>
+    <div class="nav-item cyan" data-page="dropship"><span class="icon">🛒</span> Dropship HQ</div>
+    <div class="nav-item amber" data-page="kyvo"><span class="icon">🏌️</span> KYVO Performance</div>
+    <div class="nav-item coral" data-page="cgd"><span class="icon">⛳</span> @casualgolfdad</div>
+  </div>
+
+  <div class="nav-divider"></div>
+
+  <div class="nav-group">
+    <div class="nav-label">Operations</div>
+    <div class="nav-item" data-page="tasks"><span class="icon">✅</span> Tasks</div>
+    <div class="nav-item" data-page="activity"><span class="icon">📋</span> Activity</div>
+    <div class="nav-item" data-page="docs"><span class="icon">📁</span> Docs</div>
+    <div class="nav-item" data-page="team"><span class="icon">👥</span> Team</div>
   </div>
 </nav>
 
-<!-- ─── TOP BAR (mobile) ─── -->
+<!-- ── MAIN ── -->
 <div id="main">
+
+  <!-- TOPBAR -->
   <div class="topbar">
-    <button class="hamburger" onclick="toggleSidebar()">☰</button>
-    <span style="font-size:14px;font-weight:600;" id="topbarTitle">Dashboard</span>
+    <button class="hamburger" onclick="openNav()">☰</button>
+    <h2 id="page-title">Dashboard</h2>
   </div>
 
-  <!-- ═══════════════════════════════════════════
-       📊 DASHBOARD
-  ═══════════════════════════════════════════ -->
-  <div class="section active" id="section-dashboard">
-    <div class="page-header">
-      <h2>📊 Mission Control</h2>
-      <p>Tommy's 3-pillar empire — live status</p>
+  <!-- ══════════════════════ DASHBOARD ══════════════════════ -->
+  <div class="page active" id="page-dashboard">
+    <div class="section-header">
+      <h1>Good morning, Tommy 👋</h1>
+      <p>Here's where the empire stands right now.</p>
     </div>
 
     <div class="grid-3">
-      <div class="pillar-card cyan" onclick="navigate('dropship')">
-        <div class="pillar-icon">🛒</div>
-        <h3>Dropship HQ</h3>
-        <div class="director">Director: Neo 🕶️</div>
-        <span class="badge badge-amber">3 Products Active</span>
-        <div class="view-link">Open Pillar →</div>
+      <div class="pillar-tile cyan" onclick="navigate('dropship')">
+        <h3>🛒 Dropship HQ</h3>
+        <div class="dir">Director: Neo 🕶️</div>
+        <div class="stat" id="d-tasks">—</div>
+        <div class="stat-label">open tasks</div>
+        <div class="tile-go">Open Pillar →</div>
       </div>
-      <div class="pillar-card amber" onclick="navigate('kyvo')">
-        <div class="pillar-icon">🏌️</div>
-        <h3>KYVO Performance</h3>
-        <div class="director">Director: The Oracle 🔮</div>
-        <span class="badge badge-amber">Content Studio</span>
-        <div class="view-link">Open Pillar →</div>
+      <div class="pillar-tile amber" onclick="navigate('kyvo')">
+        <h3>🏌️ KYVO Performance</h3>
+        <div class="dir">Director: The Oracle 🔮</div>
+        <div class="stat" id="k-tasks">—</div>
+        <div class="stat-label">open tasks</div>
+        <div class="tile-go">Open Pillar →</div>
       </div>
-      <div class="pillar-card coral" onclick="navigate('cgd')">
-        <div class="pillar-icon">⛳</div>
-        <h3>@casualgolfdad</h3>
-        <div class="director">Director: Trinity ⚡</div>
-        <span class="badge badge-blue">Content Ready</span>
-        <div class="view-link">Open Pillar →</div>
-      </div>
-    </div>
-
-    <!-- Tasks summary -->
-    <div style="margin-top:28px;">
-      <h3 style="font-size:14px;font-weight:600;margin-bottom:14px;">Active Tasks by Agent</h3>
-      <div class="tasks-summary" id="tasksSummary">
-        <div class="loading">Loading tasks...</div>
+      <div class="pillar-tile coral" onclick="navigate('cgd')">
+        <h3>⛳ @casualgolfdad</h3>
+        <div class="dir">Director: Trinity ⚡</div>
+        <div class="stat" id="c-tasks">—</div>
+        <div class="stat-label">open tasks</div>
+        <div class="tile-go">Open Pillar →</div>
       </div>
     </div>
 
-    <!-- Activity feed -->
-    <div class="activity-feed">
-      <h3>Recent Activity</h3>
-      <div id="dashActivity"><div class="loading">Loading activity...</div></div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════
-       🛒 DROPSHIP HQ
-  ═══════════════════════════════════════════ -->
-  <div class="section" id="section-dropship">
-    <div class="page-header">
-      <h2>🛒 Dropship HQ</h2>
-      <p>Product pipeline tracker — Neo's domain</p>
-    </div>
-    <div id="dropshipProducts"></div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════
-       🏌️ KYVO PERFORMANCE
-  ═══════════════════════════════════════════ -->
-  <div class="section" id="section-kyvo">
-    <div class="page-header">
-      <h2>🏌️ KYVO Performance</h2>
-      <p>Content studio — The Oracle's domain</p>
-    </div>
-    <div id="kyvoContent"></div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════
-       ⛳ @CASUALGOLFDAD
-  ═══════════════════════════════════════════ -->
-  <div class="section" id="section-cgd">
-    <div class="page-header">
-      <h2>⛳ @casualgolfdad</h2>
-      <p>Content studio — Trinity's domain</p>
-    </div>
-    <div id="cgdContent"></div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════
-       ✅ TASKS
-  ═══════════════════════════════════════════ -->
-  <div class="section" id="section-tasks">
-    <div class="page-header">
-      <h2>✅ Tasks</h2>
-      <p>Active tasks across all agents</p>
-    </div>
-    <div class="filter-bar" id="taskFilters">
-      <button class="filter-btn active" data-agent="all" onclick="filterTasks(this)">All</button>
-      <button class="filter-btn" data-agent="charlie" onclick="filterTasks(this)">Charlie</button>
-      <button class="filter-btn" data-agent="neo" onclick="filterTasks(this)">Neo</button>
-      <button class="filter-btn" data-agent="the-oracle" onclick="filterTasks(this)">The Oracle</button>
-      <button class="filter-btn" data-agent="trinity" onclick="filterTasks(this)">Trinity</button>
-      <button class="filter-btn" data-agent="the-creative" onclick="filterTasks(this)">The Creative</button>
-      <button class="filter-btn" data-agent="the-copywriter" onclick="filterTasks(this)">The Copywriter</button>
-      <button class="filter-btn" data-agent="the-builder" onclick="filterTasks(this)">The Builder</button>
-    </div>
-    <div class="task-list" id="taskList"><div class="loading">Loading tasks...</div></div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════
-       📋 ACTIVITY
-  ═══════════════════════════════════════════ -->
-  <div class="section" id="section-activity">
-    <div class="page-header">
-      <h2>📋 Activity Log</h2>
-      <p>All agent actions across the empire</p>
-    </div>
-    <div class="activity-list" id="activityList"><div class="loading">Loading activity...</div></div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════
-       📁 DOCS
-  ═══════════════════════════════════════════ -->
-  <div class="section" id="section-docs">
-    <div class="page-header">
-      <h2>📁 Document Library</h2>
-      <p>All research, copy, strategies, and SOPs</p>
-    </div>
-    <div id="docsList"><div class="loading">Loading documents...</div></div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════
-       👥 TEAM
-  ═══════════════════════════════════════════ -->
-  <div class="section" id="section-team">
-    <div class="page-header">
-      <h2>👥 The Team</h2>
-      <p>7 agents running Tommy's empire</p>
-    </div>
-
-    <div class="team-section-label">Pillar Directors</div>
-    <div class="grid-2" style="margin-bottom:16px;">
-      <div class="agent-card-large purple">
-        <div class="agent-emoji">🌀</div>
-        <div class="agent-name">Morpheus</div>
-        <div class="agent-role">Orchestrator — sees the whole board</div>
-        <div class="agent-pillar purple">All Pillars</div>
-        <div class="online-dot">ONLINE</div>
+    <div class="grid-2">
+      <div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:12px;">📋 Recent Activity</div>
+        <div id="dash-activity"><div class="loading">Loading...</div></div>
       </div>
-      <div class="agent-card-large cyan">
-        <div class="agent-emoji">🕶️</div>
-        <div class="agent-name">Neo</div>
-        <div class="agent-role">Dropship HQ Director</div>
-        <div class="agent-pillar cyan">Dropship HQ</div>
-        <div class="online-dot">ONLINE</div>
-      </div>
-      <div class="agent-card-large amber">
-        <div class="agent-emoji">🔮</div>
-        <div class="agent-name">The Oracle</div>
-        <div class="agent-role">KYVO Performance Director</div>
-        <div class="agent-pillar amber">KYVO Performance</div>
-        <div class="online-dot">ONLINE</div>
-      </div>
-      <div class="agent-card-large coral">
-        <div class="agent-emoji">⚡</div>
-        <div class="agent-name">Trinity</div>
-        <div class="agent-role">@casualgolfdad Director</div>
-        <div class="agent-pillar coral">@casualgolfdad</div>
-        <div class="online-dot">ONLINE</div>
-      </div>
-    </div>
-
-    <div class="team-section-label">Specialist Agents</div>
-    <div style="display:flex;flex-direction:column;gap:8px;">
-      <div class="agent-card-small">
-        <div class="agent-emoji-sm">🎨</div>
-        <div class="agent-info-sm">
-          <div class="agent-name-sm">The Creative</div>
-          <div class="agent-role-sm">Creative Specialist — All Pillars</div>
-        </div>
-        <div class="online-dot">ONLINE</div>
-      </div>
-      <div class="agent-card-small">
-        <div class="agent-emoji-sm">✍️</div>
-        <div class="agent-info-sm">
-          <div class="agent-name-sm">The Copywriter</div>
-          <div class="agent-role-sm">Copy Specialist — All Pillars</div>
-        </div>
-        <div class="online-dot">ONLINE</div>
-      </div>
-      <div class="agent-card-small">
-        <div class="agent-emoji-sm">🔧</div>
-        <div class="agent-info-sm">
-          <div class="agent-name-sm">The Builder</div>
-          <div class="agent-role-sm">Shopify Builder — All Pillars</div>
-        </div>
-        <div class="online-dot">ONLINE</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:12px;">✅ Active Tasks</div>
+        <div id="dash-tasks"><div class="loading">Loading...</div></div>
       </div>
     </div>
   </div>
 
-</div><!-- /#main -->
+  <!-- ══════════════════════ DROPSHIP ══════════════════════ -->
+  <div class="page" id="page-dropship">
+    <div class="section-header">
+      <h1>🛒 Dropship HQ</h1>
+      <p>Product pipeline — ad copy, batch status, launch tracker</p>
+    </div>
+    <div id="dropship-products"></div>
+  </div>
+
+  <!-- ══════════════════════ KYVO ══════════════════════ -->
+  <div class="page" id="page-kyvo">
+    <div class="section-header">
+      <h1>🏌️ KYVO Performance</h1>
+      <p>Content studio — scripts, captions, posting status</p>
+    </div>
+    <div id="kyvo-batches"></div>
+  </div>
+
+  <!-- ══════════════════════ @CGD ══════════════════════ -->
+  <div class="page" id="page-cgd">
+    <div class="section-header">
+      <h1>⛳ @casualgolfdad</h1>
+      <p>Content studio — scripts, captions, posting status</p>
+    </div>
+    <div id="cgd-batches"></div>
+  </div>
+
+  <!-- ══════════════════════ TASKS ══════════════════════ -->
+  <div class="page" id="page-tasks">
+    <div class="section-header">
+      <h1>✅ Tasks</h1>
+      <p>All open work across the empire</p>
+    </div>
+    <div class="filters" id="task-filters">
+      <div class="filter-btn active" data-agent="all">All</div>
+      <div class="filter-btn" data-agent="charlie">Morpheus</div>
+      <div class="filter-btn" data-agent="neo">Neo</div>
+      <div class="filter-btn" data-agent="the-oracle">The Oracle</div>
+      <div class="filter-btn" data-agent="trinity">Trinity</div>
+      <div class="filter-btn" data-agent="the-creative">The Creative</div>
+      <div class="filter-btn" data-agent="the-copywriter">The Copywriter</div>
+      <div class="filter-btn" data-agent="the-builder">The Builder</div>
+    </div>
+    <div id="tasks-list"><div class="loading">Loading...</div></div>
+  </div>
+
+  <!-- ══════════════════════ ACTIVITY ══════════════════════ -->
+  <div class="page" id="page-activity">
+    <div class="section-header">
+      <h1>📋 Activity Log</h1>
+      <p>Everything your agents have done</p>
+    </div>
+    <div id="activity-list"><div class="loading">Loading...</div></div>
+  </div>
+
+  <!-- ══════════════════════ DOCS ══════════════════════ -->
+  <div class="page" id="page-docs">
+    <div class="section-header">
+      <h1>📁 Docs & SOPs</h1>
+      <p>Reference library for the empire</p>
+    </div>
+    <div id="docs-list"><div class="loading">Loading...</div></div>
+  </div>
+
+  <!-- ══════════════════════ TEAM ══════════════════════ -->
+  <div class="page" id="page-team">
+    <div class="section-header">
+      <h1>👥 The Team</h1>
+      <p>7 agents. All systems online.</p>
+    </div>
+    <div class="team-tier-label">⭐ Pillar Directors</div>
+    <div class="agent-grid">
+      <div class="agent-card" data-color="purple"><span class="agent-emoji">🌀</span><div class="agent-name">Morpheus</div><div class="agent-role">Orchestrator</div><div class="agent-pillar">All Pillars</div><div class="agent-status"><span class="dot"></span> Online</div></div>
+      <div class="agent-card" data-color="cyan"><span class="agent-emoji">🕶️</span><div class="agent-name">Neo</div><div class="agent-role">Dropship HQ Director</div><div class="agent-pillar">Dropship</div><div class="agent-status"><span class="dot"></span> Online</div></div>
+      <div class="agent-card" data-color="amber"><span class="agent-emoji">🔮</span><div class="agent-name">The Oracle</div><div class="agent-role">KYVO Performance Director</div><div class="agent-pillar">KYVO</div><div class="agent-status"><span class="dot"></span> Online</div></div>
+      <div class="agent-card" data-color="coral"><span class="agent-emoji">⚡</span><div class="agent-name">Trinity</div><div class="agent-role">@casualgolfdad Director</div><div class="agent-pillar">Golf</div><div class="agent-status"><span class="dot"></span> Online</div></div>
+    </div>
+    <div class="team-tier-label">🛠️ Specialists</div>
+    <div class="agent-grid spec">
+      <div class="agent-card" data-color="blue"><span class="agent-emoji">🎨</span><div class="agent-name">The Creative</div><div class="agent-role">Image Generation</div><div class="agent-pillar">All Pillars</div><div class="agent-status"><span class="dot"></span> Online</div></div>
+      <div class="agent-card" data-color="purple"><span class="agent-emoji">✍️</span><div class="agent-name">The Copywriter</div><div class="agent-role">DR Copy Specialist</div><div class="agent-pillar">All Pillars</div><div class="agent-status"><span class="dot"></span> Online</div></div>
+      <div class="agent-card" data-color="cyan"><span class="agent-emoji">🔧</span><div class="agent-name">The Builder</div><div class="agent-role">Shopify Builder</div><div class="agent-pillar">All Pillars</div><div class="agent-status"><span class="dot"></span> Online</div></div>
+    </div>
+  </div>
+
+</div><!-- /main -->
 
 <script>
-// ─────────────────────────────────────────
+// ══════════════════════════════════
 // DATA
-// ─────────────────────────────────────────
+// ══════════════════════════════════
 
 const dropshipProducts = [
   {
-    id: 'neuveil', name: 'NEUVEIL', subtitle: 'Microneedle Eye Patches',
-    status: 'TESTING', stage: 6,
-    storeUrl: 'https://anakampsihealth.com/products/neuveil-microneedle-eye-patches-1',
-    batches: [
+    id:'neuveil', name:'NEUVEIL', subtitle:'Microneedle Eye Patches',
+    status:'TESTING', stage:6,
+    storeUrl:'https://anakampsihealth.com/products/neuveil-microneedle-eye-patches-1',
+    batches:[
       {
-        id: 'b1', name: 'Batch 1', concept: 'Mechanism — BioVeil Delivery System', status: 'ACTIVE',
-        copy: {
-          hook: "The reason your eye cream stopped working has nothing to do with the formula.",
-          body1: "Most women over 40 have tried every eye cream on the market. Peptides. Retinol. Vitamin C. And yet — nothing changes. Here's what nobody tells you: the skin around your eyes is 40% thinner than the rest of your face. Creams can't penetrate deep enough to reach the dermis where collagen lives. NEUVEIL changes that. 600 microneedles — thinner than a human hair — create invisible microchannels that deliver active ingredients exactly where they need to go.",
-          body2: "You've been applying eye cream to the surface of a problem that lives underneath. NEUVEIL's BioVeil Delivery System uses 600 ultra-fine microneedles to open microchannels in the skin — bypassing the surface barrier and delivering hyaluronic acid and peptides directly into the dermis. Results women notice in 28 days.",
-          headline1: "Finally — an eye patch that actually reaches the wrinkle.",
-          headline2: "600 microneedles. Real depth. Real results."
+        id:'neu-b1', name:'Batch 1', concept:'Mechanism — BioVeil Delivery System™', batchStatus:'ACTIVE',
+        copy:{
+          hook:`The reason your eye cream stopped working has nothing to do with the formula.`,
+          body1:`Most women over 40 have tried every eye cream on the market. Peptides. Retinol. Vitamin C. And yet — nothing changes. Here's what nobody tells you: the skin around your eyes is 40% thinner than the rest of your face. Creams can't penetrate deep enough to reach the dermis where collagen lives. NEUVEIL changes that. 600 microneedles — thinner than a human hair — create invisible microchannels that deliver active ingredients exactly where they need to go.`,
+          body2:`You've been applying eye cream to the surface of a problem that lives underneath. NEUVEIL's BioVeil Delivery System uses 600 ultra-fine microneedles to open microchannels in the skin — bypassing the surface barrier and delivering hyaluronic acid and peptides directly into the dermis. Results women notice in 28 days.`,
+          headline1:`Finally — an eye patch that actually reaches the wrinkle.`,
+          headline2:`600 microneedles. Real depth. Real results.`
         }
       },
       {
-        id: 'b2', name: 'Batch 2', concept: 'Avatar Pain — Margaret (wrinkles, 52)', status: 'READY',
-        copy: {
-          hook: "I spent $400 on eye creams this year. My crow's feet are still there.",
-          body1: "Margaret is 52. She's tried Estée Lauder, La Mer, and every miracle eye cream her dermatologist recommended. The crow's feet haven't budged. Not because she's doing something wrong. Because eye cream — no matter how expensive — can't penetrate the dermis. NEUVEIL can. 600 microneedles create pathways the active ingredients actually use.",
-          body2: "If you're over 45 and eye cream has stopped working, it's not your fault. The skin barrier around your eyes gets denser with age — making topical creams less effective every year. NEUVEIL bypasses the barrier entirely with 600 precision microneedles. The science your eye cream doesn't have.",
-          headline1: "Eye cream can't reach the wrinkle. This can.",
-          headline2: "For women who've tried everything — and still see crow's feet."
+        id:'neu-b2', name:'Batch 2', concept:"Avatar Pain — Margaret (wrinkles, 52)", batchStatus:'READY',
+        copy:{
+          hook:`I spent $400 on eye creams this year. My crow's feet are still there.`,
+          body1:`Margaret is 52. She's tried Estée Lauder, La Mer, and every "miracle" eye cream her dermatologist recommended. The crow's feet haven't budged. Not because she's doing something wrong. Because eye cream — no matter how expensive — can't penetrate the dermis. NEUVEIL can. 600 microneedles create pathways the active ingredients actually use.`,
+          body2:`If you're over 45 and eye cream has stopped working, it's not your fault. The skin barrier around your eyes gets denser with age — making topical creams less effective every year. NEUVEIL bypasses the barrier entirely with 600 precision microneedles. The science your eye cream doesn't have.`,
+          headline1:`Eye cream can't reach the wrinkle. This can.`,
+          headline2:`For women who've tried everything — and still see crow's feet.`
         }
       },
       {
-        id: 'b3', name: 'Batch 3', concept: 'Clinical Authority — The Science', status: 'READY',
-        copy: {
-          hook: "Dermatologists have known for years that the skin around your eyes is different.",
-          body1: "The periorbital area — the skin around your eyes — is clinically documented as the thinnest and most permeable skin on your face. It's also where topical creams are least effective. That's why dermatologists have used microneedling in-clinic for over a decade. NEUVEIL brings that same mechanism home. 600 microneedles. Clinical delivery. No appointment.",
-          body2: "Microneedling for the eye area has been validated in peer-reviewed research. The problem: in-clinic treatments cost $200-400 per session and require recovery time. NEUVEIL replicates the delivery mechanism at home — 600 precision microneedles, dissolvable serum, 30 minutes. The clinical result. The convenient format.",
-          headline1: "Microneedling. At home. Under your eyes.",
-          headline2: "The clinical delivery system — without the clinic."
+        id:'neu-b3', name:'Batch 3', concept:'Clinical Authority — The Science', batchStatus:'READY',
+        copy:{
+          hook:`Dermatologists have known for years that the skin around your eyes is different.`,
+          body1:`The periorbital area — the skin around your eyes — is clinically documented as the thinnest and most permeable skin on your face. It's also where topical creams are least effective. That's why dermatologists have used microneedling in-clinic for over a decade. NEUVEIL brings that same mechanism home. 600 microneedles. Clinical delivery. No appointment.`,
+          body2:`Microneedling for the eye area has been validated in peer-reviewed research. The problem: in-clinic treatments cost $200–400 per session and require recovery time. NEUVEIL replicates the delivery mechanism at home — 600 precision microneedles, dissolvable serum, 30 minutes. The clinical result. The convenient format.`,
+          headline1:`Microneedling. At home. Under your eyes.`,
+          headline2:`The clinical delivery system — without the clinic.`
         }
       }
     ],
-    notes: 'Bundle: 1-box ($49) | 3-box ($119, Rose Quartz Roller gift) | 5-box ($189, Silk Eye Mask gift). Launch order: B1 → B3 → B2. Kill: CTR < 0.8% Day 3. Scale: CTR > 1.2% → +20%/day.'
+    notes:'Bundle: 1-box ($49) no gift | 3-box ($119) Rose Quartz Roller | 5-box ($189) Silk Eye Mask\nLaunch order: B1 → B3 → B2\nKill threshold: CTR < 0.8% at Day 3 | Scale: CTR > 1.2% → +20%/day'
   },
   {
-    id: 'veloura', name: 'Veloura', subtitle: 'Facial Hair Removal Cream',
-    status: 'PAUSED', stage: 6, storeUrl: 'https://anakampsihealth.com', batches: [],
-    notes: 'Went unprofitable after ~2 weeks on Meta. Diagnosis pending — need CPP/budget/creative data from Tommy.'
+    id:'veloura', name:'Veloura', subtitle:'Facial Hair Removal Cream',
+    status:'PAUSED', stage:6, storeUrl:'https://anakampsihealth.com', batches:[],
+    notes:'Went unprofitable after ~2 weeks on Meta. Diagnosis pending — need CPP/budget/creative data from Tommy.'
   },
   {
-    id: 'restcalm', name: 'RestCalm', subtitle: 'Restless Legs EMS Pad',
-    status: 'LIVE', stage: 6, storeUrl: 'https://anakampsihealth.com', batches: [],
-    notes: 'Pipeline complete. Pages live at anakampsihealth.com.'
+    id:'restcalm', name:'RestCalm', subtitle:'Restless Legs EMS Pad',
+    status:'LIVE', stage:6, storeUrl:'https://anakampsihealth.com', batches:[],
+    notes:'Pipeline complete. Pages live at anakampsihealth.com.'
   }
 ];
 
+const stages = ['Scout','Brand','Copy','Creative','Build','QC','Live'];
+
 const kyvoContent = [
   {
-    id: 'kyvo-batch-march23', name: 'Sunday Batch — March 23, 2026', date: '2026-03-23',
-    scripts: [
+    id:'kyvo-march23', name:'Sunday Batch — March 23, 2026', date:'2026-03-23',
+    scripts:[
       {
-        id: 'kyvo-day1', title: "Day 1 — The Back Nine Problem", duration: '60-90 sec', type: 'Story', status: 'FILMED',
-        script: `You know that feeling when you step onto the 13th tee and you just... know?\n\nYour legs are heavy. Your focus is gone. You're calculating bogeys instead of playing golf.\n\nI've played this game my whole life. And for years I thought that fade — the back nine fade — was just part of getting older.\n\nIt's not.\n\nIt's a fueling problem.\n\nYour brain needs a specific blend of nutrients to stay sharp for 4-5 hours. Most golfers are running on caffeine and a granola bar.\n\nThat's what KYVO is built to fix.\n\nNot a drink. Not a pill that jacks up your heart rate.\n\nA performance system built for the 18th hole.\n\nMore on how it works this week.`,
-        captions: {
-          instagram: "The back nine is where rounds go to die. 🏌️\n\nNot because you got tired.\nBecause you ran out of fuel.\n\nKYVO is the performance system built for golfers who want to finish as strong as they start.\n\nDay 1 of the build-in-public series. Follow along.\n\n#kyvo #golfperformance #golfnutrition #golftips #backninemindset #golflife #performancegolf #mentalperformance #golfcoach #golffitness",
-          tiktok: "The back nine fade is a fueling problem — not a fitness problem. Here's what I figured out after 20 years of playing golf. #kyvo #golfperformance #golfnutrition #golftips #backnine",
-          youtubeTitle: "Why Your Golf Game Falls Apart on the Back Nine (It's Not What You Think)",
-          youtubeDesc: "The 'back nine fade' affects almost every amateur golfer — and most people blame their mental game or their fitness.\n\nIt's actually a fueling problem.\n\nIn this video I break down exactly what's happening to your brain and body after hole 12, and what I built to fix it.\n\nKYVO Performance — built for golfers who want to finish as strong as they start."
+        id:'kyvo-day1', title:'Day 1 — The Back Nine Problem', duration:'60–90 sec', type:'Story',
+        script:`You know that feeling when you step onto the 13th tee and you just... know?
+
+Your legs are heavy. Your focus is gone. You're calculating bogeys instead of playing golf.
+
+I've played this game my whole life. And for years I thought that fade — the back nine fade — was just part of getting older.
+
+It's not.
+
+It's a fueling problem.
+
+Your brain needs a specific blend of nutrients to stay sharp for 4–5 hours. Most golfers are running on caffeine and a granola bar.
+
+That's what KYVO is built to fix.
+
+Not a drink. Not a pill that jacks up your heart rate.
+
+A performance system built for the 18th hole.
+
+More on how it works this week.`,
+        captions:{
+          instagram:`The back nine is where rounds go to die. 🏌️
+
+Not because you got tired.
+Because you ran out of fuel.
+
+KYVO is the performance system built for golfers who want to finish as strong as they start.
+
+Day 1 of the build-in-public series. Follow along.
+
+#kyvo #golfperformance #golfnutrition #golftips #backninemindset #golflife #performancegolf #mentalperformance #golfcoach #golffitness`,
+          tiktok:`The back nine fade is a fueling problem — not a fitness problem. Here's what I figured out after 20 years of playing golf. #kyvo #golfperformance #golfnutrition #golftips #backnine`,
+          youtubeTitle:`Why Your Golf Game Falls Apart on the Back Nine (It's Not What You Think)`,
+          youtubeDesc:`The "back nine fade" affects almost every amateur golfer — and most people blame their mental game or their fitness.
+
+It's actually a fueling problem.
+
+In this video I break down exactly what's happening to your brain and body after hole 12, and what I built to fix it.
+
+KYVO Performance — built for golfers who want to finish as strong as they start.`
         }
       },
       {
-        id: 'kyvo-day2', title: "Day 2 — Why Coffee Isn't the Answer", duration: '60-90 sec', type: 'Educational', status: 'SCRIPT_READY',
-        script: `Golfers love caffeine.\n\nCoffee before the round. Energy drink at the turn. Another coffee on 14.\n\nHere's the problem: caffeine spikes your alertness — and then drops you.\n\nYou know the feeling. You're dialed in through hole 9. By 15 you're running on empty and your decision-making is shot.\n\nGolf is a 4-5 hour mental performance. Caffeine is a 90-minute tool.\n\nKYVO doesn't use a caffeine spike. It uses a sustained focus blend — ingredients proven to support cognitive performance for extended periods.\n\nThink less like an energy drink. More like jet fuel that burns clean.\n\nThe exact formula breakdown is coming later this week.`,
-        captions: {
-          instagram: "Coffee before the round. Energy drink at the turn.\n\nAnd you still fell apart on 15. ☕❌\n\nCaffeine spikes — then drops. Golf is a 4-5 hour mental performance.\n\nKYVO uses a sustained focus blend instead of a spike.\n\nDay 2 of the build. #kyvo #golfperformance #golfnutrition #focus #golftips #energymanagement #performancegolf #golflife",
-          tiktok: "The coffee → crash cycle is destroying your back nine. Here's what actually works for 4-5 hours of golf. #kyvo #golfnutrition #golfperformance #focus #golftips",
-          youtubeTitle: "Why Coffee is Ruining Your Golf Game (And What to Use Instead)",
-          youtubeDesc: "Most golfers are using caffeine to fuel a 4-5 hour mental performance. The problem: caffeine is a 90-minute tool.\n\nIn this video I break down the caffeine crash cycle and what sustained focus actually looks like for golf.\n\nKYVO Performance — built for the back nine."
+        id:'kyvo-day2', title:"Day 2 — Why Coffee Isn't the Answer", duration:'60–90 sec', type:'Educational',
+        script:`Golfers love caffeine.
+
+Coffee before the round. Energy drink at the turn. Another coffee on 14.
+
+Here's the problem: caffeine spikes your alertness — and then drops you.
+
+You know the feeling. You're dialed in through hole 9. By 15 you're running on empty and your decision-making is shot.
+
+Golf is a 4–5 hour mental performance. Caffeine is a 90-minute tool.
+
+KYVO doesn't use a caffeine spike. It uses a sustained focus blend — ingredients proven to support cognitive performance for extended periods.
+
+Think less like an energy drink. More like jet fuel that burns clean.
+
+The exact formula breakdown is coming later this week.`,
+        captions:{
+          instagram:`Coffee before the round. Energy drink at the turn.
+
+And you still fell apart on 15. ☕❌
+
+Caffeine spikes — then drops. Golf is a 4–5 hour mental performance.
+
+KYVO uses a sustained focus blend instead of a spike.
+
+Day 2 of the build. #kyvo #golfperformance #golfnutrition #focus #golftips #energymanagement #performancegolf #golflife`,
+          tiktok:`The coffee → crash cycle is destroying your back nine. Here's what actually works for 4–5 hours of golf. #kyvo #golfnutrition #golfperformance #focus #golftips`,
+          youtubeTitle:`Why Coffee is Ruining Your Golf Game (And What to Use Instead)`,
+          youtubeDesc:`Most golfers are using caffeine to fuel a 4–5 hour mental performance. The problem: caffeine is a 90-minute tool.
+
+In this video I break down the caffeine crash cycle and what sustained focus actually looks like for golf.
+
+KYVO Performance — built for the back nine.`
         }
       }
     ]
@@ -1151,293 +723,41 @@ const kyvoContent = [
 
 const cgdContent = [
   {
-    id: 'cgd-batch-march', name: 'March Content — Week of March 23', date: '2026-03-23',
-    scripts: [
+    id:'cgd-march', name:'March Content — Week of March 23', date:'2026-03-23',
+    scripts:[
       {
-        id: 'cgd-post1', title: '5am Simulator — Morning Reel', duration: '15-30 sec', type: 'Behind-the-scenes', status: 'SCRIPT_READY',
-        script: `5am. Simulator room. Just me and the club.\n\nThis is where the game gets better.\n\n(Keep it raw — no product, no pitch, just the lifestyle)`,
-        captions: {
-          instagram: "5am simulator sessions hit different. 🏌️⏰\n\nThis is the game within the game.\n\n#casualgolfdad #golflife #5amclub #simulator #golfersofinstagram #golfdad #morninggolf #golfpractice",
-          tiktok: "When the family is still asleep and you're getting reps in at 5am #casualgolfdad #golflife #simulator #golfdad #5amclub",
-          youtubeTitle: "5AM Simulator Sessions — The Secret to Getting Better at Golf",
-          youtubeDesc: "Early mornings in the simulator. This is where the handicap drops."
+        id:'cgd-post1', title:'5am Simulator — Morning Reel', duration:'15–30 sec', type:'Behind-the-scenes',
+        script:`5am. Simulator room. Just me and the club.
+
+This is where the game gets better.
+
+(Keep it raw — no product, no pitch, just the lifestyle)`,
+        captions:{
+          instagram:`5am simulator sessions hit different. 🏌️⏰
+
+This is the game within the game.
+
+#casualgolfdad #golflife #5amclub #simulator #golfersofinstagram #golfdad #morninggolf #golfpractice`,
+          tiktok:`When the family is still asleep and you're getting reps in at 5am #casualgolfdad #golflife #simulator #golfdad #5amclub`,
+          youtubeTitle:`5AM Simulator Sessions — The Secret to Getting Better at Golf`,
+          youtubeDesc:`Early mornings in the simulator. This is where the handicap drops.`
         }
       }
     ]
   }
 ];
 
-// ─────────────────────────────────────────
-// UTILS
-// ─────────────────────────────────────────
-
-function timeAgo(ts) {
-  if (!ts) return '';
-  const now = Date.now();
-  const date = typeof ts === 'number' ? ts : new Date(ts).getTime();
-  const diff = Math.floor((now - date) / 1000);
-  if (diff < 60) return `${diff}s ago`;
-  if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
-  if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
-  return `${Math.floor(diff/86400)}d ago`;
-}
-
-function statusBadge(s) {
-  const map = {
-    'LIVE': 'badge-green', 'POSTED': 'badge-green', 'COMPLETE': 'badge-green',
-    'ACTIVE': 'badge-green', 'DONE': 'badge-green',
-    'TESTING': 'badge-amber', 'IN-PROGRESS': 'badge-amber', 'FILMED': 'badge-amber',
-    'in-progress': 'badge-amber',
-    'BUILDING': 'badge-blue', 'READY': 'badge-blue', 'SCRIPT_READY': 'badge-blue',
-    'PAUSED': 'badge-gray', 'EDITED': 'badge-gray',
-    'TODO': 'badge-purple', 'todo': 'badge-purple',
-    'REVIEW': 'badge-purple', 'review': 'badge-purple',
-    'done': 'badge-green',
-  };
-  const cls = map[s] || map[s?.toLowerCase()] || 'badge-gray';
-  const label = s === 'SCRIPT_READY' ? 'SCRIPT READY' : (s === 'in-progress' ? 'IN PROGRESS' : s);
-  return `<span class="badge ${cls}">${label}</span>`;
-}
-
-function priorityBadge(p) {
-  const map = { high: 'badge-red', medium: 'badge-amber', low: 'badge-gray' };
-  return `<span class="badge ${map[p] || 'badge-gray'}">${p?.toUpperCase()}</span>`;
-}
-
-function agentEmoji(agent) {
-  const map = {
-    charlie: '🌀', morpheus: '🌀',
-    neo: '🕶️',
-    'the-oracle': '🔮', oracle: '🔮',
-    trinity: '⚡', happy: '⚡',
-    'the-creative': '🎨', creative: '🎨',
-    'the-copywriter': '✍️', copywriter: '✍️',
-    'the-builder': '🔧', builder: '🔧',
-  };
-  return map[agent?.toLowerCase()] || '🤖';
-}
-
-function agentColor(agent) {
-  const map = {
-    charlie: '#7c6bff', morpheus: '#7c6bff',
-    neo: '#00d4aa',
-    'the-oracle': '#ffb86b',
-    trinity: '#ff6b6b', happy: '#ff6b6b',
-    'the-creative': '#4da6ff',
-    'the-copywriter': '#c084fc',
-    'the-builder': '#fb923c',
-  };
-  return map[agent?.toLowerCase()] || '#8888aa';
-}
-
-function copyBtn(text, label) {
-  const id = 'cb-' + Math.random().toString(36).slice(2);
-  window._copyTargets = window._copyTargets || {};
-  window._copyTargets[id] = text;
-  return `<button class="btn btn-copy" id="${id}" onclick="doCopy('${id}')">${label || 'COPY'}</button>`;
-}
-
-function doCopy(id) {
-  const text = window._copyTargets[id];
-  if (!text) return;
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.getElementById(id);
-    if (btn) {
-      btn.textContent = 'Copied!';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.textContent = 'COPY';
-        btn.classList.remove('copied');
-      }, 2000);
-    }
-  }).catch(() => {
-    // fallback
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-  });
-}
-
-// ─────────────────────────────────────────
-// NAVIGATION
-// ─────────────────────────────────────────
-
-const sections = ['dashboard','dropship','kyvo','cgd','tasks','activity','docs','team'];
-const sectionTitles = {
-  dashboard: 'Dashboard',
-  dropship: 'Dropship HQ',
-  kyvo: 'KYVO Performance',
-  cgd: '@casualgolfdad',
-  tasks: 'Tasks',
-  activity: 'Activity',
-  docs: 'Docs',
-  team: 'Team'
+const agentColors = {
+  charlie:['#7c6bff','🌀'],
+  neo:['#00d4aa','🕶️'],
+  'the-oracle':['#ffb86b','🔮'],
+  trinity:['#ff6b6b','⚡'],
+  'the-creative':['#4da6ff','🎨'],
+  'the-copywriter':['#7c6bff','✍️'],
+  'the-builder':['#00d4aa','🔧'],
 };
 
-function navigate(id) {
-  sections.forEach(s => {
-    document.getElementById('section-' + s)?.classList.remove('active');
-  });
-  document.querySelectorAll('.nav-link').forEach(l => {
-    l.classList.remove('active', 'cyan', 'amber', 'coral');
-  });
-  const el = document.getElementById('section-' + id);
-  if (el) el.classList.add('active');
-  const link = document.querySelector(`.nav-link[data-section="${id}"]`);
-  if (link) {
-    link.classList.add('active');
-    const color = link.dataset.color;
-    if (color) link.classList.add(color);
-  }
-  const topbar = document.getElementById('topbarTitle');
-  if (topbar) topbar.textContent = sectionTitles[id] || id;
-  closeSidebar();
-}
-
-document.querySelectorAll('.nav-link').forEach(link => {
-  link.addEventListener('click', () => navigate(link.dataset.section));
-});
-
-function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('open');
-  document.getElementById('sidebarOverlay').classList.toggle('active');
-}
-function closeSidebar() {
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sidebarOverlay').classList.remove('active');
-}
-
-// ─────────────────────────────────────────
-// DROPSHIP HQ
-// ─────────────────────────────────────────
-
-const STAGE_NAMES = ['Scout', 'Brand', 'Copy', 'Creative', 'Build', 'QC', 'LIVE'];
-
-function renderDropship() {
-  const container = document.getElementById('dropshipProducts');
-  container.innerHTML = dropshipProducts.map(p => renderProductCard(p)).join('');
-}
-
-function renderProductCard(p) {
-  const stagesHtml = STAGE_NAMES.map((name, i) => {
-    const idx = i + 1;
-    const isDone = idx < p.stage;
-    const isCurrent = idx === p.stage;
-    const cls = isCurrent ? 'current' : (isDone ? 'done' : '');
-    const lineCls = idx < p.stage ? 'done' : '';
-    return `
-      <div class="stage">
-        <div class="stage-wrapper">
-          <div class="stage-dot ${cls}">${isDone ? '✓' : idx}</div>
-          <span class="stage-label ${cls}">${name}</span>
-        </div>
-        ${i < STAGE_NAMES.length - 1 ? `<div class="stage-line ${lineCls}"></div>` : ''}
-      </div>`;
-  }).join('');
-
-  const batchesHtml = p.batches.length ? p.batches.map(b => renderBatch(b)).join('') :
-    `<div class="empty-state">No ad batches yet</div>`;
-
-  return `
-    <div class="product-card" id="prod-${p.id}">
-      <div class="product-header" onclick="toggleProduct('${p.id}')">
-        <div class="product-info">
-          <h3>${p.name}</h3>
-          <div class="subtitle">${p.subtitle}</div>
-        </div>
-        ${statusBadge(p.status)}
-        <a href="${p.storeUrl}" target="_blank" onclick="event.stopPropagation()" class="btn btn-link">View Store ↗</a>
-        <span class="product-chevron">▶</span>
-      </div>
-      <div class="pipeline-stages">${stagesHtml}</div>
-      <div class="product-body" id="prod-body-${p.id}" style="display:none;">
-        <div class="tabs">
-          <button class="tab-btn active" onclick="showTab('${p.id}', 'batches', this)">Ad Batches</button>
-          <button class="tab-btn" onclick="showTab('${p.id}', 'notes', this)">Notes</button>
-        </div>
-        <div class="tab-content active" id="tab-${p.id}-batches">${batchesHtml}</div>
-        <div class="tab-content" id="tab-${p.id}-notes">
-          <div class="notes-box">${p.notes || 'No notes.'}</div>
-        </div>
-      </div>
-    </div>`;
-}
-
-function renderBatch(b) {
-  const c = b.copy;
-  return `
-    <div class="batch-card">
-      <div class="batch-header">
-        <h4>${b.name}</h4>
-        <span class="concept">${b.concept}</span>
-        ${statusBadge(b.status)}
-      </div>
-      <div class="copy-block">
-        <div class="copy-block-header">
-          <span class="copy-block-label">Hook</span>
-          ${copyBtn(c.hook)}
-        </div>
-        <div class="copy-text">${escHtml(c.hook)}</div>
-      </div>
-      <div class="copy-block">
-        <div class="copy-block-header">
-          <span class="copy-block-label">Body Copy 1</span>
-          ${copyBtn(c.body1)}
-        </div>
-        <div class="copy-text">${escHtml(c.body1)}</div>
-      </div>
-      <div class="copy-block">
-        <div class="copy-block-header">
-          <span class="copy-block-label">Body Copy 2</span>
-          ${copyBtn(c.body2)}
-        </div>
-        <div class="copy-text">${escHtml(c.body2)}</div>
-      </div>
-      <div class="copy-block">
-        <div class="copy-block-header">
-          <span class="copy-block-label">Headline 1</span>
-          ${copyBtn(c.headline1)}
-        </div>
-        <div class="copy-text">${escHtml(c.headline1)}</div>
-      </div>
-      <div class="copy-block">
-        <div class="copy-block-header">
-          <span class="copy-block-label">Headline 2</span>
-          ${copyBtn(c.headline2)}
-        </div>
-        <div class="copy-text">${escHtml(c.headline2)}</div>
-      </div>
-    </div>`;
-}
-
-function toggleProduct(id) {
-  const card = document.getElementById('prod-' + id);
-  const body = document.getElementById('prod-body-' + id);
-  const expanded = card.classList.toggle('expanded');
-  body.style.display = expanded ? 'block' : 'none';
-}
-
-function showTab(productId, tab, btn) {
-  document.querySelectorAll(`#prod-${productId} .tab-content`).forEach(t => t.classList.remove('active'));
-  document.querySelectorAll(`#prod-${productId} .tab-btn`).forEach(t => t.classList.remove('active'));
-  document.getElementById(`tab-${productId}-${tab}`)?.classList.add('active');
-  btn.classList.add('active');
-}
-
-function escHtml(s) {
-  return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-// ─────────────────────────────────────────
-// CONTENT STUDIO (KYVO + CGD)
-// ─────────────────────────────────────────
-
-const CHECKLIST_ITEMS = [
+const checklistItems = [
   'Post TikTok first',
   'Then Instagram Reel',
   'Then YouTube Shorts',
@@ -1447,281 +767,407 @@ const CHECKLIST_ITEMS = [
   'Pin best comment'
 ];
 
-function renderContentStudio(batches, containerId) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = batches.map(batch => `
-    <div class="batch-group">
-      <div class="batch-group-header">
-        <h3>${batch.name}</h3>
-        <span class="date">📅 ${batch.date}</span>
+// ══════════════════════════════════
+// UTILS
+// ══════════════════════════════════
+
+function timeAgo(ts) {
+  const d = Date.now() - new Date(ts).getTime();
+  const m = Math.floor(d/60000);
+  if(m < 1) return 'just now';
+  if(m < 60) return m+'m ago';
+  const h = Math.floor(m/60);
+  if(h < 24) return h+'h ago';
+  const dy = Math.floor(h/24);
+  return dy+'d ago';
+}
+
+function badge(status) {
+  const s = (status||'').toLowerCase().replace(/[_\s]/g,'-');
+  return `<span class="badge b-${s}">${status.replace(/_/g,' ')}</span>`;
+}
+
+function copyToClipboard(text, btn) {
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='Copied!';
+    btn.classList.add('copied');
+    setTimeout(()=>{ btn.textContent='Copy'; btn.classList.remove('copied'); },2000);
+  });
+}
+
+function getStatus(id, def) {
+  return localStorage.getItem('status:'+id) || def || 'SCRIPT_READY';
+}
+function setStatus(id, val) {
+  localStorage.setItem('status:'+id, val);
+}
+function getChecked(id) {
+  try { return JSON.parse(localStorage.getItem('check:'+id)||'{}'); } catch{return {};}
+}
+function setChecked(id, key, val) {
+  const c = getChecked(id);
+  c[key] = val;
+  localStorage.setItem('check:'+id, JSON.stringify(c));
+}
+
+// ══════════════════════════════════
+// RENDER: DROPSHIP
+// ══════════════════════════════════
+
+function renderDropship() {
+  const el = document.getElementById('dropship-products');
+  el.innerHTML = dropshipProducts.map(p => {
+    const stageHtml = stages.map((s,i)=>{
+      let cls = i < p.stage ? 'stage done' : i === p.stage ? 'stage current' : 'stage';
+      return `<span class="${cls}">${s}</span>${i<stages.length-1?'<span class="stage-arrow">›</span>':''}`;
+    }).join('');
+
+    const batchesHtml = p.batches.length ? `
+      <div class="batch-tabs" id="tabs-${p.id}">
+        ${p.batches.map((b,i)=>`<div class="batch-tab${i===0?' active':''}" onclick="switchBatch('${p.id}',${i})">${b.name}</div>`).join('')}
       </div>
-      ${batch.scripts.map(s => renderScriptCard(s)).join('')}
+      ${p.batches.map((b,i)=>`
+        <div id="batch-${p.id}-${i}" style="${i>0?'display:none':''}">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+            <span style="font-size:12px;color:var(--muted)">${b.concept}</span>
+            ${badge(b.batchStatus)}
+          </div>
+          ${renderCopyBlock('Hook', b.copy.hook)}
+          ${renderCopyBlock('Body Copy 1', b.copy.body1)}
+          ${renderCopyBlock('Body Copy 2', b.copy.body2)}
+          ${renderCopyBlock('Headline 1', b.copy.headline1)}
+          ${renderCopyBlock('Headline 2', b.copy.headline2)}
+        </div>
+      `).join('')}
+    ` : `<div class="empty">No ad batches yet.</div>`;
+
+    return `
+    <div class="product-card open" id="prod-${p.id}">
+      <div class="product-header" onclick="toggleProduct('${p.id}')">
+        <div style="flex:1">
+          <div class="product-name">${p.name}</div>
+          <div class="product-sub">${p.subtitle}</div>
+        </div>
+        ${badge(p.status)}
+        ${p.storeUrl ? `<a href="${p.storeUrl}" target="_blank" onclick="event.stopPropagation()" style="font-size:11px;color:var(--muted);text-decoration:none;border:1px solid var(--border);padding:4px 8px;border-radius:5px;margin-left:6px">View Store ↗</a>` : ''}
+        <span class="card-toggle" style="margin-left:8px;color:var(--muted)">⌄</span>
+      </div>
+      <div class="product-body">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:10px">Pipeline Stage</div>
+        <div class="stages">${stageHtml}</div>
+        <div class="divider"></div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:16px">Ad Batches</div>
+        ${batchesHtml}
+        ${p.notes ? `<div class="notes-box"><strong>Notes:</strong> ${p.notes.replace(/\n/g,'<br>')}</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderCopyBlock(label, text) {
+  const id = 'cb-'+Math.random().toString(36).slice(2,8);
+  return `
+  <div class="copy-block">
+    <div class="copy-label">${label}</div>
+    <div class="copy-row">
+      <div class="copy-text">${text.replace(/</g,'&lt;')}</div>
+      <button class="copy-btn" id="${id}" onclick="copyToClipboard(${JSON.stringify(text)}, this)">Copy</button>
+    </div>
+  </div>`;
+}
+
+function toggleProduct(id) {
+  document.getElementById('prod-'+id).classList.toggle('open');
+}
+
+function switchBatch(productId, idx) {
+  const tabs = document.querySelectorAll(`#tabs-${productId} .batch-tab`);
+  tabs.forEach((t,i)=>t.classList.toggle('active',i===idx));
+  document.querySelectorAll(`[id^="batch-${productId}-"]`).forEach((el,i)=>{
+    el.style.display = i===idx ? 'block' : 'none';
+  });
+}
+
+// ══════════════════════════════════
+// RENDER: CONTENT (KYVO + CGD)
+// ══════════════════════════════════
+
+function renderContentStudio(data, containerId, color) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = data.map(batch => `
+    <div class="batch-card open" id="batch-${batch.id}">
+      <div class="batch-header" onclick="toggleBatch('${batch.id}')">
+        <h3>${batch.name}</h3>
+        <span class="date">${batch.date}</span>
+        <span style="color:var(--muted);font-size:18px;margin-left:8px;transition:transform .2s" id="btoggle-${batch.id}">⌄</span>
+      </div>
+      <div class="batch-body">
+        ${batch.scripts.map(s => renderScriptCard(s, color)).join('')}
+      </div>
     </div>
   `).join('');
 }
 
-function renderScriptCard(s) {
-  const typeClsMap = { 'Educational': 'badge-blue', 'Story': 'badge-purple', 'Behind-the-scenes': 'badge-gray' };
-  const typeCls = typeClsMap[s.type] || 'badge-gray';
+function renderScriptCard(s, color) {
+  const statuses = ['SCRIPT_READY','FILMED','EDITED','POSTED'];
+  const cur = getStatus(s.id, s.status || 'SCRIPT_READY');
+  const curLabel = {SCRIPT_READY:'Script Ready',FILMED:'Filmed',EDITED:'Edited',POSTED:'Posted'};
 
-  const statusSteps = ['SCRIPT_READY', 'FILMED', 'EDITED', 'POSTED'];
-  const savedStatus = localStorage.getItem('status-' + s.id) || s.status;
+  const statusBtns = statuses.map(st =>
+    `<button class="status-btn${cur===st?' set-'+st:''}" onclick="updateStatus('${s.id}',this,'${st}',${JSON.stringify(statuses)})">${curLabel[st]||st}</button>`
+  ).join('');
 
-  const statusBtns = statusSteps.map(st => {
-    const isCurrent = savedStatus === st || savedStatus === st.toLowerCase();
-    const label = st === 'SCRIPT_READY' ? 'SCRIPT READY' : st;
-    return `<button class="btn-status s-${st.toLowerCase()} ${isCurrent ? 'active-status' : ''}"
-      onclick="setStatus('${s.id}', '${st}', this)">${label}</button>`;
-  }).join('');
-
-  const checklistHtml = CHECKLIST_ITEMS.map((item, i) => {
-    const key = `check-${s.id}-${i}`;
-    const checked = localStorage.getItem(key) === '1' ? 'checked' : '';
-    return `<label class="checklist-item">
-      <input type="checkbox" ${checked} onchange="saveCheck('${key}', this)">
-      <span>${item}</span>
+  const checks = getChecked(s.id);
+  const checkHtml = checklistItems.map((item,i) => {
+    const checked = checks[i] || false;
+    return `<label class="check-item${checked?' checked':''}" id="ci-${s.id}-${i}">
+      <input type="checkbox" ${checked?'checked':''} onchange="toggleCheck('${s.id}',${i},this)"> ${item}
     </label>`;
   }).join('');
 
   return `
-    <div class="script-card">
-      <div class="script-header">
-        <div class="script-info">
-          <h4>${escHtml(s.title)}</h4>
-          <div class="script-meta">
-            <span class="badge ${typeCls}">${s.type}</span>
-            <span class="script-duration">⏱ ${s.duration}</span>
-          </div>
+  <div class="script-card open" id="sc-${s.id}">
+    <div class="script-header" onclick="toggleScript('${s.id}')">
+      <div class="script-info">
+        <div class="script-title">${s.title}</div>
+        <div class="script-meta">
+          <span>${s.duration}</span>
+          <span>${badge(s.type)}</span>
+          <span>${badge(cur)}</span>
         </div>
-        <button class="expand-btn" onclick="toggleScript('${s.id}', this)">
-          <span>▶</span> Expand
-        </button>
       </div>
-      <div class="status-row">
-        <span class="status-row-label">Status:</span>
-        <div id="status-btns-${s.id}" style="display:flex;gap:6px;flex-wrap:wrap;">${statusBtns}</div>
-      </div>
-      <div class="script-expanded" id="exp-${s.id}">
-        <div class="script-text-label">📝 Script</div>
-        <div class="script-text">${escHtml(s.script)}</div>
-        <div class="captions-grid">
-          ${renderCaption('Instagram', s.captions.instagram)}
-          ${renderCaption('TikTok', s.captions.tiktok)}
-          ${renderCaption('YouTube Title', s.captions.youtubeTitle)}
-          ${renderCaption('YouTube Description', s.captions.youtubeDesc)}
+      <span style="color:var(--muted);font-size:16px">⌄</span>
+    </div>
+    <div class="script-body">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:8px">Status</div>
+      <div class="status-track" id="st-${s.id}">${statusBtns}</div>
+
+      <button class="script-expand" onclick="toggleScriptText('${s.id}')">
+        <span id="se-icon-${s.id}">▶</span> View Script
+      </button>
+      <div class="script-block" id="sb-${s.id}">${s.script.replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>
+
+      <div class="captions-block open" id="cap-${s.id}">
+        <div class="caption-section">
+          <div class="caption-section-label">📱 Instagram Caption</div>
+          ${renderCopyBlock('Instagram', s.captions.instagram)}
+        </div>
+        <div class="caption-section">
+          <div class="caption-section-label">🎵 TikTok Caption</div>
+          ${renderCopyBlock('TikTok', s.captions.tiktok)}
+        </div>
+        <div class="caption-section">
+          <div class="caption-section-label">▶️ YouTube</div>
+          ${renderCopyBlock('YouTube Title', s.captions.youtubeTitle)}
+          ${renderCopyBlock('YouTube Description', s.captions.youtubeDesc)}
         </div>
         <div class="checklist">
           <div class="checklist-title">📋 Posting Checklist</div>
-          ${checklistHtml}
+          ${checkHtml}
         </div>
       </div>
-    </div>`;
+    </div>
+  </div>`;
 }
 
-function renderCaption(label, text) {
-  if (!text) return '';
-  return `
-    <div class="copy-block">
-      <div class="copy-block-header">
-        <span class="copy-block-label">${label}</span>
-        ${copyBtn(text)}
-      </div>
-      <div class="copy-text" style="white-space:pre-wrap;">${escHtml(text)}</div>
-    </div>`;
+function toggleBatch(id) {
+  const card = document.getElementById('batch-'+id);
+  card.classList.toggle('open');
+  const body = card.querySelector('.batch-body');
+  body.style.display = card.classList.contains('open') ? 'block' : 'none';
 }
 
-function toggleScript(id, btn) {
-  const exp = document.getElementById('exp-' + id);
-  const isOpen = exp.classList.toggle('open');
-  btn.innerHTML = isOpen ? '<span>▼</span> Collapse' : '<span>▶</span> Expand';
+function toggleScript(id) {
+  document.getElementById('sc-'+id).classList.toggle('open');
 }
 
-function setStatus(scriptId, status, clickedBtn) {
-  localStorage.setItem('status-' + scriptId, status);
-  const container = document.getElementById('status-btns-' + scriptId);
-  if (!container) return;
-  container.querySelectorAll('.btn-status').forEach(b => b.classList.remove('active-status'));
-  clickedBtn.classList.add('active-status');
+function toggleScriptText(id) {
+  const sb = document.getElementById('sb-'+id);
+  const icon = document.getElementById('se-icon-'+id);
+  const open = sb.classList.toggle('open');
+  icon.textContent = open ? '▼' : '▶';
 }
 
-function saveCheck(key, checkbox) {
-  localStorage.setItem(key, checkbox.checked ? '1' : '0');
+function updateStatus(scriptId, clickedBtn, newStatus, allStatuses) {
+  setStatus(scriptId, newStatus);
+  const track = document.getElementById('st-'+scriptId);
+  track.querySelectorAll('.status-btn').forEach((btn, i) => {
+    btn.className = 'status-btn' + (allStatuses[i]===newStatus ? ' set-'+newStatus : '');
+  });
+  // update badge in header
+  const card = document.getElementById('sc-'+scriptId);
+  const metaSpans = card.querySelectorAll('.script-meta .badge');
+  if(metaSpans.length >= 2) metaSpans[metaSpans.length-1].outerHTML = badge(newStatus);
 }
 
-// ─────────────────────────────────────────
-// API: TASKS
-// ─────────────────────────────────────────
+function toggleCheck(scriptId, idx, input) {
+  setChecked(scriptId, idx, input.checked);
+  const item = document.getElementById('ci-'+scriptId+'-'+idx);
+  item.classList.toggle('checked', input.checked);
+}
+
+// ══════════════════════════════════
+// RENDER: TASKS
+// ══════════════════════════════════
 
 let allTasks = [];
-
-async function loadTasks() {
-  try {
-    const res = await fetch('https://tommy-hq.vercel.app/api/tasks');
-    const data = await res.json();
-    allTasks = (Array.isArray(data) ? data : (data.tasks || [])).sort((a, b) =>
-      new Date(b.created_at || b.createdAt || 0) - new Date(a.created_at || a.createdAt || 0)
-    );
-    renderTasks('all');
-    renderTasksSummary();
-  } catch (e) {
-    document.getElementById('taskList').innerHTML = '<div class="empty-state">Failed to load tasks</div>';
-    document.getElementById('tasksSummary').innerHTML = '<div class="loading">Unavailable</div>';
-  }
-}
-
-function renderTasks(agentFilter) {
-  const list = document.getElementById('taskList');
-  let tasks = agentFilter === 'all' ? allTasks : allTasks.filter(t =>
-    (t.agent || '').toLowerCase() === agentFilter.toLowerCase()
-  );
-  if (!tasks.length) {
-    list.innerHTML = '<div class="empty-state">No tasks found</div>';
-    return;
-  }
-  list.innerHTML = tasks.map(t => `
+function renderTasks(filter='all') {
+  const el = document.getElementById('tasks-list');
+  const tasks = filter==='all' ? allTasks : allTasks.filter(t=>t.agent===filter);
+  const sorted = [...tasks].sort((a,b)=>new Date(b.createdAt||0)-new Date(a.createdAt||0));
+  if(!sorted.length) { el.innerHTML='<div class="empty">No tasks found.</div>'; return; }
+  el.innerHTML = sorted.map(t => `
     <div class="task-item">
-      <div style="font-size:20px;width:36px;text-align:center;">${agentEmoji(t.agent)}</div>
-      <div class="task-content">
-        <div class="task-title">${escHtml(t.title)}</div>
-        <div class="task-meta">${t.agent || ''} · ${timeAgo(t.created_at || t.createdAt)}</div>
+      <div class="task-left">
+        <div class="task-title">${t.title}</div>
+        <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;align-items:center">
+          ${badge(t.priority||'medium')}
+          ${badge(t.status||'todo')}
+          <span style="font-size:11px;color:var(--dim)">${agentColors[t.agent]?agentColors[t.agent][1]:''} ${t.agent||''}</span>
+        </div>
       </div>
-      <div style="display:flex;gap:6px;align-items:center;flex-shrink:0;">
-        ${priorityBadge(t.priority)}
-        ${statusBadge((t.status || '').toUpperCase())}
-      </div>
+      <div style="font-size:11px;color:var(--dim)">${t.createdAt?timeAgo(t.createdAt):''}</div>
     </div>
   `).join('');
 }
 
-function renderTasksSummary() {
-  const agents = ['charlie', 'neo', 'the-oracle', 'trinity'];
-  const agentNames = { charlie: 'Charlie', neo: 'Neo', 'the-oracle': 'The Oracle', trinity: 'Trinity' };
-  const container = document.getElementById('tasksSummary');
-  container.innerHTML = agents.map(a => {
-    const active = allTasks.filter(t =>
-      (t.agent || '').toLowerCase() === a &&
-      !['done', 'complete'].includes((t.status || '').toLowerCase())
-    ).length;
+// ══════════════════════════════════
+// RENDER: ACTIVITY
+// ══════════════════════════════════
+
+function renderActivity(items, containerId, limit) {
+  const el = document.getElementById(containerId);
+  if(!items||!items.length){ el.innerHTML='<div class="empty">No activity yet.</div>'; return; }
+  const show = limit ? items.slice(0,limit) : items;
+  el.innerHTML = show.map(a => {
+    const [color,emoji] = agentColors[a.agent] || ['#555','🤖'];
     return `
-      <div class="task-stat">
-        <div class="agent-name">${agentEmoji(a)} ${agentNames[a]}</div>
-        <div class="count" style="color:${agentColor(a)}">${active}</div>
-        <div class="label">active tasks</div>
-      </div>`;
+    <div class="activity-item">
+      <div class="activity-avatar" style="border:1px solid ${color}30;background:${color}15">${emoji}</div>
+      <div class="activity-meta">
+        <div class="activity-agent">${a.agent||'agent'}</div>
+        <div class="activity-action">${a.action||''}</div>
+        <div class="activity-detail">${a.details||''}</div>
+      </div>
+      <div class="activity-time">${a.timestamp?timeAgo(a.timestamp):''}</div>
+    </div>`;
   }).join('');
 }
 
-function filterTasks(btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+// ══════════════════════════════════
+// RENDER: DOCS
+// ══════════════════════════════════
+
+function renderDocs(docs) {
+  const el = document.getElementById('docs-list');
+  if(!docs||!docs.length){ el.innerHTML='<div class="empty">No docs yet.</div>'; return; }
+  const groups = {};
+  docs.forEach(d=>{ (groups[d.folder||'Other']=groups[d.folder||'Other']||[]).push(d); });
+  el.innerHTML = Object.entries(groups).map(([folder,items])=>`
+    <div class="doc-group-label">${folder}</div>
+    ${items.map(d=>`
+      <div class="doc-card">
+        <div class="doc-info">
+          <div class="doc-title">${d.title||''}</div>
+          <div class="doc-desc">${d.description||''}</div>
+        </div>
+        ${d.gdoc_url?`<a href="${d.gdoc_url}" target="_blank" class="doc-btn">Open Doc ↗</a>`:''}
+      </div>
+    `).join('')}
+  `).join('');
+}
+
+// ══════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════
+
+const pageTitles = {
+  dashboard:'Dashboard', dropship:'Dropship HQ',
+  kyvo:'KYVO Performance', cgd:'@casualgolfdad',
+  tasks:'Tasks', activity:'Activity', docs:'Docs', team:'Team'
+};
+
+function navigate(page) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  const ni = document.querySelector(`.nav-item[data-page="${page}"]`);
+  if(ni) ni.classList.add('active');
+  document.getElementById('page-title').textContent = pageTitles[page]||page;
+  closeNav();
+}
+
+document.querySelectorAll('.nav-item').forEach(el=>{
+  el.addEventListener('click',()=>navigate(el.dataset.page));
+});
+
+function openNav(){ document.getElementById('nav').classList.add('open'); document.getElementById('overlay').classList.add('active'); }
+function closeNav(){ document.getElementById('nav').classList.remove('open'); document.getElementById('overlay').classList.remove('active'); }
+
+// Task filters
+document.getElementById('task-filters').addEventListener('click', e=>{
+  const btn = e.target.closest('.filter-btn');
+  if(!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   renderTasks(btn.dataset.agent);
-}
+});
 
-// ─────────────────────────────────────────
-// API: ACTIVITY
-// ─────────────────────────────────────────
+// ══════════════════════════════════
+// INIT
+// ══════════════════════════════════
 
-async function loadActivity() {
+async function init() {
+  // Render static sections
+  renderDropship();
+  renderContentStudio(kyvoContent, 'kyvo-batches', 'amber');
+  renderContentStudio(cgdContent, 'cgd-batches', 'coral');
+
+  // Fetch tasks
+  try {
+    const res = await fetch('https://tommy-hq.vercel.app/api/tasks');
+    allTasks = await res.json();
+    renderTasks();
+    // Dashboard task counts
+    const open = allTasks.filter(t=>t.status!=='done');
+    const agents = {dropship:['neo'],kyvo:['the-oracle'],cgd:['trinity']};
+    document.getElementById('d-tasks').textContent = open.filter(t=>agents.dropship.includes(t.agent)).length;
+    document.getElementById('k-tasks').textContent = open.filter(t=>agents.kyvo.includes(t.agent)).length;
+    document.getElementById('c-tasks').textContent = open.filter(t=>agents.cgd.includes(t.agent)).length;
+
+    // Dashboard active tasks
+    const dashT = document.getElementById('dash-tasks');
+    const top = open.slice(0,5);
+    dashT.innerHTML = top.length ? top.map(t=>`
+      <div style="border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-bottom:8px">
+        <div style="font-size:13px;font-weight:600">${t.title}</div>
+        <div style="display:flex;gap:6px;margin-top:6px">${badge(t.priority||'medium')}${badge(t.status||'todo')}<span style="font-size:11px;color:var(--dim)">${agentColors[t.agent]?agentColors[t.agent][1]:''} ${t.agent||''}</span></div>
+      </div>
+    `).join('') : '<div class="empty">No open tasks.</div>';
+  } catch(e) {
+    document.getElementById('tasks-list').innerHTML='<div class="empty">Could not load tasks.</div>';
+  }
+
+  // Fetch activity
   try {
     const res = await fetch('https://tommy-hq.vercel.app/api/activity');
-    const data = await res.json();
-    const items = (Array.isArray(data) ? data : (data.activity || [])).sort((a, b) =>
-      new Date(b.created_at || b.timestamp || 0) - new Date(a.created_at || a.timestamp || 0)
-    );
-
-    // Dashboard feed (top 10)
-    const dashEl = document.getElementById('dashActivity');
-    const top10 = items.slice(0, 10);
-    if (!top10.length) {
-      dashEl.innerHTML = '<div class="empty-state">No activity yet</div>';
-    } else {
-      dashEl.innerHTML = top10.map(a => `
-        <div class="activity-item">
-          <div class="activity-dot">${agentEmoji(a.agent)}</div>
-          <div class="activity-content">
-            <div class="activity-agent" style="color:${agentColor(a.agent)}">${a.agent || 'Unknown'}</div>
-            <div class="activity-action">${escHtml(a.action || '')}</div>
-            ${a.details ? `<div style="font-size:11px;color:var(--text3);margin-top:2px;">${escHtml(a.details)}</div>` : ''}
-          </div>
-          <span class="activity-time">${timeAgo(a.created_at || a.timestamp)}</span>
-        </div>`).join('');
-    }
-
-    // Full activity section
-    const actEl = document.getElementById('activityList');
-    if (!items.length) {
-      actEl.innerHTML = '<div class="empty-state">No activity yet</div>';
-    } else {
-      actEl.innerHTML = items.map(a => `
-        <div class="act-item">
-          <div class="act-emoji">${agentEmoji(a.agent)}</div>
-          <div class="act-body">
-            <div class="act-agent" style="color:${agentColor(a.agent)}">${a.agent || 'Unknown'}</div>
-            <div class="act-action">${escHtml(a.action || '')}</div>
-            ${a.details ? `<div class="act-details">${escHtml(a.details)}</div>` : ''}
-          </div>
-          <span class="act-time">${timeAgo(a.created_at || a.timestamp)}</span>
-        </div>`).join('');
-    }
-  } catch (e) {
-    document.getElementById('dashActivity').innerHTML = '<div class="empty-state">Unavailable</div>';
-    document.getElementById('activityList').innerHTML = '<div class="empty-state">Failed to load activity</div>';
+    const activity = await res.json();
+    renderActivity(activity, 'activity-list');
+    renderActivity(activity, 'dash-activity', 8);
+  } catch(e) {
+    document.getElementById('activity-list').innerHTML='<div class="empty">Could not load activity.</div>';
   }
-}
 
-// ─────────────────────────────────────────
-// API: DOCS
-// ─────────────────────────────────────────
-
-async function loadDocs() {
+  // Fetch docs
   try {
     const res = await fetch('https://tommy-hq.vercel.app/api/docs');
-    const data = await res.json();
-    const docs = Array.isArray(data) ? data : (data.docs || []);
-    const container = document.getElementById('docsList');
-    if (!docs.length) {
-      container.innerHTML = '<div class="empty-state">No documents yet</div>';
-      return;
-    }
-    // Group by folder
-    const folders = {};
-    docs.forEach(d => {
-      const f = d.folder || 'General';
-      if (!folders[f]) folders[f] = [];
-      folders[f].push(d);
-    });
-    container.innerHTML = Object.entries(folders).map(([folder, fdocs]) => `
-      <div class="docs-folder">
-        <div class="docs-folder-title">📂 ${escHtml(folder)}</div>
-        ${fdocs.map(d => `
-          <div class="doc-item">
-            <div class="doc-info">
-              <div class="doc-title">${escHtml(d.title)}</div>
-              ${d.description ? `<div class="doc-desc">${escHtml(d.description)}</div>` : ''}
-              <div style="font-size:11px;color:var(--text3);margin-top:4px;">
-                ${agentEmoji(d.agent)} ${d.agent || ''} · ${timeAgo(d.created_at || d.timestamp)}
-                ${d.tags?.length ? ' · ' + d.tags.map(t => `<span class="badge badge-gray" style="font-size:10px;padding:2px 6px;">${t}</span>`).join(' ') : ''}
-              </div>
-            </div>
-            ${d.gdoc_url ? `<a href="${d.gdoc_url}" target="_blank" class="btn btn-link">Open Doc ↗</a>` : ''}
-          </div>`).join('')}
-      </div>`).join('');
-  } catch (e) {
-    document.getElementById('docsList').innerHTML = '<div class="empty-state">Failed to load documents</div>';
+    renderDocs(await res.json());
+  } catch(e) {
+    document.getElementById('docs-list').innerHTML='<div class="empty">Could not load docs.</div>';
   }
 }
 
-// ─────────────────────────────────────────
-// INIT
-// ─────────────────────────────────────────
-
-renderDropship();
-renderContentStudio(kyvoContent, 'kyvoContent');
-renderContentStudio(cgdContent, 'cgdContent');
-loadTasks();
-loadActivity();
-loadDocs();
+init();
 </script>
 </body>
 </html>
-<!-- cache bust 1774376353 -->
