@@ -1,5 +1,12 @@
 [
   {
+    "id": "mn5ayakbbeme",
+    "agent": "charlie",
+    "action": "Mission Control made fully dynamic",
+    "details": "New /api/content and /api/products endpoints. All 3 agents (Oracle, Trinity, Neo) have dashboard-posting-sop.md — every script/caption/ad batch auto-posts to tommy-hq.vercel.app on delivery.",
+    "timestamp": "2026-03-25T00:25:30.875Z"
+  },
+  {
     "id": "mn4qfnuk5jh1",
     "agent": "the-copywriter",
     "action": "KYVO Day 3 brief delivered",
