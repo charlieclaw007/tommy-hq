@@ -1,6 +1,6 @@
-// Content API — Scripts, captions, ad copy — GitHub-backed JSON
+// Products & Ad Batches API — GitHub-backed JSON storage
 const REPO = 'charlieclaw007/tommy-hq';
-const FILE = 'data/content.json';
+const FILE = 'data/products.json';
 const GH = 'https://api.github.com';
 
 function ghHeaders() {
@@ -24,7 +24,7 @@ async function readData() {
 
 async function writeData(data, sha) {
   const content = Buffer.from(JSON.stringify(data, null, 2)).toString('base64');
-  const body = { message: 'data: update content', content, branch: 'main' };
+  const body = { message: 'data: update products', content, branch: 'main' };
   if (sha) body.sha = sha;
   const res = await fetch(`${GH}/repos/${REPO}/contents/${FILE}`, {
     method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body),
@@ -55,61 +55,76 @@ export default async function handler(req, res) {
   try {
     if (req.method === 'GET') {
       const { data } = await readData();
-      // Support ?pillar=kyvo filter
-      const pillar = req.query?.pillar;
-      const filtered = pillar ? data.filter(c => c.pillar === pillar) : data;
-      return res.status(200).json(filtered);
+      return res.status(200).json(data);
     }
 
     if (req.method === 'POST') {
-      /*
-        Required fields: title, pillar (kyvo|cgd|dropship), agent
-        Optional: batchName, type, duration, status, script,
-                  captions: { instagram, tiktok, youtubeTitle, youtubeDesc }
-      */
+      // Create or update a product + add/replace a batch
+      // Body: { id?, name, subtitle, status, stage, storeUrl, notes, batch? }
+      // batch: { name, concept, batchStatus, copy: { hook, body1, body2, headline1, headline2 } }
       const { data, sha } = await readData();
-      const {
-        title, pillar, agent, batchName, type, duration,
-        status, script, captions
-      } = req.body;
+      const { id, name, subtitle, status, stage, storeUrl, notes, batch } = req.body;
+      if (!name) return res.status(400).json({ error: 'name required' });
 
-      if (!title || !pillar) return res.status(400).json({ error: 'title and pillar required' });
+      let productId = id;
+      let product = data.find(p => p.id === productId || p.name.toLowerCase() === name.toLowerCase());
 
-      const item = {
-        id: genId(),
-        title,
-        pillar: pillar.toLowerCase(),
-        agent: agent || 'unknown',
-        batchName: batchName || new Date().toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }),
-        type: type || 'Content',
-        duration: duration || '',
-        status: status || 'SCRIPT_READY',
-        script: script || '',
-        captions: captions || {},
-        createdAt: new Date().toISOString(),
-      };
+      if (product) {
+        // Update existing product
+        Object.assign(product, {
+          name: name || product.name,
+          subtitle: subtitle || product.subtitle,
+          status: status || product.status,
+          stage: stage !== undefined ? stage : product.stage,
+          storeUrl: storeUrl || product.storeUrl,
+          notes: notes !== undefined ? notes : product.notes,
+          updatedAt: new Date().toISOString(),
+        });
+        if (batch) {
+          if (!product.batches) product.batches = [];
+          const existingBatch = product.batches.find(b => b.name === batch.name);
+          if (existingBatch) {
+            Object.assign(existingBatch, batch);
+          } else {
+            product.batches.push({ id: genId(), ...batch });
+          }
+        }
+      } else {
+        // Create new product
+        product = {
+          id: id || genId(),
+          name, subtitle: subtitle || '',
+          status: status || 'BUILDING',
+          stage: stage !== undefined ? stage : 0,
+          storeUrl: storeUrl || '',
+          notes: notes || '',
+          batches: batch ? [{ id: genId(), ...batch }] : [],
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        };
+        data.unshift(product);
+      }
 
-      data.unshift(item);
       await writeData(data, sha);
-      return res.status(201).json(item);
+      return res.status(201).json(product);
     }
 
     if (req.method === 'PUT') {
       const { id, ...updates } = req.body;
       if (!id) return res.status(400).json({ error: 'id required' });
       const { data, sha } = await readData();
-      const item = data.find(c => c.id === id);
-      if (!item) return res.status(404).json({ error: 'not found' });
-      Object.assign(item, updates, { id });
+      const product = data.find(p => p.id === id);
+      if (!product) return res.status(404).json({ error: 'product not found' });
+      Object.assign(product, updates, { id, updatedAt: new Date().toISOString() });
       await writeData(data, sha);
-      return res.status(200).json(item);
+      return res.status(200).json(product);
     }
 
     if (req.method === 'DELETE') {
       const { id } = req.body;
       if (!id) return res.status(400).json({ error: 'id required' });
       const { data, sha } = await readData();
-      const filtered = data.filter(c => c.id !== id);
+      const filtered = data.filter(p => p.id !== id);
       await writeData(filtered, sha);
       return res.status(200).json({ deleted: id });
     }

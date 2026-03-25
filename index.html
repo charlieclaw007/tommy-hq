@@ -1271,63 +1271,43 @@ function switchBatch(i) {
 
 // ════════════════ CONTENT CARDS ════════════════
 
+function buildScriptCard(s) {
+  const status = getStatus(s.id, s.defaultStatus);
+  const statusMap = {SCRIPT_READY:'Script Ready', FILMED:'Filmed', EDITED:'Edited', POSTED:'Posted'};
+  const statusClass = {SCRIPT_READY:'sb-script', FILMED:'sb-filmed', EDITED:'sb-edited', POSTED:'sb-posted'};
+  const checked = getChecked(s.id);
+  const clHtml = checklist.map((item, i) => `
+    <label class="cl-item${checked[i]?' checked':''}" id="cl-${s.id}-${i}">
+      <input type="checkbox" ${checked[i]?'checked':''} onchange="toggleCheck('${s.id}',${i},this)"> ${item}
+    </label>`).join('');
+  return `
+  <div class="content-card">
+    <div class="content-card-header">
+      <div style="flex:1">
+        <div class="content-card-title">${s.title}</div>
+        <div class="content-card-meta">
+          <span>${s.duration||''}</span>
+          ${s.duration&&s.type?'<span style="color:var(--dim)">·</span>':''}
+          <span>${s.type||''}</span>
+        </div>
+      </div>
+      <span class="status-badge ${statusClass[status]}" id="sbadge-${s.id}" onclick="cycleStatus('${s.id}')" title="Click to advance status">${statusMap[status]}</span>
+    </div>
+    ${s.script?`<div class="script-section"><div class="copy-label">📄 Script</div><div class="script-text">${esc(s.script)}<button class="copy-btn" onclick="copy(${JSON.stringify(s.script)},this)">Copy</button></div></div>`:''}
+    ${s.instagram?`<div class="copy-section"><div class="copy-label">📱 Instagram Caption</div>${mkCopyBox(s.instagram)}</div>`:''}
+    ${s.tiktok?`<div class="copy-section"><div class="copy-label">🎵 TikTok Caption</div>${mkCopyBox(s.tiktok)}</div>`:''}
+    ${s.ytTitle?`<div class="copy-section"><div class="copy-label">▶️ YouTube Title</div>${mkCopyBox(s.ytTitle)}</div>`:''}
+    ${s.ytDesc?`<div class="copy-section"><div class="copy-label">▶️ YouTube Description</div>${mkCopyBox(s.ytDesc)}</div>`:''}
+    <div class="checklist-section"><div class="checklist-title">📋 Posting Checklist</div>${clHtml}</div>
+  </div>`;
+}
+
+function attachScriptCardHandlers(el) { /* handlers are inline via onclick */ }
+
 function renderContentCards(scripts, containerId) {
   const el = document.getElementById(containerId);
-  el.innerHTML = scripts.map(s => {
-    const status = getStatus(s.id, s.defaultStatus);
-    const statusMap = {SCRIPT_READY:'Script Ready', FILMED:'Filmed', EDITED:'Edited', POSTED:'Posted'};
-    const statusClass = {SCRIPT_READY:'sb-script', FILMED:'sb-filmed', EDITED:'sb-edited', POSTED:'sb-posted'};
-    const checked = getChecked(s.id);
-    const clHtml = checklist.map((item, i) => `
-      <label class="cl-item${checked[i]?' checked':''}" id="cl-${s.id}-${i}">
-        <input type="checkbox" ${checked[i]?'checked':''} onchange="toggleCheck('${s.id}',${i},this)"> ${item}
-      </label>`).join('');
-
-    return `
-    <div class="content-card">
-      <div class="content-card-header">
-        <div style="flex:1">
-          <div class="content-card-title">${s.title}</div>
-          <div class="content-card-meta">
-            <span>${s.duration}</span>
-            <span style="color:var(--dim)">·</span>
-            <span>${s.type}</span>
-          </div>
-        </div>
-        <span class="status-badge ${statusClass[status]}" id="sbadge-${s.id}" onclick="cycleStatus('${s.id}')" title="Click to advance status">${statusMap[status]}</span>
-      </div>
-
-      <div class="script-section">
-        <div class="copy-label">📄 Script</div>
-        <div class="script-text">${esc(s.script)}<button class="copy-btn" onclick="copy(${JSON.stringify(s.script)},this)">Copy</button></div>
-      </div>
-
-      <div class="copy-section">
-        <div class="copy-label">📱 Instagram Caption</div>
-        ${mkCopyBox(s.instagram)}
-      </div>
-
-      <div class="copy-section">
-        <div class="copy-label">🎵 TikTok Caption</div>
-        ${mkCopyBox(s.tiktok)}
-      </div>
-
-      <div class="copy-section">
-        <div class="copy-label">▶️ YouTube Title</div>
-        ${mkCopyBox(s.ytTitle)}
-      </div>
-
-      <div class="copy-section">
-        <div class="copy-label">▶️ YouTube Description</div>
-        ${mkCopyBox(s.ytDesc)}
-      </div>
-
-      <div class="checklist-section">
-        <div class="checklist-title">📋 Posting Checklist</div>
-        ${clHtml}
-      </div>
-    </div>`;
-  }).join('');
+  if (!el) return;
+  el.innerHTML = scripts.map(s => buildScriptCard(s)).join('');
 }
 
 function cycleStatus(id) {
@@ -1524,13 +1504,165 @@ function renderTasksFromCache(agents, containerId) {
     </div>`).join('');
 }
 
+// ════════════════ DYNAMIC CONTENT LOADER ════════════════
+
+const API = 'https://tommy-hq.vercel.app';
+
+async function loadContent(pillar, fallbackScripts, containerId) {
+  const el = document.getElementById(containerId);
+  try {
+    const res = await fetch(`${API}/api/content?pillar=${pillar}&t=${Date.now()}`);
+    const items = await res.json();
+    if (items && items.length) {
+      // Group by batchName
+      const batches = {};
+      items.forEach(item => {
+        const key = item.batchName || 'Recent Content';
+        if (!batches[key]) batches[key] = { name: key, date: item.createdAt?.slice(0,10) || '', scripts: [] };
+        batches[key].scripts.push({
+          id: item.id,
+          title: item.title,
+          duration: item.duration || '',
+          type: item.type || 'Content',
+          defaultStatus: item.status || 'SCRIPT_READY',
+          script: item.script || '',
+          instagram: item.captions?.instagram || '',
+          tiktok: item.captions?.tiktok || '',
+          ytTitle: item.captions?.youtubeTitle || '',
+          ytDesc: item.captions?.youtubeDesc || '',
+        });
+      });
+      const batchList = Object.values(batches);
+      el.innerHTML = '';
+      batchList.forEach(batch => {
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = `<div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px">${batch.name}</div>`;
+        el.appendChild(wrapper);
+        renderContentCards(batch.scripts, null, wrapper);
+      });
+    } else {
+      // Fall back to hardcoded
+      renderContentCards(fallbackScripts, containerId);
+    }
+  } catch(e) {
+    renderContentCards(fallbackScripts, containerId);
+  }
+}
+
+// Updated renderContentCards to optionally accept a parent element
+const _origRenderContentCards = renderContentCards;
+function renderContentCards(scripts, containerId, parentEl) {
+  if (parentEl) {
+    const div = document.createElement('div');
+    div.innerHTML = scripts.map(s => buildScriptCard(s)).join('');
+    parentEl.appendChild(div);
+    attachScriptCardHandlers(div);
+    return;
+  }
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = scripts.map(s => buildScriptCard(s)).join('');
+  attachScriptCardHandlers(el);
+}
+
+// ════════════════ DYNAMIC PRODUCTS LOADER ════════════════
+
+async function loadProducts() {
+  try {
+    const res = await fetch(`${API}/api/products?t=${Date.now()}`);
+    const items = await res.json();
+    if (items && items.length) {
+      // Re-render the dropship products section dynamically
+      const container = document.getElementById('dropship-products-dynamic');
+      if (!container) return;
+      container.innerHTML = items.map(p => buildProductCard(p)).join('');
+      // re-init batch 0 for first product that has batches
+      const first = items.find(p => p.batches && p.batches.length);
+      if (first) renderDynamicBatch(first.id, 0);
+    }
+  } catch(e) { /* keep static products on error */ }
+}
+
+function buildProductCard(p) {
+  const stageNames = ['Scout','Brand','Copy','Creative','Build','QC','Live'];
+  const stageHtml = stageNames.map((s,i) => {
+    const cls = i < p.stage ? 'stage done' : i === p.stage ? 'stage current' : 'stage';
+    return `<span class="${cls}">${s}</span>${i<stageNames.length-1?'<span class="stage-sep">›</span>':''}`;
+  }).join('');
+
+  const batchTabs = p.batches && p.batches.length ? `
+    <div style="display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:16px">
+      ${p.batches.map((b,i)=>`<div class="tab t-dropship${i===0?' active':''}" id="dbtab-${p.id}-${i}" onclick="switchDynamicBatch('${p.id}',${i})" style="padding:7px 16px;font-size:12px">${b.name||'Batch '+(i+1)}</div>`).join('')}
+    </div>
+    <div id="dbatch-${p.id}"></div>
+  ` : '<div style="color:var(--muted);font-size:13px;padding:8px 0">No ad batches yet.</div>';
+
+  return `
+  <div style="border:1px solid var(--border);border-radius:10px;margin-bottom:16px;background:var(--card);overflow:hidden">
+    <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px">
+      <span style="font-size:16px;font-weight:800;flex:1">${p.name} <span style="font-size:12px;color:var(--muted);font-weight:400">${p.subtitle||''}</span></span>
+      <span class="pill pill-${(p.status||'building').toLowerCase()}">${p.status||'BUILDING'}</span>
+      ${p.storeUrl?`<a href="${p.storeUrl}" target="_blank" style="font-size:11px;color:var(--muted);text-decoration:none;border:1px solid var(--border);padding:3px 9px;border-radius:5px">Store ↗</a>`:''}
+    </div>
+    <div style="padding:16px 20px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:8px">Pipeline</div>
+      <div class="stage-track">${stageHtml}</div>
+      <div style="height:1px;background:var(--border);margin:16px 0"></div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:12px">Ad Batches</div>
+      ${batchTabs}
+      ${p.notes?`<div class="notes-box"><strong>Notes:</strong> ${p.notes.replace(/\n/g,'<br>')}</div>`:''}
+    </div>
+  </div>`;
+}
+
+function switchDynamicBatch(productId, idx) {
+  // find product in loaded data
+  fetch(`${API}/api/products?t=${Date.now()}`).then(r=>r.json()).then(items=>{
+    const p = items.find(x=>x.id===productId);
+    if(p) renderDynamicBatch(productId, idx, p.batches);
+  });
+  // update tab UI immediately
+  document.querySelectorAll(`[id^="dbtab-${productId}-"]`).forEach((t,i)=>t.classList.toggle('active',i===idx));
+}
+
+function renderDynamicBatch(productId, idx, batches) {
+  if(!batches) {
+    fetch(`${API}/api/products?t=${Date.now()}`).then(r=>r.json()).then(items=>{
+      const p=items.find(x=>x.id===productId);
+      if(p&&p.batches) renderDynamicBatch(productId, idx, p.batches);
+    });
+    return;
+  }
+  const b = batches[idx];
+  if(!b) return;
+  const el = document.getElementById('dbatch-'+productId);
+  if(!el) return;
+  el.innerHTML = `
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+      <span style="font-size:13px;font-weight:700">${b.concept||b.name}</span>
+      <span class="pill pill-${(b.batchStatus||'ready').toLowerCase()}">${b.batchStatus||'READY'}</span>
+    </div>
+    ${b.copy ? [
+      ['🪝 Hook', b.copy.hook],
+      ['📝 Body Copy 1', b.copy.body1],
+      ['📝 Body Copy 2', b.copy.body2],
+      ['🔤 Headline 1', b.copy.headline1],
+      ['🔤 Headline 2', b.copy.headline2],
+    ].filter(([,v])=>v).map(([label,text])=>`
+      <div style="margin-bottom:12px">
+        <div class="copy-label">${label}</div>
+        <div class="copy-box"><div class="copy-box-text">${esc(text)}</div><button class="copy-btn" onclick="copy(${JSON.stringify(text)},this)">Copy</button></div>
+      </div>`).join('') : ''}
+  `;
+}
+
 // ════════════════ INIT ════════════════
 
-renderBatch(0);
-renderContentCards(kyvoScripts, 'kyvo-content');
-renderContentCards(cgdScripts, 'cgd-content');
-
+renderBatch(0); // static fallback for NEUVEIL
 loadAllTasks();
+loadContent('kyvo', kyvoScripts, 'kyvo-content');
+loadContent('cgd', cgdScripts, 'cgd-content');
+loadProducts(); // load dynamic products (falls back to static if empty)
 
 renderDocsFor(['Dropshipping','SOPs','Creative'], 'dropship-docs');
 renderDocsFor(['KYVO Performance','SOPs','Creative'], 'kyvo-docs');
