@@ -226,6 +226,12 @@ body {
 .b-review { background: rgba(91,139,174,.15); color: var(--blue); }
 .b-done { background: rgba(91,168,154,.15); color: var(--cyan); }
 .task-time { font-size: 11px; color: var(--dim); flex-shrink: 0; margin-top: 2px; }
+.del-btn {
+  background: none; border: none; color: var(--dim); font-size: 15px;
+  cursor: pointer; padding: 2px 4px; border-radius: 4px; flex-shrink: 0;
+  transition: all .15s; line-height: 1;
+}
+.del-btn:hover { color: #B45050; background: rgba(180,80,80,.12); }
 .no-tasks { color: var(--muted); font-size: 13px; padding: 16px 0; text-align: center; }
 
 /* ── CONTENT CARDS ── */
@@ -1292,6 +1298,7 @@ function buildScriptCard(s) {
         </div>
       </div>
       <span class="status-badge ${statusClass[status]}" id="sbadge-${s.id}" onclick="cycleStatus('${s.id}')" title="Click to advance status">${statusMap[status]}</span>
+      <button class="del-btn" onclick="deleteContent('${s.id}', this)" title="Delete" style="margin-left:4px">🗑</button>
     </div>
     ${s.script?`<div class="script-section"><div class="copy-label">📄 Script</div><div class="script-text">${esc(s.script)}<button class="copy-btn" onclick="copy(${JSON.stringify(s.script)},this)">Copy</button></div></div>`:''}
     ${s.instagram?`<div class="copy-section"><div class="copy-label">📱 Instagram Caption</div>${mkCopyBox(s.instagram)}</div>`:''}
@@ -1450,7 +1457,7 @@ function renderAllTasks(filter='all') {
           <span class="badge ${badgeClass(t.status||'todo')}">${(t.status||'todo').replace('-',' ')}</span>
         </div>
       </div>
-      <div class="task-time">${t.createdAt?timeAgo(t.createdAt):''}</div>
+      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0"><div class="task-time">${t.createdAt?timeAgo(t.createdAt):''}</div><button class="del-btn" onclick="deleteTask('${t.id}')" title="Delete">🗑</button></div>
     </div>`}).join('');
 }
 
@@ -1458,6 +1465,33 @@ function filterAll(btn, filter) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderAllTasks(filter);
+}
+
+function deleteTask(id) {
+  if (!confirm('Delete this task?')) return;
+  // Remove from UI immediately
+  ['ti-'+id, 'at-'+id].forEach(elId => {
+    const el = document.getElementById(elId);
+    if (el) { el.style.opacity='0'; el.style.transition='opacity .2s'; setTimeout(()=>el.remove(), 200); }
+  });
+  // Remove from allTasksData cache
+  allTasksData = allTasksData.filter(t => t.id !== id);
+  fetch('https://tommy-hq.vercel.app/api/tasks', {
+    method: 'DELETE',
+    headers: {'Content-Type':'application/json','X-API-Key':'thq_25741469f31452628a1d8ae7372155ef2a2bf0b7d0138d96'},
+    body: JSON.stringify({id})
+  }).catch(()=>{});
+}
+
+function deleteContent(id, btn) {
+  if (!confirm('Delete this content card?')) return;
+  const card = btn.closest('.content-card');
+  if (card) { card.style.opacity='0'; card.style.transition='opacity .2s'; setTimeout(()=>card.remove(), 200); }
+  fetch('https://tommy-hq.vercel.app/api/content', {
+    method: 'DELETE',
+    headers: {'Content-Type':'application/json','X-API-Key':'thq_25741469f31452628a1d8ae7372155ef2a2bf0b7d0138d96'},
+    body: JSON.stringify({id})
+  }).catch(()=>{});
 }
 
 function markDoneAll(id) {
@@ -1500,7 +1534,7 @@ function renderTasksFromCache(agents, containerId) {
           <span>${t.agent||''}</span>
         </div>
       </div>
-      <div class="task-time">${t.createdAt?timeAgo(t.createdAt):''}</div>
+      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0"><div class="task-time">${t.createdAt?timeAgo(t.createdAt):''}</div><button class="del-btn" onclick="deleteTask('${t.id}')" title="Delete">🗑</button></div>
     </div>`).join('');
 }
 
