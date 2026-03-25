@@ -14,12 +14,12 @@
   --text: #f0f0f8;
   --muted: #7777aa;
   --dim: #3a3a55;
-  --cyan: #00d4aa;
-  --amber: #ffb86b;
-  --coral: #ff6b6b;
-  --purple: #7c6bff;
-  --blue: #4da6ff;
-  --green: #2ecc71;
+  --cyan: #5BA89A;
+  --amber: #C4965A;
+  --coral: #B87070;
+  --purple: #7A6BA8;
+  --blue: #5B8BAE;
+  --green: #5A9E7A;
 }
 body {
   font-family: 'Inter', sans-serif;
@@ -51,7 +51,7 @@ body {
 }
 .brand-icon {
   width: 34px; height: 34px;
-  background: linear-gradient(135deg, var(--purple), #a855f7);
+  background: linear-gradient(135deg, var(--purple), #8B7ABF);
   border-radius: 9px;
   display: flex; align-items: center; justify-content: center;
   font-size: 17px;
@@ -147,7 +147,7 @@ body {
   font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px;
   letter-spacing: .3px; text-transform: uppercase;
 }
-.pt-dropship { background: rgba(0,212,170,.12); color: var(--cyan); }
+.pt-dropship { background: rgba(91,168,154,.12); color: var(--cyan); }
 .pt-kyvo { background: rgba(255,184,107,.12); color: var(--amber); }
 .pt-cgd { background: rgba(255,107,107,.12); color: var(--coral); }
 .pt-all { background: rgba(124,107,255,.12); color: var(--purple); }
@@ -218,13 +218,13 @@ body {
   border-radius: 4px; text-transform: uppercase; letter-spacing: .3px;
   display: inline-flex; align-items: center;
 }
-.b-high { background: rgba(255,71,87,.15); color: #ff4757; }
-.b-medium { background: rgba(255,184,107,.15); color: var(--amber); }
-.b-low { background: rgba(58,58,85,.5); color: var(--muted); }
-.b-todo { background: rgba(124,107,255,.15); color: var(--purple); }
-.b-in-progress { background: rgba(255,184,107,.15); color: var(--amber); }
-.b-review { background: rgba(77,166,255,.15); color: var(--blue); }
-.b-done { background: rgba(0,212,170,.15); color: var(--cyan); }
+.b-high { background: rgba(180,80,80,.15); color: #B45050; }
+.b-medium { background: rgba(196,150,90,.15); color: var(--amber); }
+.b-low { background: rgba(58,58,85,.4); color: var(--muted); }
+.b-todo { background: rgba(122,107,168,.15); color: var(--purple); }
+.b-in-progress { background: rgba(196,150,90,.15); color: var(--amber); }
+.b-review { background: rgba(91,139,174,.15); color: var(--blue); }
+.b-done { background: rgba(91,168,154,.15); color: var(--cyan); }
 .task-time { font-size: 11px; color: var(--dim); flex-shrink: 0; margin-top: 2px; }
 .no-tasks { color: var(--muted); font-size: 13px; padding: 16px 0; text-align: center; }
 
@@ -261,10 +261,10 @@ body {
   border-radius: 20px; text-transform: uppercase; letter-spacing: .3px;
   cursor: pointer; border: 1px solid transparent; transition: all .15s;
 }
-.sb-script { background: rgba(77,166,255,.15); color: var(--blue); border-color: rgba(77,166,255,.2); }
-.sb-filmed { background: rgba(255,184,107,.15); color: var(--amber); border-color: rgba(255,184,107,.2); }
+.sb-script { background: rgba(91,139,174,.14); color: var(--blue); border-color: rgba(91,139,174,.2); }
+.sb-filmed { background: rgba(196,150,90,.14); color: var(--amber); border-color: rgba(196,150,90,.2); }
 .sb-edited { background: rgba(124,107,255,.15); color: var(--purple); border-color: rgba(124,107,255,.2); }
-.sb-posted { background: rgba(0,212,170,.15); color: var(--cyan); border-color: rgba(0,212,170,.2); }
+.sb-posted { background: rgba(91,168,154,.14); color: var(--cyan); border-color: rgba(0,212,170,.2); }
 
 /* ── COPY SECTIONS ── */
 .copy-section { padding: 18px; border-bottom: 1px solid var(--border); }
@@ -429,15 +429,15 @@ body {
   font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px;
   text-transform: uppercase; letter-spacing: .3px;
 }
-.pill-live { background: rgba(0,212,170,.15); color: var(--cyan); }
-.pill-testing { background: rgba(255,184,107,.15); color: var(--amber); }
+.pill-live { background: rgba(91,168,154,.14); color: var(--cyan); }
+.pill-testing { background: rgba(196,150,90,.14); color: var(--amber); }
 .pill-paused { background: rgba(58,58,85,.4); color: var(--muted); }
-.pill-active { background: rgba(0,212,170,.15); color: var(--cyan); }
-.pill-ready { background: rgba(77,166,255,.15); color: var(--blue); }
+.pill-active { background: rgba(91,168,154,.14); color: var(--cyan); }
+.pill-ready { background: rgba(91,139,174,.14); color: var(--blue); }
 
 /* ── NOTES ── */
 .notes-box {
-  background: rgba(255,184,107,.05); border: 1px solid rgba(255,184,107,.15);
+  background: rgba(255,184,107,.05); border: 1px solid rgba(196,150,90,.14);
   border-radius: 8px; padding: 12px 14px; font-size: 13px; color: var(--muted);
   line-height: 1.6; margin-top: 16px;
 }
@@ -492,7 +492,7 @@ body {
   border: 1px solid var(--border);
 }
 .ev-chip.ev-sim { background: rgba(0,212,170,.1); color: var(--cyan); border-color: rgba(0,212,170,.2); }
-.ev-chip.ev-gym { background: rgba(0,212,170,.08); color: #00b894; border-color: rgba(0,212,170,.15); }
+.ev-chip.ev-gym { background: rgba(0,212,170,.08); color: #00b894; border-color: rgba(91,168,154,.14); }
 .ev-chip.ev-agent { background: rgba(124,107,255,.1); color: var(--purple); border-color: rgba(124,107,255,.2); }
 .ev-chip.ev-family { background: rgba(255,107,107,.1); color: var(--coral); border-color: rgba(255,107,107,.2); }
 .ev-chip.ev-bba { background: rgba(255,255,255,.05); color: var(--muted); }
@@ -521,7 +521,7 @@ body {
 .cron-badge {
   font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px;
 }
-.cron-active { background: rgba(0,212,170,.15); color: var(--cyan); }
+.cron-active { background: rgba(91,168,154,.14); color: var(--cyan); }
 .cron-error { background: rgba(255,71,87,.15); color: #ff4757; }
 
 /* ── TEAM PAGE ── */
@@ -935,7 +935,7 @@ body {
           <div class="agent-name">Neo</div>
           <div class="agent-role">Dropship HQ Director</div>
           <div class="agent-footer">
-            <span class="agent-pillar-tag" style="background:rgba(0,212,170,.12);color:#00d4aa">Dropship</span>
+            <span class="agent-pillar-tag" style="background:rgba(91,168,154,.12);color:#00d4aa">Dropship</span>
             <span class="online-dot">Online</span>
           </div>
         </div>
@@ -1005,7 +1005,7 @@ body {
           <div class="agent-name">The Builder</div>
           <div class="agent-role">Shopify Builder</div>
           <div class="agent-footer">
-            <span class="agent-pillar-tag" style="background:rgba(0,212,170,.12);color:#00d4aa">All Pillars</span>
+            <span class="agent-pillar-tag" style="background:rgba(91,168,154,.12);color:#00d4aa">All Pillars</span>
             <span class="online-dot">Online</span>
           </div>
         </div>
