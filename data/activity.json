@@ -1,5 +1,12 @@
 [
   {
+    "id": "mn9mldvmyo8z",
+    "agent": "trinity",
+    "action": "Nightly intelligence report delivered",
+    "details": "4-message Discord report: @casualgolfdad account analysis, Reddit top debates (LIV brawl, Houston Open, YouTuber handicaps), competitor pulse (Clay Hammerich serial format steal), tomorrow content brief (Paul Waring identity reel). Note: Apify monthly limit hit — scrape credits need renewal.",
+    "timestamp": "2026-03-28T01:02:28.738Z"
+  },
+  {
     "id": "mn90nv6i9pkx",
     "agent": "the-copywriter",
     "action": "KYVO Day 8 Brief written and delivered",
