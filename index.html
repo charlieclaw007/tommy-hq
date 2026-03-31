@@ -2,1706 +2,930 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tommy HQ</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Mission Control — Tommy HQ</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg: #0d0d14;
-  --card: #13131d;
-  --border: #1f1f30;
-  --text: #f0f0f8;
-  --muted: #7777aa;
-  --dim: #3a3a55;
-  --cyan: #5BA89A;
-  --amber: #C9A03C;
-  --coral: #A85C5C;
-  --purple: #7A6BA8;
-  --blue: #5B8BAE;
-  --green: #5A9E7A;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0d14; --card:#13131d; --card2:#181825; --border:#1f1f30; --border2:#2a2a3d;
+  --text:#f0f0f8; --muted:#7777aa; --dim:#2a2a40;
+  --teal:#5BA89A; --amber:#C9A03C; --coral:#A85C5C; --purple:#7A6BA8; --blue:#4da6ff; --green:#5A9E7A;
+  --nav-h:60px; --header-h:52px;
 }
-body {
-  font-family: 'Inter', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  font-size: 14px;
-  min-height: 100vh;
-  display: flex;
-}
-
-/* ── SIDEBAR ── */
-.sidebar {
-  position: fixed;
-  top: 0; left: 0; bottom: 0;
-  width: 200px;
-  background: var(--card);
-  border-right: 1px solid var(--border);
-  z-index: 100;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-}
-.sidebar-brand {
-  padding: 18px 14px 14px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.brand-icon {
-  width: 34px; height: 34px;
-  background: linear-gradient(135deg, var(--purple), #8B7ABF);
-  border-radius: 9px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 17px;
-  flex-shrink: 0;
-}
-.brand h1 { font-size: 15px; font-weight: 800; letter-spacing: -.4px; line-height: 1.2; }
-.brand span { font-size: 10px; color: var(--muted); font-weight: 400; display: block; }
-
-.sidebar-section-label {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--dim);
-  padding: 12px 18px 6px;
-  font-weight: 700;
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 10px 18px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--muted);
-  cursor: pointer;
-  transition: all .15s;
-  border-left: 2px solid transparent;
-  user-select: none;
-}
-.nav-item:hover {
-  color: var(--text);
-  background: rgba(255,255,255,.03);
-}
-.nav-item.active {
-  border-left-color: var(--purple);
-  color: var(--text);
-  background: rgba(124,107,255,.08);
-}
-.nav-item .nav-icon { font-size: 15px; flex-shrink: 0; }
-
-/* ── MAIN WRAPPER ── */
-.main-wrapper {
-  margin-left: 200px;
-  flex: 1;
-  min-width: 0;
-}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;display:flex;flex-direction:column;height:100vh}
 
 /* ── HEADER ── */
-.header {
-  padding: 18px 24px 0;
-  border-bottom: 1px solid var(--border);
-  background: var(--card);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-}
+.header{height:var(--header-h);background:var(--card);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;position:relative;z-index:30}
+.brand{display:flex;align-items:center;gap:8px}
+.brand-dot{width:28px;height:28px;background:linear-gradient(135deg,var(--purple),#9d7fe8);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.brand h1{font-size:15px;font-weight:800;letter-spacing:-.3px}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.date-pill{font-size:11px;color:var(--muted);background:var(--card2);border:1px solid var(--border);padding:3px 10px;border-radius:20px}
 
-/* ── TABS ── */
-.tabs {
-  display: flex;
-  gap: 0;
-}
-.tab {
-  padding: 10px 22px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--muted);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: all .15s;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  white-space: nowrap;
-}
-.tab:hover { color: var(--text); }
-.tab.active.t-dropship { color: var(--cyan); border-bottom-color: var(--cyan); }
-.tab.active.t-kyvo { color: var(--amber); border-bottom-color: var(--amber); }
-.tab.active.t-cgd { color: var(--coral); border-bottom-color: var(--coral); }
-.tab.active.t-all { color: var(--purple); border-bottom-color: var(--purple); }
-.tab .dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  display: inline-block; flex-shrink: 0;
-}
-.t-dropship .dot { background: var(--cyan); }
-.t-kyvo .dot { background: var(--amber); }
-.t-cgd .dot { background: var(--coral); }
-.t-all .dot { background: var(--purple); }
+/* ── LAYOUT ── */
+.layout{display:flex;flex:1;overflow:hidden}
 
-/* ── PILLAR PILL ── */
-.pillar-tag {
-  font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px;
-  letter-spacing: .3px; text-transform: uppercase;
-}
-.pt-dropship { background: rgba(91,168,154,.12); color: var(--cyan); }
-.pt-kyvo { background: rgba(255,184,107,.12); color: var(--amber); }
-.pt-cgd { background: rgba(255,107,107,.12); color: var(--coral); }
-.pt-all { background: rgba(124,107,255,.12); color: var(--purple); }
+/* ── SIDEBAR (desktop) ── */
+.sidebar{width:180px;background:var(--card);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:12px 0;flex-shrink:0}
+.nav-group-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--dim);padding:8px 16px 4px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:9px 16px;cursor:pointer;color:var(--muted);font-size:13px;font-weight:500;border-left:2px solid transparent;transition:all .15s}
+.nav-item:hover{color:var(--text);background:rgba(255,255,255,.03)}
+.nav-item.active{color:var(--text);border-left-color:var(--teal);background:rgba(91,168,154,.08)}
+.nav-item .n-icon{font-size:14px;width:16px;text-align:center}
 
-/* ── PAGES ── */
-.page { display: none; padding: 28px 24px; max-width: 900px; }
-.page.active { display: block; }
+/* ── MAIN ── */
+.main{flex:1;overflow-y:auto;overflow-x:hidden}
+.page{display:none;padding:20px;max-width:800px}
+.page.active{display:block}
+.page-title{font-size:18px;font-weight:800;letter-spacing:-.4px;margin-bottom:4px}
+.page-sub{font-size:12px;color:var(--muted);margin-bottom:20px}
 
-/* ── SIDEBAR PAGES ── */
-.sidebar-page { display: none; padding: 28px 24px; }
-.sidebar-page.active { display: block; }
+/* ── CARDS ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden}
+.card-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.card-body{padding:16px}
+.card-title{font-size:14px;font-weight:700;flex:1}
 
-/* ── SECTION BLOCK ── */
-.section-block { margin-bottom: 36px; }
-.section-title {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--muted);
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.section-title::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;letter-spacing:.3px;text-transform:uppercase}
+.b-high{background:rgba(172,92,92,.2);color:#d47a7a}
+.b-medium{background:rgba(201,160,60,.15);color:var(--amber)}
+.b-low{background:rgba(42,42,64,.6);color:var(--muted)}
+.b-todo{background:rgba(122,107,168,.15);color:var(--purple)}
+.b-in-progress{background:rgba(201,160,60,.15);color:var(--amber)}
+.b-done{background:rgba(91,168,154,.15);color:var(--teal)}
+.b-live{background:rgba(91,168,154,.15);color:var(--teal)}
+.b-testing{background:rgba(201,160,60,.15);color:var(--amber)}
+.b-paused{background:rgba(42,42,64,.5);color:var(--muted)}
+.b-needed{background:rgba(201,120,60,.25);color:#e8904a;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+
+/* ── COPY BUTTONS ── */
+.copy-btn{background:var(--card2);border:1px solid var(--border2);color:var(--muted);font-size:11px;font-weight:700;padding:5px 12px;border-radius:6px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.copy-btn:hover{border-color:var(--teal);color:var(--teal)}
+.copy-btn.copied{background:var(--teal);border-color:var(--teal);color:#0d0d14}
+.copy-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px}
+.copy-text{flex:1;font-size:13px;line-height:1.6;color:var(--text);background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:8px;padding:10px 12px;white-space:pre-wrap;word-break:break-word;min-height:38px}
+.copy-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:6px;margin-top:10px}
+
+/* ── TODAY TAB ── */
+.greeting{font-size:22px;font-weight:900;letter-spacing:-.5px;margin-bottom:4px}
+.day-label{font-size:12px;color:var(--muted);margin-bottom:20px}
+.mit-card{background:linear-gradient(135deg,rgba(91,168,154,.12),rgba(122,107,168,.08));border:1px solid rgba(91,168,154,.25);border-radius:12px;padding:16px;margin-bottom:16px}
+.mit-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--teal);margin-bottom:8px}
+.mit-title{font-size:16px;font-weight:700;margin-bottom:4px}
+.mit-agent{font-size:12px;color:var(--muted)}
+.schedule-block{margin-bottom:16px}
+.sched-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.sched-row:last-child{border-bottom:none}
+.sched-time{font-size:11px;font-weight:700;color:var(--muted);width:80px;flex-shrink:0}
+.sched-label{font-size:13px;font-weight:500;flex:1}
+.sched-type{font-size:10px;padding:2px 6px;border-radius:4px;font-weight:700}
+.st-empire{background:rgba(91,168,154,.15);color:var(--teal)}
+.st-family{background:rgba(42,42,64,.5);color:var(--muted)}
+.st-bba{background:rgba(42,42,40,.6);color:#5a5a6a}
+.st-gym{background:rgba(122,107,168,.15);color:var(--purple)}
+.st-film{background:rgba(201,160,60,.15);color:var(--amber)}
+.st-sim{background:rgba(91,130,168,.15);color:var(--blue)}
+.pulse-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.pulse-item:last-child{border-bottom:none}
+.pulse-emoji{width:28px;height:28px;background:rgba(255,255,255,.05);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.pulse-content{flex:1;min-width:0}
+.pulse-action{font-size:13px;font-weight:500}
+.pulse-detail{font-size:11px;color:var(--muted);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pulse-time{font-size:11px;color:var(--dim);flex-shrink:0}
+.quick-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.q-btn{padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--muted);transition:all .15s}
+.q-btn:hover{border-color:var(--teal);color:var(--teal)}
+
+/* ── STUDIO ── */
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.filter-pill{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--muted);transition:all .15s}
+.filter-pill:hover{border-color:var(--border2);color:var(--text)}
+.filter-pill.active{background:rgba(91,168,154,.12);border-color:rgba(91,168,154,.3);color:var(--teal)}
+.content-card{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:14px;overflow:hidden}
+.content-header{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.content-title{font-size:14px;font-weight:700;flex:1;min-width:200px}
+.content-body{padding:16px}
+.status-btn{padding:5px 12px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:rgba(255,255,255,.03);color:var(--muted);transition:all .15s}
+.status-btn:hover{border-color:var(--border2);color:var(--text)}
+.status-btn.s-SCRIPT_READY{background:rgba(77,166,255,.1);color:var(--blue);border-color:rgba(77,166,255,.2)}
+.status-btn.s-FILMED{background:rgba(201,160,60,.1);color:var(--amber);border-color:rgba(201,160,60,.2)}
+.status-btn.s-EDITED{background:rgba(122,107,168,.1);color:var(--purple);border-color:rgba(122,107,168,.2)}
+.status-btn.s-POSTED{background:rgba(91,168,154,.1);color:var(--teal);border-color:rgba(91,168,154,.2)}
+.doc-btn{padding:5px 12px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid rgba(77,166,255,.2);background:rgba(77,166,255,.08);color:var(--blue);text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.doc-btn:hover{background:rgba(77,166,255,.15)}
+.empty-state{padding:40px 20px;text-align:center;color:var(--muted);font-size:13px}
+.empty-state .e-icon{font-size:32px;margin-bottom:8px}
+.empty-state .e-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+
+/* ── PIPELINE ── */
+.product-card{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:14px;overflow:hidden}
+.product-top{padding:14px 16px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.product-top:hover{background:rgba(255,255,255,.02)}
+.product-name{font-size:16px;font-weight:800;flex:1}
+.product-sub{font-size:12px;color:var(--muted)}
+.product-body{padding:16px;border-top:1px solid var(--border);display:none}
+.product-card.open .product-body{display:block}
+.stages{display:flex;align-items:center;gap:3px;flex-wrap:wrap;margin:12px 0}
+.stage-dot{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.05);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--dim);flex-shrink:0}
+.stage-dot.done{background:rgba(91,168,154,.15);border-color:var(--teal);color:var(--teal)}
+.stage-dot.current{background:var(--teal);border-color:var(--teal);color:#0d0d14}
+.stage-line{flex:1;height:2px;background:var(--border);min-width:6px}
+.stage-line.done{background:var(--teal)}
+.stage-label{font-size:9px;text-align:center;margin-top:3px;color:var(--dim)}
+.needed-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(201,120,60,.2);border:1px solid rgba(201,120,60,.3);color:#e8904a;font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;margin-bottom:10px}
+
+/* ── LEARN ── */
+.learn-day{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--amber);margin-bottom:4px}
+.learn-topic{font-size:20px;font-weight:800;letter-spacing:-.3px;margin-bottom:14px}
+.learn-section-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin:14px 0 6px}
+.learn-text{font-size:13px;line-height:1.7;color:var(--text)}
+.learn-bullets li{font-size:13px;line-height:1.7;color:var(--text);margin-bottom:4px;margin-left:16px}
+.apply-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 16px;background:rgba(91,168,154,.12);border:1px solid rgba(91,168,154,.25);color:var(--teal);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer}
+.apply-btn:hover{background:rgba(91,168,154,.2)}
+.prev-lessons{margin-top:24px}
+.prev-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:8px}
+.prev-item{padding:10px 14px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:8px;margin-bottom:6px;cursor:pointer;display:flex;align-items:center;gap:8px}
+.prev-item:hover{border-color:var(--border2)}
+.prev-day{font-size:10px;font-weight:700;color:var(--muted);width:70px;flex-shrink:0}
+.prev-title{font-size:12px;font-weight:600;flex:1}
 
 /* ── TASKS ── */
-.task-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 12px 14px;
-  border: 1px solid var(--border);
-  border-radius: 9px;
-  margin-bottom: 8px;
-  background: var(--card);
-  transition: border-color .15s;
-}
-.task-item:hover { border-color: var(--dim); }
-.task-check {
-  width: 18px; height: 18px;
-  border: 2px solid var(--dim);
-  border-radius: 4px;
-  cursor: pointer;
-  flex-shrink: 0;
-  margin-top: 1px;
-  display: flex; align-items: center; justify-content: center;
-  transition: all .15s;
-}
-.task-check:hover { border-color: var(--cyan); }
-.task-item.done .task-check {
-  background: var(--cyan);
-  border-color: var(--cyan);
-}
-.task-item.done .task-check::after { content: '✓'; font-size: 11px; color: #000; font-weight: 800; }
-.task-item.done .task-text { text-decoration: line-through; color: var(--muted); }
-.task-body { flex: 1; min-width: 0; }
-.task-text { font-size: 13px; font-weight: 500; }
-.task-meta { font-size: 11px; color: var(--muted); margin-top: 4px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.badge {
-  font-size: 10px; font-weight: 700; padding: 2px 7px;
-  border-radius: 4px; text-transform: uppercase; letter-spacing: .3px;
-  display: inline-flex; align-items: center;
-}
-.b-high { background: rgba(180,80,80,.15); color: #B45050; }
-.b-medium { background: rgba(196,150,90,.15); color: var(--amber); }
-.b-low { background: rgba(58,58,85,.4); color: var(--muted); }
-.b-todo { background: rgba(122,107,168,.15); color: var(--purple); }
-.b-in-progress { background: rgba(196,150,90,.15); color: var(--amber); }
-.b-review { background: rgba(91,139,174,.15); color: var(--blue); }
-.b-done { background: rgba(91,168,154,.15); color: var(--cyan); }
-.task-time { font-size: 11px; color: var(--dim); flex-shrink: 0; margin-top: 2px; }
-.del-btn {
-  background: none; border: none; color: var(--dim); font-size: 15px;
-  cursor: pointer; padding: 2px 4px; border-radius: 4px; flex-shrink: 0;
-  transition: all .15s; line-height: 1;
-}
-.del-btn:hover { color: #B45050; background: rgba(180,80,80,.12); }
-.no-tasks { color: var(--muted); font-size: 13px; padding: 16px 0; text-align: center; }
+.task-count{font-size:13px;color:var(--muted);margin-bottom:14px}
+.task-item{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:8px}
+.task-check{width:18px;height:18px;border:2px solid var(--dim);border-radius:4px;cursor:pointer;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.task-check:hover{border-color:var(--teal)}
+.task-check.checked{background:var(--teal);border-color:var(--teal)}
+.task-body{flex:1;min-width:0}
+.task-title{font-size:13px;font-weight:600}
+.task-meta{display:flex;gap:6px;margin-top:5px;align-items:center;flex-wrap:wrap}
+.task-time{font-size:11px;color:var(--dim);flex-shrink:0}
+.del-btn{background:none;border:none;color:var(--dim);font-size:14px;cursor:pointer;padding:2px 4px;border-radius:4px;flex-shrink:0}
+.del-btn:hover{color:var(--coral);background:rgba(165,92,92,.1)}
+.tier-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin:16px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--border)}
 
-/* ── CONTENT CARDS ── */
-.content-card {
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  margin-bottom: 20px;
-  background: var(--card);
-  overflow: hidden;
-}
-.content-card-header {
-  padding: 16px 18px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-.content-card-title {
-  font-size: 15px;
-  font-weight: 700;
-  flex: 1;
-}
-.content-card-meta {
-  font-size: 12px;
-  color: var(--muted);
-  margin-top: 3px;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-.status-badge {
-  font-size: 11px; font-weight: 700; padding: 3px 9px;
-  border-radius: 20px; text-transform: uppercase; letter-spacing: .3px;
-  cursor: pointer; border: 1px solid transparent; transition: all .15s;
-}
-.sb-script { background: rgba(91,139,174,.14); color: var(--blue); border-color: rgba(91,139,174,.2); }
-.sb-filmed { background: rgba(196,150,90,.14); color: var(--amber); border-color: rgba(196,150,90,.2); }
-.sb-edited { background: rgba(124,107,255,.15); color: var(--purple); border-color: rgba(124,107,255,.2); }
-.sb-posted { background: rgba(91,168,154,.14); color: var(--cyan); border-color: rgba(0,212,170,.2); }
+/* ── WEEK ── */
+.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:8px}
+.day-col{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.day-header{padding:7px 8px;text-align:center;font-size:11px;font-weight:700;border-bottom:1px solid var(--border)}
+.day-block{padding:5px 8px;font-size:10px;font-weight:600;border-bottom:1px solid var(--border);line-height:1.3}
+.day-block:last-child{border-bottom:none}
+.db-empire{background:rgba(91,168,154,.1);color:var(--teal)}
+.db-family{background:rgba(255,255,255,.02);color:var(--dim)}
+.db-bba{background:rgba(255,255,255,.02);color:var(--dim)}
+.db-gym{background:rgba(122,107,168,.1);color:var(--purple)}
+.db-film{background:rgba(201,160,60,.1);color:var(--amber)}
+.db-sim{background:rgba(91,130,168,.1);color:var(--blue)}
+.db-off{background:none;color:var(--dim)}
+.week-total{margin-top:14px;padding:12px 16px;background:rgba(91,168,154,.08);border:1px solid rgba(91,168,154,.2);border-radius:10px;font-size:13px;font-weight:600;color:var(--teal);text-align:center}
 
-/* ── COPY SECTIONS ── */
-.copy-section { padding: 18px; border-bottom: 1px solid var(--border); }
-.copy-section:last-child { border-bottom: none; }
-.copy-label {
-  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px;
-  color: var(--muted); margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
-}
-.copy-box {
-  background: rgba(255,255,255,.03);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 14px 16px;
-  position: relative;
-}
-.copy-box-text {
-  font-size: 13px;
-  line-height: 1.7;
-  color: var(--text);
-  white-space: pre-wrap;
-  word-break: break-word;
-  padding-right: 90px;
-}
-.copy-btn {
-  position: absolute;
-  top: 10px; right: 10px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  color: var(--muted);
-  font-size: 12px; font-weight: 700;
-  padding: 6px 14px; border-radius: 6px;
-  cursor: pointer; transition: all .15s;
-  white-space: nowrap;
-}
-.copy-btn:hover { border-color: var(--purple); color: var(--text); }
-.copy-btn.done { background: var(--cyan); border-color: var(--cyan); color: #000; }
-
-/* ── SCRIPT TEXT ── */
-.script-section {
-  padding: 18px;
-  border-bottom: 1px solid var(--border);
-}
-.script-text {
-  font-size: 13px;
-  line-height: 1.8;
-  color: var(--muted);
-  white-space: pre-wrap;
-  background: rgba(255,255,255,.02);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 16px;
-  margin-top: 10px;
-  position: relative;
-  padding-right: 90px;
-}
-
-/* ── STATUS TRACK ── */
-.status-track {
-  display: flex;
-  gap: 6px;
-  margin-top: 10px;
-  flex-wrap: wrap;
-}
-.st-btn {
-  padding: 5px 12px;
-  border-radius: 6px;
-  font-size: 11px; font-weight: 700;
-  cursor: pointer;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,.03);
-  color: var(--dim);
-  transition: all .15s;
-}
-.st-btn:hover { color: var(--muted); border-color: var(--dim); }
-.st-btn.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,212,170,.1); }
-
-/* ── CHECKLIST ── */
-.checklist-section {
-  padding: 16px 18px;
-  background: rgba(255,255,255,.01);
-}
-.checklist-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); margin-bottom: 10px; }
-.cl-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 6px 0; font-size: 13px; color: var(--muted); cursor: pointer;
-}
-.cl-item:hover { color: var(--text); }
-.cl-item.checked { color: var(--dim); text-decoration: line-through; }
-.cl-item input { accent-color: var(--cyan); width: 15px; height: 15px; cursor: pointer; }
-
-/* ── FILES ── */
-.file-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  border: 1px solid var(--border);
-  border-radius: 9px;
-  margin-bottom: 8px;
-  background: var(--card);
-  transition: border-color .15s;
-}
-.file-item:hover { border-color: var(--dim); }
-.file-icon {
-  width: 36px; height: 36px;
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px; flex-shrink: 0;
-  background: rgba(255,255,255,.04);
-}
-.file-info { flex: 1; min-width: 0; }
-.file-name { font-size: 13px; font-weight: 600; }
-.file-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
-.file-link {
-  padding: 6px 14px;
-  border-radius: 7px;
-  font-size: 12px; font-weight: 600;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  text-decoration: none;
-  transition: all .15s;
-  flex-shrink: 0;
-}
-.file-link:hover { border-color: var(--blue); color: var(--blue); }
-
-/* ── FILE GROUP ── */
-.file-group-label {
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .8px; color: var(--dim);
-  margin: 20px 0 8px;
-}
-.file-group-label:first-child { margin-top: 0; }
-
-/* ── EMPTY STATE ── */
-.empty { padding: 24px 0; text-align: center; color: var(--dim); font-size: 13px; }
-
-/* ── LOADING ── */
-.loading { color: var(--muted); font-size: 13px; padding: 12px 0; }
-
-/* ── PRODUCT STAGE (Dropship) ── */
-.product-section { margin-bottom: 24px; }
-.product-header {
-  display: flex; align-items: center; gap: 10px;
-  margin-bottom: 12px;
-}
-.product-name { font-size: 16px; font-weight: 800; }
-.product-sub { font-size: 12px; color: var(--muted); margin-left: 6px; }
-.stage-track {
-  display: flex; align-items: center; gap: 4px; flex-wrap: wrap; margin-bottom: 16px;
-}
-.stage {
-  font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 4px;
-  text-transform: uppercase; letter-spacing: .3px;
-  background: rgba(255,255,255,.04); color: var(--dim);
-}
-.stage.done { background: rgba(0,212,170,.1); color: var(--cyan); }
-.stage.current { background: var(--cyan); color: #000; font-weight: 800; }
-.stage-sep { color: var(--border); font-size: 12px; }
-
-/* ── PILL STATUS ── */
-.pill {
-  font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px;
-  text-transform: uppercase; letter-spacing: .3px;
-}
-.pill-live { background: rgba(91,168,154,.14); color: var(--cyan); }
-.pill-testing { background: rgba(196,150,90,.14); color: var(--amber); }
-.pill-paused { background: rgba(58,58,85,.4); color: var(--muted); }
-.pill-active { background: rgba(91,168,154,.14); color: var(--cyan); }
-.pill-ready { background: rgba(91,139,174,.14); color: var(--blue); }
-
-/* ── NOTES ── */
-.notes-box {
-  background: rgba(255,184,107,.05); border: 1px solid rgba(196,150,90,.14);
-  border-radius: 8px; padding: 12px 14px; font-size: 13px; color: var(--muted);
-  line-height: 1.6; margin-top: 16px;
-}
-.notes-box strong { color: var(--amber); }
-
-/* ── FILTER BTNS ── */
-.filter-btn {
-  padding: 5px 13px; border-radius: 6px; font-size: 12px; font-weight: 600;
-  border: 1px solid var(--border); background: var(--card); color: var(--muted);
-  cursor: pointer; transition: all .15s;
-}
-.filter-btn:hover { border-color: var(--dim); color: var(--text); }
-.filter-btn.active { background: rgba(124,107,255,.12); border-color: rgba(124,107,255,.3); color: var(--purple); }
-
-/* ── CALENDAR PAGE ── */
-.cal-page-title { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
-.cal-page-sub { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
-
-.week-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 36px; }
-.day-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 14px 16px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--card);
-}
-.day-row.sunday {
-  border-color: rgba(255,107,107,.3);
-  background: rgba(255,107,107,.04);
-}
-.day-name {
-  font-size: 12px; font-weight: 800;
-  color: var(--text);
-  min-width: 80px;
-  padding-top: 3px;
-  text-transform: uppercase;
-  letter-spacing: .4px;
-}
-.day-events {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  flex: 1;
-}
-.ev-chip {
-  font-size: 11px; font-weight: 600;
-  padding: 3px 9px; border-radius: 20px;
-  background: rgba(255,255,255,.05);
-  color: var(--muted);
-  border: 1px solid var(--border);
-}
-.ev-chip.ev-sim { background: rgba(0,212,170,.1); color: var(--cyan); border-color: rgba(0,212,170,.2); }
-.ev-chip.ev-gym { background: rgba(0,212,170,.08); color: #00b894; border-color: rgba(91,168,154,.14); }
-.ev-chip.ev-agent { background: rgba(124,107,255,.1); color: var(--purple); border-color: rgba(124,107,255,.2); }
-.ev-chip.ev-family { background: rgba(255,107,107,.1); color: var(--coral); border-color: rgba(255,107,107,.2); }
-.ev-chip.ev-bba { background: rgba(255,255,255,.05); color: var(--muted); }
-.dnd-badge {
-  font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 20px;
-  background: rgba(255,71,87,.2); color: #ff4757; border: 1px solid rgba(255,71,87,.3);
-  text-transform: uppercase; letter-spacing: .5px; white-space: nowrap;
-}
-
-.cron-section-title {
-  font-size: 14px; font-weight: 800; margin-bottom: 14px;
-  display: flex; align-items: center; gap: 8px;
-}
-.cron-list { display: flex; flex-direction: column; gap: 8px; }
-.cron-item {
-  display: flex; align-items: center; gap: 12px;
-  padding: 12px 16px;
-  border: 1px solid var(--border);
-  border-radius: 9px;
-  background: var(--card);
-}
-.cron-status { font-size: 16px; flex-shrink: 0; }
-.cron-info { flex: 1; }
-.cron-name { font-size: 13px; font-weight: 700; }
-.cron-schedule { font-size: 11px; color: var(--muted); margin-top: 2px; }
-.cron-badge {
-  font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px;
-}
-.cron-active { background: rgba(91,168,154,.14); color: var(--cyan); }
-.cron-error { background: rgba(255,71,87,.15); color: #ff4757; }
-
-/* ── TEAM PAGE ── */
-.team-page-title { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
-.team-page-sub { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
-.team-tier-label {
-  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
-  color: var(--muted); margin-bottom: 14px;
-  display: flex; align-items: center; gap: 8px;
-}
-.team-tier-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
-.agent-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 14px;
-  margin-bottom: 32px;
-}
-.agent-card {
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--card);
-  overflow: hidden;
-  transition: border-color .15s, transform .15s;
-}
-.agent-card:hover { border-color: var(--dim); transform: translateY(-2px); }
-.agent-card-stripe { height: 3px; width: 100%; }
-.agent-card-body { padding: 18px 16px 16px; }
-.agent-emoji { font-size: 28px; margin-bottom: 10px; display: block; }
-.agent-name { font-size: 15px; font-weight: 800; margin-bottom: 3px; }
-.agent-role { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
-.agent-footer { display: flex; align-items: center; justify-content: space-between; }
-.agent-pillar-tag {
-  font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px;
-  text-transform: uppercase; letter-spacing: .3px;
-}
-.online-dot { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--green); font-weight: 600; }
-.online-dot::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--green); display: inline-block; }
+/* ── BOTTOM NAV (mobile) ── */
+.bottom-nav{display:none;height:var(--nav-h);background:var(--card);border-top:1px solid var(--border);flex-shrink:0}
+.bnav-items{display:flex;height:100%}
+.bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;color:var(--muted);font-size:10px;font-weight:600;transition:all .15s;border-top:2px solid transparent}
+.bnav-item.active{color:var(--teal);border-top-color:var(--teal)}
+.bnav-item .bn-icon{font-size:18px}
 
 /* ── MOBILE ── */
-@media (max-width: 768px) {
-  .sidebar {
-    top: auto; left: 0; right: 0; bottom: 0;
-    width: 100%;
-    height: 60px;
-    flex-direction: row;
-    border-right: none;
-    border-top: 1px solid var(--border);
-    overflow: hidden;
-  }
-  .sidebar-brand { display: none; }
-  .sidebar-section-label { display: none; }
-  .sidebar-nav { display: flex; flex-direction: row; flex: 1; justify-content: space-around; }
-  .nav-item {
-    flex-direction: column;
-    gap: 2px;
-    padding: 8px 12px;
-    font-size: 10px;
-    border-left: none;
-    border-top: 2px solid transparent;
-    flex: 1;
-    justify-content: center;
-    text-align: center;
-  }
-  .nav-item.active {
-    border-left-color: transparent;
-    border-top-color: var(--purple);
-  }
-  .nav-icon { font-size: 18px; }
-  .main-wrapper { margin-left: 0; padding-bottom: 70px; }
-  .page { padding: 16px; }
-  .sidebar-page { padding: 16px; }
-  .copy-box-text { padding-right: 0; padding-bottom: 40px; }
-  .copy-btn { top: auto; bottom: 8px; right: 8px; }
-  .script-text { padding-right: 0; padding-bottom: 40px; }
-  .agent-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+@media(max-width:768px){
+  .sidebar{display:none}
+  .bottom-nav{display:flex}
+  .main{padding-bottom:0}
+  .page{padding:14px}
+  .week-grid{grid-template-columns:repeat(7,1fr);gap:3px}
+  .day-block{font-size:9px;padding:4px 5px}
+  .day-header{font-size:10px;padding:5px}
 }
 
-@media (max-width: 600px) {
-  .day-row { flex-direction: column; gap: 8px; }
-  .day-name { min-width: auto; }
-}
+/* ── MISC ── */
+.divider{height:1px;background:var(--border);margin:16px 0}
+.section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:10px}
+.loading{color:var(--muted);font-size:13px;padding:12px 0}
+a{color:inherit;text-decoration:none}
 </style>
 </head>
 <body>
 
-<!-- ════════════ SIDEBAR ════════════ -->
-<div class="sidebar">
-  <div class="sidebar-brand">
-    <div class="brand-icon">🌀</div>
-    <div class="brand">
-      <h1>Tommy HQ</h1>
-      <span>Empire Control</span>
-    </div>
+<!-- HEADER -->
+<div class="header">
+  <div class="brand">
+    <div class="brand-dot">🌀</div>
+    <h1>Tommy HQ</h1>
   </div>
-  <div class="sidebar-nav">
-    <div class="sidebar-section-label">GLOBAL</div>
-    <div class="nav-item" data-page="calendar" onclick="showSidebarPage('calendar')">
-      <span class="nav-icon">📅</span> Calendar
-    </div>
-    <div class="nav-item" data-page="team" onclick="showSidebarPage('team')">
-      <span class="nav-icon">👥</span> Team
-    </div>
+  <div class="header-right">
+    <div class="date-pill" id="header-date"></div>
   </div>
 </div>
 
-<!-- ════════════ MAIN WRAPPER ════════════ -->
-<div class="main-wrapper">
+<!-- LAYOUT -->
+<div class="layout">
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="tabs">
-      <div class="tab t-dropship active" onclick="showTab('dropship')">
-        <span class="dot"></span> Dropship HQ
-      </div>
-      <div class="tab t-kyvo" onclick="showTab('kyvo')">
-        <span class="dot"></span> KYVO Performance
-      </div>
-      <div class="tab t-cgd" onclick="showTab('cgd')">
-        <span class="dot"></span> @casualgolfdad
-      </div>
-      <div class="tab t-all" onclick="showTab('all')">
-        <span class="dot"></span> All Tasks
-      </div>
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="nav-group-label">Main</div>
+    <div class="nav-item active" data-tab="today"><span class="n-icon">🎯</span> Today</div>
+    <div class="nav-item" data-tab="studio"><span class="n-icon">📣</span> Studio</div>
+    <div class="nav-item" data-tab="pipeline"><span class="n-icon">🔄</span> Pipeline</div>
+    <div class="nav-group-label" style="margin-top:8px">Empire</div>
+    <div class="nav-item" data-tab="learn"><span class="n-icon">📚</span> Learn</div>
+    <div class="nav-item" data-tab="tasks"><span class="n-icon">✅</span> Tasks</div>
+    <div class="nav-item" data-tab="week"><span class="n-icon">📅</span> Week</div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- ══════════ TODAY ══════════ -->
+    <div class="page active" id="page-today">
+      <div id="today-content"><div class="loading">Loading your brief…</div></div>
     </div>
+
+    <!-- ══════════ STUDIO ══════════ -->
+    <div class="page" id="page-studio">
+      <div class="page-title">📣 Studio</div>
+      <div class="page-sub">Everything ready to copy. Scripts, captions, ad copy.</div>
+      <div class="filter-row">
+        <div class="filter-pill active" data-filter="all">All</div>
+        <div class="filter-pill" data-filter="kyvo">🏌️ KYVO</div>
+        <div class="filter-pill" data-filter="cgd">⛳ @casualgolfdad</div>
+        <div class="filter-pill" data-filter="dropship">🛒 Dropship</div>
+      </div>
+      <div class="filter-row" style="margin-top:-8px">
+        <div class="filter-pill active" data-status="all" style="font-size:11px">All Status</div>
+        <div class="filter-pill" data-status="SCRIPT_READY" style="font-size:11px">Ready ✅</div>
+        <div class="filter-pill" data-status="FILMED" style="font-size:11px">Filmed 🎬</div>
+        <div class="filter-pill" data-status="POSTED" style="font-size:11px">Posted ✓</div>
+      </div>
+      <div id="studio-content"><div class="loading">Loading content…</div></div>
+    </div>
+
+    <!-- ══════════ PIPELINE ══════════ -->
+    <div class="page" id="page-pipeline">
+      <div class="page-title">🔄 Pipeline</div>
+      <div class="page-sub">Every product. Every stage. Your action items highlighted.</div>
+      <div id="pipeline-content"><div class="loading">Loading pipeline…</div></div>
+    </div>
+
+    <!-- ══════════ LEARN ══════════ -->
+    <div class="page" id="page-learn">
+      <div class="page-title">📚 Learn</div>
+      <div class="page-sub">One insight per day. 5 minutes. Applied to your empire.</div>
+      <div id="learn-content"></div>
+    </div>
+
+    <!-- ══════════ TASKS ══════════ -->
+    <div class="page" id="page-tasks">
+      <div class="page-title">✅ Tasks</div>
+      <div class="page-sub">Your action items only. Nothing else.</div>
+      <div id="tasks-content"><div class="loading">Loading tasks…</div></div>
+    </div>
+
+    <!-- ══════════ WEEK ══════════ -->
+    <div class="page" id="page-week">
+      <div class="page-title">📅 Your Week</div>
+      <div class="page-sub">14 empire hours. Every block has a purpose.</div>
+      <div id="week-content"></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- BOTTOM NAV (mobile) -->
+<div class="bottom-nav">
+  <div class="bnav-items">
+    <div class="bnav-item active" data-tab="today"><span class="bn-icon">🎯</span>Today</div>
+    <div class="bnav-item" data-tab="studio"><span class="bn-icon">📣</span>Studio</div>
+    <div class="bnav-item" data-tab="pipeline"><span class="bn-icon">🔄</span>Pipeline</div>
+    <div class="bnav-item" data-tab="learn"><span class="bn-icon">📚</span>Learn</div>
+    <div class="bnav-item" data-tab="tasks"><span class="bn-icon">✅</span>Tasks</div>
+    <div class="bnav-item" data-tab="week"><span class="bn-icon">📅</span>Week</div>
   </div>
-
-  <!-- ═══════════ DROPSHIP ═══════════ -->
-  <div class="page active" id="tab-dropship">
-
-    <div class="section-block">
-      <div class="section-title">✅ To-Do</div>
-      <div id="dropship-tasks"><div class="loading">Loading tasks…</div></div>
-    </div>
-
-    <div class="section-block">
-      <div class="section-title">📦 Products & Ad Copy</div>
-
-      <!-- NEUVEIL -->
-      <div class="product-section">
-        <div class="product-header">
-          <span class="product-name">NEUVEIL</span>
-          <span class="product-sub">Microneedle Eye Patches</span>
-          <span class="pill pill-testing">Testing</span>
-          <a href="https://anakampsihealth.com/products/neuveil-microneedle-eye-patches-1" target="_blank" style="font-size:11px;color:var(--muted);text-decoration:none;border:1px solid var(--border);padding:3px 9px;border-radius:5px;margin-left:auto">Store ↗</a>
-        </div>
-        <div class="stage-track">
-          <span class="stage done">Scout</span><span class="stage-sep">›</span>
-          <span class="stage done">Brand</span><span class="stage-sep">›</span>
-          <span class="stage done">Copy</span><span class="stage-sep">›</span>
-          <span class="stage done">Creative</span><span class="stage-sep">›</span>
-          <span class="stage done">Build</span><span class="stage-sep">›</span>
-          <span class="stage done">QC</span><span class="stage-sep">›</span>
-          <span class="stage current">Live</span>
-        </div>
-
-        <!-- Batch tabs -->
-        <div style="display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:16px">
-          <div class="tab t-dropship active" id="btab-0" onclick="switchBatch(0)" style="padding:7px 16px;font-size:12px">Batch 1 — Mechanism</div>
-          <div class="tab t-dropship" id="btab-1" onclick="switchBatch(1)" style="padding:7px 16px;font-size:12px">Batch 2 — Avatar</div>
-          <div class="tab t-dropship" id="btab-2" onclick="switchBatch(2)" style="padding:7px 16px;font-size:12px">Batch 3 — Clinical</div>
-        </div>
-
-        <div id="batch-content"></div>
-
-        <div class="notes-box"><strong>Notes:</strong> Bundle: 1-box $49 | 3-box $119 (Roller free) | 5-box $189 (Eye Mask free)<br>Launch order: B1 → B3 → B2 | Kill: CTR &lt; 0.8% Day 3 | Scale: CTR &gt; 1.2% → +20%/day</div>
-      </div>
-
-      <!-- Veloura -->
-      <div style="border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;background:var(--card)">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-          <span class="product-name">Veloura</span>
-          <span class="product-sub">Facial Hair Removal Cream</span>
-          <span class="pill pill-paused">Paused</span>
-        </div>
-        <div class="notes-box"><strong>Status:</strong> Went unprofitable after ~2 weeks on Meta. Diagnosis pending — need CPP/budget/creative data from Tommy.</div>
-      </div>
-
-      <!-- RestCalm -->
-      <div style="border:1px solid var(--border);border-radius:10px;padding:16px;background:var(--card)">
-        <div style="display:flex;align-items:center;gap:10px">
-          <span class="product-name">RestCalm</span>
-          <span class="product-sub">Restless Legs EMS Pad</span>
-          <span class="pill pill-live">Live</span>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="section-block">
-      <div class="section-title">📁 Files & Docs</div>
-      <div id="dropship-docs"><div class="loading">Loading docs…</div></div>
-    </div>
-
-  </div>
-
-  <!-- ═══════════ KYVO ═══════════ -->
-  <div class="page" id="tab-kyvo">
-
-    <div class="section-block">
-      <div class="section-title">✅ To-Do</div>
-      <div id="kyvo-tasks"><div class="loading">Loading tasks…</div></div>
-    </div>
-
-    <div class="section-block">
-      <div class="section-title">🎬 Content — Sunday Batch March 23</div>
-      <div id="kyvo-content"></div>
-    </div>
-
-    <div class="section-block">
-      <div class="section-title">📁 Files & Docs</div>
-      <div id="kyvo-docs"><div class="loading">Loading docs…</div></div>
-    </div>
-
-  </div>
-
-  <!-- ═══════════ @CGD ═══════════ -->
-  <div class="page" id="tab-cgd">
-
-    <div class="section-block">
-      <div class="section-title">✅ To-Do</div>
-      <div id="cgd-tasks"><div class="loading">Loading tasks…</div></div>
-    </div>
-
-    <div class="section-block">
-      <div class="section-title">🎬 Content — March Week of March 23</div>
-      <div id="cgd-content"></div>
-    </div>
-
-    <div class="section-block">
-      <div class="section-title">📁 Files & Docs</div>
-      <div id="cgd-docs"><div class="loading">Loading docs…</div></div>
-    </div>
-
-  </div>
-
-  <!-- ═══════════ ALL TASKS ═══════════ -->
-  <div class="page" id="tab-all">
-    <div class="section-block">
-      <div class="section-title">📋 All Open Tasks — Empire-Wide</div>
-      <div class="filters" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">
-        <div class="filter-btn active" data-filter="all" onclick="filterAll(this,'all')">All</div>
-        <div class="filter-btn" data-filter="dropship" onclick="filterAll(this,'dropship')" style="color:var(--cyan)">🛒 Dropship</div>
-        <div class="filter-btn" data-filter="kyvo" onclick="filterAll(this,'kyvo')" style="color:var(--amber)">🏌️ KYVO</div>
-        <div class="filter-btn" data-filter="cgd" onclick="filterAll(this,'cgd')" style="color:var(--coral)">⛳ @casualgolfdad</div>
-      </div>
-      <div id="all-tasks"><div class="loading">Loading tasks…</div></div>
-    </div>
-  </div>
-
-  <!-- ═══════════ SIDEBAR PAGE: CALENDAR ═══════════ -->
-  <div class="sidebar-page" id="sp-calendar">
-    <div class="cal-page-title">📅 Calendar</div>
-    <div class="cal-page-sub">Tommy's schedule and upcoming events</div>
-
-    <div class="section-block">
-      <div class="section-title">📆 Weekly Schedule</div>
-      <div class="week-grid">
-
-        <div class="day-row">
-          <div class="day-name">Monday</div>
-          <div class="day-events">
-            <span class="ev-chip ev-sim">5am Simulator</span>
-            <span class="ev-chip ev-gym">6:15am Gym</span>
-            <span class="ev-chip ev-agent">9am Agent Check-in</span>
-            <span class="ev-chip ev-bba">BBA</span>
-            <span class="ev-chip ev-family">4–8pm Family</span>
-            <span class="ev-chip">8–11pm Dropship</span>
-          </div>
-        </div>
-
-        <div class="day-row">
-          <div class="day-name">Tuesday</div>
-          <div class="day-events">
-            <span class="ev-chip ev-gym">6:30am Gym</span>
-            <span class="ev-chip">11:45am KYVO filming</span>
-            <span class="ev-chip ev-family">4–8pm Family</span>
-            <span class="ev-chip">8–11pm KYVO Strategy</span>
-          </div>
-        </div>
-
-        <div class="day-row">
-          <div class="day-name">Wednesday</div>
-          <div class="day-events">
-            <span class="ev-chip ev-sim">5am Simulator</span>
-            <span class="ev-chip ev-gym">6:15am Gym</span>
-            <span class="ev-chip ev-agent">9am Agent Check-in</span>
-            <span class="ev-chip ev-bba">BBA</span>
-            <span class="ev-chip ev-family">4–8pm Family</span>
-            <span class="ev-chip">8–11pm Dropship</span>
-          </div>
-        </div>
-
-        <div class="day-row">
-          <div class="day-name">Thursday</div>
-          <div class="day-events">
-            <span class="ev-chip ev-sim">5am Simulator</span>
-            <span class="ev-chip ev-gym">6:15am Gym</span>
-            <span class="ev-chip ev-agent">9am Agent Check-in</span>
-            <span class="ev-chip ev-bba">BBA</span>
-            <span class="ev-chip ev-family">4–8pm Family</span>
-            <span class="ev-chip">8–11pm @casualgolfdad</span>
-          </div>
-        </div>
-
-        <div class="day-row">
-          <div class="day-name">Friday</div>
-          <div class="day-events">
-            <span class="ev-chip ev-gym">6am Gym</span>
-            <span class="ev-chip ev-agent">9am Agent Check-in + Weekly Review</span>
-            <span class="ev-chip ev-bba">BBA</span>
-            <span class="ev-chip ev-family">4–8pm Family</span>
-            <span class="ev-chip">8–10pm Weekly Wrap</span>
-          </div>
-        </div>
-
-        <div class="day-row">
-          <div class="day-name">Saturday</div>
-          <div class="day-events">
-            <span class="ev-chip ev-sim">4:30am Power Block</span>
-            <span class="ev-chip ev-gym">5:30am Gym</span>
-            <span class="ev-chip ev-family">7am+ Family</span>
-          </div>
-        </div>
-
-        <div class="day-row sunday">
-          <div class="day-name">Sunday</div>
-          <div class="day-events">
-            <span class="ev-chip ev-sim">5–6:30am Simulator Content (KYVO + Golf)</span>
-            <span class="ev-chip ev-gym">6:30–7:30am Gym</span>
-            <span class="ev-chip ev-family">Family OOO rest of day</span>
-            <span class="dnd-badge">⛔ DO NOT DISTURB</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="section-block">
-      <div class="cron-section-title">⏰ Cron Jobs</div>
-      <div class="cron-list">
-        <div class="cron-item">
-          <div class="cron-status">🟢</div>
-          <div class="cron-info">
-            <div class="cron-name">Morning Brief</div>
-            <div class="cron-schedule">Daily 4:30 AM EST</div>
-          </div>
-          <div class="cron-badge cron-active">Active</div>
-        </div>
-        <div class="cron-item">
-          <div class="cron-status">🟢</div>
-          <div class="cron-info">
-            <div class="cron-name">Neo Scout</div>
-            <div class="cron-schedule">Daily 6:00 AM EST</div>
-          </div>
-          <div class="cron-badge cron-active">Active</div>
-        </div>
-        <div class="cron-item">
-          <div class="cron-status">🟢</div>
-          <div class="cron-info">
-            <div class="cron-name">Nightly Audit</div>
-            <div class="cron-schedule">Daily 12:30 AM EST</div>
-          </div>
-          <div class="cron-badge cron-active">Active</div>
-        </div>
-        <div class="cron-item">
-          <div class="cron-status">🔴</div>
-          <div class="cron-info">
-            <div class="cron-name">Weekly Deep Sync</div>
-            <div class="cron-schedule">Friday 9:00 PM EST</div>
-          </div>
-          <div class="cron-badge cron-error">Error</div>
-        </div>
-        <div class="cron-item">
-          <div class="cron-status">🔴</div>
-          <div class="cron-info">
-            <div class="cron-name">Daily GitHub Backup</div>
-            <div class="cron-schedule">Daily 3:00 AM EST</div>
-          </div>
-          <div class="cron-badge cron-error">Error</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════ SIDEBAR PAGE: TEAM ═══════════ -->
-  <div class="sidebar-page" id="sp-team">
-    <div class="team-page-title">👥 The Team</div>
-    <div class="team-page-sub">7 agents. 3 pillars. One mission.</div>
-
-    <div class="team-tier-label">PILLAR DIRECTORS</div>
-    <div class="agent-grid">
-
-      <div class="agent-card">
-        <div class="agent-card-stripe" style="background:#7c6bff"></div>
-        <div class="agent-card-body">
-          <span class="agent-emoji">🌀</span>
-          <div class="agent-name">Morpheus</div>
-          <div class="agent-role">Orchestrator</div>
-          <div class="agent-footer">
-            <span class="agent-pillar-tag" style="background:rgba(124,107,255,.12);color:#7c6bff">All Pillars</span>
-            <span class="online-dot">Online</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="agent-card">
-        <div class="agent-card-stripe" style="background:#00d4aa"></div>
-        <div class="agent-card-body">
-          <span class="agent-emoji">🕶️</span>
-          <div class="agent-name">Neo</div>
-          <div class="agent-role">Dropship HQ Director</div>
-          <div class="agent-footer">
-            <span class="agent-pillar-tag" style="background:rgba(91,168,154,.12);color:#00d4aa">Dropship</span>
-            <span class="online-dot">Online</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="agent-card">
-        <div class="agent-card-stripe" style="background:#ffb86b"></div>
-        <div class="agent-card-body">
-          <span class="agent-emoji">🔮</span>
-          <div class="agent-name">The Oracle</div>
-          <div class="agent-role">KYVO Performance Director</div>
-          <div class="agent-footer">
-            <span class="agent-pillar-tag" style="background:rgba(255,184,107,.12);color:#ffb86b">KYVO</span>
-            <span class="online-dot">Online</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="agent-card">
-        <div class="agent-card-stripe" style="background:#ff6b6b"></div>
-        <div class="agent-card-body">
-          <span class="agent-emoji">⚡</span>
-          <div class="agent-name">Trinity</div>
-          <div class="agent-role">@casualgolfdad Director</div>
-          <div class="agent-footer">
-            <span class="agent-pillar-tag" style="background:rgba(255,107,107,.12);color:#ff6b6b">Golf</span>
-            <span class="online-dot">Online</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="team-tier-label">SPECIALIST AGENTS</div>
-    <div class="agent-grid">
-
-      <div class="agent-card">
-        <div class="agent-card-stripe" style="background:#4da6ff"></div>
-        <div class="agent-card-body">
-          <span class="agent-emoji">🎨</span>
-          <div class="agent-name">The Creative</div>
-          <div class="agent-role">Image Generation</div>
-          <div class="agent-footer">
-            <span class="agent-pillar-tag" style="background:rgba(77,166,255,.12);color:#4da6ff">All Pillars</span>
-            <span class="online-dot">Online</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="agent-card">
-        <div class="agent-card-stripe" style="background:#7c6bff"></div>
-        <div class="agent-card-body">
-          <span class="agent-emoji">✍️</span>
-          <div class="agent-name">The Copywriter</div>
-          <div class="agent-role">DR Copy Specialist</div>
-          <div class="agent-footer">
-            <span class="agent-pillar-tag" style="background:rgba(124,107,255,.12);color:#7c6bff">All Pillars</span>
-            <span class="online-dot">Online</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="agent-card">
-        <div class="agent-card-stripe" style="background:#00d4aa"></div>
-        <div class="agent-card-body">
-          <span class="agent-emoji">🔧</span>
-          <div class="agent-name">The Builder</div>
-          <div class="agent-role">Shopify Builder</div>
-          <div class="agent-footer">
-            <span class="agent-pillar-tag" style="background:rgba(91,168,154,.12);color:#00d4aa">All Pillars</span>
-            <span class="online-dot">Online</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-</div><!-- /main-wrapper -->
+</div>
 
 <script>
-// ════════════════ DATA ════════════════
+// ══════════════════════════════════
+// UTILS
+// ══════════════════════════════════
+const API = 'https://tommy-hq.vercel.app';
+const KEY = 'thq_25741469f31452628a1d8ae7372155ef2a2bf0b7d0138d96';
 
-const batches = [
-  {
-    label: 'Batch 1 — Mechanism', status: 'ACTIVE',
-    hook: `The reason your eye cream stopped working has nothing to do with the formula.`,
-    body1: `Most women over 40 have tried every eye cream on the market. Peptides. Retinol. Vitamin C. And yet — nothing changes. Here's what nobody tells you: the skin around your eyes is 40% thinner than the rest of your face. Creams can't penetrate deep enough to reach the dermis where collagen lives. NEUVEIL changes that. 600 microneedles — thinner than a human hair — create invisible microchannels that deliver active ingredients exactly where they need to go.`,
-    body2: `You've been applying eye cream to the surface of a problem that lives underneath. NEUVEIL's BioVeil Delivery System uses 600 ultra-fine microneedles to open microchannels in the skin — bypassing the surface barrier and delivering hyaluronic acid and peptides directly into the dermis. Results women notice in 28 days.`,
-    h1: `Finally — an eye patch that actually reaches the wrinkle.`,
-    h2: `600 microneedles. Real depth. Real results.`
-  },
-  {
-    label: "Batch 2 — Avatar (Margaret, 52)", status: 'READY',
-    hook: `I spent $400 on eye creams this year. My crow's feet are still there.`,
-    body1: `Margaret is 52. She's tried Estée Lauder, La Mer, and every "miracle" eye cream her dermatologist recommended. The crow's feet haven't budged. Not because she's doing something wrong. Because eye cream — no matter how expensive — can't penetrate the dermis. NEUVEIL can. 600 microneedles create pathways the active ingredients actually use.`,
-    body2: `If you're over 45 and eye cream has stopped working, it's not your fault. The skin barrier around your eyes gets denser with age — making topical creams less effective every year. NEUVEIL bypasses the barrier entirely with 600 precision microneedles. The science your eye cream doesn't have.`,
-    h1: `Eye cream can't reach the wrinkle. This can.`,
-    h2: `For women who've tried everything — and still see crow's feet.`
-  },
-  {
-    label: 'Batch 3 — Clinical Authority', status: 'READY',
-    hook: `Dermatologists have known for years that the skin around your eyes is different.`,
-    body1: `The periorbital area — the skin around your eyes — is clinically documented as the thinnest and most permeable skin on your face. It's also where topical creams are least effective. That's why dermatologists have used microneedling in-clinic for over a decade. NEUVEIL brings that same mechanism home. 600 microneedles. Clinical delivery. No appointment.`,
-    body2: `Microneedling for the eye area has been validated in peer-reviewed research. The problem: in-clinic treatments cost $200–400 per session and require recovery time. NEUVEIL replicates the delivery mechanism at home — 600 precision microneedles, dissolvable serum, 30 minutes. The clinical result. The convenient format.`,
-    h1: `Microneedling. At home. Under your eyes.`,
-    h2: `The clinical delivery system — without the clinic.`
-  }
-];
-
-const kyvoScripts = [
-  {
-    id: 'kyvo-day1',
-    title: 'Day 1 — The Back Nine Problem',
-    duration: '60–90 sec', type: 'Story',
-    defaultStatus: 'FILMED',
-    script: `You know that feeling when you step onto the 13th tee and you just... know?
-
-Your legs are heavy. Your focus is gone. You're calculating bogeys instead of playing golf.
-
-I've played this game my whole life. And for years I thought that fade — the back nine fade — was just part of getting older.
-
-It's not.
-
-It's a fueling problem.
-
-Your brain needs a specific blend of nutrients to stay sharp for 4–5 hours. Most golfers are running on caffeine and a granola bar.
-
-That's what KYVO is built to fix.
-
-Not a drink. Not a pill that jacks up your heart rate.
-
-A performance system built for the 18th hole.
-
-More on how it works this week.`,
-    instagram: `The back nine is where rounds go to die. 🏌️
-
-Not because you got tired.
-Because you ran out of fuel.
-
-KYVO is the performance system built for golfers who want to finish as strong as they start.
-
-Day 1 of the build-in-public series. Follow along.
-
-#kyvo #golfperformance #golfnutrition #golftips #backninemindset #golflife #performancegolf #mentalperformance #golfcoach #golffitness`,
-    tiktok: `The back nine fade is a fueling problem — not a fitness problem. Here's what I figured out after 20 years of playing golf. #kyvo #golfperformance #golfnutrition #golftips #backnine`,
-    ytTitle: `Why Your Golf Game Falls Apart on the Back Nine (It's Not What You Think)`,
-    ytDesc: `The "back nine fade" affects almost every amateur golfer — and most people blame their mental game or their fitness.
-
-It's actually a fueling problem.
-
-In this video I break down exactly what's happening to your brain and body after hole 12, and what I built to fix it.
-
-KYVO Performance — built for golfers who want to finish as strong as they start.`
-  },
-  {
-    id: 'kyvo-day2',
-    title: "Day 2 — Why Coffee Isn't the Answer",
-    duration: '60–90 sec', type: 'Educational',
-    defaultStatus: 'SCRIPT_READY',
-    script: `Golfers love caffeine.
-
-Coffee before the round. Energy drink at the turn. Another coffee on 14.
-
-Here's the problem: caffeine spikes your alertness — and then drops you.
-
-You know the feeling. You're dialed in through hole 9. By 15 you're running on empty and your decision-making is shot.
-
-Golf is a 4–5 hour mental performance. Caffeine is a 90-minute tool.
-
-KYVO doesn't use a caffeine spike. It uses a sustained focus blend — ingredients proven to support cognitive performance for extended periods.
-
-Think less like an energy drink. More like jet fuel that burns clean.
-
-The exact formula breakdown is coming later this week.`,
-    instagram: `Coffee before the round. Energy drink at the turn.
-
-And you still fell apart on 15. ☕❌
-
-Caffeine spikes — then drops. Golf is a 4–5 hour mental performance.
-
-KYVO uses a sustained focus blend instead of a spike.
-
-Day 2 of the build. #kyvo #golfperformance #golfnutrition #focus #golftips #energymanagement #performancegolf #golflife`,
-    tiktok: `The coffee → crash cycle is destroying your back nine. Here's what actually works for 4–5 hours of golf. #kyvo #golfnutrition #golfperformance #focus #golftips`,
-    ytTitle: `Why Coffee is Ruining Your Golf Game (And What to Use Instead)`,
-    ytDesc: `Most golfers are using caffeine to fuel a 4–5 hour mental performance. The problem: caffeine is a 90-minute tool.
-
-In this video I break down the caffeine crash cycle and what sustained focus actually looks like for golf.
-
-KYVO Performance — built for the back nine.`
-  }
-];
-
-const cgdScripts = [
-  {
-    id: 'cgd-post1',
-    title: '5am Simulator — Morning Reel',
-    duration: '15–30 sec', type: 'Behind-the-scenes',
-    defaultStatus: 'SCRIPT_READY',
-    script: `5am. Simulator room. Just me and the club.
-
-This is where the game gets better.
-
-(Keep it raw — no product, no pitch, just the lifestyle)`,
-    instagram: `5am simulator sessions hit different. 🏌️⏰
-
-This is the game within the game.
-
-#casualgolfdad #golflife #5amclub #simulator #golfersofinstagram #golfdad #morninggolf #golfpractice`,
-    tiktok: `When the family is still asleep and you're getting reps in at 5am #casualgolfdad #golflife #simulator #golfdad #5amclub`,
-    ytTitle: `5AM Simulator Sessions — The Secret to Getting Better at Golf`,
-    ytDesc: `Early mornings in the simulator. This is where the handicap drops.`
-  }
-];
-
-const checklist = [
-  'Post TikTok first',
-  'Then Instagram Reel',
-  'Then YouTube Shorts',
-  'Reply to every comment in first hour',
-  'No watermark on cross-posted videos',
-  'Add location tag (if relevant)',
-  'Pin best comment'
-];
-
-const agentPillar = {
-  neo: 'dropship', charlie: 'dropship',
-  'the-oracle': 'kyvo',
-  trinity: 'cgd',
-  'the-creative': 'all', 'the-copywriter': 'all', 'the-builder': 'all'
-};
-
-// ════════════════ UTILS ════════════════
-
-function timeAgo(ts) {
-  const d = Date.now() - new Date(ts).getTime();
-  const m = Math.floor(d/60000);
-  if(m<1) return 'just now';
-  if(m<60) return m+'m ago';
-  const h = Math.floor(m/60);
-  if(h<24) return h+'h ago';
+function timeAgo(ts){
+  const d=Date.now()-new Date(ts).getTime(), m=Math.floor(d/60000);
+  if(m<1)return'just now'; if(m<60)return m+'m ago';
+  const h=Math.floor(m/60); if(h<24)return h+'h ago';
   return Math.floor(h/24)+'d ago';
 }
-
-function copy(text, btn) {
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = '✓ Copied!';
-    btn.classList.add('done');
-    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 2500);
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function copy(text,btn){
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='✓ Copied!'; btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent=btn.dataset.label||'Copy';btn.classList.remove('copied');},2000);
   });
 }
+function getStat(id,def){return localStorage.getItem('st:'+id)||def||'SCRIPT_READY'}
+function setStat(id,v){localStorage.setItem('st:'+id,v)}
 
-function getStatus(id, def) { return localStorage.getItem('s:'+id) || def; }
-function saveStatus(id, v) { localStorage.setItem('s:'+id, v); }
-function getChecked(id) { try{return JSON.parse(localStorage.getItem('cl:'+id)||'{}')}catch{return{}} }
-function saveCheck(id, i, v) { const c=getChecked(id); c[i]=v; localStorage.setItem('cl:'+id, JSON.stringify(c)); }
+const agentEmoji={charlie:'🌀',neo:'🕶️','the-oracle':'🔮',trinity:'⚡','the-creative':'🎨','the-copywriter':'✍️','the-builder':'🔧'};
+function agentMoji(a){return agentEmoji[a]||'🤖'}
+function badgeClass(s){const m={high:'b-high',medium:'b-medium',low:'b-low',todo:'b-todo','in-progress':'b-in-progress','in_progress':'b-in-progress',done:'b-done'};return m[(s||'').toLowerCase()]||'b-low'}
 
-function mkCopyBox(text) {
-  const id = 'cb'+Math.random().toString(36).slice(2,7);
-  return `<div class="copy-box"><div class="copy-box-text">${esc(text)}</div><button class="copy-btn" onclick="copy(${JSON.stringify(text)},this)">Copy</button></div>`;
+// ══════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════
+function showTab(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item,.bnav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll(`[data-tab="${name}"]`).forEach(n=>n.classList.add('active'));
 }
+document.querySelectorAll('.nav-item,.bnav-item').forEach(el=>{
+  el.addEventListener('click',()=>showTab(el.dataset.tab));
+});
 
-function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-function badgeClass(s) {
-  const m = {high:'b-high',medium:'b-medium',low:'b-low',todo:'b-todo','in-progress':'b-in-progress','in_progress':'b-in-progress',review:'b-review',done:'b-done'};
-  return m[s.toLowerCase()] || 'b-low';
+// ══════════════════════════════════
+// HEADER DATE
+// ══════════════════════════════════
+function setHeaderDate(){
+  const d=new Date();
+  const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('header-date').textContent=days[d.getDay()]+', '+months[d.getMonth()]+' '+d.getDate();
 }
+setHeaderDate();
 
-// ════════════════ NAVIGATION ════════════════
-
-function showTab(name) {
-  // deactivate sidebar pages
-  document.querySelectorAll('.sidebar-page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  // activate tab pages
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('tab-'+name).classList.add('active');
-  document.querySelectorAll('.tab.t-'+name).forEach(t => t.classList.add('active'));
-}
-
-function showSidebarPage(name) {
-  // hide all tab pages and deactivate tabs
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  // show the sidebar page
-  document.querySelectorAll('.sidebar-page').forEach(p => p.classList.remove('active'));
-  document.getElementById('sp-'+name).classList.add('active');
-  // update sidebar nav active
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.querySelector('.nav-item[data-page="'+name+'"]').classList.add('active');
-}
-
-// ════════════════ DROPSHIP BATCHES ════════════════
-
-let activeBatch = 0;
-
-function renderBatch(i) {
-  const b = batches[i];
-  document.getElementById('batch-content').innerHTML = `
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
-      <span style="font-size:13px;font-weight:700">${b.label}</span>
-      <span class="pill pill-${b.status.toLowerCase()}">${b.status}</span>
-    </div>
-    <div class="copy-section" style="padding:0 0 16px">
-      <div class="copy-label">🪝 Hook</div>${mkCopyBox(b.hook)}
-    </div>
-    <div class="copy-section" style="padding:16px 0">
-      <div class="copy-label">📝 Body Copy 1</div>${mkCopyBox(b.body1)}
-    </div>
-    <div class="copy-section" style="padding:16px 0">
-      <div class="copy-label">📝 Body Copy 2</div>${mkCopyBox(b.body2)}
-    </div>
-    <div class="copy-section" style="padding:16px 0">
-      <div class="copy-label">🔤 Headline 1</div>${mkCopyBox(b.h1)}
-    </div>
-    <div class="copy-section" style="padding:16px 0 0">
-      <div class="copy-label">🔤 Headline 2</div>${mkCopyBox(b.h2)}
-    </div>
-  `;
-}
-
-function switchBatch(i) {
-  activeBatch = i;
-  for(let j=0;j<3;j++) {
-    const t = document.getElementById('btab-'+j);
-    t.classList.toggle('active', j===i);
+// ══════════════════════════════════
+// TODAY TAB
+// ══════════════════════════════════
+const daySchedules = {
+  1:{ // Monday
+    blocks:[
+      {time:'4:15am',label:'Wake + Journal',type:'st-empire'},
+      {time:'4:30am',label:'Gym (1hr)',type:'st-gym'},
+      {time:'5:30am',label:'🟢 Deep Work — Empire',type:'st-empire'},
+      {time:'6:45am',label:'🔒 Family — Kids + Duke',type:'st-family'},
+      {time:'9:30am',label:'BBA',type:'st-bba'},
+      {time:'12:00pm',label:'🎯 Simulator (BBA window)',type:'st-sim'},
+      {time:'3:30pm',label:'Empire Review',type:'st-empire'},
+      {time:'5:00pm',label:'🔒 Family (fully present)',type:'st-family'},
+      {time:'8:00pm',label:'🟢 Dropship HQ Block',type:'st-empire'},
+      {time:'9:45pm',label:'Bed',type:'st-family'},
+    ],
+    evening:'Dropship HQ'
+  },
+  2:{ // Tuesday
+    blocks:[
+      {time:'4:15am',label:'Wake + Journal',type:'st-empire'},
+      {time:'4:30am',label:'Gym (1hr)',type:'st-gym'},
+      {time:'5:30am',label:'🟢 Deep Work — Empire',type:'st-empire'},
+      {time:'6:45am',label:'🔒 Family — Kids + Duke',type:'st-family'},
+      {time:'9:30am',label:'BBA',type:'st-bba'},
+      {time:'11:00am',label:'🎬 Film — KYVO Content',type:'st-film'},
+      {time:'3:30pm',label:'Empire Review',type:'st-empire'},
+      {time:'5:00pm',label:'🔒 Family',type:'st-family'},
+      {time:'8:00pm',label:'🟢 KYVO Performance Block',type:'st-empire'},
+      {time:'9:45pm',label:'Bed',type:'st-family'},
+    ],
+    evening:'KYVO Performance'
+  },
+  3:{ // Wednesday
+    blocks:[
+      {time:'4:15am',label:'Wake + Journal',type:'st-empire'},
+      {time:'4:30am',label:'Gym (1hr)',type:'st-gym'},
+      {time:'5:30am',label:'🟢 Deep Work — Empire',type:'st-empire'},
+      {time:'6:45am',label:'🔒 Family',type:'st-family'},
+      {time:'9:30am',label:'BBA',type:'st-bba'},
+      {time:'12:00pm',label:'🎯 Simulator (BBA window)',type:'st-sim'},
+      {time:'3:30pm',label:'Empire Review',type:'st-empire'},
+      {time:'5:00pm',label:'🔒 Family',type:'st-family'},
+      {time:'8:00pm',label:'🟢 Dropship HQ Block',type:'st-empire'},
+      {time:'9:45pm',label:'Bed',type:'st-family'},
+    ],
+    evening:'Dropship HQ'
+  },
+  4:{ // Thursday
+    blocks:[
+      {time:'4:15am',label:'Wake + Journal',type:'st-empire'},
+      {time:'4:30am',label:'Gym (1hr)',type:'st-gym'},
+      {time:'5:30am',label:'🟢 Deep Work — Empire',type:'st-empire'},
+      {time:'6:45am',label:'🔒 Family',type:'st-family'},
+      {time:'9:30am',label:'BBA',type:'st-bba'},
+      {time:'11:00am',label:'🎬 Film — @casualgolfdad',type:'st-film'},
+      {time:'12:30pm',label:'🎯 Simulator (BBA window)',type:'st-sim'},
+      {time:'3:30pm',label:'Empire Review',type:'st-empire'},
+      {time:'5:00pm',label:'🔒 Family',type:'st-family'},
+      {time:'8:00pm',label:'🟢 @casualgolfdad Block',type:'st-empire'},
+      {time:'9:45pm',label:'Bed',type:'st-family'},
+    ],
+    evening:'@casualgolfdad'
+  },
+  5:{ // Friday
+    blocks:[
+      {time:'4:15am',label:'Wake + Journal',type:'st-empire'},
+      {time:'4:30am',label:'Gym (1hr)',type:'st-gym'},
+      {time:'5:30am',label:'🟢 Deep Work — Empire',type:'st-empire'},
+      {time:'6:45am',label:'🔒 Family',type:'st-family'},
+      {time:'9:30am',label:'BBA',type:'st-bba'},
+      {time:'3:30pm',label:'Weekly Wrap Review',type:'st-empire'},
+      {time:'5:00pm',label:'🔒 Family',type:'st-family'},
+      {time:'8:00pm',label:'🟢 Weekly Review + Planning',type:'st-empire'},
+      {time:'9:45pm',label:'Bed',type:'st-family'},
+    ],
+    evening:'Weekly Review'
+  },
+  6:{ // Saturday
+    blocks:[
+      {time:'4:15am',label:'Wake + Journal',type:'st-empire'},
+      {time:'4:30am',label:'Gym (1hr)',type:'st-gym'},
+      {time:'5:30am',label:'🟢 Empire Work — Batch + Review',type:'st-empire'},
+      {time:'6:45am',label:'🔒 Family All Day',type:'st-family'},
+      {time:'9:45pm',label:'Bed',type:'st-family'},
+    ],
+    evening:'Family'
+  },
+  0:{ // Sunday
+    blocks:[
+      {time:'4:15am',label:'Wake + Journal',type:'st-empire'},
+      {time:'5:30am',label:'📋 Weekly Planning + Loose Ends',type:'st-empire'},
+      {time:'6:45am',label:'📵 NO PHONE — Family All Day',type:'st-family'},
+      {time:'9:45pm',label:'Bed',type:'st-family'},
+    ],
+    evening:'Family (No Phone)'
   }
-  renderBatch(i);
-}
-
-// ════════════════ CONTENT CARDS ════════════════
-
-function buildScriptCard(s) {
-  const status = getStatus(s.id, s.defaultStatus);
-  const statusMap = {SCRIPT_READY:'Script Ready', FILMED:'Filmed', EDITED:'Edited', POSTED:'Posted'};
-  const statusClass = {SCRIPT_READY:'sb-script', FILMED:'sb-filmed', EDITED:'sb-edited', POSTED:'sb-posted'};
-  const checked = getChecked(s.id);
-  const clHtml = checklist.map((item, i) => `
-    <label class="cl-item${checked[i]?' checked':''}" id="cl-${s.id}-${i}">
-      <input type="checkbox" ${checked[i]?'checked':''} onchange="toggleCheck('${s.id}',${i},this)"> ${item}
-    </label>`).join('');
-  return `
-  <div class="content-card">
-    <div class="content-card-header">
-      <div style="flex:1">
-        <div class="content-card-title">${s.title}</div>
-        <div class="content-card-meta">
-          <span>${s.duration||''}</span>
-          ${s.duration&&s.type?'<span style="color:var(--dim)">·</span>':''}
-          <span>${s.type||''}</span>
-        </div>
-      </div>
-      <span class="status-badge ${statusClass[status]}" id="sbadge-${s.id}" onclick="cycleStatus('${s.id}')" title="Click to advance status">${statusMap[status]}</span>
-      <button class="del-btn" onclick="deleteContent('${s.id}', this)" title="Delete" style="margin-left:4px">🗑</button>
-    </div>
-    ${s.script?`<div class="script-section"><div class="copy-label">📄 Script</div><div class="script-text">${esc(s.script)}<button class="copy-btn" onclick="copy(${JSON.stringify(s.script)},this)">Copy</button></div></div>`:''}
-    ${s.instagram?`<div class="copy-section"><div class="copy-label">📱 Instagram Caption</div>${mkCopyBox(s.instagram)}</div>`:''}
-    ${s.tiktok?`<div class="copy-section"><div class="copy-label">🎵 TikTok Caption</div>${mkCopyBox(s.tiktok)}</div>`:''}
-    ${s.ytTitle?`<div class="copy-section"><div class="copy-label">▶️ YouTube Title</div>${mkCopyBox(s.ytTitle)}</div>`:''}
-    ${s.ytDesc?`<div class="copy-section"><div class="copy-label">▶️ YouTube Description</div>${mkCopyBox(s.ytDesc)}</div>`:''}
-    <div class="checklist-section"><div class="checklist-title">📋 Posting Checklist</div>${clHtml}</div>
-  </div>`;
-}
-
-function attachScriptCardHandlers(el) { /* handlers are inline via onclick */ }
-
-function renderContentCards(scripts, containerId) {
-  const el = document.getElementById(containerId);
-  if (!el) return;
-  el.innerHTML = scripts.map(s => buildScriptCard(s)).join('');
-}
-
-function cycleStatus(id) {
-  const order = ['SCRIPT_READY','FILMED','EDITED','POSTED'];
-  const cur = getStatus(id, 'SCRIPT_READY');
-  const next = order[(order.indexOf(cur)+1) % order.length];
-  saveStatus(id, next);
-  const el = document.getElementById('sbadge-'+id);
-  const statusMap = {SCRIPT_READY:'Script Ready', FILMED:'Filmed', EDITED:'Edited', POSTED:'Posted'};
-  const statusClass = {SCRIPT_READY:'sb-script', FILMED:'sb-filmed', EDITED:'sb-edited', POSTED:'sb-posted'};
-  el.textContent = statusMap[next];
-  el.className = 'status-badge '+statusClass[next];
-}
-
-function toggleCheck(scriptId, idx, input) {
-  saveCheck(scriptId, idx, input.checked);
-  document.getElementById('cl-'+scriptId+'-'+idx).classList.toggle('checked', input.checked);
-}
-
-// ════════════════ TASKS ════════════════
-
-function renderTasksFor(agents, containerId) {
-  const el = document.getElementById(containerId);
-  fetch('https://tommy-hq.vercel.app/api/tasks')
-    .then(r=>r.json())
-    .then(tasks => {
-      const filtered = tasks.filter(t => {
-        if(agents === 'all') return true;
-        return agents.includes(t.agent);
-      }).filter(t => t.status !== 'done')
-        .sort((a,b) => new Date(b.createdAt||0)-new Date(a.createdAt||0));
-
-      if(!filtered.length) { el.innerHTML='<div class="no-tasks">No open tasks 🎉</div>'; return; }
-      el.innerHTML = filtered.map(t => `
-        <div class="task-item${t.status==='done'?' done':''}" id="ti-${t.id}">
-          <div class="task-check" onclick="markDone('${t.id}')">
-            ${t.status==='done'?'<span style="font-size:11px;color:#000;font-weight:800">✓</span>':''}
-          </div>
-          <div class="task-body">
-            <div class="task-text">${t.title||''}</div>
-            <div class="task-meta">
-              <span class="badge ${badgeClass(t.priority||'medium')}">${t.priority||'medium'}</span>
-              <span class="badge ${badgeClass(t.status||'todo')}">${(t.status||'todo').replace('-',' ')}</span>
-              <span>${t.agent||''}</span>
-            </div>
-          </div>
-          <div class="task-time">${t.createdAt?timeAgo(t.createdAt):''}</div>
-        </div>`).join('');
-    })
-    .catch(()=>{ el.innerHTML='<div class="no-tasks">Could not load tasks.</div>'; });
-}
-
-function markDone(id) {
-  const el = document.getElementById('ti-'+id);
-  el.classList.add('done');
-  el.querySelector('.task-check').innerHTML = '<span style="font-size:11px;color:#000;font-weight:800">✓</span>';
-  fetch('https://tommy-hq.vercel.app/api/tasks', {
-    method:'PUT',
-    headers:{'Content-Type':'application/json','X-API-Key':'thq_25741469f31452628a1d8ae7372155ef2a2bf0b7d0138d96'},
-    body:JSON.stringify({id, status:'done'})
-  }).catch(()=>{});
-}
-
-// ════════════════ DOCS ════════════════
-
-function renderDocsFor(folders, containerId) {
-  const el = document.getElementById(containerId);
-  fetch('https://tommy-hq.vercel.app/api/docs')
-    .then(r=>r.json())
-    .then(docs => {
-      const filtered = docs.filter(d => !folders || folders.includes(d.folder));
-      if(!filtered.length) { el.innerHTML='<div class="empty">No files yet.</div>'; return; }
-      const groups = {};
-      filtered.forEach(d => { (groups[d.folder||'Other']=groups[d.folder||'Other']||[]).push(d); });
-      el.innerHTML = Object.entries(groups).map(([folder, items])=>`
-        <div class="file-group-label">${folder}</div>
-        ${items.map(d=>`
-          <div class="file-item">
-            <div class="file-icon">📄</div>
-            <div class="file-info">
-              <div class="file-name">${d.title||''}</div>
-              <div class="file-desc">${d.description||''}</div>
-            </div>
-            ${d.gdoc_url?`<a href="${d.gdoc_url}" target="_blank" class="file-link">Open ↗</a>`:''}
-          </div>`).join('')}
-      `).join('');
-    })
-    .catch(()=>{ el.innerHTML='<div class="empty">Could not load files.</div>'; });
-}
-
-// ════════════════ ALL TASKS ════════════════
-
-const pillarAgents = {
-  dropship: ['neo','charlie','the-builder'],
-  kyvo: ['the-oracle'],
-  cgd: ['trinity'],
-  all: ['the-creative','the-copywriter']
 };
 
-function getPillar(agent) {
-  for(const [pillar, agents] of Object.entries(pillarAgents)) {
-    if(agents.includes(agent)) return pillar;
-  }
-  return 'all';
-}
+async function loadToday(){
+  const el=document.getElementById('today-content');
+  const now=new Date();
+  const dow=now.getDay();
+  const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const sched=daySchedules[dow];
 
-const pillarLabel = { dropship:'Dropship HQ', kyvo:'KYVO Performance', cgd:'@casualgolfdad', all:'All Pillars' };
-const pillarTagClass = { dropship:'pt-dropship', kyvo:'pt-kyvo', cgd:'pt-cgd', all:'pt-all' };
-const pillarIcon = { dropship:'🛒', kyvo:'🏌️', cgd:'⛳', all:'🌀' };
-
-let allTasksData = [];
-
-function renderAllTasks(filter='all') {
-  const el = document.getElementById('all-tasks');
-  const tasks = filter === 'all'
-    ? allTasksData
-    : allTasksData.filter(t => getPillar(t.agent||'') === filter || (filter==='all' && getPillar(t.agent||'')==='all'));
-
-  const open = tasks.filter(t => t.status !== 'done')
-    .sort((a,b) => {
-      const po = {high:0,medium:1,low:2};
-      return (po[a.priority]||1) - (po[b.priority]||1);
-    });
-
-  if(!open.length) { el.innerHTML='<div class="no-tasks">No open tasks 🎉</div>'; return; }
-
-  el.innerHTML = open.map(t => {
-    const pillar = getPillar(t.agent||'');
-    return `
-    <div class="task-item" id="at-${t.id}">
-      <div class="task-check" onclick="markDoneAll('${t.id}')"></div>
-      <div class="task-body">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap">
-          <span class="pillar-tag ${pillarTagClass[pillar]}">${pillarIcon[pillar]} ${pillarLabel[pillar]}</span>
-          <span style="font-size:11px;color:var(--dim)">${t.agent||''}</span>
+  let mit=''; let activity='';
+  try{
+    const tr=await fetch(API+'/api/tasks');
+    const tasks=await tr.json();
+    const open=tasks.filter(t=>t.status!=='done').sort((a,b)=>{const po={high:0,medium:1,low:2};return (po[a.priority]||1)-(po[b.priority]||1);});
+    if(open.length){
+      const t=open[0];
+      mit=`<div class="mit-card">
+        <div class="mit-label">⚡ TODAY'S MIT — Most Important Task</div>
+        <div class="mit-title">${esc(t.title)}</div>
+        <div class="mit-agent" style="margin-top:4px;display:flex;align-items:center;gap:6px">
+          ${agentMoji(t.agent)} <span>${t.agent||''}</span>
+          <span class="badge ${badgeClass(t.priority||'medium')}" style="margin-left:4px">${t.priority||'medium'}</span>
         </div>
-        <div class="task-text">${t.title||''}</div>
-        <div class="task-meta" style="margin-top:6px">
-          <span class="badge ${badgeClass(t.priority||'medium')}">${t.priority||'medium'}</span>
-          <span class="badge ${badgeClass(t.status||'todo')}">${(t.status||'todo').replace('-',' ')}</span>
-        </div>
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0"><div class="task-time">${t.createdAt?timeAgo(t.createdAt):''}</div><button class="del-btn" onclick="deleteTask('${t.id}')" title="Delete">🗑</button></div>
-    </div>`}).join('');
-}
-
-function filterAll(btn, filter) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderAllTasks(filter);
-}
-
-function deleteTask(id) {
-  if (!confirm('Delete this task?')) return;
-  // Remove from UI immediately
-  ['ti-'+id, 'at-'+id].forEach(elId => {
-    const el = document.getElementById(elId);
-    if (el) { el.style.opacity='0'; el.style.transition='opacity .2s'; setTimeout(()=>el.remove(), 200); }
-  });
-  // Remove from allTasksData cache
-  allTasksData = allTasksData.filter(t => t.id !== id);
-  fetch('https://tommy-hq.vercel.app/api/tasks', {
-    method: 'DELETE',
-    headers: {'Content-Type':'application/json','X-API-Key':'thq_25741469f31452628a1d8ae7372155ef2a2bf0b7d0138d96'},
-    body: JSON.stringify({id})
-  }).catch(()=>{});
-}
-
-function deleteContent(id, btn) {
-  if (!confirm('Delete this content card?')) return;
-  const card = btn.closest('.content-card');
-  if (card) { card.style.opacity='0'; card.style.transition='opacity .2s'; setTimeout(()=>card.remove(), 200); }
-  fetch('https://tommy-hq.vercel.app/api/content', {
-    method: 'DELETE',
-    headers: {'Content-Type':'application/json','X-API-Key':'thq_25741469f31452628a1d8ae7372155ef2a2bf0b7d0138d96'},
-    body: JSON.stringify({id})
-  }).catch(()=>{});
-}
-
-function markDoneAll(id) {
-  const el = document.getElementById('at-'+id);
-  if(el) { el.style.opacity='0.4'; el.style.pointerEvents='none'; }
-  fetch('https://tommy-hq.vercel.app/api/tasks', {
-    method:'PUT',
-    headers:{'Content-Type':'application/json','X-API-Key':'thq_25741469f31452628a1d8ae7372155ef2a2bf0b7d0138d96'},
-    body:JSON.stringify({id, status:'done'})
-  }).then(()=>{ if(el) el.remove(); }).catch(()=>{});
-}
-
-function loadAllTasks() {
-  fetch('https://tommy-hq.vercel.app/api/tasks')
-    .then(r=>r.json())
-    .then(tasks => {
-      allTasksData = tasks;
-      renderAllTasks('all');
-      renderTasksFromCache(['neo','charlie','the-builder','the-creative','the-copywriter'], 'dropship-tasks');
-      renderTasksFromCache(['the-oracle','the-creative','the-copywriter'], 'kyvo-tasks');
-      renderTasksFromCache(['trinity','the-creative','the-copywriter'], 'cgd-tasks');
-    })
-    .catch(()=>{ document.getElementById('all-tasks').innerHTML='<div class="no-tasks">Could not load tasks.</div>'; });
-}
-
-function renderTasksFromCache(agents, containerId) {
-  const el = document.getElementById(containerId);
-  if(!el) return;
-  const filtered = allTasksData.filter(t => agents.includes(t.agent) && t.status !== 'done')
-    .sort((a,b) => new Date(b.createdAt||0)-new Date(a.createdAt||0));
-  if(!filtered.length) { el.innerHTML='<div class="no-tasks">No open tasks 🎉</div>'; return; }
-  el.innerHTML = filtered.map(t => `
-    <div class="task-item" id="ti-${t.id}">
-      <div class="task-check" onclick="markDone('${t.id}')"></div>
-      <div class="task-body">
-        <div class="task-text">${t.title||''}</div>
-        <div class="task-meta">
-          <span class="badge ${badgeClass(t.priority||'medium')}">${t.priority||'medium'}</span>
-          <span class="badge ${badgeClass(t.status||'todo')}">${(t.status||'todo').replace('-',' ')}</span>
-          <span>${t.agent||''}</span>
-        </div>
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0"><div class="task-time">${t.createdAt?timeAgo(t.createdAt):''}</div><button class="del-btn" onclick="deleteTask('${t.id}')" title="Delete">🗑</button></div>
-    </div>`).join('');
-}
-
-// ════════════════ DYNAMIC CONTENT LOADER ════════════════
-
-const API = 'https://tommy-hq.vercel.app';
-
-async function loadContent(pillar, fallbackScripts, containerId) {
-  const el = document.getElementById(containerId);
-  try {
-    const res = await fetch(`${API}/api/content?pillar=${pillar}&t=${Date.now()}`);
-    const items = await res.json();
-    if (items && items.length) {
-      // Group by batchName
-      const batches = {};
-      items.forEach(item => {
-        const key = item.batchName || 'Recent Content';
-        if (!batches[key]) batches[key] = { name: key, date: item.createdAt?.slice(0,10) || '', scripts: [] };
-        batches[key].scripts.push({
-          id: item.id,
-          title: item.title,
-          duration: item.duration || '',
-          type: item.type || 'Content',
-          defaultStatus: item.status || 'SCRIPT_READY',
-          script: item.script || '',
-          instagram: item.captions?.instagram || '',
-          tiktok: item.captions?.tiktok || '',
-          ytTitle: item.captions?.youtubeTitle || '',
-          ytDesc: item.captions?.youtubeDesc || '',
-        });
-      });
-      const batchList = Object.values(batches);
-      el.innerHTML = '';
-      batchList.forEach(batch => {
-        const wrapper = document.createElement('div');
-        wrapper.innerHTML = `<div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px">${batch.name}</div>`;
-        el.appendChild(wrapper);
-        renderContentCards(batch.scripts, null, wrapper);
-      });
+      </div>`;
     } else {
-      // Fall back to hardcoded
-      renderContentCards(fallbackScripts, containerId);
+      mit=`<div class="mit-card"><div class="mit-label">⚡ TODAY'S MIT</div><div class="mit-title" style="color:var(--teal)">No open tasks — empire is clear 🎉</div></div>`;
     }
-  } catch(e) {
-    renderContentCards(fallbackScripts, containerId);
-  }
-}
+  } catch(e){mit=`<div class="mit-card"><div class="mit-title" style="color:var(--muted)">Could not load tasks</div></div>`;}
 
-// Updated renderContentCards to optionally accept a parent element
-const _origRenderContentCards = renderContentCards;
-function renderContentCards(scripts, containerId, parentEl) {
-  if (parentEl) {
-    const div = document.createElement('div');
-    div.innerHTML = scripts.map(s => buildScriptCard(s)).join('');
-    parentEl.appendChild(div);
-    attachScriptCardHandlers(div);
-    return;
-  }
-  const el = document.getElementById(containerId);
-  if (!el) return;
-  el.innerHTML = scripts.map(s => buildScriptCard(s)).join('');
-  attachScriptCardHandlers(el);
-}
+  try{
+    const ar=await fetch(API+'/api/activity');
+    const acts=await ar.json();
+    const top=acts.slice(0,3);
+    activity=top.map(a=>`
+      <div class="pulse-item">
+        <div class="pulse-emoji">${agentMoji(a.agent)}</div>
+        <div class="pulse-content">
+          <div class="pulse-action">${esc(a.action||'')}</div>
+          <div class="pulse-detail">${esc(a.details||'')}</div>
+        </div>
+        <div class="pulse-time">${a.timestamp?timeAgo(a.timestamp):''}</div>
+      </div>`).join('');
+  } catch(e){activity='<div class="loading">No recent activity</div>';}
 
-// ════════════════ DYNAMIC PRODUCTS LOADER ════════════════
+  const schedHtml=sched.blocks.map(b=>`
+    <div class="sched-row">
+      <div class="sched-time">${b.time}</div>
+      <div class="sched-label">${b.label}</div>
+      <span class="sched-type ${b.type}">${b.type.replace('st-','')}</span>
+    </div>`).join('');
 
-async function loadProducts() {
-  try {
-    const res = await fetch(`${API}/api/products?t=${Date.now()}`);
-    const items = await res.json();
-    if (items && items.length) {
-      // Re-render the dropship products section dynamically
-      const container = document.getElementById('dropship-products-dynamic');
-      if (!container) return;
-      container.innerHTML = items.map(p => buildProductCard(p)).join('');
-      // re-init batch 0 for first product that has batches
-      const first = items.find(p => p.batches && p.batches.length);
-      if (first) renderDynamicBatch(first.id, 0);
-    }
-  } catch(e) { /* keep static products on error */ }
-}
-
-function buildProductCard(p) {
-  const stageNames = ['Scout','Brand','Copy','Creative','Build','QC','Live'];
-  const stageHtml = stageNames.map((s,i) => {
-    const cls = i < p.stage ? 'stage done' : i === p.stage ? 'stage current' : 'stage';
-    return `<span class="${cls}">${s}</span>${i<stageNames.length-1?'<span class="stage-sep">›</span>':''}`;
-  }).join('');
-
-  const batchTabs = p.batches && p.batches.length ? `
-    <div style="display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:16px">
-      ${p.batches.map((b,i)=>`<div class="tab t-dropship${i===0?' active':''}" id="dbtab-${p.id}-${i}" onclick="switchDynamicBatch('${p.id}',${i})" style="padding:7px 16px;font-size:12px">${b.name||'Batch '+(i+1)}</div>`).join('')}
+  el.innerHTML=`
+    <div class="greeting">Morning, Tommy. 👋</div>
+    <div class="day-label">${days[dow]}, ${months[now.getMonth()]} ${now.getDate()} — ${sched.evening} tonight</div>
+    ${mit}
+    <div class="section-label">Today's Schedule</div>
+    <div class="card"><div class="card-body" style="padding:8px 12px">${schedHtml}</div></div>
+    <div class="section-label" style="margin-top:16px">Agent Pulse</div>
+    <div class="card"><div class="card-body" style="padding:4px 12px">${activity}</div></div>
+    <div class="quick-actions">
+      <div class="q-btn" onclick="showTab('studio')">📣 Go to Studio →</div>
+      <div class="q-btn" onclick="showTab('pipeline')">🔄 See Pipeline →</div>
+      <div class="q-btn" onclick="showTab('tasks')">✅ My Tasks →</div>
     </div>
-    <div id="dbatch-${p.id}"></div>
-  ` : '<div style="color:var(--muted);font-size:13px;padding:8px 0">No ad batches yet.</div>';
+  `;
+}
+
+// ══════════════════════════════════
+// STUDIO TAB
+// ══════════════════════════════════
+const STATIC_CONTENT = [
+  {
+    id:'neuveil-b1',pillar:'dropship',agent:'the-copywriter',batchName:'NEUVEIL — Batch 1',
+    title:'NEUVEIL Batch 1 — Mechanism Angle',type:'Ad Copy',status:'SCRIPT_READY',
+    gdoc_url:'https://docs.google.com/document/d/1JSu0dU5dHBiEiMXhGOft5TxBgqQ3qlyCi_tciExt7xA/edit',
+    hook:"The reason your eye cream stopped working has nothing to do with the formula.",
+    body1:"Most women over 40 have tried every eye cream on the market. Peptides. Retinol. Vitamin C. And yet — nothing changes. Here's what nobody tells you: the skin around your eyes is 40% thinner than the rest of your face. Creams can't penetrate deep enough to reach the dermis where collagen lives. NEUVEIL changes that. 600 microneedles — thinner than a human hair — create invisible microchannels that deliver active ingredients exactly where they need to go.",
+    body2:"You've been applying eye cream to the surface of a problem that lives underneath. NEUVEIL's BioVeil Delivery System uses 600 ultra-fine microneedles to open microchannels in the skin — bypassing the surface barrier and delivering hyaluronic acid and peptides directly into the dermis. Results women notice in 28 days.",
+    h1:"Finally — an eye patch that actually reaches the wrinkle.",
+    h2:"600 microneedles. Real depth. Real results.",
+    createdAt:new Date(Date.now()-86400000*2).toISOString()
+  },
+  {
+    id:'kyvo-day1',pillar:'kyvo',agent:'the-oracle',batchName:'Sunday Batch — March 23',
+    title:'Day 1 — The Back Nine Problem',type:'Script',status:'FILMED',
+    gdoc_url:'',
+    script:`You know that feeling when you step onto the 13th tee and you just... know?\n\nYour legs are heavy. Your focus is gone. You're calculating bogeys instead of playing golf.\n\nI've played this game my whole life. And for years I thought that fade — the back nine fade — was just part of getting older.\n\nIt's not.\n\nIt's a fueling problem.\n\nThat's what KYVO is built to fix.\n\nNot a drink. Not a pill that jacks up your heart rate.\n\nA performance system built for the 18th hole.`,
+    instagram:`The back nine is where rounds go to die. 🏌️\n\nNot because you got tired.\nBecause you ran out of fuel.\n\nKYVO is the performance system built for golfers who want to finish as strong as they start.\n\nDay 1 of the build-in-public series. Follow along.\n\n#kyvo #golfperformance #golfnutrition #golftips #backninemindset #golflife`,
+    tiktok:`The back nine fade is a fueling problem — not a fitness problem. Here's what I figured out after 20 years of playing golf. #kyvo #golfperformance #golfnutrition #golftips #backnine`,
+    ytTitle:`Why Your Golf Game Falls Apart on the Back Nine (It's Not What You Think)`,
+    ytDesc:`The "back nine fade" affects almost every amateur golfer — and most people blame their mental game or their fitness.\n\nIt's actually a fueling problem.\n\nIn this video I break down exactly what's happening to your brain and body after hole 12, and what I built to fix it.`,
+    createdAt:new Date(Date.now()-86400000).toISOString()
+  },
+  {
+    id:'cgd-post1',pillar:'cgd',agent:'trinity',batchName:'March Content',
+    title:'5am Simulator — Morning Reel',type:'Script',status:'SCRIPT_READY',
+    gdoc_url:'',
+    script:`5am. Simulator room. Just me and the club.\n\nThis is where the game gets better.\n\n(Keep it raw — no product, no pitch, just the lifestyle)`,
+    instagram:`5am simulator sessions hit different. 🏌️⏰\n\nThis is the game within the game.\n\n#casualgolfdad #golflife #5amclub #simulator #golfersofinstagram #golfdad #morninggolf`,
+    tiktok:`When the family is still asleep and you're getting reps in at 5am #casualgolfdad #golflife #simulator #golfdad #5amclub`,
+    ytTitle:`5AM Simulator Sessions — The Secret to Getting Better at Golf`,
+    ytDesc:`Early mornings in the simulator. This is where the handicap drops.`,
+    createdAt:new Date(Date.now()-86400000*3).toISOString()
+  }
+];
+
+let studioFilter='all', studioStatus='all';
+let allContent=[];
+
+function buildContentCard(item){
+  const stat=getStat(item.id, item.status||'SCRIPT_READY');
+  const statMap={SCRIPT_READY:'Script Ready',FILMED:'Filmed',EDITED:'Edited',POSTED:'Posted'};
+  const pillarColor={kyvo:'var(--amber)',cgd:'var(--coral)',dropship:'var(--teal)'};
+  const color=pillarColor[item.pillar]||'var(--muted)';
+  const pillarLabel={kyvo:'KYVO',cgd:'@casualgolfdad',dropship:'Dropship'};
+  const isAdCopy=item.hook||item.h1;
+  const isContent=item.script||item.instagram;
 
   return `
-  <div style="border:1px solid var(--border);border-radius:10px;margin-bottom:16px;background:var(--card);overflow:hidden">
-    <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px">
-      <span style="font-size:16px;font-weight:800;flex:1">${p.name} <span style="font-size:12px;color:var(--muted);font-weight:400">${p.subtitle||''}</span></span>
-      <span class="pill pill-${(p.status||'building').toLowerCase()}">${p.status||'BUILDING'}</span>
-      ${p.storeUrl?`<a href="${p.storeUrl}" target="_blank" style="font-size:11px;color:var(--muted);text-decoration:none;border:1px solid var(--border);padding:3px 9px;border-radius:5px">Store ↗</a>`:''}
+  <div class="content-card" id="cc-${item.id}">
+    <div class="content-header">
+      <div class="content-title">${esc(item.title||'')}</div>
+      <span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:${color}18;color:${color}">${pillarLabel[item.pillar]||item.pillar}</span>
+      <button class="status-btn s-${stat}" id="sbtn-${item.id}" onclick="cycleStatus('${item.id}',this)">${statMap[stat]||stat}</button>
+      ${item.gdoc_url?`<a href="${item.gdoc_url}" target="_blank" class="doc-btn">📄 Doc</a>`:''}
+      <button class="del-btn" onclick="deleteContent('${item.id}')" title="Delete">🗑</button>
     </div>
-    <div style="padding:16px 20px">
-      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:8px">Pipeline</div>
-      <div class="stage-track">${stageHtml}</div>
-      <div style="height:1px;background:var(--border);margin:16px 0"></div>
-      <div style="font-size:13px;font-weight:700;margin-bottom:12px">Ad Batches</div>
-      ${batchTabs}
-      ${p.notes?`<div class="notes-box"><strong>Notes:</strong> ${p.notes.replace(/\n/g,'<br>')}</div>`:''}
+    <div class="content-body">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:12px">${esc(item.batchName||'')} · ${esc(item.type||'')} · ${agentMoji(item.agent)} ${esc(item.agent||'')}</div>
+      ${isAdCopy ? `
+        ${item.hook?`<div class="copy-label">🪝 Hook</div><div class="copy-row"><div class="copy-text">${esc(item.hook)}</div><button class="copy-btn" data-label="Copy Hook" onclick="copy(${JSON.stringify(item.hook)},this)">Copy Hook</button></div>`:''}
+        ${item.body1?`<div class="copy-label">📝 Body Copy 1</div><div class="copy-row"><div class="copy-text">${esc(item.body1)}</div><button class="copy-btn" data-label="Copy" onclick="copy(${JSON.stringify(item.body1)},this)">Copy</button></div>`:''}
+        ${item.body2?`<div class="copy-label">📝 Body Copy 2</div><div class="copy-row"><div class="copy-text">${esc(item.body2)}</div><button class="copy-btn" data-label="Copy" onclick="copy(${JSON.stringify(item.body2)},this)">Copy</button></div>`:''}
+        ${item.h1?`<div class="copy-label">🔤 Headline 1</div><div class="copy-row"><div class="copy-text">${esc(item.h1)}</div><button class="copy-btn" data-label="Copy" onclick="copy(${JSON.stringify(item.h1)},this)">Copy</button></div>`:''}
+        ${item.h2?`<div class="copy-label">🔤 Headline 2</div><div class="copy-row"><div class="copy-text">${esc(item.h2)}</div><button class="copy-btn" data-label="Copy" onclick="copy(${JSON.stringify(item.h2)},this)">Copy</button></div>`:''}
+      ` : ''}
+      ${isContent ? `
+        ${item.script?`<div class="copy-label">📄 Script</div><div class="copy-row"><div class="copy-text">${esc(item.script)}</div><button class="copy-btn" data-label="Copy Script" onclick="copy(${JSON.stringify(item.script)},this)">Copy Script</button></div>`:''}
+        ${item.instagram?`<div class="copy-label">📱 Instagram Caption</div><div class="copy-row"><div class="copy-text">${esc(item.instagram)}</div><button class="copy-btn" data-label="Copy" onclick="copy(${JSON.stringify(item.instagram)},this)">Copy</button></div>`:''}
+        ${item.tiktok?`<div class="copy-label">🎵 TikTok Caption</div><div class="copy-row"><div class="copy-text">${esc(item.tiktok)}</div><button class="copy-btn" data-label="Copy" onclick="copy(${JSON.stringify(item.tiktok)},this)">Copy</button></div>`:''}
+        ${item.ytTitle?`<div class="copy-label">▶️ YouTube Title</div><div class="copy-row"><div class="copy-text">${esc(item.ytTitle)}</div><button class="copy-btn" data-label="Copy" onclick="copy(${JSON.stringify(item.ytTitle)},this)">Copy</button></div>`:''}
+        ${item.ytDesc?`<div class="copy-label">▶️ YouTube Description</div><div class="copy-row"><div class="copy-text">${esc(item.ytDesc)}</div><button class="copy-btn" data-label="Copy" onclick="copy(${JSON.stringify(item.ytDesc)},this)">Copy</button></div>`:''}
+      ` : ''}
     </div>
   </div>`;
 }
 
-function switchDynamicBatch(productId, idx) {
-  // find product in loaded data
-  fetch(`${API}/api/products?t=${Date.now()}`).then(r=>r.json()).then(items=>{
-    const p = items.find(x=>x.id===productId);
-    if(p) renderDynamicBatch(productId, idx, p.batches);
-  });
-  // update tab UI immediately
-  document.querySelectorAll(`[id^="dbtab-${productId}-"]`).forEach((t,i)=>t.classList.toggle('active',i===idx));
-}
-
-function renderDynamicBatch(productId, idx, batches) {
-  if(!batches) {
-    fetch(`${API}/api/products?t=${Date.now()}`).then(r=>r.json()).then(items=>{
-      const p=items.find(x=>x.id===productId);
-      if(p&&p.batches) renderDynamicBatch(productId, idx, p.batches);
-    });
+function renderStudio(){
+  const el=document.getElementById('studio-content');
+  let items=allContent;
+  if(studioFilter!=='all') items=items.filter(c=>c.pillar===studioFilter||(studioFilter==='cgd'&&c.pillar==='cgd'));
+  if(studioStatus!=='all') items=items.filter(c=>getStat(c.id,c.status)===studioStatus);
+  if(!items.length){
+    el.innerHTML=`<div class="empty-state"><div class="e-icon">📭</div><div class="e-title">Nothing here yet</div><div>Agents will post content here as they complete work</div></div>`;
     return;
   }
-  const b = batches[idx];
-  if(!b) return;
-  const el = document.getElementById('dbatch-'+productId);
-  if(!el) return;
-  el.innerHTML = `
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
-      <span style="font-size:13px;font-weight:700">${b.concept||b.name}</span>
-      <span class="pill pill-${(b.batchStatus||'ready').toLowerCase()}">${b.batchStatus||'READY'}</span>
+  el.innerHTML=items.map(buildContentCard).join('');
+}
+
+async function loadStudio(){
+  try{
+    const r=await fetch(API+'/api/content');
+    const apiItems=await r.json();
+    // Map API content to studio format
+    const mapped=apiItems.map(i=>({
+      id:i.id, pillar:i.pillar, agent:i.agent, batchName:i.batchName,
+      title:i.title, type:i.type, status:i.status, gdoc_url:i.gdoc_url||'',
+      script:i.script, instagram:i.captions?.instagram, tiktok:i.captions?.tiktok,
+      ytTitle:i.captions?.youtubeTitle, ytDesc:i.captions?.youtubeDesc,
+      createdAt:i.createdAt
+    }));
+    allContent=[...mapped,...STATIC_CONTENT.filter(s=>!mapped.find(m=>m.id===s.id))];
+  } catch(e){
+    allContent=[...STATIC_CONTENT];
+  }
+  allContent.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
+  renderStudio();
+}
+
+document.querySelectorAll('.filter-pill[data-filter]').forEach(p=>{
+  p.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-pill[data-filter]').forEach(x=>x.classList.remove('active'));
+    p.classList.add('active'); studioFilter=p.dataset.filter; renderStudio();
+  });
+});
+document.querySelectorAll('.filter-pill[data-status]').forEach(p=>{
+  p.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-pill[data-status]').forEach(x=>x.classList.remove('active'));
+    p.classList.add('active'); studioStatus=p.dataset.status; renderStudio();
+  });
+});
+
+const STATUS_ORDER=['SCRIPT_READY','FILMED','EDITED','POSTED'];
+const STATUS_MAP={SCRIPT_READY:'Script Ready',FILMED:'Filmed',EDITED:'Edited',POSTED:'Posted'};
+function cycleStatus(id,btn){
+  const cur=getStat(id,'SCRIPT_READY');
+  const next=STATUS_ORDER[(STATUS_ORDER.indexOf(cur)+1)%STATUS_ORDER.length];
+  setStat(id,next); btn.textContent=STATUS_MAP[next]; btn.className='status-btn s-'+next;
+}
+function deleteContent(id){
+  if(!confirm('Delete this content?')) return;
+  const el=document.getElementById('cc-'+id);
+  if(el){el.style.opacity='0';el.style.transition='opacity .2s';setTimeout(()=>el.remove(),200);}
+  allContent=allContent.filter(c=>c.id!==id);
+  fetch(API+'/api/content',{method:'DELETE',headers:{'Content-Type':'application/json','X-API-Key':KEY},body:JSON.stringify({id})}).catch(()=>{});
+}
+
+// ══════════════════════════════════
+// PIPELINE TAB
+// ══════════════════════════════════
+const STATIC_PRODUCTS=[
+  {id:'neuveil',name:'NEUVEIL',subtitle:'Microneedle Eye Patches',status:'TESTING',stage:6,
+   storeUrl:'https://anakampsihealth.com/products/neuveil-microneedle-eye-patches-1',
+   needed:true,neededNote:'TOMMY: Check Day 3 CTR — scale or kill decision needed',
+   notes:'Bundle: 1-box $49 | 3-box $119 (Roller) | 5-box $189 (Eye Mask)\nKill: CTR < 0.8% Day 3 | Scale: CTR > 1.2% → +20%/day\nLaunch order: B1 → B3 → B2'},
+  {id:'strideflex',name:'StrideFlex',subtitle:'Ankle Wrap — Plantar Fasciitis',status:'BUILDING',stage:5,
+   storeUrl:'https://anakampsihealth.com',needed:true,
+   neededNote:'TOMMY: Approve to launch Meta ads — page is live and ready',notes:'Page live. Awaiting ad approval.'},
+  {id:'veloura',name:'Veloura',subtitle:'Facial Hair Removal Cream',status:'PAUSED',stage:6,storeUrl:'',needed:false,
+   notes:'Went unprofitable after ~2 weeks on Meta. Diagnosis pending.'},
+  {id:'restcalm',name:'RestCalm',subtitle:'Restless Legs EMS Pad',status:'LIVE',stage:6,storeUrl:'',needed:false,notes:'Pipeline complete. Pages live.'}
+];
+const STAGE_NAMES=['Scout','Brand','Copy','Creative','Build','QC','Live','Scale'];
+const STATUS_PILL={LIVE:'b-live',TESTING:'b-testing',BUILDING:'b-todo',PAUSED:'b-paused',COMPLETE:'b-done'};
+
+function buildProductCard(p){
+  const stagesHtml=STAGE_NAMES.map((s,i)=>{
+    let cls=i<p.stage?'stage-dot done':i===p.stage?'stage-dot current':'stage-dot';
+    let lineCls=i<p.stage?'stage-line done':'stage-line';
+    return `<div style="text-align:center"><div class="${cls}">${i+1}</div><div class="stage-label">${s}</div></div>${i<STAGE_NAMES.length-1?`<div class="${lineCls}" style="margin-bottom:14px"></div>`:''}`
+  }).join('');
+
+  return `
+  <div class="product-card" id="prod-${p.id}">
+    <div class="product-top" onclick="toggleProduct('${p.id}')">
+      <div style="flex:1">
+        <div class="product-name">${p.name}</div>
+        <div class="product-sub">${p.subtitle}</div>
+      </div>
+      <span class="badge ${STATUS_PILL[p.status]||'b-low'}">${p.status}</span>
+      ${p.needed?'<span class="badge b-needed" style="margin-left:6px">⚠️ TOMMY NEEDED</span>':''}
+      <span style="color:var(--muted);font-size:16px;margin-left:8px">⌄</span>
     </div>
-    ${b.copy ? [
-      ['🪝 Hook', b.copy.hook],
-      ['📝 Body Copy 1', b.copy.body1],
-      ['📝 Body Copy 2', b.copy.body2],
-      ['🔤 Headline 1', b.copy.headline1],
-      ['🔤 Headline 2', b.copy.headline2],
-    ].filter(([,v])=>v).map(([label,text])=>`
-      <div style="margin-bottom:12px">
-        <div class="copy-label">${label}</div>
-        <div class="copy-box"><div class="copy-box-text">${esc(text)}</div><button class="copy-btn" onclick="copy(${JSON.stringify(text)},this)">Copy</button></div>
-      </div>`).join('') : ''}
+    <div class="product-body">
+      ${p.needed?`<div class="needed-badge">⚠️ ${esc(p.neededNote)}</div>`:''}
+      <div class="section-label">Pipeline Stage</div>
+      <div class="stages" style="margin-bottom:4px">${stagesHtml}</div>
+      ${p.storeUrl?`<div style="margin-top:12px"><a href="${p.storeUrl}" target="_blank" style="font-size:12px;color:var(--blue);border:1px solid rgba(77,166,255,.2);padding:4px 10px;border-radius:6px">View Store ↗</a></div>`:''}
+      ${p.notes?`<div style="margin-top:12px;padding:10px 12px;background:rgba(201,160,60,.05);border:1px solid rgba(201,160,60,.12);border-radius:8px;font-size:12px;color:var(--muted);line-height:1.6">${esc(p.notes).replace(/\n/g,'<br>')}</div>`:''}
+    </div>
+  </div>`;
+}
+
+function toggleProduct(id){document.getElementById('prod-'+id).classList.toggle('open')}
+
+async function loadPipeline(){
+  const el=document.getElementById('pipeline-content');
+  let products=[...STATIC_PRODUCTS];
+  try{
+    const r=await fetch(API+'/api/products');
+    const api=await r.json();
+    if(api&&api.length){
+      products=[...api,...STATIC_PRODUCTS.filter(s=>!api.find(a=>a.id===s.id))];
+    }
+  }catch(e){}
+  el.innerHTML=products.map(buildProductCard).join('');
+  // Auto-open products with needed flag
+  products.filter(p=>p.needed).forEach(p=>document.getElementById('prod-'+p.id)?.classList.add('open'));
+}
+
+// ══════════════════════════════════
+// LEARN TAB
+// ══════════════════════════════════
+const LESSONS=[
+  {day:0,dayName:'Sunday',topic:'Weekly Planning Frameworks',
+   finding:`Research on high-performer planning systems (Cal Newport, Hormozi, Andrew Wilkinson) converges on one practice: the weekly review done BEFORE the week starts — not on Monday morning. Sunday planning session locks the week's MIT for each day, eliminating "what should I do today?" forever. A 2024 HBR study found founders who do structured weekly reviews are 34% more productive the following week.`,
+   empire:['Sunday 5:30am = your weekly planning session. Before you close it, set Monday-Friday\'s MIT so agents know what you\'re focused on.','The three questions that matter: What are my 3 biggest wins from last week? What\'s the #1 thing that will move each pillar forward this week? What decisions do I need to make?','KYVO: Is the pipeline moving? Dropship: Are ads running? @casualgolfdad: Did content go out?'],
+   apply:'Open tommy-hq.vercel.app and check Pipeline + Tasks before you start planning.'},
+  {day:1,dayName:'Monday',topic:'Meta Ads — What\'s Converting in 2026',
+   finding:`Meta\'s 2026 algorithm rewards creative specificity over broad appeal. Jones Road Beauty and Athletic Greens both report that ads naming a specific pain point in the first 1.2 seconds outperform "lifestyle" hooks by 3.1x. The CBO (Campaign Budget Optimization) structure at $100-200/day with 3 ad sets has replaced the old ABO testing approach — Meta\'s algorithm finds the winners faster with CBO at sufficient spend.`,
+   empire:['NEUVEIL: "The reason your eye cream stopped working has nothing to do with the formula" — this is the pattern interrupt. Frame 1 = the unexpected truth.','Dropship testing structure confirmed: $100/day CBO, 3 batches simultaneously, let Meta find the winner in 48-72 hours.','Kill threshold: CTR < 0.8% at Day 3. Scale signal: CTR > 1.2% → increase budget 20%/day, not 2x at once.'],
+   apply:'Check NEUVEIL campaign data in Dropship pipeline. Confirm Day 3 decision has been made.'},
+  {day:2,dayName:'Tuesday',topic:'Creative Strategy — What Stops the Scroll in 2026',
+   finding:`A 2025 Creative Intelligence Report from Meta analyzing 14,000 campaigns found that "ugly" native video outperforms polished brand video by 2.4x on average CPM and 3.1x on CTR. The algorithm interprets native-looking content as high-engagement signal before anyone even watches it. Cody Plofker (Jones Road) calls this "creative that doesn\'t look like an ad." The hook must deliver the payoff within 3 seconds — not tease it.`,
+   empire:['@casualgolfdad: Phone-filmed simulator content outperforms any produced video. Raw = real = trust.','KYVO filming Tuesdays: talk directly to camera, no script, no teleprompter. "Here\'s what I figured out about the back nine" is worth 10x "KYVO Performance helps golfers."','Dropship: UGC-style ad outperforms brand creative every time. If you can get 3 real user reviews on video, that\'s your highest-leverage creative.'],
+   apply:'Before filming today: write ONE sentence that delivers the payoff of your video. That\'s your hook. Film the hook first.'},
+  {day:3,dayName:'Wednesday',topic:'Email & Retention — The Revenue You\'re Leaving Behind',
+   finding:`Klaviyo\'s 2025 State of Email report found that brands with properly configured post-purchase sequences generate 23% more revenue from the same customer base with zero additional ad spend. The five flows every DTC brand needs: Welcome (sends within 1 hour of signup), Abandoned Cart (3-email sequence, first email within 20 min), Post-Purchase Education, Win-Back (90 days post-purchase), and Browse Abandonment. Email converts at 2.92% vs paid social at 1.2%.`,
+   empire:['NEUVEIL needs a post-purchase sequence: Day 1 "how to use" → Day 3 "what to expect" → Day 14 "share your results" → Day 21 "refill reminder."','KYVO pre-launch: build the email list NOW. Free content (golf nutrition guide) → email capture → launch announcement sequence. 1,000 emails before launch = $10K+ opening week.','Dropship flows are the highest-ROI work Neo isn\'t doing yet. Brief him to set up Klaviyo flows after NEUVEIL hits $5K/month.'],
+   apply:'Send Neo one task: set up NEUVEIL post-purchase sequence in Klaviyo. 3 emails, 7-14-21 day cadence.'},
+  {day:4,dayName:'Thursday',topic:'Founder Brand Building — The Nick Bare Model',
+   finding:`Nick Bare built $42M ARR at Bare Performance Nutrition while serving as an active duty Army Ranger. His model: document everything publicly, build the brand through the founder\'s identity, and let the product be the natural conclusion of the story. His audience trusted him before they ever bought from him — because they watched him earn it. Founder-led brands in 2026 convert 4-6x higher than faceless brands on cold traffic.`,
+   empire:['You ARE the @casualgolfdad brand. Every post where you show up at 5am, every simulator session, every moment you choose the game while managing 4 kids — that\'s the content. That\'s the brand.','KYVO\'s moat is you. Not the formula. The formula can be copied. A 36-year-old dad who wakes at 4:15am and built a supplement company from scratch while raising 4 kids — that can\'t be copied.','Your dual identity (family man + empire builder) isn\'t tension. It\'s the whole story. Lead with it.'],
+   apply:'Film one piece of content today that shows something real. Not a product demo. Just you, working.'},
+  {day:5,dayName:'Friday',topic:'DTC Scaling — When to Scale, How to Scale',
+   finding:`Common Thread Collective\'s 2026 scaling report identifies three distinct phases: $0-$10K/month (product-market fit, creative testing), $10K-$100K/month (scaling winners, retention focus), $100K+/month (ASC campaigns, international expansion). The biggest mistake in Phase 1: scaling budget before finding a creative winner. The winning signal is NOT just ROAS — it\'s a sustained CTR above 1.2% for 72+ hours combined with CPP under 2.5x AOV.`,
+   empire:['NEUVEIL target: $10K/month within 60 days of launch. Signal for next phase: consistent 1.5%+ CTR across 2+ batches.','StrideFlex pending approval: launch immediately after NEUVEIL hits $5K/month. Running 2 products simultaneously is Phase 2 behavior.','The $100K/month target requires 3 winning products running simultaneously. Pipeline planning means launching product #3 before product #1 hits $100K.'],
+   apply:'Check Pipeline: where is each product? What needs to happen for the next one to launch in 30 days?'},
+  {day:6,dayName:'Saturday',topic:'Mental Performance & Habits — The 4:15am Identity',
+   finding:`Research from Benjamin Hardy\'s PhD (Personality Isn\'t Permanent, 2018) and subsequent Stanford replication studies (2023) shows that identity-based behavior change has a 3.7x higher 12-month adherence rate vs goal-based behavior change. "I am a founder who wakes at 4:15am" is exponentially more durable than "I want to wake early to work on my business." The action follows the identity — not the other way around. Every morning you show up is evidence accumulation, not willpower.`,
+   empire:['Your 3 identity claims (not goals): "I am a supplement brand founder." "I am a present father who is building his family\'s freedom." "I am the most authentic golf content creator in this space."','The morning journal is identity priming, not gratitude practice. Write from Future Tommy\'s perspective. 5 years from now, what did you accomplish today?','Physical training isn\'t adjacent to the empire — it\'s central. Exercise produces BDNF (brain-derived neurotrophic factor) that makes the work session after gym measurably better. The gym IS the morning strategy session.'],
+   apply:'Write three sentences from Future Tommy\'s perspective about this week. What did he accomplish?'},
+];
+
+function renderLearn(){
+  const el=document.getElementById('learn-content');
+  const dow=new Date().getDay();
+  const today=LESSONS.find(l=>l.day===dow)||LESSONS[0];
+  const prev=LESSONS.filter(l=>l.day!==dow);
+  const bulletsHtml=today.empire.map(b=>`<li>${esc(b)}</li>`).join('');
+
+  el.innerHTML=`
+    <div class="card" style="border-color:rgba(201,160,60,.25)">
+      <div class="card-body">
+        <div class="learn-day">${today.dayName} — Daily Intelligence</div>
+        <div class="learn-topic">${esc(today.topic)}</div>
+        <div class="learn-section-label">📊 The Finding</div>
+        <div class="learn-text">${esc(today.finding)}</div>
+        <div class="learn-section-label">🎯 For Your Empire</div>
+        <ul class="learn-bullets">${bulletsHtml}</ul>
+        <div class="learn-section-label">⚡ Apply Now (2 min)</div>
+        <div class="learn-text">${esc(today.apply)}</div>
+      </div>
+    </div>
+    <div class="prev-lessons">
+      <div class="prev-label">Previous Lessons</div>
+      ${prev.map(l=>`
+        <div class="prev-item" onclick="expandLesson(${l.day})">
+          <div class="prev-day">${l.dayName}</div>
+          <div class="prev-title">${esc(l.topic)}</div>
+          <span style="color:var(--muted);font-size:12px">→</span>
+        </div>
+      `).join('')}
+    </div>
   `;
 }
 
-// ════════════════ INIT ════════════════
+function expandLesson(day){
+  const lesson=LESSONS.find(l=>l.day===day);
+  if(!lesson) return;
+  const bulletsHtml=lesson.empire.map(b=>`<li>${esc(b)}</li>`).join('');
+  const modal=document.createElement('div');
+  modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:100;overflow-y:auto;padding:20px';
+  modal.innerHTML=`
+    <div style="max-width:700px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <div class="learn-day">${lesson.dayName}</div>
+        <button onclick="this.closest('[style]').remove()" style="background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer">×</button>
+      </div>
+      <div class="learn-topic">${esc(lesson.topic)}</div>
+      <div class="learn-section-label">📊 The Finding</div>
+      <div class="learn-text">${esc(lesson.finding)}</div>
+      <div class="learn-section-label">🎯 For Your Empire</div>
+      <ul class="learn-bullets">${bulletsHtml}</ul>
+      <div class="learn-section-label">⚡ Apply Now</div>
+      <div class="learn-text">${esc(lesson.apply)}</div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
 
-renderBatch(0); // static fallback for NEUVEIL
-loadAllTasks();
-loadContent('kyvo', kyvoScripts, 'kyvo-content');
-loadContent('cgd', cgdScripts, 'cgd-content');
-loadProducts(); // load dynamic products (falls back to static if empty)
+// ══════════════════════════════════
+// TASKS TAB
+// ══════════════════════════════════
+let allTasks=[];
 
-renderDocsFor(['Dropshipping','SOPs','Creative'], 'dropship-docs');
-renderDocsFor(['KYVO Performance','SOPs','Creative'], 'kyvo-docs');
-renderDocsFor(['@casualgolfdad','SOPs','Creative'], 'cgd-docs');
+async function loadTasks(){
+  const el=document.getElementById('tasks-content');
+  try{
+    const r=await fetch(API+'/api/tasks');
+    allTasks=await r.json();
+  }catch(e){allTasks=[];}
+  renderTasks();
+}
 
+function renderTasks(){
+  const el=document.getElementById('tasks-content');
+  const open=allTasks.filter(t=>t.status!=='done').sort((a,b)=>{const po={high:0,medium:1,low:2};return(po[a.priority]||1)-(po[b.priority]||1);});
+  if(!open.length){el.innerHTML=`<div class="empty-state"><div class="e-icon">🎉</div><div class="e-title">All clear!</div><div>No open tasks. Empire is moving.</div></div>`;return;}
+  const high=open.filter(t=>t.priority==='high').slice(0,3);
+  const med=open.filter(t=>t.priority==='medium').slice(0,3);
+  const low=open.filter(t=>t.priority==='low').slice(0,3);
+  const renderTask=t=>`
+    <div class="task-item" id="ti-${t.id}">
+      <div class="task-check" onclick="doneTask('${t.id}',this)"></div>
+      <div class="task-body">
+        <div class="task-title">${esc(t.title||'')}</div>
+        <div class="task-meta">
+          <span class="badge ${badgeClass(t.priority||'medium')}">${t.priority||'med'}</span>
+          <span style="font-size:11px;color:var(--muted)">${agentMoji(t.agent)} ${t.agent||''}</span>
+        </div>
+      </div>
+      <div class="task-time">${t.createdAt?timeAgo(t.createdAt):''}</div>
+      <button class="del-btn" onclick="deleteTask('${t.id}')" title="Delete">🗑</button>
+    </div>`;
+  let html=`<div class="task-count">${open.length} task${open.length!==1?'s':''} need you</div>`;
+  if(high.length){html+=`<div class="tier-label">🔴 High Priority</div>`+high.map(renderTask).join('');}
+  if(med.length){html+=`<div class="tier-label">🟡 This Week</div>`+med.map(renderTask).join('');}
+  if(low.length){html+=`<div class="tier-label">🟢 When Ready</div>`+low.map(renderTask).join('');}
+  el.innerHTML=html;
+}
+
+function doneTask(id,chk){
+  chk.classList.add('checked');
+  chk.innerHTML='<span style="font-size:10px;color:#0d0d14;font-weight:900">✓</span>';
+  const item=document.getElementById('ti-'+id);
+  if(item){setTimeout(()=>{item.style.opacity='0';item.style.transition='opacity .3s';setTimeout(()=>{item.remove();},300)},500);}
+  allTasks=allTasks.map(t=>t.id===id?{...t,status:'done'}:t);
+  fetch(API+'/api/tasks',{method:'PUT',headers:{'Content-Type':'application/json','X-API-Key':KEY},body:JSON.stringify({id,status:'done'})}).catch(()=>{});
+}
+function deleteTask(id){
+  if(!confirm('Delete this task?'))return;
+  const el=document.getElementById('ti-'+id);
+  if(el){el.style.opacity='0';el.style.transition='opacity .2s';setTimeout(()=>el.remove(),200);}
+  allTasks=allTasks.filter(t=>t.id!==id);
+  fetch(API+'/api/tasks',{method:'DELETE',headers:{'Content-Type':'application/json','X-API-Key':KEY},body:JSON.stringify({id})}).catch(()=>{});
+}
+
+// ══════════════════════════════════
+// WEEK TAB
+// ══════════════════════════════════
+const WEEK_SCHEDULE={
+  Mon:{morning:{label:'Deep Work',cls:'db-empire'},gym:{label:'Gym 4:30',cls:'db-gym'},sim:{label:'Simulator',cls:'db-sim'},film:null,evening:{label:'Dropship HQ',cls:'db-empire'}},
+  Tue:{morning:{label:'Deep Work',cls:'db-empire'},gym:{label:'Gym 4:30',cls:'db-gym'},sim:null,film:{label:'Film KYVO',cls:'db-film'},evening:{label:'KYVO Perf.',cls:'db-empire'}},
+  Wed:{morning:{label:'Deep Work',cls:'db-empire'},gym:{label:'Gym 4:30',cls:'db-gym'},sim:{label:'Simulator',cls:'db-sim'},film:null,evening:{label:'Dropship HQ',cls:'db-empire'}},
+  Thu:{morning:{label:'Deep Work',cls:'db-empire'},gym:{label:'Gym 4:30',cls:'db-gym'},sim:{label:'Simulator',cls:'db-sim'},film:{label:'Film @Golf',cls:'db-film'},evening:{label:'@casualgolfdad',cls:'db-empire'}},
+  Fri:{morning:{label:'Deep Work',cls:'db-empire'},gym:{label:'Gym 4:30',cls:'db-gym'},sim:null,film:null,evening:{label:'Wk Review',cls:'db-empire'}},
+  Sat:{morning:{label:'Empire Work',cls:'db-empire'},gym:{label:'Gym 4:30',cls:'db-gym'},sim:null,film:null,evening:{label:'Family',cls:'db-family'}},
+  Sun:{morning:{label:'Planning',cls:'db-empire'},gym:null,sim:null,film:null,evening:{label:'📵 No Phone',cls:'db-off'}}
+};
+
+function renderWeek(){
+  const el=document.getElementById('week-content');
+  const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const labels=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const gridHtml=days.map((d,i)=>{
+    const s=WEEK_SCHEDULE[d];
+    return `
+    <div class="day-col">
+      <div class="day-header">${labels[i]}</div>
+      ${s.gym?`<div class="day-block ${s.gym.cls}">🏋️ ${s.gym.label}</div>`:'<div class="day-block db-off">—</div>'}
+      <div class="day-block ${s.morning.cls}">🟢 ${s.morning.label}</div>
+      ${s.film?`<div class="day-block ${s.film.cls}">🎬 ${s.film.label}</div>`:''}
+      ${s.sim?`<div class="day-block ${s.sim.cls}">🎯 ${s.sim.label}</div>`:''}
+      <div class="day-block db-bba">${d==='Sat'||d==='Sun'?'🔒 Family':'💼 BBA 9:30'}</div>
+      <div class="day-block ${s.evening.cls}">📌 ${s.evening.label}</div>
+    </div>`;
+  }).join('');
+
+  el.innerHTML=`
+    <div class="week-grid">${gridHtml}</div>
+    <div class="week-total">⏱️ 14 empire hours this week · 4:15am wake · 9:45pm bed · 6.5hrs sleep</div>
+    <div style="margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:6px">
+      <div style="padding:8px;background:rgba(91,168,154,.1);border:1px solid rgba(91,168,154,.2);border-radius:7px;font-size:11px;color:var(--teal);font-weight:600">🟢 Empire Work</div>
+      <div style="padding:8px;background:rgba(122,107,168,.1);border:1px solid rgba(122,107,168,.2);border-radius:7px;font-size:11px;color:var(--purple);font-weight:600">💪 Gym Block</div>
+      <div style="padding:8px;background:rgba(201,160,60,.1);border:1px solid rgba(201,160,60,.2);border-radius:7px;font-size:11px;color:var(--amber);font-weight:600">🎬 Film</div>
+      <div style="padding:8px;background:rgba(91,130,168,.1);border:1px solid rgba(91,130,168,.2);border-radius:7px;font-size:11px;color:var(--blue);font-weight:600">🎯 Simulator</div>
+      <div style="padding:8px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:7px;font-size:11px;color:var(--dim);font-weight:600">🔒 Family/BBA</div>
+    </div>
+  `;
+}
+
+// ══════════════════════════════════
+// INIT
+// ══════════════════════════════════
+loadToday();
+loadStudio();
+loadPipeline();
+renderLearn();
+loadTasks();
+renderWeek();
 </script>
 </body>
 </html>
