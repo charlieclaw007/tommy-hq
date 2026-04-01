@@ -1,5 +1,12 @@
 [
   {
+    "id": "mnfsgyviewgr",
+    "agent": "charlie",
+    "action": "Morning Brief Delivered",
+    "details": "Wednesday April 1 brief sent to #command. Masters week angle, Schwartz market sophistication edge (entry 23), Marcus Aurelius quote. State advanced to entry 24, quoteIndex 3.",
+    "timestamp": "2026-04-01T08:33:37.422Z"
+  },
+  {
     "id": "mnfei2j0dc14",
     "agent": "trinity",
     "action": "Nightly content briefs delivered",
