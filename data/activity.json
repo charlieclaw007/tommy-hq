@@ -1,5 +1,12 @@
 [
   {
+    "id": "mnfww228kbsl",
+    "agent": "charlie",
+    "action": "Scout report filed",
+    "details": "Neo validated 4 new products: ScalpRevive (9/10, 95% margin), SkinClear (10/10, 93% margin), LashRevive (9/10, 87% margin), GutCalm (7/10, supplement). Recommend launch order: ScalpRevive → SkinClear → LashRevive. Ready for 9am check-in.",
+    "timestamp": "2026-04-01T10:37:19.856Z"
+  },
+  {
     "id": "mnfw5sje1677",
     "agent": "neo",
     "action": "Daily scout complete",
