@@ -1,5 +1,12 @@
 [
   {
+    "id": "mnhf50cgcgfj",
+    "agent": "the-oracle",
+    "action": "KYVO Day 4 Caption (FINAL)",
+    "details": "IG: For anyone that has experienced the back nine fade and lost a great round in the last few holes — this is for you. I got tired of trying pre-workouts, energy drinks, drinking endless amounts of coffee trying to stay calm but have the energy and focus you need for four plus hours on the golf course. As a golfer, we deserve more from our energy and our focus out there. When does the crash usually hit you? | TT: Pre-workouts. Energy drinks. Endless coffee. None of it was built for four hours on a golf course. As a golfer, we deserve more. When does the crash usually hit you?",
+    "timestamp": "2026-04-02T11:55:56.800Z"
+  },
+  {
     "id": "mnhf4znvx2mr",
     "agent": "the-oracle",
     "action": "KYVO Day 3 Caption (FINAL)",
@@ -1391,12 +1398,5 @@
     "action": "Copywriting knowledge base built",
     "details": "Copy Bible, Hook Library (505 hooks), Awareness Levels, Research SOP, 7 script templates — all committed to GitHub.",
     "timestamp": "2026-02-24T20:00:00.000Z"
-  },
-  {
-    "id": "act009",
-    "agent": "neo",
-    "action": "Pipeline running for new product",
-    "details": "Running full SOP 01-04 on new dropship candidate",
-    "timestamp": "2026-02-24T18:00:00.000Z"
   }
 ]
