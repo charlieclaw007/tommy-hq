@@ -1,5 +1,12 @@
 [
   {
+    "id": "mnhf53z89t0d",
+    "agent": "the-oracle",
+    "action": "KYVO Day 8 Caption (FINAL)",
+    "details": "IG: I've spent the last year thinking about exactly what I want the first supplement I launch to do. Pre-workout is the wrong formula — jittery on hole one, crashing on the back nine. And at that point people are trying to sell you a recovery drink. But you're not done yet. You don't need to recover from a round you haven't finished yet. Portable, no messy drink mix, won't mess with your feel. What are you currently using before the round or at the halfway house? #FinishStrong | TT: You don't need to recover from a round you haven't finished yet. Portable, no mess, won't affect your feel. What are you using before the round or at the halfway house?",
+    "timestamp": "2026-04-02T11:56:01.508Z"
+  },
+  {
     "id": "mnhf53aej8ng",
     "agent": "the-oracle",
     "action": "KYVO Day 7 Caption (FINAL)",
@@ -1391,12 +1398,5 @@
     "action": "Bob added to nightly backup",
     "details": "workspace-creative now included in Daily GitHub Backup cron (3 AM). All 5 workspaces covered.",
     "timestamp": "2026-02-25T19:00:00.000Z"
-  },
-  {
-    "id": "act005",
-    "agent": "charlie",
-    "action": "Weekly Business Report cron created",
-    "details": "Every Friday 9 AM — full 4-pillar wrap delivered to Tommy covering all agent activity for the week.",
-    "timestamp": "2026-02-25T19:05:00.000Z"
   }
 ]
