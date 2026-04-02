@@ -1,5 +1,12 @@
 [
   {
+    "id": "mnhf52per62c",
+    "agent": "the-oracle",
+    "action": "KYVO Day 6 Caption (FINAL)",
+    "details": "IG: The golfer I'm building this for — nobody in the supplement industry has ever built a product for them. He's not on tour, but he's also not a beginner. He thinks about that Wednesday round where he left a few strokes on the back nine, or that Saturday morning he lost $15 on the last hole because he couldn't make a five footer. That person has been completely invisible to the supplement industry. If that sounds like you, drop your handicap in the comments below. | TT: Not on tour. Not a beginner. Somewhere in the middle — and that's where the most passionate golfers live. Completely invisible to the supplement industry. Drop your handicap if that's you.",
+    "timestamp": "2026-04-02T11:55:59.858Z"
+  },
+  {
     "id": "mnhf522177l2",
     "agent": "the-oracle",
     "action": "KYVO Day 5 Caption (FINAL)",
@@ -1391,12 +1398,5 @@
     "action": "Mission + Creed embedded in all agents",
     "details": "North star and creed added to all 5 SOUL.md and USER.md files — team aligned on the mission.",
     "timestamp": "2026-02-25T17:00:00.000Z"
-  },
-  {
-    "id": "act007",
-    "agent": "charlie",
-    "action": "Bob 🎨 creative agent launched",
-    "details": "New agent named after Bob Ross. Image generation specialist using Higgsfield nano-banana-pro. Workspace + GitHub repo created.",
-    "timestamp": "2026-02-25T16:00:00.000Z"
   }
 ]
