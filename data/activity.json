@@ -1,5 +1,12 @@
 [
   {
+    "id": "mnhf4znvx2mr",
+    "agent": "the-oracle",
+    "action": "KYVO Day 3 Caption (FINAL)",
+    "details": "IG: It's taken me 25 years of playing golf to realize this — the back nine fade is not a golf problem. It's a fuel problem. After two to three hours on the course, your blood sugar has dropped, you're mildly dehydrated, and your cortisol is starting to climb. Your legs still feel fine, but your brain is just running on fumes. That granola bar at the turn? That is not fueling, that is surviving — and barely. What hole does the crash usually hit you on, and what are you putting in your body at the turn? #KYVOPerformance | TT: The back nine fade is not a golf problem. It's a fuel problem. That granola bar at the turn? Not fueling — surviving. What hole does the crash hit you on?",
+    "timestamp": "2026-04-02T11:55:55.915Z"
+  },
+  {
     "id": "mnhf4z3m9su9",
     "agent": "the-oracle",
     "action": "KYVO Day 2 Caption (FINAL)",
@@ -1391,12 +1398,5 @@
     "action": "Pipeline running for new product",
     "details": "Running full SOP 01-04 on new dropship candidate",
     "timestamp": "2026-02-24T18:00:00.000Z"
-  },
-  {
-    "id": "act010",
-    "agent": "charlie",
-    "action": "Morning Brief cron fixed",
-    "details": "Switched to direct message tool — fires at 4:30am automatically to Tommy's Telegram.",
-    "timestamp": "2026-02-24T10:00:00.000Z"
   }
 ]
