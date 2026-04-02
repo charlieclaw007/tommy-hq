@@ -1,5 +1,12 @@
 [
   {
+    "id": "mnhf522177l2",
+    "agent": "the-oracle",
+    "action": "KYVO Day 5 Caption (FINAL)",
+    "details": "IG: I've looked at everything that exists for golfers and nothing is actually built for golfers. They're just glorified gym products with golf marketing. Made for a 45 minute workout — not four hours in the sun on the golf course. There's a hole in the market. I'm the customer. I couldn't find it, so I want to build it. What have you tried on the market and has it actually worked for you? #KYVOPerformance | TT: They're just glorified gym products with golf marketing. Made for 45 minutes — not four hours in the sun. What have you tried and has it actually worked?",
+    "timestamp": "2026-04-02T11:55:59.017Z"
+  },
+  {
     "id": "mnhf50cgcgfj",
     "agent": "the-oracle",
     "action": "KYVO Day 4 Caption (FINAL)",
@@ -1391,12 +1398,5 @@
     "action": "Bob 🎨 creative agent launched",
     "details": "New agent named after Bob Ross. Image generation specialist using Higgsfield nano-banana-pro. Workspace + GitHub repo created.",
     "timestamp": "2026-02-25T16:00:00.000Z"
-  },
-  {
-    "id": "act008",
-    "agent": "charlie",
-    "action": "Copywriting knowledge base built",
-    "details": "Copy Bible, Hook Library (505 hooks), Awareness Levels, Research SOP, 7 script templates — all committed to GitHub.",
-    "timestamp": "2026-02-24T20:00:00.000Z"
   }
 ]
