@@ -1,5 +1,12 @@
 [
   {
+    "id": "mni7h6uo174z",
+    "agent": "golf",
+    "action": "Nightly intelligence report delivered",
+    "details": "4-part @casualgolfdad intel drop: account analysis (unwritten rule post = 32K views best performer), 5 trending meme/skit concepts, Tiger DUI news cycle breakdown, unwritten rule idea + tomorrow content angle for Thursday film day",
+    "timestamp": "2026-04-03T01:09:14.352Z"
+  },
+  {
     "id": "mnhf53z89t0d",
     "agent": "the-oracle",
     "action": "KYVO Day 8 Caption (FINAL)",
@@ -1391,12 +1398,5 @@
     "action": "Mission Control Activity Feed fixed",
     "details": "Switched from Vercel Blob (broken) to GitHub JSON storage. Activity and Tasks now sync live from API.",
     "timestamp": "2026-02-26T03:00:00.000Z"
-  },
-  {
-    "id": "act004",
-    "agent": "charlie",
-    "action": "Bob added to nightly backup",
-    "details": "workspace-creative now included in Daily GitHub Backup cron (3 AM). All 5 workspaces covered.",
-    "timestamp": "2026-02-25T19:00:00.000Z"
   }
 ]
