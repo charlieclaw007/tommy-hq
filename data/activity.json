@@ -1,5 +1,12 @@
 [
   {
+    "id": "mnjugxio4p9g",
+    "agent": "charlie",
+    "action": "Nightly audit — Friday April 3",
+    "details": "Veloura new campaign paused by Tommy. $225 spend, 0 purchases, 14% CTR — page-level conversion issue. 5 empire decisions still pending Day 9. All agents idle. Research queue exhausted.",
+    "timestamp": "2026-04-04T04:40:39.600Z"
+  },
+  {
     "id": "mnjng7zv2vsw",
     "agent": "neo",
     "action": "Daily scout complete",
@@ -1391,12 +1398,5 @@
     "action": "3 content ideas ready for @casualgolfdad",
     "details": "If you still game a blade putter in 2026, you are leaving strokes on the table",
     "timestamp": "2026-02-26T03:30:49.995Z"
-  },
-  {
-    "id": "mm2wdtuovqn0",
-    "agent": "charlie",
-    "action": "test write",
-    "details": "debug",
-    "timestamp": "2026-02-26T03:22:26.784Z"
   }
 ]
