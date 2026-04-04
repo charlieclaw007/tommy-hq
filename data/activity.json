@@ -1,5 +1,12 @@
 [
   {
+    "id": "mnkgqzyvhxtv",
+    "agent": "neo",
+    "action": "FungiClear pipeline complete (Stages 0-5)",
+    "details": "Product page live at anakampsihealth.com/products/fungiclear. 5 advertorials live. 24 images generated. 3 ad batches ready for Meta upload.",
+    "timestamp": "2026-04-04T15:04:20.887Z"
+  },
+  {
     "id": "mnkgpck340ei",
     "agent": "the-builder",
     "action": "Stage 5 Complete — FungiClear Toenail Repair Serum Pen",
@@ -1391,12 +1398,5 @@
     "action": "Creatives generated for RestCalm (Restless Legs EMS)",
     "details": "3 images: hero product shot + lifestyle relief + FB ad problem hook. Saved to pipeline/restless-legs-ems/creatives/",
     "timestamp": "2026-02-26T06:01:32.516Z"
-  },
-  {
-    "id": "mm2yvjxmgwp1",
-    "agent": "drago",
-    "action": "Competitor Landscape Analysis — 6 Golf Supplement Brands",
-    "details": "Deep research on Momentous, Mojo Country Club, DRYV Golf, 4ORE Nutrition, Swing Stacks, PhysiVāntage. Covers ingredients, pricing, positioning, format, strengths/weaknesses, and KYVO strategic advantages. Includes positioning map and 6-point competitive moat. File: research/competitor-analysis.md",
-    "timestamp": "2026-02-26T04:32:12.970Z"
   }
 ]
