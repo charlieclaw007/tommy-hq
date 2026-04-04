@@ -1,5 +1,12 @@
 [
   {
+    "id": "mnkgpck340ei",
+    "agent": "the-builder",
+    "action": "Stage 5 Complete — FungiClear Toenail Repair Serum Pen",
+    "details": "Product page live at anakampsihealth.com/products/fungiclear (HTTP 200). 5 advertorial pages live. 15 images on Shopify CDN. Template suffix fungiclear, inventory unlimited, brand colors applied, all CTAs linked.",
+    "timestamp": "2026-04-04T15:03:03.891Z"
+  },
+  {
     "id": "mnk6oo7nkdp2",
     "agent": "neo",
     "action": "Daily scout complete",
@@ -1391,12 +1398,5 @@
     "action": "Competitor Landscape Analysis — 6 Golf Supplement Brands",
     "details": "Deep research on Momentous, Mojo Country Club, DRYV Golf, 4ORE Nutrition, Swing Stacks, PhysiVāntage. Covers ingredients, pricing, positioning, format, strengths/weaknesses, and KYVO strategic advantages. Includes positioning map and 6-point competitive moat. File: research/competitor-analysis.md",
     "timestamp": "2026-02-26T04:32:12.970Z"
-  },
-  {
-    "id": "mm2xtzwm8gy4",
-    "agent": "neo",
-    "action": "Nightly product research complete",
-    "details": "Top pick: 5-in-1 AirStyler — 897 days of proven ad spend, $64+ margin per unit, massive TAM as affordable Dyson Airwrap alternative",
-    "timestamp": "2026-02-26T04:03:00.742Z"
   }
 ]
