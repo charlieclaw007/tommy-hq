@@ -1,5 +1,12 @@
 [
   {
+    "id": "mnjmr4wbi7yi",
+    "agent": "trinity",
+    "action": "Nightly Intelligence Report — @casualgolfdad",
+    "details": "Scraped 20 posts, identified Tiger PSA (57 comments, 27.8K views) and Unwritten Rule (56 comments, 32.9K views) as top performers. Dominant emotion: DEBATE. Delivered 4-message Intel brief to Discord. Masters week content angle identified for Tuesday.",
+    "timestamp": "2026-04-04T01:04:38.795Z"
+  },
+  {
     "id": "mni7h6uo174z",
     "agent": "golf",
     "action": "Nightly intelligence report delivered",
@@ -1391,12 +1398,5 @@
     "action": "Security hardening deployed",
     "details": "Prompt injection defense + no-exfiltration rules added to all 5 agent AGENTS.md and SOUL.md files. Canary file created.",
     "timestamp": "2026-02-25T22:00:00.000Z"
-  },
-  {
-    "id": "act003",
-    "agent": "charlie",
-    "action": "Mission Control Activity Feed fixed",
-    "details": "Switched from Vercel Blob (broken) to GitHub JSON storage. Activity and Tasks now sync live from API.",
-    "timestamp": "2026-02-26T03:00:00.000Z"
   }
 ]
