@@ -1,5 +1,12 @@
 [
   {
+    "id": "mnn1cc02so6o",
+    "agent": "charlie",
+    "action": "Weekly scout complete",
+    "details": "10 new validated products delivered to #command. No repeats. All consumables. Top picks: GlucoLock (blood sugar drops), LumiEye (under-eye serum), FemFire (female libido caps). Report saved to pipeline/discovery-2026-04-06/scout-report.md",
+    "timestamp": "2026-04-06T10:16:20.930Z"
+  },
+  {
     "id": "mnkgqzyvhxtv",
     "agent": "neo",
     "action": "FungiClear pipeline complete (Stages 0-5)",
@@ -1391,12 +1398,5 @@
     "action": "Daily scout complete",
     "details": "5 products validated and delivered to Dropshipping HQ for approval. Top picks: Dog Knee Brace (9/10), Ultrasonic Dental Cleaner (9/10), EMS Edema Foot Plate (8/10), Heated Sinus Mask (8/10), Dry Eye Steam Wand (8/10).",
     "timestamp": "2026-02-27T11:04:48.151Z"
-  },
-  {
-    "id": "mm322fdw150u",
-    "agent": "bob",
-    "action": "Creatives generated for RestCalm (Restless Legs EMS)",
-    "details": "3 images: hero product shot + lifestyle relief + FB ad problem hook. Saved to pipeline/restless-legs-ems/creatives/",
-    "timestamp": "2026-02-26T06:01:32.516Z"
   }
 ]
