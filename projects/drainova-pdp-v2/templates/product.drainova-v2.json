@@ -1,0 +1,905 @@
+{
+  "sections": {
+    "announcement_ticker": {
+      "type": "horizontal-ticker",
+      "blocks": {
+        "tick1": {
+          "type": "text",
+          "settings": {
+            "title": "Supports Natural Fluid Balance"
+          }
+        },
+        "tick2": {
+          "type": "text",
+          "settings": {
+            "title": "4 Traditional Drainage Herbs"
+          }
+        },
+        "tick3": {
+          "type": "text",
+          "settings": {
+            "title": "Drops, Not Pills — Honey Flavored"
+          }
+        },
+        "tick4": {
+          "type": "text",
+          "settings": {
+            "title": "60-Day Money-Back Guarantee"
+          }
+        },
+        "tick5": {
+          "type": "text",
+          "settings": {
+            "title": "Free U.S. Shipping Over $50"
+          }
+        }
+      },
+      "block_order": [
+        "tick1",
+        "tick2",
+        "tick3",
+        "tick4",
+        "tick5"
+      ],
+      "settings": {
+        "visibility": "always-display",
+        "speed": 3,
+        "mobile_spacing": 60,
+        "desktop_spacing": 100,
+        "color_scheme": "inverse",
+        "mobile_text_size": 14,
+        "desktop_text_size": 16,
+        "italic_text": false,
+        "uppercase_text": false,
+        "bold_text": false,
+        "mobile_padding_top": 10,
+        "mobile_padding_bottom": 10,
+        "desktop_padding_top": 12,
+        "desktop_padding_bottom": 12
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "text_size": "h1",
+            "title_alignment": "left",
+            "uppercase_title": false,
+            "margin_top": 0,
+            "margin_bottom": 10
+          }
+        },
+        "subheadline": {
+          "type": "text",
+          "settings": {
+            "text_1": "<p>For the puffiness that builds by evening and the heaviness that's still there in the morning. Four traditional herbs that support your body's natural drainage — so you can feel lighter from the inside out.</p>",
+            "alignment": "left",
+            "margin_top": 0,
+            "margin_bottom": 15
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "layout": "price_first",
+            "price_color": "accent-1",
+            "compare_price_color": "text",
+            "hide_sale_badge": false,
+            "margin_top": 10,
+            "margin_bottom": 15
+          }
+        },
+        "benefits": {
+          "type": "emoji_benefits",
+          "settings": {
+            "benefits": "<p>✓ Supports your body's natural fluid balance</p><p>✓ Two droppers a day — in water, tea, or under the tongue</p><p>✓ 60-Day Money-Back Guarantee</p>",
+            "margin_top": 15,
+            "margin_bottom": 15
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "skip_cart": false,
+            "uppercase_text": false,
+            "display_price": false,
+            "enable_custom_color": false,
+            "margin_top": 20,
+            "margin_bottom": 10
+          }
+        },
+        "shipping_estimate": {
+          "type": "estimated_shipping",
+          "settings": {
+            "icon": "local_shipping",
+            "filled_icon": false,
+            "icon_size": "small",
+            "icon_alignment": "top",
+            "message": "<p>Ready to ship — arrives by <strong>[end_date]</strong> · 60-Day Guarantee</p>",
+            "min_shipping_days": 3,
+            "max_shipping_days": 6,
+            "date_format": "day_mm_dd",
+            "days_labels": "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday",
+            "months_labels": "January, February, March, April, May, June, July, August, September, October, November, December",
+            "margin_top": 10,
+            "margin_bottom": 15
+          }
+        },
+        "sticky_atc": {
+          "type": "sticky_atc",
+          "settings": {
+            "function": "add_to_cart",
+            "display_when": "after_scroll",
+            "button_label": "Add To Cart",
+            "enable_custom_btn_color": false,
+            "color_scheme": "background-1",
+            "picker_type": "combined",
+            "desktop_show_image": true,
+            "desktop_show_title": true,
+            "desktop_rating_stars": false,
+            "desktop_show_price": true,
+            "desktop_show_sale_badge": false,
+            "desktop_variant_picker": false,
+            "desktop_full_button_width": false,
+            "desktop_show_price_in_button": false,
+            "desktop_transparent_bg": false,
+            "mobile_show_image": true,
+            "mobile_show_title": true,
+            "mobile_rating_stars": false,
+            "mobile_show_price": true,
+            "mobile_show_sale_badge": false,
+            "mobile_variant_picker": false,
+            "mobile_full_button_width": true,
+            "mobile_show_price_in_button": false,
+            "mobile_transparent_bg": false
+          }
+        },
+        "payment_badges": {
+          "type": "payment_badges",
+          "settings": {
+            "enabled_payment_types": "",
+            "margin_top": 15,
+            "margin_bottom": 15
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "subheadline",
+        "price",
+        "benefits",
+        "buy_buttons",
+        "shipping_estimate",
+        "sticky_atc",
+        "payment_badges"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "display_variant_image_first": false,
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "cover",
+        "gallery_layout": "thumbnail_slider",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "desktop_thumbnails_count": 5,
+        "mobile_thumbnails": "hide",
+        "mobile_media_corner_radius": 12,
+        "mobile_spacing": true,
+        "mobile_preview_media": true,
+        "mobile_thumbnails_count": 5,
+        "mobile_pagination": "dots_overlay",
+        "hide_arrows": true,
+        "dots_color_scheme": "inverse",
+        "mobile_padding_top": 0,
+        "mobile_padding_bottom": 16,
+        "desktop_padding_top": 36,
+        "desktop_padding_bottom": 36
+      }
+    },
+    "mechanism": {
+      "type": "icon-bar",
+      "blocks": {
+        "step_open": {
+          "type": "column",
+          "settings": {
+            "title": "1 · OPEN — Stillingia Root",
+            "text": "<p>Traditionally used to support the body's natural cleansing and drainage pathways</p>",
+            "icon": "door_open",
+            "filled_icon": false
+          }
+        },
+        "step_move": {
+          "type": "column",
+          "settings": {
+            "title": "2 · MOVE — Cleavers",
+            "text": "<p>Long used to support natural fluid balance and gentle fluid movement</p>",
+            "icon": "swap_vert",
+            "filled_icon": false
+          }
+        },
+        "step_depuff": {
+          "type": "column",
+          "settings": {
+            "title": "3 · DE-PUFF — Red Clover",
+            "text": "<p>A cleansing herb associated with healthy-looking, less puffy skin</p>",
+            "icon": "compress",
+            "filled_icon": false
+          }
+        },
+        "step_energize": {
+          "type": "column",
+          "settings": {
+            "title": "4 · ENERGIZE — Prickly Ash Bark",
+            "text": "<p>Valued for gently encouraging healthy circulation</p>",
+            "icon": "bolt",
+            "filled_icon": false
+          }
+        }
+      },
+      "block_order": [
+        "step_open",
+        "step_move",
+        "step_depuff",
+        "step_energize"
+      ],
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "title": "Your Lymphatic System Has No Pump. Drainova Was Built Around That.",
+        "heading_size": "h2",
+        "text": "<p>Your heart pumps blood automatically. Your lymphatic system gets no such help — fluid only moves when something moves it. Each of Drainova's four herbs was chosen for one step in that process:</p>",
+        "color_scheme": "inverse",
+        "icon_layout": "vertical",
+        "icon_size": "medium",
+        "icon_color": "accent-1",
+        "cards_color_scheme": "background-1",
+        "type": "slide",
+        "autoplay": false,
+        "autoplay_speed": 5,
+        "arrows_color_scheme": "inverse",
+        "transparent_arrows": true,
+        "dots_color_scheme": "inverse",
+        "desktop_full_page": false,
+        "columns_desktop": 4,
+        "slider_desktop": false,
+        "per_move_desktop": 1,
+        "desktop_spacing": 24,
+        "desktop_side_padding": 0,
+        "desktop_padding_calc": true,
+        "desktop_adaptive_height": false,
+        "desktop_dots_position": "under",
+        "desktop_arrows_position": "sides",
+        "columns_mobile": "1",
+        "slider_mobile": true,
+        "enable_mobile_preview": false,
+        "mobile_adaptive_height": false,
+        "mobile_dots_position": "under",
+        "mobile_arrows_position": "under",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "timeline": {
+      "type": "icon-bar",
+      "blocks": {
+        "week1": {
+          "type": "column",
+          "settings": {
+            "title": "Week 1 — Settling in",
+            "text": "<p>You probably won't notice much yet, and that's normal. This week is about building the habit: two droppers a day, plenty of water.</p>",
+            "icon": "calendar_today",
+            "filled_icon": false
+          }
+        },
+        "weeks23": {
+          "type": "column",
+          "settings": {
+            "title": "Weeks 2–3 — The first signs",
+            "text": "<p>This is when many people start noticing the small things: mornings that feel a little lighter, rings and shoes that fit more comfortably at the end of the day.</p>",
+            "icon": "event",
+            "filled_icon": false
+          }
+        },
+        "weeks48": {
+          "type": "column",
+          "settings": {
+            "title": "Weeks 4–8 — The routine",
+            "text": "<p>With consistent daily use, this is where Drainova earns its place on your counter — which is exactly why our guarantee runs 60 days, not 30. We want you to have time to genuinely know.</p>",
+            "icon": "calendar_month",
+            "filled_icon": false
+          }
+        }
+      },
+      "block_order": [
+        "week1",
+        "weeks23",
+        "weeks48"
+      ],
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "title": "What to Actually Expect (We'd Rather Be Honest)",
+        "heading_size": "h2",
+        "text": "<p>Most supplement pages promise overnight miracles. We won't. Here's the realistic picture — everyone's different, and individual results vary:</p>",
+        "color_scheme": "background-2",
+        "icon_layout": "vertical",
+        "icon_size": "medium",
+        "icon_color": "accent-1",
+        "cards_color_scheme": "background-1",
+        "type": "slide",
+        "autoplay": false,
+        "autoplay_speed": 5,
+        "arrows_color_scheme": "inverse",
+        "transparent_arrows": true,
+        "dots_color_scheme": "inverse",
+        "desktop_full_page": false,
+        "columns_desktop": 3,
+        "slider_desktop": false,
+        "per_move_desktop": 1,
+        "desktop_spacing": 24,
+        "desktop_side_padding": 0,
+        "desktop_padding_calc": true,
+        "desktop_adaptive_height": false,
+        "desktop_dots_position": "under",
+        "desktop_arrows_position": "sides",
+        "columns_mobile": "1",
+        "slider_mobile": true,
+        "enable_mobile_preview": false,
+        "mobile_adaptive_height": false,
+        "mobile_dots_position": "under",
+        "mobile_arrows_position": "under",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "benefits_grid": {
+      "type": "icon-bar",
+      "blocks": {
+        "b_fluid": {
+          "type": "column",
+          "settings": {
+            "title": "Supports Fluid Balance",
+            "text": "<p>For the puffiness that builds through the day, from face to ankles.</p>",
+            "icon": "water_drop",
+            "filled_icon": false
+          }
+        },
+        "b_gentle": {
+          "type": "column",
+          "settings": {
+            "title": "Gentle, Not Harsh",
+            "text": "<p>Works with your body. No stimulants, no laxatives, no \"cleanse crash.\"</p>",
+            "icon": "spa",
+            "filled_icon": false
+          }
+        },
+        "b_drops": {
+          "type": "column",
+          "settings": {
+            "title": "Drops, Not Pills",
+            "text": "<p>Two droppers in water or under the tongue. No horse pills to swallow.</p>",
+            "icon": "colorize",
+            "filled_icon": false
+          }
+        },
+        "b_taste": {
+          "type": "column",
+          "settings": {
+            "title": "Light Honey Taste",
+            "text": "<p>Pleasant enough that the habit actually sticks.</p>",
+            "icon": "hive",
+            "filled_icon": false
+          }
+        }
+      },
+      "block_order": [
+        "b_fluid",
+        "b_gentle",
+        "b_drops",
+        "b_taste"
+      ],
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "title": "Made for the Puffy, Heavy, Sluggish Days",
+        "heading_size": "h2",
+        "text": "",
+        "color_scheme": "background-1",
+        "icon_layout": "vertical",
+        "icon_size": "medium",
+        "icon_color": "accent-1",
+        "cards_color_scheme": "background-2",
+        "type": "slide",
+        "autoplay": false,
+        "autoplay_speed": 5,
+        "arrows_color_scheme": "inverse",
+        "transparent_arrows": true,
+        "dots_color_scheme": "inverse",
+        "desktop_full_page": false,
+        "columns_desktop": 4,
+        "slider_desktop": false,
+        "per_move_desktop": 1,
+        "desktop_spacing": 24,
+        "desktop_side_padding": 0,
+        "desktop_padding_calc": true,
+        "desktop_adaptive_height": false,
+        "desktop_dots_position": "under",
+        "desktop_arrows_position": "sides",
+        "columns_mobile": "1",
+        "slider_mobile": true,
+        "enable_mobile_preview": false,
+        "mobile_adaptive_height": false,
+        "mobile_dots_position": "under",
+        "mobile_arrows_position": "under",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "ingredients": {
+      "type": "icon-bar",
+      "blocks": {
+        "ing_stillingia": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/6.webp",
+            "title": "Stillingia Root — OPEN",
+            "text": "<p>Traditionally used to support the body's natural cleansing and drainage pathways.</p>"
+          }
+        },
+        "ing_cleavers": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/7.webp",
+            "title": "Cleavers — MOVE",
+            "text": "<p>Long used to support the body's natural fluid balance.</p>"
+          }
+        },
+        "ing_redclover": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/5.webp",
+            "title": "Red Clover — DE-PUFF",
+            "text": "<p>A cleansing herb also associated with healthy-looking skin.</p>"
+          }
+        },
+        "ing_pricklyash": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/4.webp",
+            "title": "Prickly Ash Bark — ENERGIZE",
+            "text": "<p>Valued for gently encouraging healthy circulation.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "ing_stillingia",
+        "ing_cleavers",
+        "ing_redclover",
+        "ing_pricklyash"
+      ],
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "title": "Four Herbs. One Job Each.",
+        "heading_size": "h2",
+        "text": "<p>No proprietary blends, no filler — just the four herbs the formula is built on.</p>",
+        "color_scheme": "background-2",
+        "icon_layout": "vertical",
+        "icon_size": "medium",
+        "icon_color": "accent-1",
+        "cards_color_scheme": "background-1",
+        "type": "slide",
+        "autoplay": false,
+        "autoplay_speed": 5,
+        "arrows_color_scheme": "inverse",
+        "transparent_arrows": true,
+        "dots_color_scheme": "inverse",
+        "desktop_full_page": false,
+        "columns_desktop": 4,
+        "slider_desktop": false,
+        "per_move_desktop": 1,
+        "desktop_spacing": 24,
+        "desktop_side_padding": 0,
+        "desktop_padding_calc": true,
+        "desktop_adaptive_height": false,
+        "desktop_dots_position": "under",
+        "desktop_arrows_position": "sides",
+        "columns_mobile": "1",
+        "slider_mobile": true,
+        "enable_mobile_preview": false,
+        "mobile_adaptive_height": false,
+        "mobile_dots_position": "under",
+        "mobile_arrows_position": "under",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "ingredients_cta": {
+      "type": "rich-text",
+      "blocks": {
+        "cta_button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Try Drainova Risk-Free",
+            "button_link": "shopify://products/drainova-lymphatic-drainage-new",
+            "button_style_secondary": false
+          }
+        },
+        "cta_caption": {
+          "type": "caption",
+          "settings": {
+            "caption": "60-Day Money-Back Guarantee"
+          }
+        }
+      },
+      "block_order": [
+        "cta_button",
+        "cta_caption"
+      ],
+      "settings": {
+        "color_scheme": "background-2",
+        "padding_top": 0,
+        "padding_bottom": 36
+      }
+    },
+    "reasons": {
+      "type": "icon-bar",
+      "blocks": {
+        "r1": {
+          "type": "column",
+          "settings": {
+            "title": "1. Built Around a Real Mechanism",
+            "text": "<p>Four herbs, each chosen for one step: open, move, de-puff, energize.</p>",
+            "icon": "route",
+            "filled_icon": false
+          }
+        },
+        "r2": {
+          "type": "column",
+          "settings": {
+            "title": "2. Gentle on Your Stomach",
+            "text": "<p>No stimulants, no harsh cleanse.</p>",
+            "icon": "spa",
+            "filled_icon": false
+          }
+        },
+        "r3": {
+          "type": "column",
+          "settings": {
+            "title": "3. Fits Any Routine",
+            "text": "<p>Water, tea, juice, or under the tongue.</p>",
+            "icon": "local_cafe",
+            "filled_icon": false
+          }
+        },
+        "r4": {
+          "type": "column",
+          "settings": {
+            "title": "4. Save on Every Refill",
+            "text": "<p>Subscribe for 20% off, skip or cancel anytime.</p>",
+            "icon": "savings",
+            "filled_icon": false
+          }
+        },
+        "r5": {
+          "type": "column",
+          "settings": {
+            "title": "5. Honest Guarantee",
+            "text": "<p>60 days to decide. Twice as long as most brands give you.</p>",
+            "icon": "verified_user",
+            "filled_icon": false
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5"
+      ],
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "title": "5 Reasons Drainova Earns Its Spot",
+        "heading_size": "h2",
+        "text": "",
+        "color_scheme": "background-1",
+        "icon_layout": "vertical",
+        "icon_size": "medium",
+        "icon_color": "accent-1",
+        "cards_color_scheme": "background-2",
+        "type": "slide",
+        "autoplay": false,
+        "autoplay_speed": 5,
+        "arrows_color_scheme": "inverse",
+        "transparent_arrows": true,
+        "dots_color_scheme": "inverse",
+        "desktop_full_page": false,
+        "columns_desktop": 3,
+        "slider_desktop": false,
+        "per_move_desktop": 1,
+        "desktop_spacing": 24,
+        "desktop_side_padding": 0,
+        "desktop_padding_calc": true,
+        "desktop_adaptive_height": false,
+        "desktop_dots_position": "under",
+        "desktop_arrows_position": "sides",
+        "columns_mobile": "1",
+        "slider_mobile": true,
+        "enable_mobile_preview": false,
+        "mobile_adaptive_height": false,
+        "mobile_dots_position": "under",
+        "mobile_arrows_position": "under",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "comparison": {
+      "type": "comparison-table",
+      "blocks": {
+        "row1": {
+          "type": "row",
+          "settings": {
+            "benefit": "Built on a 4-step drainage sequence",
+            "us": true,
+            "others": false
+          }
+        },
+        "row2": {
+          "type": "row",
+          "settings": {
+            "benefit": "Pure herbal formula",
+            "us": true,
+            "others": false
+          }
+        },
+        "row3": {
+          "type": "row",
+          "settings": {
+            "benefit": "No giant capsules",
+            "us": true,
+            "others": false
+          }
+        },
+        "row4": {
+          "type": "row",
+          "settings": {
+            "benefit": "Vegan-friendly",
+            "us": true,
+            "others": false
+          }
+        },
+        "row5": {
+          "type": "row",
+          "settings": {
+            "benefit": "No harsh stimulants",
+            "us": true,
+            "others": false
+          }
+        },
+        "row6": {
+          "type": "row",
+          "settings": {
+            "benefit": "Fulfilled in the USA",
+            "us": true,
+            "others": false
+          }
+        }
+      },
+      "block_order": [
+        "row1",
+        "row2",
+        "row3",
+        "row4",
+        "row5",
+        "row6"
+      ],
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "title": "See the Difference for Yourself",
+        "heading_size": "h2",
+        "text": "",
+        "color_scheme": "background-1",
+        "layout": "table_second",
+        "style": "classic",
+        "logo_width": 75,
+        "mobile_logo_width": 60,
+        "us_label": "Drainova",
+        "us_label_size": 18,
+        "others_label": "Other Brands",
+        "others_label_size": 18,
+        "checkmark_style": "regular",
+        "checkmark_color": "#1F4E47",
+        "checkmark_bg_color": "#1F4E47",
+        "x_style": "regular",
+        "x_color": "#2A2A2A",
+        "x_bg_color": "#dbdbdb",
+        "opposite_icon_colors": "original",
+        "highlighted_color_scheme": "accent-1",
+        "highlighted_separator_opacity": 0,
+        "highlighted_overlay_opacity": 0,
+        "other_cells_color_scheme": "background-1",
+        "regular_separator_opacity": 10,
+        "regular_overlay_opacity": 0,
+        "minimalistic_border_opacity": 16,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "reviews_placeholder": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<!-- REVIEWS: pending real review app -->",
+        "color_scheme": "background-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "faq": {
+      "type": "collapsible-content",
+      "blocks": {
+        "faq1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What does Drainova actually do?",
+            "icon": "question_mark",
+            "filled_icon": false,
+            "row_content": "<p>Drainova supports your body's natural lymphatic flow and fluid balance. Your lymphatic system has no pump of its own, so it relies on movement and support to keep fluid from sitting still. Drainova's four herbs are traditionally used to support that natural drainage process.</p>",
+            "page": ""
+          }
+        },
+        "faq2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Is it for fat or for fluid?",
+            "icon": "question_mark",
+            "filled_icon": false,
+            "row_content": "<p>Fluid. Drainova is not a weight-loss product and we won't pretend it is. A simple way to think about it: body fat changes over weeks and months, while fluid can shift within a single day — it's why you can feel flat in the morning and puffy by dinner. If your issue is that day-to-day fluctuation, that's what Drainova is designed to support.</p>",
+            "page": ""
+          }
+        },
+        "faq3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How do I take it?",
+            "icon": "question_mark",
+            "filled_icon": false,
+            "row_content": "<p>1 dropper (1 mL) twice daily — in water, tea, or juice, or directly under the tongue. Take it consistently and stay hydrated.</p>",
+            "page": ""
+          }
+        },
+        "faq4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "When will I notice something?",
+            "icon": "question_mark",
+            "filled_icon": false,
+            "row_content": "<p>Honestly: usually not in week one. Many people notice the small things — lighter mornings, more comfortable rings and shoes by evening — in weeks 2–3, with the full routine settling in over weeks 4–8. Everyone's different, and individual results vary. That's why the guarantee runs a full 60 days.</p>",
+            "page": ""
+          }
+        },
+        "faq5": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How does the subscription work?",
+            "icon": "question_mark",
+            "filled_icon": false,
+            "row_content": "<p>You get 20% off every bottle ($31.99 instead of $39.99), delivered every 30 days. Skip a delivery, pause, or cancel anytime from your account — no minimum commitment, no lock-in, no hoops.</p>",
+            "page": ""
+          }
+        },
+        "faq6": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What if it doesn't work for me?",
+            "icon": "question_mark",
+            "filled_icon": false,
+            "row_content": "<p>You're covered by our 60-Day Money-Back Guarantee. If you don't feel a difference, contact us for a full refund — no questions asked.</p>",
+            "page": ""
+          }
+        },
+        "faq7": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Is it safe for daily use?",
+            "icon": "question_mark",
+            "filled_icon": false,
+            "row_content": "<p>Yes — it's made with simple herbal ingredients for everyday use. As with any supplement, check with your healthcare provider if you're pregnant, nursing, or taking medication.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "faq1",
+        "faq2",
+        "faq3",
+        "faq4",
+        "faq5",
+        "faq6",
+        "faq7"
+      ],
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "caption": "",
+        "heading": "Frequently Asked Questions",
+        "heading_size": "h2",
+        "heading_alignment": "center",
+        "layout": "none",
+        "color_scheme": "background-1",
+        "container_color_scheme": "background-2",
+        "open_first_collapsible_row": true,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "row_heading_size": "medium",
+        "collapse_icon": "carret",
+        "display_top_border": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "guarantee": {
+      "type": "image-with-text",
+      "blocks": {
+        "g_heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Try Drainova Risk-Free for 60 Days",
+            "heading_size": "h2"
+          }
+        },
+        "g_text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We give you 60 days — not 30 — because honest expectations take time to meet. Use Drainova daily. If you don't feel lighter, less puffy, and more like yourself, email us and we'll refund every penny. No return shipping games, no questions asked.</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "g_heading",
+        "g_text"
+      ],
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "image": "shopify://shop_images/hand.webp",
+        "height": "adapt",
+        "content_layout": "no-overlap",
+        "color_scheme": "background-2",
+        "section_color_scheme": "background-2",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_full_media_width": false,
+        "mobile_direction": "normal",
+        "mobile_content_alignment": "left",
+        "padding_top": 36,
+        "padding_bottom": 48
+      }
+    }
+  },
+  "order": [
+    "announcement_ticker",
+    "main",
+    "mechanism",
+    "timeline",
+    "benefits_grid",
+    "ingredients",
+    "ingredients_cta",
+    "reasons",
+    "comparison",
+    "reviews_placeholder",
+    "faq",
+    "guarantee"
+  ]
+}
