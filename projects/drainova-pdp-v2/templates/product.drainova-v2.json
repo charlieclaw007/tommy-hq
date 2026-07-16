@@ -52,8 +52,8 @@
         "italic_text": false,
         "uppercase_text": false,
         "bold_text": false,
-        "mobile_padding_top": 10,
-        "mobile_padding_bottom": 10,
+        "mobile_padding_top": 12,
+        "mobile_padding_bottom": 12,
         "desktop_padding_top": 12,
         "desktop_padding_bottom": 12
       }
@@ -68,13 +68,13 @@
             "title_alignment": "left",
             "uppercase_title": false,
             "margin_top": 0,
-            "margin_bottom": 10
+            "margin_bottom": 9
           }
         },
         "subheadline": {
           "type": "text",
           "settings": {
-            "text_1": "<p>For the puffiness that builds by evening and the heaviness that's still there in the morning. Four traditional herbs that support your body's natural drainage — so you can feel lighter from the inside out.</p>",
+            "text_1": "For the puffiness that builds by evening and the heaviness that's still there in the morning. Four traditional herbs that support your body's natural drainage — so you can feel lighter from the inside out.",
             "alignment": "left",
             "margin_top": 0,
             "margin_bottom": 15
@@ -87,7 +87,7 @@
             "price_color": "accent-1",
             "compare_price_color": "text",
             "hide_sale_badge": false,
-            "margin_top": 10,
+            "margin_top": 9,
             "margin_bottom": 15
           }
         },
@@ -107,8 +107,8 @@
             "uppercase_text": false,
             "display_price": false,
             "enable_custom_color": false,
-            "margin_top": 20,
-            "margin_bottom": 10
+            "margin_top": 21,
+            "margin_bottom": 9
           }
         },
         "shipping_estimate": {
@@ -124,7 +124,7 @@
             "date_format": "day_mm_dd",
             "days_labels": "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday",
             "months_labels": "January, February, March, April, May, June, July, August, September, October, November, December",
-            "margin_top": 10,
+            "margin_top": 9,
             "margin_bottom": 15
           }
         },

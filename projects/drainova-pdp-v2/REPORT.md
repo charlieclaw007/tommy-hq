@@ -44,6 +44,8 @@ The Shopify connection in this session blocks theme-file writes to the **live** 
 
 (Also works via drainova.co with the same query string.) Review desktop + mobile. Nothing goes live until approved.
 
+**Preview access note:** the template was verified byte-exact on the preview theme (MD5 roundtrip match), but the URL above returns **403 to anonymous/scripted requests** — Shopify requires an authenticated admin session (or a share link) to preview an unpublished theme, so HTTP-200 verification wasn't possible from this environment. To view: open the URL while logged into Shopify admin, or go to **Online Store → Themes → "Drainova v2 preview (Claude build)" → Preview**, then navigate to `/products/drainova-lymphatic-drainage-new?view=drainova-v2` (or use the theme's Share preview link).
+
 ## Go-live steps (Approval Gates 2–3 — NOT executed)
 
 1. Copy `templates/product.drainova-v2.json` onto the **live** theme. This session's Shopify connection blocks live-theme file writes, so either: (a) paste the file via Online Store → Themes → live theme → Edit code → Add new template, or (b) approve a follow-up session with the custom-app token flow from the brief's SETUP section.
@@ -56,7 +58,7 @@ The Shopify connection in this session blocks theme-file writes to the **live** 
 ## QA checklist results
 
 1. **Inventory/oversell:** inventory shows 0, but the variant is **untracked** (`tracked: false`) with policy `CONTINUE` → the buy button will NOT block. ✅ No action needed.
-2. **Preview renders:** see preview-status note appended below after verification.
+2. **Preview renders:** template accepted by Shopify's theme validation (first upsert attempt surfaced 5 setting-range/richtext errors; fixed and re-upserted clean) and verified byte-exact on the preview theme. Anonymous HTTP check returns 403 because unpublished-theme previews require an admin session — visual desktop+mobile QA is the approval-gate step for Tommy. ⚠️ pending Tommy's eyes
 3. **60-Day everywhere:** 10 "60-Day/60 day" mentions in the new template; **zero** "30-Day" strings. (The only "30" is "delivered every 30 days" — subscription cadence from the brief — and "60 days, not 30" in the timeline copy.) ✅
 4. **No placeholder/lorem text, no empty blocks.** ✅ (automated check)
 5. **Price:** rendered from the product record ($39.99). Subscription widget: main-product supports app blocks (`@app`) — Tommy adds the Appstle/Recharge widget block in the theme editor and configures the $31.99/20% monthly plan in the app admin. The buy box leaves room for it above the buy button. ⚠️ manual step
