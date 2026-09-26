@@ -10,11 +10,23 @@ enum Copy {
     static let todayHeadline = "Make today count."
     static let cookiesEarnedLabel = "cookies earned"
     static let streakLabel = "day streak"
-    static let cookieEarnedSubtext = "All four kept. Cookie earned."
-
-    static func progressSubtext(checked: Int, total: Int) -> String {
-        "\(checked) of \(total) habits checked — finish the set to earn a cookie."
+    static func cookieEarnedSubtext(score: Int, total: Int) -> String {
+        score >= total
+            ? "All four kept. Cookie earned."
+            : "\(score) of \(total) kept. Cookie earned."
     }
+
+    static func progressSubtext(checked: Int, total: Int, target: Int) -> String {
+        target >= total
+            ? "\(checked) of \(total) habits checked — finish the set to earn a cookie."
+            : "\(checked) of \(total) habits checked — keep \(target) to earn a cookie."
+    }
+
+    // MARK: Cookie target
+    static let targetEyebrow = "To earn a cookie"
+    static let targetHeadline = "How many make a good day?"
+    static let targetBody = "Start where you can be consistent and raise it when it feels steady. A change applies from today on; past days keep the target they were scored against."
+    static let settingsTarget = "Cookie target"
 
     // MARK: Check-in
     static let checkInEyebrow = "Daily check-in"

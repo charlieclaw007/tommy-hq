@@ -38,6 +38,17 @@ struct SettingsView: View {
                 }
 
                 Section {
+                    CookieTargetPicker(selection: Binding(
+                        get: { store.cookieTarget },
+                        set: { store.setCookieTarget($0) }))
+                    .padding(.vertical, 4)
+                } header: {
+                    Text(Copy.settingsTarget)
+                } footer: {
+                    Text(Copy.targetBody)
+                }
+
+                Section {
                     Toggle(Copy.reminderToggle, isOn: $reminderEnabled)
                         .tint(Theme.terracotta)
                     if reminderEnabled {

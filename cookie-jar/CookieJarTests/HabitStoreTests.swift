@@ -155,6 +155,99 @@ final class HabitStoreTests: XCTestCase {
         XCTAssertTrue(scheduler.plans.isEmpty)
     }
 
+    // MARK: Cookie target
+
+    func testLowerTargetEarnsCookieAtThresholdExactlyOnce() {
+        store.setCookieTarget(2)
+        XCTAssertEqual(store.cookieTarget, 2)
+        XCTAssertEqual(store.toggle(.diet, on: TestSupport.today), .changed)
+        XCTAssertEqual(store.toggle(.gym, on: TestSupport.today), .earnedCookieToday)
+        XCTAssertTrue(store.todayHasCookie)
+        XCTAssertEqual(store.cookiesEarned, 1)
+        XCTAssertEqual(store.streak, 1)
+
+        // Going beyond the target is not a second cookie and not a second drop.
+        XCTAssertEqual(store.toggle(.phone, on: TestSupport.today), .changed)
+        XCTAssertEqual(store.cookiesEarned, 1)
+
+        // Dropping below the target loses it; climbing back earns it again.
+        XCTAssertEqual(store.toggle(.phone, on: TestSupport.today), .changed)
+        XCTAssertEqual(store.toggle(.gym, on: TestSupport.today), .lostCookie)
+        XCTAssertEqual(store.toggle(.gym, on: TestSupport.today), .earnedCookieToday)
+    }
+
+    func testTargetChangeAppliesToTodayAndFutureOnly() {
+        // Yesterday was scored against "all four" and kept two.
+        store.toggle(.diet, on: TestSupport.day(-1))
+        store.toggle(.gym, on: TestSupport.day(-1))
+        XCTAssertEqual(store.cookiesEarned, 0)
+
+        // Today, with two kept, the user lowers the target to 2.
+        store.toggle(.diet, on: TestSupport.today)
+        store.toggle(.gym, on: TestSupport.today)
+        store.setCookieTarget(2)
+
+        XCTAssertEqual(store.cookieTarget(on: TestSupport.today), 2)
+        XCTAssertEqual(store.cookieTarget(on: TestSupport.day(-1)), 4, "past day keeps its target")
+        XCTAssertTrue(store.todayHasCookie)
+        XCTAssertEqual(store.cookiesEarned, 1, "only today converts; yesterday stays partial")
+        XCTAssertEqual(store.rhythmDays[12].state, .partial(score: 2))
+        XCTAssertEqual(store.rhythmDays[13].state, .cookie)
+
+        // A future day created after the change uses the new target.
+        store.refreshToday(now: TestSupport.calendar.date(byAdding: .day, value: 1, to: TestSupport.today)!)
+        store.toggle(.sleep, on: store.today)
+        XCTAssertEqual(store.cookieTarget(on: store.today), 2)
+    }
+
+    func testRaisingTargetKeepsPastCookies() {
+        store.setCookieTarget(2)
+        store.toggle(.diet, on: TestSupport.day(-1))
+        store.toggle(.gym, on: TestSupport.day(-1))
+        XCTAssertEqual(store.cookiesEarned, 1)
+
+        store.setCookieTarget(4)
+        XCTAssertEqual(store.cookiesEarned, 1, "yesterday's cookie is not taken away")
+        XCTAssertEqual(store.streak, 1)
+
+        // Today now needs all four.
+        store.toggle(.diet, on: TestSupport.today)
+        store.toggle(.gym, on: TestSupport.today)
+        XCTAssertFalse(store.todayHasCookie)
+    }
+
+    func testTargetIsClampedAndPersisted() {
+        store.setCookieTarget(1)
+        XCTAssertEqual(store.cookieTarget, 2)
+        store.setCookieTarget(10)
+        XCTAssertEqual(store.cookieTarget, 4)
+        store.setCookieTarget(3)
+
+        let second = HabitStore(context: container.mainContext, calendar: TestSupport.calendar,
+                                now: TestSupport.today, scheduler: nil)
+        XCTAssertEqual(second.cookieTarget, 3)
+    }
+
+    func testOnboardingStoresTarget() {
+        store.completeOnboarding(rules: [:], reminderEnabled: false, hour: 20, minute: 30, cookieTarget: 3)
+        XCTAssertEqual(store.cookieTarget, 3)
+        XCTAssertEqual(store.cookieTarget(on: TestSupport.today), 3)
+    }
+
+    func testReminderSkipsTodayAtLoweredTarget() {
+        store.completeOnboarding(rules: [:], reminderEnabled: true, hour: 20, minute: 30, cookieTarget: 2)
+        store.toggle(.diet, on: TestSupport.today)
+        XCTAssertEqual(scheduler.plans.last?.skipToday, false)
+        store.toggle(.sleep, on: TestSupport.today)
+        XCTAssertEqual(scheduler.plans.last?.skipToday, true)
+    }
+
+    func testResetRestoresDefaultTarget() {
+        store.setCookieTarget(2)
+        store.resetAllData()
+        XCTAssertEqual(store.cookieTarget, 4)
+    }
+
     func testResetClearsEverythingAndReturnsToOnboarding() {
         store.completeOnboarding(rules: [.sleep: "Lights out by 11"], reminderEnabled: true, hour: 20, minute: 30)
         earnCookie(on: TestSupport.today)

@@ -82,7 +82,19 @@ final class HabitStore {
     }
 
     var todayScore: Int { score(on: today) }
-    var todayHasCookie: Bool { todayScore == Pillar.allCases.count }
+    var todayHasCookie: Bool { log(for: today)?.cookieEarned ?? false }
+
+    /// The target that applies to new days (and to today).
+    var cookieTarget: Int { CookieTarget.clamp(settings.cookieTarget) }
+
+    /// The target a given day is scored against: the one stored on its log,
+    /// or the current setting for days with no log yet.
+    func cookieTarget(on date: Date) -> Int {
+        if let stored = log(for: date)?.cookieTarget {
+            return CookieTarget.clamp(stored)
+        }
+        return cookieTarget
+    }
 
     var cookieDays: Set<Date> { Set(logs.filter(\.cookieEarned).map(\.date)) }
 
@@ -99,7 +111,7 @@ final class HabitStore {
                 date: day,
                 weekdayInitial: DayKey.weekdayInitial(for: day, calendar: calendar),
                 dayNumber: DayKey.dayNumber(for: day, calendar: calendar),
-                state: DayState(score: score(on: day)),
+                state: DayState(score: score(on: day), target: cookieTarget(on: day)),
                 isToday: day == today,
                 isEditable: isEditable(day))
         }
@@ -146,6 +158,18 @@ final class HabitStore {
         persist()
     }
 
+    /// Changes how many promises earn a cookie. Applies to today and every
+    /// day after it; past days keep the target they were scored against.
+    func setCookieTarget(_ value: Int) {
+        let target = CookieTarget.clamp(value)
+        settings.cookieTarget = target
+        if let todayLog = log(for: today) {
+            todayLog.cookieTarget = target
+        }
+        persist()
+        rescheduleReminders()
+    }
+
     func setReminder(enabled: Bool, hour: Int, minute: Int) {
         settings.reminderEnabled = enabled
         settings.reminderHour = hour
@@ -154,9 +178,14 @@ final class HabitStore {
         rescheduleReminders()
     }
 
-    func completeOnboarding(rules: [Pillar: String], reminderEnabled: Bool, hour: Int, minute: Int) {
+    func completeOnboarding(rules: [Pillar: String], reminderEnabled: Bool, hour: Int, minute: Int,
+                            cookieTarget: Int = CookieTarget.default) {
         for pillar in Pillar.allCases {
             settings.setRule(rules[pillar] ?? pillar.defaultRule, for: pillar)
+        }
+        settings.cookieTarget = CookieTarget.clamp(cookieTarget)
+        if let todayLog = log(for: today) {
+            todayLog.cookieTarget = settings.cookieTarget
         }
         settings.reminderEnabled = reminderEnabled
         settings.reminderHour = hour
@@ -201,7 +230,7 @@ final class HabitStore {
         if let stored = try? context.fetch(descriptor).first {
             return stored
         }
-        let created = DayLog(date: key, calendar: calendar)
+        let created = DayLog(date: key, cookieTarget: settings.cookieTarget, calendar: calendar)
         context.insert(created)
         return created
     }

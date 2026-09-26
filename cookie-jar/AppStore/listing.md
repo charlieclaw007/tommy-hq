@@ -2,12 +2,8 @@
 
 ## Name
 
-**Primary:** Cookie Jar
-**Fallback if taken:** Cookie Jar: Daily Habits (second fallback: Cookie Jar Habits)
-
-Name availability cannot be checked from this environment. Check in App
-Store Connect when creating the app record; the name is reserved at that
-point, before any build is uploaded.
+**Registered:** Cookie Jar: Daily Habits ("Cookie Jar" was already taken when
+the App Store Connect record was created on 2026-09-17.)
 
 ## Subtitle (30 chars max)
 
@@ -60,6 +56,7 @@ A missed day is information. Returning is the skill.
 
 WHAT'S INSIDE
 • Four fixed pillars with your own wording for each rule
+• Choose how many of the four earn a cookie: start at 2 of 4 and raise it when it feels steady
 • A one-tap evening check-in, saved instantly
 • A jar that fills with cookies as the evidence builds
 • A two-week rhythm view, with corrections allowed for the last 14 days

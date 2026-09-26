@@ -38,6 +38,40 @@ final class DayLogTests: XCTestCase {
         XCTAssertFalse(DayState(score: 3).isCookie)
     }
 
+    func testDayStateRespectsTarget() {
+        XCTAssertEqual(DayState(score: 2, target: 2), .cookie)
+        XCTAssertEqual(DayState(score: 1, target: 2), .partial(score: 1))
+        XCTAssertEqual(DayState(score: 3, target: 3), .cookie)
+        XCTAssertEqual(DayState(score: 3, target: 4), .partial(score: 3))
+        XCTAssertEqual(DayState(score: 0, target: 2), .empty)
+        // Out-of-range targets are clamped to 2...4.
+        XCTAssertEqual(DayState(score: 1, target: 0), .partial(score: 1))
+        XCTAssertEqual(DayState(score: 4, target: 9), .cookie)
+    }
+
+    func testCookieTargetHelpers() {
+        XCTAssertEqual(CookieTarget.options, [2, 3, 4])
+        XCTAssertEqual(CookieTarget.default, 4)
+        XCTAssertEqual(CookieTarget.clamp(1), 2)
+        XCTAssertEqual(CookieTarget.clamp(7), 4)
+        XCTAssertEqual(CookieTarget.label(4), "All 4")
+        XCTAssertEqual(CookieTarget.label(2), "2 of 4")
+    }
+
+    func testDayLogCookieUsesItsOwnTarget() {
+        let log = DayLog(date: TestSupport.today, cookieTarget: 2, calendar: TestSupport.calendar)
+        log.set(.diet, to: true)
+        XCTAssertFalse(log.cookieEarned)
+        log.set(.gym, to: true)
+        XCTAssertTrue(log.cookieEarned)
+        XCTAssertEqual(log.state, .cookie)
+
+        // Raising the target on the same row is what the store does for today only.
+        log.cookieTarget = 4
+        XCTAssertFalse(log.cookieEarned)
+        XCTAssertEqual(log.state, .partial(score: 2))
+    }
+
     func testPillarDefaults() {
         XCTAssertEqual(Pillar.allCases, [.diet, .gym, .phone, .sleep])
         XCTAssertEqual(Pillar.allCases.map(\.letter), ["D", "G", "P", "S"])
@@ -51,6 +85,7 @@ final class DayLogTests: XCTestCase {
         let settings = UserSettings()
         XCTAssertTrue(settings.reminderEnabled)
         XCTAssertFalse(settings.onboardingComplete)
+        XCTAssertEqual(settings.cookieTarget, 4)
         XCTAssertEqual(settings.reminderTime, DateComponents(hour: 20, minute: 30))
         settings.reminderTime = DateComponents(hour: 7, minute: 5)
         XCTAssertEqual(settings.reminderHour, 7)

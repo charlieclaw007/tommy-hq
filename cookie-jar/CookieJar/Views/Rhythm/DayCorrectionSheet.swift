@@ -63,9 +63,10 @@ struct DayCorrectionSheet: View {
 
     private var summary: some View {
         let score = store.score(on: day.date)
+        let target = store.cookieTarget(on: day.date)
         let text: String
-        if score == Pillar.allCases.count {
-            text = Copy.cookieEarnedSubtext
+        if score > 0 && score >= target {
+            text = Copy.cookieEarnedSubtext(score: score, total: Pillar.allCases.count)
         } else {
             text = "\(score) of \(Pillar.allCases.count) kept. Partial days stay as evidence."
         }

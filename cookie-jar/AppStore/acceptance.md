@@ -14,3 +14,7 @@ Run on an iPhone SE (3rd gen) simulator and an iPhone 16 Pro Max simulator.
 - [ ] No network calls anywhere in the app (no URLSession usage; grep confirms)
 - [ ] Builds clean with no warnings; runs on iPhone SE (small) and iPhone Pro Max layouts
 - [ ] Dynamic Type up to Accessibility Large keeps the hero and cards readable
+- [ ] Cookie target: with "2 of 4" chosen, the second toggle on today plays the drop; the third does not
+- [ ] Lowering the target converts today (if already at or above it) but leaves past days unchanged
+- [ ] Raising the target does not remove cookies from past days
+- [ ] Existing 1.0 install upgrades in place with data intact and target showing "All 4"

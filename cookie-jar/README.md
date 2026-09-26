@@ -48,6 +48,13 @@ days, onboarding persistence, and reset.
 - Walk the acceptance checklist in `AppStore/acceptance.md` on an iPhone SE
   and an iPhone Pro Max simulator.
 
+## Version history
+
+- **1.1 (build 2)** — Adjustable cookie target. Choose 2 of 4, 3 of 4, or all 4
+  during onboarding or in Settings. Applies from today on; past days keep the
+  target they were scored against. App Store name is "Cookie Jar: Daily Habits".
+- **1.0 (build 1)** — First TestFlight build.
+
 ## Notes on a few decisions
 
 - **Fonts.** Fraunces Bold and Black are bundled and registered at launch

@@ -11,25 +11,30 @@ final class DayLog {
     var gym: Bool
     var phone: Bool
     var sleep: Bool
+    /// The cookie target in effect when this day was scored (2–4). Stored per
+    /// day so a later change of the setting never rewrites history. The
+    /// default keeps rows created before this field existed at "all four".
+    var cookieTarget: Int = 4
 
     init(date: Date, diet: Bool = false, gym: Bool = false, phone: Bool = false, sleep: Bool = false,
-         calendar: Calendar = .current) {
+         cookieTarget: Int = CookieTarget.default, calendar: Calendar = .current) {
         self.date = DayKey.normalize(date, calendar: calendar)
         self.diet = diet
         self.gym = gym
         self.phone = phone
         self.sleep = sleep
+        self.cookieTarget = CookieTarget.clamp(cookieTarget)
     }
 
-    /// All four promises kept.
-    var cookieEarned: Bool { diet && gym && phone && sleep }
+    /// Enough promises kept to reach this day's target.
+    var cookieEarned: Bool { score >= CookieTarget.clamp(cookieTarget) }
 
     /// Number of promises kept today, 0–4.
     var score: Int {
         [diet, gym, phone, sleep].reduce(0) { $0 + ($1 ? 1 : 0) }
     }
 
-    var state: DayState { DayState(score: score) }
+    var state: DayState { DayState(score: score, target: cookieTarget) }
 
     func isDone(_ pillar: Pillar) -> Bool {
         switch pillar {

@@ -46,10 +46,15 @@ file to a folder adds it to the target. No need to edit `project.pbxproj`.
 - Streak: walk back from today (today counts only if it already has a cookie);
   one missed day between cookie days is repaired; two consecutive misses end it.
   Partial days count as missed. See `StreakCalculator` and its tests.
-- The drop animation and haptic play only when the fourth pillar is toggled on
-  for today, and only once per fourth toggle. `HabitStore.toggle` returns
+- The drop animation and haptic play only when today's score first reaches
+  the cookie target, and only once per crossing. `HabitStore.toggle` returns
   `.earnedCookieToday` exactly in that case.
 - Days older than 14 days are read-only (`HabitStore.isEditable`).
+- Cookie target (2, 3, or all 4) lives in `UserSettings.cookieTarget` and is
+  copied onto each `DayLog.cookieTarget` when the row is created. Changing
+  the setting updates today's row and future rows only; past days keep the
+  target they were scored against. `DayLog.cookieEarned` is `score >= target`.
+  Both fields declare `= 4` so SwiftData migrates existing stores in place.
 - Reminder is skipped on a day that already has a cookie. Because local
   notifications cannot be cancelled at fire time, `NotificationService`
   schedules a rolling 14-day window and rebuilds it on every relevant change.

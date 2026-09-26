@@ -7,6 +7,7 @@ struct OnboardingView: View {
     @State private var step = 0
     @State private var rules: [Pillar: String] = Dictionary(
         uniqueKeysWithValues: Pillar.allCases.map { ($0, $0.defaultRule) })
+    @State private var cookieTarget = CookieTarget.default
     @State private var reminderEnabled = true
     @State private var reminderTime: Date = OnboardingView.defaultReminderDate
     @State private var isFinishing = false
@@ -107,6 +108,21 @@ struct OnboardingView: View {
                 .foregroundStyle(Theme.inkTertiary)
                 .frame(maxWidth: .infinity)
                 .padding(.top, 4)
+
+            VStack(alignment: .leading, spacing: 10) {
+                Eyebrow(text: Copy.targetEyebrow)
+                Text(Copy.targetHeadline)
+                    .font(.headline)
+                    .foregroundStyle(Theme.ink)
+                CookieTargetPicker(selection: $cookieTarget)
+                Text(Copy.targetBody)
+                    .font(.footnote)
+                    .foregroundStyle(Theme.inkSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(16)
+            .background(CardBackground())
+            .padding(.top, 8)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -200,6 +216,7 @@ struct OnboardingView: View {
         let minute = components.minute ?? UserSettings.defaultReminderMinute
         let enabled = reminderEnabled
         let chosenRules = rules
+        let target = cookieTarget
 
         Task {
             var allowed = false
@@ -210,7 +227,8 @@ struct OnboardingView: View {
                 rules: chosenRules,
                 reminderEnabled: enabled && allowed,
                 hour: hour,
-                minute: minute)
+                minute: minute,
+                cookieTarget: target)
             isFinishing = false
         }
     }

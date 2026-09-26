@@ -14,6 +14,9 @@ final class UserSettings {
     var reminderMinute: Int
     var onboardingComplete: Bool
     var createdAt: Date
+    /// How many of the four must be kept to earn a cookie. Applies from the
+    /// day it is changed onward. Defaults to all four for existing installs.
+    var cookieTarget: Int = 4
 
     static let defaultReminderHour = 20
     static let defaultReminderMinute = 30
@@ -28,6 +31,7 @@ final class UserSettings {
         self.reminderMinute = UserSettings.defaultReminderMinute
         self.onboardingComplete = false
         self.createdAt = createdAt
+        self.cookieTarget = CookieTarget.default
     }
 
     var reminderTime: DateComponents {

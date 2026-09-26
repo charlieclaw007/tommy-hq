@@ -85,3 +85,18 @@ struct SectionDivider: View {
             .padding(.vertical, 28)
     }
 }
+
+/// Segmented choice of how many promises earn a cookie (2, 3, or all 4).
+struct CookieTargetPicker: View {
+    @Binding var selection: Int
+
+    var body: some View {
+        Picker(Copy.settingsTarget, selection: $selection) {
+            ForEach(CookieTarget.options, id: \.self) { value in
+                Text(CookieTarget.label(value)).tag(value)
+            }
+        }
+        .pickerStyle(.segmented)
+        .accessibilityLabel(Copy.settingsTarget)
+    }
+}

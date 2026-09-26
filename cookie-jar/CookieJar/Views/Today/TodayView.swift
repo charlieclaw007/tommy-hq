@@ -80,8 +80,9 @@ struct TodayView: View {
 
     private var subtext: String {
         store.todayHasCookie
-            ? Copy.cookieEarnedSubtext
-            : Copy.progressSubtext(checked: store.todayScore, total: Pillar.allCases.count)
+            ? Copy.cookieEarnedSubtext(score: store.todayScore, total: Pillar.allCases.count)
+            : Copy.progressSubtext(checked: store.todayScore, total: Pillar.allCases.count,
+                                   target: store.cookieTarget)
     }
 
     private var hero: some View {
@@ -136,12 +137,12 @@ struct TodayView: View {
     // MARK: Actions
 
     /// Shared by the cards and the correction sheet. The drop plays only when
-    /// the fourth promise is kept for *today*, and exactly once per fourth toggle.
+    /// today's score reaches the cookie target, and exactly once per crossing.
     private func handleToggle(_ pillar: Pillar, on date: Date) {
         let key = DayKey.normalize(date, calendar: store.calendar)
         let aboutToEarn = key == store.today
-            && store.score(on: key) == Pillar.allCases.count - 1
             && !store.isDone(pillar, on: key)
+            && store.score(on: key) + 1 == store.cookieTarget(on: key)
 
         // The store mutates synchronously, so the toggle runs inside the
         // transaction. When a cookie is about to land, the numerals and
